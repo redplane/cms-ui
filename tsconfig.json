@@ -20,10 +20,6 @@
       "dom"
     ],
     "paths": {
-      "ngx-spinner": [
-        "dist/ngx-spinner/ngx-spinner",
-        "dist/ngx-spinner"
-      ]
     }
   },
   "angularCompilerOptions": {
