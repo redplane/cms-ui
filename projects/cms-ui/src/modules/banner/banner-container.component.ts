@@ -9,7 +9,7 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {BANNER_BUILDER_PROVIDER, BANNER_SERVICE_PROVIDER, WINDOW_PROVIDER} from '../../constants/injection-token.constant';
+import {BANNER_BUILDER_PROVIDER, BANNER_SERVICE_PROVIDER, WINDOW} from '../../constants/injection-token.constant';
 import {Observable, of, Subject, Subscription, throwError} from 'rxjs';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent} from '@angular/router';
 import {delay, filter, map, mergeMap, retryWhen, switchMap, tap} from 'rxjs/operators';
@@ -64,7 +64,7 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
   public constructor(@Inject(BANNER_SERVICE_PROVIDER) protected bannerService: IBannerService,
                      protected componentFactoryResolver: ComponentFactoryResolver,
                      protected router: Router,
-                     @Inject(WINDOW_PROVIDER) protected windowService: Window,
+                     @Inject(WINDOW) protected windowService: Window,
                      @Optional() @Inject(BANNER_BUILDER_PROVIDER) protected bannerBuilders: IBannerBuilder[]) {
     this.id = '';
     this.queryMode = 'pop';

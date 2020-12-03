@@ -22,4 +22,4 @@ export const VALIDATION_SUMMARIZER_PROVIDER = new InjectionToken<IValidationSumm
 export const VALIDATION_SUMMARIZER_MESSAGES = new InjectionToken<{[key: string]: string}>('VALIDATION_SUMMARIZER_MESSAGES');
 
 // Windows provider
-export const WINDOW_PROVIDER = new InjectionToken('WINDOW_PROVIDER');
+export const WINDOW = new InjectionToken('WINDOW_PROVIDER');

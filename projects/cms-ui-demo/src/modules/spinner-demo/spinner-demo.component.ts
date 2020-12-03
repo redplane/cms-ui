@@ -1,5 +1,5 @@
 import {Component, HostBinding, Inject} from '@angular/core';
-import {ISpinnerService, SPINNER_SERVICE_PROVIDER, WINDOW_PROVIDER} from '@cms-ui/core';
+import {ISpinnerService, SPINNER_SERVICE_PROVIDER, WINDOW} from '@cms-ui/core';
 import {v4 as uuid} from 'uuid';
 
 @Component({
@@ -12,6 +12,10 @@ export class SpinnerDemoComponent {
 
   //#region Properties
 
+  // How many second the operation must be timed out.
+  public readonly timeOutInSecond = 10;
+
+  // Component id.
   public readonly spinnerOnComponentId = uuid();
 
   // Delete spinner on component task.
@@ -23,7 +27,7 @@ export class SpinnerDemoComponent {
   //#region Constructor
 
   public constructor(@Inject(SPINNER_SERVICE_PROVIDER) protected spinnerService: ISpinnerService,
-                     @Inject(WINDOW_PROVIDER) protected windowService: Window) {
+                     @Inject(WINDOW) protected windowService: Window) {
     this._deleteSpinnerOnComponentTimer = 0;
   }
 
@@ -32,10 +36,16 @@ export class SpinnerDemoComponent {
   //#region Methods
 
   public displaySpinnerOnComponent(): void {
-    this.spinnerService.displaySpinner(this.spinnerOnComponentId);
-    if (this._deleteSpinnerOnComponentTimer) {
 
+    const displaySpinnerRequestId = this.spinnerService.displaySpinner(this.spinnerOnComponentId);
+    if (this._deleteSpinnerOnComponentTimer) {
+      this.windowService.clearTimeout(this._deleteSpinnerOnComponentTimer);
+      this._deleteSpinnerOnComponentTimer = 0;
     }
+
+    this._deleteSpinnerOnComponentTimer = this.windowService.setTimeout(() => {
+      this.spinnerService.deleteSpinner(this.spinnerOnComponentId);
+    }, this.timeOutInSecond * 1000);
   }
 
   //#endregion

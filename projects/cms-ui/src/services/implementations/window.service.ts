@@ -1,6 +1,6 @@
 import {isPlatformBrowser} from '@angular/common';
 import {ClassProvider, FactoryProvider, InjectionToken, PLATFORM_ID, Injectable} from '@angular/core';
-import {WINDOW_PROVIDER} from '../../constants';
+import {WINDOW} from '../../constants';
 
 /* Define abstract class for obtaining reference to the global window object. */
 export abstract class WindowRef {
@@ -45,7 +45,7 @@ const browserWindowProvider: ClassProvider = {
 
 /* Create an injectable provider that uses the windowFactory function for returning the native window object. */
 const windowProvider: FactoryProvider = {
-  provide: WINDOW_PROVIDER,
+  provide: WINDOW,
   useFactory: windowFactory,
   deps: [WindowRef, PLATFORM_ID]
 };
