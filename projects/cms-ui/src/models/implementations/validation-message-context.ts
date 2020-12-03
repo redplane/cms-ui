@@ -8,7 +8,18 @@ export class ValidationMessageContext {
 
   public message: string;
 
-  public additionalValue: {[key: string]: any; };
+  public readonly additionalValue: { [key: string]: any; };
+
+  //#endregion
+
+  //#region Constructor
+
+  public constructor(controlLabel: string, code: string, message: string, additionalValue?: { [key: string]: any }) {
+    this.controlLabel = controlLabel;
+    this.code = code;
+    this.message = message;
+    this.additionalValue = additionalValue || {};
+  }
 
   //#endregion
 

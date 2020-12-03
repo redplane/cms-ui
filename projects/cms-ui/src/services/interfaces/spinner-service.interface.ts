@@ -6,7 +6,7 @@ export interface ISpinnerService {
   //#region Methods
 
   // Display spinner
-  displaySpinner(containerId: string, isTransparent?: boolean): string;
+  displaySpinner(containerId: string): string;
 
   // Delete the last spinner request.
   deleteSpinner(containerId: string, id?: string): void;

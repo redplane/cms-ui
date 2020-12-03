@@ -6,10 +6,10 @@
     "outDir": "../../out-tsc/app",
     "types": [],
     "paths": {
-      "@linh-nguyen/cms-ui": [
+      "@cms-ui/core": [
         "../cms-ui/src/public-api.ts"
       ],
-      "@linh-nguyen/cms-ui/*": [
+      "@cms-ui/core/*": [
         "../cms-ui/src/public-api.ts"
       ]
     }

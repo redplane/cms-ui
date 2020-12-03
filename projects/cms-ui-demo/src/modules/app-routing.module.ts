@@ -10,6 +10,10 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () => import('./landing/landing-page.module').then(m => m.LandingPageModule)
+      },
+      {
+        path: 'spinner-demo',
+        loadChildren: () => import('./spinner-demo/spinner-demo.module').then(m => m.SpinnerDemoModule)
       }
     ]
   }

@@ -1,22 +1,13 @@
 import {Inject, Injectable, Optional} from '@angular/core';
 import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, ValidationErrors} from '@angular/forms';
 import {merge as lodashMerge} from 'lodash';
-import {IValidationSummarizerService} from '../../../../cms-ui/src/services/interfaces/validation-summarizer-service.interface';
-import {ValidationMessage} from '../../../../cms-ui/src/models/implementations/validation-message';
+import {ValidationMessage} from '@cms-ui/core';
 import {TranslateService} from '@ngx-translate/core';
-import {cloneDeep} from 'lodash-es';
-import {VALIDATION_SUMMARIZER_MESSAGES} from '../../../../cms-ui/src/constants';
+import {BasicValidationSummarizerService} from '@cms-ui/core';
+import {VALIDATION_SUMMARIZER_MESSAGES} from '@cms-ui/core';
 
 @Injectable()
-export class BasicValidationSummarizerService implements IValidationSummarizerService {
-
-  //#region Properties
-
-  // Mapping between validation key - message.
-  // tslint:disable-next-line:variable-name
-  protected _validatorNameToValidationMessage: { [name: string]: string; };
-
-  //#endregion
+export class TranslatedValidationSummarizerService extends BasicValidationSummarizerService {
 
   //#region Constructor
 
@@ -24,7 +15,7 @@ export class BasicValidationSummarizerService implements IValidationSummarizerSe
   public constructor(protected translateService: TranslateService,
                      @Optional() @Inject(VALIDATION_SUMMARIZER_MESSAGES)
                        validatorNameToValidationMessage?: { [name: string]: string; }) {
-    this._validatorNameToValidationMessage = cloneDeep(validatorNameToValidationMessage || {});
+    super(validatorNameToValidationMessage);
   }
 
   //#endregion

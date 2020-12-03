@@ -4,10 +4,10 @@ import {LandingPageRoutingModule} from './landing-page-routing.module';
 import {RouterModule} from '@angular/router';
 
 @NgModule({
-  imports: [
-    RouterModule,
-    LandingPageRoutingModule
-  ],
+    imports: [
+        RouterModule,
+        LandingPageRoutingModule
+    ],
   declarations: [
     LandingPageComponent
   ],

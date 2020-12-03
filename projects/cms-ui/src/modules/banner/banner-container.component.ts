@@ -9,18 +9,14 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {BANNER_BUILDER_PROVIDER, BANNER_SERVICE_PROVIDER, SPEECH_BUBBLE_ACTION_PROVIDER} from '../../constants/injection-token.constant';
-import {IBannerService} from '../../services/interfaces/banner-service.interface';
+import {BANNER_BUILDER_PROVIDER, BANNER_SERVICE_PROVIDER, WINDOW_PROVIDER} from '../../constants/injection-token.constant';
 import {Observable, of, Subject, Subscription, throwError} from 'rxjs';
-import {BANNER_PRESERVE_MODE, BANNER_QUERY_MODE} from '../../constants/union-types.constant';
-import {AlertBannerSettings} from '../../models/alert-banner-settings';
-import {AlertBannerComponent} from './alert-banner/alert-banner.component';
-import {IBannerDisplayRequest} from '../../interfaces/banners/banner-display-request.interface';
-import {WINDOW} from '../../../../medadvisor-app/src/services/behavior/implementations/window.service';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent} from '@angular/router';
 import {delay, filter, map, mergeMap, retryWhen, switchMap, tap} from 'rxjs/operators';
-import {IBannerBuilder} from '../../services/interfaces/banner-builder.interface';
-import { IBannerComponent } from '../../interfaces/banners/banner-component.interface';
+import {IBannerService} from '../../services/interfaces/banners/banner-service.interface';
+import {IBannerComponent, IBannerDisplayRequest} from '../../models';
+import {IBannerBuilder} from '../../services';
+import {BANNER_PRESERVE_MODE, BANNER_QUERY_MODE} from '../../constants/data-type.constant';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -43,19 +39,22 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
   // How banner preserve message.
   // tslint:disable-next-line:no-input-rename
   @Input('preserve-mode')
-  public preserveMode: BANNER_PRESERVE_MODE = 'navigate-start-clear';
+  public preserveMode: BANNER_PRESERVE_MODE;
 
   // Get the banner container area.
   @ViewChild('container', {read: ViewContainerRef})
-  public container: ViewContainerRef;
+  public container: ViewContainerRef | null;
 
   // Background task which is for destroying currently displayed banner.
-  private _destroyBannerTimer: number;
+  // tslint:disable-next-line:variable-name
+  private _destroyBannerTimer: number | null;
 
   // Id of currently displayed banner.
-  private _displayingBannerId: string;
+  // tslint:disable-next-line:variable-name
+  private _displayingBannerId: string | null;
 
   // Subscription watch list.
+  // tslint:disable-next-line:variable-name
   private readonly _subscription: Subscription;
 
   //#endregion
@@ -65,8 +64,15 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
   public constructor(@Inject(BANNER_SERVICE_PROVIDER) protected bannerService: IBannerService,
                      protected componentFactoryResolver: ComponentFactoryResolver,
                      protected router: Router,
-                     @Inject(WINDOW) protected windowService: Window,
+                     @Inject(WINDOW_PROVIDER) protected windowService: Window,
                      @Optional() @Inject(BANNER_BUILDER_PROVIDER) protected bannerBuilders: IBannerBuilder[]) {
+    this.id = '';
+    this.queryMode = 'pop';
+    this.preserveMode = 'navigate-start-clear';
+    this.container = null;
+    this._destroyBannerTimer = null;
+    this._displayingBannerId = null;
+
     this._subscription = new Subscription();
   }
 
@@ -79,77 +85,98 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
     const id = this.id;
     // Subscription about banner display requested.
     const displayBannerSubscription = this.bannerService
-        .bannerDisplayRequested
-        .subscribe(request => {
-          // No banner has been displayed before.
-          if (this.container.length < 1) {
-            this.bannerService.displayNextBanner(id);
-          }
-        });
+      .bannerDisplayRequested
+      .subscribe(request => {
+
+        // Container is invalid.
+        if (!this.container) {
+          return;
+        }
+
+        // No banner has been displayed before.
+        if (this.container.length < 1) {
+          this.bannerService.displayNextBanner(id);
+        }
+      });
     this._subscription.add(displayBannerSubscription);
 
     // Subscription which raises when next banner display is requested.
     const nextBannerDisplayRequestSubscription = this.bannerService
-        .nextBannerDisplayRequested
-        .pipe(
-            switchMap(request => {
+      .nextBannerDisplayRequested
+      .pipe(
+        switchMap(request => {
 
-              // Invalid container.
-              if (request.containerId && request.containerId !== id) {
-                return of(void (0));
-              }
+          // Invalid container.
+          if (request.containerId && request.containerId !== id) {
+            return of(void (0));
+          }
 
-              // Get the next settings.
-              const nextRequest = this.queryMode === 'pop' ? this.bannerService.popRequest(request.containerId)
-                  : this.bannerService.dequeueRequest(request.containerId);
+          if (!request.containerId) {
+            return of(void (0));
+          }
 
-              if (!nextRequest) {
-                // Clear the host view.
-                this.container.clear();
-                return of(void (0));
-              }
+          // Get the next settings.
+          const nextRequest = this.queryMode === 'pop' ? this.bannerService.popRequest(request.containerId)
+            : this.bannerService.dequeueRequest(request.containerId);
 
-              return this.displayBannerAsync(nextRequest)
-                  .pipe(
-                      map(_ => void (0))
-                  );
-            })
-        )
-        .subscribe();
+          if (!nextRequest) {
+            // Clear the host view.
+            if (this.container) {
+              this.container.clear();
+            }
+            return of(void (0));
+          }
+
+          return this.displayBannerAsync(nextRequest)
+            .pipe(
+              map(_ => void (0))
+            );
+        })
+      )
+      .subscribe();
 
     this._subscription.add(nextBannerDisplayRequestSubscription);
 
     // Listen to navigation event.
     const navigationEventSubscription = this.router
-        .events
-        .pipe(
-            filter(e => e instanceof RouterEvent),
-            filter(e => (e instanceof NavigationCancel) || (e instanceof NavigationEnd) || (e instanceof NavigationError))
-        )
-        .subscribe((e: RouterEvent) => {
-          if (((e instanceof NavigationCancel) || (e instanceof NavigationEnd) || (e instanceof NavigationError))
-              && this.preserveMode === 'navigate-end-clear') {
-            this.container.clear();
-          }
+      .events
+      .pipe(
+        filter(e => e instanceof RouterEvent),
+        filter(e => (e instanceof NavigationCancel) || (e instanceof NavigationEnd) || (e instanceof NavigationError))
+      )
+      .subscribe(e => {
 
-          if ((e instanceof NavigationStart)
-              && this.preserveMode === 'navigate-start-clear') {
-            this.container.clear();
-          }
-        });
+        if (!this.container) {
+          return;
+        }
+
+        if (((e instanceof NavigationCancel) || (e instanceof NavigationEnd) || (e instanceof NavigationError))
+          && this.preserveMode === 'navigate-end-clear') {
+          this.container.clear();
+        }
+
+        if ((e instanceof NavigationStart)
+          && this.preserveMode === 'navigate-start-clear') {
+          this.container.clear();
+        }
+      });
     this._subscription.add(navigationEventSubscription);
 
     const bannerDeleteRequestSubscription = this.bannerService
-        .bannerDisplayDeleted
-        .subscribe(deletedRequests => {
+      .bannerDisplayDeleted
+      .subscribe(deletedRequests => {
 
-          const itemIndex = deletedRequests.find(deletedRequest => deletedRequest.bannerId === this._displayingBannerId);
-          if (itemIndex < 0) {
-            return;
-          }
+        const itemIndex = deletedRequests.find(deletedRequest => deletedRequest.bannerId === this._displayingBannerId);
+        if (itemIndex == null || itemIndex < 0) {
+          return;
+        }
 
-          this.container.clear();
-        });
+        if (!this.container) {
+          return;
+        }
+
+        this.container.clear();
+      });
     this._subscription.add(bannerDeleteRequestSubscription);
   }
 
@@ -175,7 +202,7 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
 
     // Request does not belong to the current container.
     if (bannerDisplayRequest.containerId && this.id
-        && bannerDisplayRequest.containerId !== this.id) {
+      && bannerDisplayRequest.containerId !== this.id) {
       return of(void (0));
     }
 
@@ -196,69 +223,76 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
     const maxRetriesExceeded = 'MAX_RETRIES_EXCEEDED';
 
     return of(void (0))
-        .pipe(
-            tap(_ => {
-              if (!builders) {
-                throw noBuilderAvailableException;
-              }
+      .pipe(
+        tap(_ => {
+          if (!builders) {
+            throw noBuilderAvailableException;
+          }
 
-              if (itemIndex > builders.length - 1) {
-                throw maxRetriesExceeded;
-              }
-            }),
-            mergeMap(_ => builders[itemIndex].canBuildAsync(bannerDisplayRequest.settings)),
-            mergeMap(ableToBuild => {
-              if (!ableToBuild) {
-                return throwError(isNotAbleToBuildException);
-              }
+          if (itemIndex > builders.length - 1) {
+            throw maxRetriesExceeded;
+          }
+        }),
+        mergeMap(_ => builders[itemIndex].canBuildAsync(bannerDisplayRequest.settings)),
+        mergeMap(ableToBuild => {
+          if (!ableToBuild) {
+            return throwError(isNotAbleToBuildException);
+          }
 
-              return builders[itemIndex].buildAsync(bannerDisplayRequest.settings)
-                  .pipe(
-                      tap((componentRef: ComponentRef<IBannerComponent>) => {
-                        const hookDisposeRequest = componentRef.instance
-                            .disposeRequestingEvent
-                            .subscribe(_ => {
-                              this.bannerService.displayNextBanner(this.id);
-                            });
+          return builders[itemIndex].buildAsync(bannerDisplayRequest.settings)
+            .pipe(
+              tap((componentRef: ComponentRef<IBannerComponent>) => {
 
-                        componentRef.onDestroy(() => {
-                          if (hookDisposeRequest && !hookDisposeRequest.closed) {
-                            hookDisposeRequest.unsubscribe();
-                          }
+                if (!this.container) {
+                  return;
+                }
 
-                          this._displayingBannerId = null;
-                        });
+                const hookDisposeRequest = componentRef.instance
+                  .disposeRequestingEvent
+                  .subscribe((_: any) => {
+                    this.bannerService.displayNextBanner(this.id);
+                  });
 
-                        // Detect changes.
-                        componentRef.changeDetectorRef.detectChanges();
+                componentRef.onDestroy(() => {
+                  if (hookDisposeRequest && !hookDisposeRequest.closed) {
+                    hookDisposeRequest.unsubscribe();
+                  }
 
-                        this.container.clear();
-                        this.container.insert(componentRef.hostView);
+                  this._displayingBannerId = null;
+                });
 
-                        if (settings.timeout && settings.timeout.duration && settings.timeout.action) {
-                          this._destroyBannerTimer = this.windowService
-                              .setTimeout(() => {
-                                // Do action on timeout.
-                                settings.timeout.action();
-                              }, settings.timeout.duration);
-                        }
-                      }),
-                      map(_ => void (0))
-                  );
-            }),
-            retryWhen(exceptionObservable => {
-              return exceptionObservable
-                  .pipe(
-                      tap(exception => {
-                        if (exception !== isNotAbleToBuildException) {
-                          throw exception;
-                        }
+                // Detect changes.
+                componentRef.changeDetectorRef.detectChanges();
 
-                        itemIndex++;
-                      })
-                  );
-            })
-        );
+                this.container.clear();
+                this.container.insert(componentRef.hostView);
+
+                if (settings.timeout && settings.timeout.duration && settings.timeout.action) {
+                  this._destroyBannerTimer = this.windowService
+                    .setTimeout(() => {
+                      // Do action on timeout.
+                      if (settings && settings.timeout) {
+                        settings.timeout.action();
+                      }
+                    }, settings.timeout.duration);
+                }
+              }),
+              map(_ => void (0))
+            );
+        }),
+        retryWhen(exceptionObservable => {
+          return exceptionObservable
+            .pipe(
+              tap(exception => {
+                if (exception !== isNotAbleToBuildException) {
+                  throw exception;
+                }
+
+                itemIndex++;
+              })
+            );
+        })
+      );
 
     //#endregion
   }

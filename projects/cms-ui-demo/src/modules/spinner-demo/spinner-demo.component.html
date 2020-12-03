@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <cms-spinner [id]="spinnerOnComponentId" class="black-transparent"></cms-spinner>
+        <h5 class="card-title">Spinner on component</h5>
+        <p class="card-text">Spinner can be displayed onto a component to block the inner content from being
+          accessed</p>
+        <p>Make spinner disappear after 10 seconds</p>
+        <button class="btn btn-primary"
+                type="button"
+                (click)="displaySpinnerOnComponent()">{{'SPINNER_DEMO.DISPLAY_SPINNER'}}</button>
+      </div>
+    </div>
+  </div>
+</div>

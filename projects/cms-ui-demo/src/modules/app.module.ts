@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {NavigationBarModule} from './navigation-bar/navigation-bar.module';
 import {RouterModule} from '@angular/router';
 import {MasterLayoutModule} from './master-layout/master-layout.module';
+import {SmartNavigatorModule} from '@cms-ui/core';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,9 @@ import {MasterLayoutModule} from './master-layout/master-layout.module';
   ],
   imports: [
     BrowserModule,
+    SmartNavigatorModule.forRoot({
+      SPINNER_DEMO: '/spinner-demo'
+    }),
     MasterLayoutModule,
     AppRoutingModule
   ],

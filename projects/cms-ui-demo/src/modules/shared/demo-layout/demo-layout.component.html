@@ -1,0 +1,30 @@
+<!-- Page Content -->
+<div class="container">
+
+  <!-- Page Heading/Breadcrumbs -->
+  <h1 class="mt-4 mb-3">Sidebar Page
+    <small>Subheading</small>
+  </h1>
+
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-lg-3 mb-4"
+         *ngIf="isSidebarAvailable()">
+      <div class="list-group">
+        <a *ngFor="let item of sidebarMenuItems"
+           class="list-group-item"
+           [class.active]="isSidebarItemActive(item)">{{item.title}}</a>
+      </div>
+    </div>
+
+    <!-- Content Column -->
+    <div [class.col-12]="!isSidebarAvailable()"
+         [class.col-lg-9]="isSidebarAvailable()"
+         [class.col-md-4]="isSidebarAvailable()">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <!-- /.row -->
+
+</div>

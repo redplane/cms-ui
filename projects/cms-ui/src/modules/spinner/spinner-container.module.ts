@@ -1,31 +1,32 @@
 import {ModuleWithProviders, NgModule, Type} from '@angular/core';
-import {SpinnerComponent} from './spinner.component';
+import {SpinnerContainerComponent} from './spinner-container.component';
 import {CommonModule} from '@angular/common';
 import {SPINNER_SERVICE_PROVIDER} from '../../constants/injection-token.constant';
 import {ISpinnerService} from '../../services/interfaces/spinner-service.interface';
+import {BasicSpinnerService} from '../../services';
 
 @NgModule({
   declarations: [
-    SpinnerComponent
+    SpinnerContainerComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    SpinnerComponent
+    SpinnerContainerComponent
   ]
 })
-export class SpinnerModule {
+export class SpinnerContainerModule {
 
   //#region Methods
 
-  public static forRoot(instance: Type<ISpinnerService>): ModuleWithProviders<SpinnerModule> {
+  public static forRoot(instance?: Type<ISpinnerService>): ModuleWithProviders<SpinnerContainerModule> {
     return {
-      ngModule: SpinnerModule,
+      ngModule: SpinnerContainerModule,
       providers: [
         {
           provide: SPINNER_SERVICE_PROVIDER,
-          useClass: instance
+          useClass: instance || BasicSpinnerService
         }
       ]
     };

@@ -1,5 +1,5 @@
 // Component export.
-export * from './spinner.component';
+export * from './spinner-container.component';
 
 // Module export.
-export * from './spinner.module';
+export * from './spinner-container.module';

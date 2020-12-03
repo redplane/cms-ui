@@ -20,6 +20,12 @@
       "dom"
     ],
     "paths": {
+      "@cms-ui/core": [
+        "./projects/cms-ui/src/public-api.ts"
+      ],
+      "@cms-ui/core/*": [
+        "./projects/cms-ui/src/public-api.ts"
+      ]
     }
   },
   "angularCompilerOptions": {

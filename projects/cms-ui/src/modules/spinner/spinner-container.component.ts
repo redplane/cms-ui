@@ -9,10 +9,10 @@ import {ISpinnerService} from '../../services/interfaces/spinner-service.interfa
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'cms-spinner',
-  templateUrl: 'spinner.component.html',
-  styleUrls: ['spinner.component.scss']
+  templateUrl: 'spinner-container.component.html',
+  styleUrls: ['spinner-container.component.scss']
 })
-export class SpinnerComponent implements OnInit, OnDestroy {
+export class SpinnerContainerComponent implements OnInit, OnDestroy {
 
   //#region Properties
 
@@ -81,7 +81,7 @@ export class SpinnerComponent implements OnInit, OnDestroy {
     this.id = uuid();
 
     this._id = uuid();
-    this._visibility = Visibilities.visible;
+    this._visibility = Visibilities.hidden;
     this._hostClass = '';
   }
 
