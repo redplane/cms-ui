@@ -13,16 +13,17 @@ import {BANNER_BUILDER_PROVIDER, BANNER_SERVICE_PROVIDER, WINDOW} from '../../co
 import {Observable, of, Subject, Subscription, throwError} from 'rxjs';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent} from '@angular/router';
 import {delay, filter, map, mergeMap, retryWhen, switchMap, tap} from 'rxjs/operators';
-import {IBannerComponent, IDeleteBannerRequest, IDisplayBannerRequest} from '../../models';
-import {BannerService, IBannerBuilder} from '../../services';
+import {IBannerContentComponent, IDeleteBannerRequest, IDisplayBannerRequest} from '../../models';
+import {BannerService, IBannerContentBuilder} from '../../services';
 import {BANNER_PRESERVE_MODE, BANNER_QUERY_MODE} from '../../constants/data-type.constant';
+import {findLastIndex} from 'lodash-es';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'banner-container',
-  templateUrl: 'banner-container.component.html'
+  selector: 'cms-banner-container',
+  templateUrl: 'banner.component.html'
 })
-export class BannerContainerComponent implements AfterViewInit, OnDestroy {
+export class BannerComponent implements AfterViewInit, OnDestroy {
 
   //#region Properties
 
@@ -47,13 +48,17 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
   // Service for handling banner business.
   protected bannerService: BannerService;
 
+  // Component factory resolver.
   protected componentFactoryResolver: ComponentFactoryResolver;
 
+  // Router service.
   protected router: Router;
 
+  // Window service.
   protected windowService: Window;
 
-  protected bannerBuilders: IBannerBuilder[];
+  // Banner builder.
+  protected bannerBuilders: IBannerContentBuilder[];
 
   // Request which is currently applied to the banner container.
   // tslint:disable-next-line:variable-name
@@ -62,6 +67,10 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
   // Background task which is for destroying currently displayed banner.
   // tslint:disable-next-line:variable-name
   private _destroyBannerTimer: number | null;
+
+  // List of request about banner display.
+  // tslint:disable-next-line:variable-name
+  private readonly _displayRequests: IDisplayBannerRequest[];
 
   // Subscription watch list.
   // tslint:disable-next-line:variable-name
@@ -79,13 +88,14 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
     this.container = null;
     this._destroyBannerTimer = null;
     this._displayingRequest = null;
+    this._displayRequests = [];
 
     // Service reflection.
     this.bannerService = this.injector.get(BANNER_SERVICE_PROVIDER) as any as BannerService;
     this.componentFactoryResolver = this.injector.get(ComponentFactoryResolver);
     this.router = this.injector.get(Router);
     this.windowService = this.injector.get(WINDOW) as Window;
-    this.bannerBuilders = this.injector.get(BANNER_BUILDER_PROVIDER) as any as IBannerBuilder[];
+    this.bannerBuilders = this.injector.get(BANNER_BUILDER_PROVIDER) as any as IBannerContentBuilder[];
 
     this._subscription = new Subscription();
   }
@@ -100,13 +110,16 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
 
     // Subscription about banner display requested.
     const displayBannerSubscription = this.bannerService
-      .bannerDisplayRequested
+      .addedRequestEvent
       .subscribe(request => {
 
         // Container is invalid.
         if (!this.container) {
           return;
         }
+
+        // Add the request into list.
+        this._displayRequests.push(request);
 
         // No banner has been displayed before.
         if (!this._displayingRequest) {
@@ -131,8 +144,8 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
           }
 
           // Get the next settings.
-          const nextRequest = this.queryMode === 'pop' ? this.bannerService.popRequest(request.containerId)
-            : this.bannerService.dequeueRequest(request.containerId);
+          const nextRequest = this.queryMode === 'pop' ? this.popRequest(request.containerId)
+            : this.dequeueRequest(request.containerId);
 
           if (!nextRequest) {
             // Clear the host view.
@@ -179,22 +192,8 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
       });
     this._subscription.add(navigationEventSubscription);
 
-    const bannerDeleteRequestSubscription = this.bannerService
-      .deleteRequestEvent
-      .subscribe(deleteRequest => {
-
-        // Container is invalid.
-        if (!this.container) {
-          return;
-        }
-
-        if (!this.ableToDeleteDisplayingRequest(deleteRequest)) {
-          return;
-        }
-
-        this.container.clear();
-      });
-    this._subscription.add(bannerDeleteRequestSubscription);
+    // Hook delete display banner request.
+    this.hookDeleteRequestEvent();
   }
 
   // Called when component is destroyed.
@@ -205,8 +204,51 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
 
     // Clear the previous timeout.
     if (this._destroyBannerTimer) {
-      clearTimeout(this._destroyBannerTimer);
+      this.windowService.clearTimeout(this._destroyBannerTimer);
     }
+  }
+
+  //#endregion
+
+  //#region Internal methods
+
+  protected hookDeleteRequestEvent(): void {
+    const deleteRequestSubscription = this.bannerService
+      .deleteRequestEvent
+      .subscribe(deleteRequest => {
+
+        // Container is invalid.
+        if (!this.container) {
+          return;
+        }
+
+        let index = 0;
+
+        while (index < this._displayRequests.length) {
+
+          // Container is invalid.
+          if (deleteRequest.containerId && deleteRequest.containerId !== this.id) {
+            index++;
+            continue;
+          }
+
+          // Request id is invalid.
+          if (deleteRequest.id && deleteRequest.id !== this._displayingRequest?.id) {
+            index++;
+            continue;
+          }
+
+          this._displayRequests.splice(index, 1);
+        }
+
+        if (!this.ableToDeleteDisplayingRequest(deleteRequest)) {
+          return;
+        }
+
+        this.container.clear();
+        this._displayingRequest = null;
+      });
+    this._subscription.add(deleteRequestSubscription);
   }
 
   // Display banner by handling request.
@@ -258,7 +300,7 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
 
           return builders[itemIndex].buildAsync(bannerDisplayRequest.settings)
             .pipe(
-              tap((componentRef: ComponentRef<IBannerComponent>) => {
+              tap((componentRef: ComponentRef<IBannerContentComponent>) => {
 
                 if (!this.container) {
                   return;
@@ -266,7 +308,7 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
 
                 // Update the request.
                 this._displayingRequest = bannerDisplayRequest;
-                
+
                 const hookDisposeRequest = componentRef.instance
                   .disposeRequestingEvent
                   .subscribe((_: any) => {
@@ -321,9 +363,6 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
   // Whether displaying request is removable or not.
   protected ableToDeleteDisplayingRequest(deleteRequest: IDeleteBannerRequest): boolean {
 
-    console.log(`delete id = ${deleteRequest.id}`);
-    console.log(`container id = ${deleteRequest.containerId}`);
-
     if (deleteRequest.containerId && deleteRequest.containerId !== this.id) {
       return false;
     }
@@ -334,4 +373,40 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
 
     return true;
   }
+
+  // Dequeue request.
+  protected dequeueRequest(containerId: string): IDisplayBannerRequest | null {
+    if (!this._displayRequests || !this._displayRequests.length) {
+      return null;
+    }
+
+    // Get first match item in the messages list.
+    const itemIndex = this._displayRequests.findIndex(x => x.containerId === containerId);
+    if (itemIndex < 0) {
+      return null;
+    }
+
+    const item = this._displayRequests[itemIndex];
+    this._displayRequests.splice(itemIndex, 1);
+    return item;
+  }
+
+  // Pop request.
+  protected popRequest(containerId: string): IDisplayBannerRequest | null {
+    if (!this._displayRequests || !this._displayRequests.length) {
+      return null;
+    }
+
+    // Find the last index of item.
+    const lastIndex = findLastIndex(this._displayRequests, x => x.containerId === containerId);
+    if (lastIndex < 0) {
+      return null;
+    }
+
+    const item = this._displayRequests[lastIndex];
+    this._displayRequests.splice(lastIndex, 1);
+    return item;
+  }
+
+  //#endregion
 }

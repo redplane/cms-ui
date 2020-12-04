@@ -1,12 +1,11 @@
 import {ITimeoutAction} from '../timeout-action.interface';
 
-export interface IBannerSettings {
+export interface IBannerContentSettings {
 
   //#region Properties
 
   readonly id: string;
 
-  // Millisecond
   timeout?: ITimeoutAction;
 
   // Called when banner is clicked.

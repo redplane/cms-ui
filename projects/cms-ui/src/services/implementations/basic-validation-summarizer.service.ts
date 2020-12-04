@@ -1,6 +1,6 @@
 import {Inject, Injectable, Optional} from '@angular/core';
 import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, ValidationErrors} from '@angular/forms';
-import {merge as lodashMerge} from 'lodash';
+import {merge as lodashMerge} from 'lodash-es';
 import {IValidationSummarizerService} from '../interfaces/validation-summarizer-service.interface';
 import {ValidationMessage} from '../../models/implementations/validation-message';
 import {TranslateService} from '@ngx-translate/core';

@@ -1,4 +1,4 @@
-import {IBannerSettings} from './banner-settings.interface';
+import {IBannerContentSettings} from './banner-content-settings.interface';
 
 export interface IDisplayBannerRequest {
 
@@ -10,7 +10,7 @@ export interface IDisplayBannerRequest {
   containerId?: string;
 
   // Setting of displayed banner.
-  settings: IBannerSettings;
+  settings: IBannerContentSettings;
 
   //#endregion
 

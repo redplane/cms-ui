@@ -1,6 +1,6 @@
 import {EventEmitter} from '@angular/core';
 
-export interface IBannerComponent {
+export interface IBannerContentComponent {
 
   //#region Properties
 

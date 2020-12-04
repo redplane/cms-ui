@@ -1,13 +1,16 @@
-import {IBannerSettings} from '@cms-ui/core';
+import {IBannerContentSettings, ITimeoutAction} from '@cms-ui/core';
 import {v4 as uuid} from 'uuid';
 
-export class AlertBannerSettings implements IBannerSettings {
+export class InfoBannerContentSettings implements IBannerContentSettings {
 
   //#region Properties
 
   public readonly id: string;
 
   public message: string;
+
+  // Timeout
+  timeout?: ITimeoutAction;
 
   // Handler for handle click event.
   // bannerId: Id of banner that action button is triggered.
@@ -29,5 +32,4 @@ export class AlertBannerSettings implements IBannerSettings {
   }
 
   //#endregion
-
 }

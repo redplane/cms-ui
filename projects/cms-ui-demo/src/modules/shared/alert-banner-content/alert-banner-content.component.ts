@@ -1,14 +1,14 @@
-import {Component, ElementRef, EventEmitter, HostListener, Input, Output, TemplateRef} from '@angular/core';
-import {v4, v4 as uuidv4} from 'uuid';
-import {HtmlContent, IBannerButton, IBannerComponent} from '@cms-ui/core';
+import {Component, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
+import {IBannerContentComponent} from '@cms-ui/core';
+import {v4 as uuid} from 'uuid';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'alert-banner',
-  templateUrl: './alert-banner.component.html',
-  styleUrls: ['alert-banner.component.scss']
+  selector: 'alert-banner-content',
+  templateUrl: './alert-banner-content.component.html',
+  styleUrls: ['alert-banner-content.component.scss']
 })
-export class AlertBannerComponent implements IBannerComponent {
+export class AlertBannerContentComponent implements IBannerContentComponent {
 
   //#region Properties
 
@@ -32,10 +32,6 @@ export class AlertBannerComponent implements IBannerComponent {
 
   //#region Events
 
-  // tslint:disable-next-line:no-output-rename
-  @Output('action-clicked')
-  public readonly clickActionButtonEvent: EventEmitter<IBannerButton>;
-
   // Event which is raised when banner requests for its dispose.
   // tslint:disable-next-line:no-output-rename
   @Output('dispose-requesting')
@@ -46,11 +42,9 @@ export class AlertBannerComponent implements IBannerComponent {
   //#region Constructor
 
   public constructor(protected elementRef: ElementRef) {
-    this.id = v4();
+    this.id = uuid();
     this.message = '';
 
-    // Event initialization.
-    this.clickActionButtonEvent = new EventEmitter<IBannerButton>();
     this.disposeRequestingEvent = new EventEmitter<void>();
 
     this._disposeRequestHandler = (): void => {
@@ -65,25 +59,6 @@ export class AlertBannerComponent implements IBannerComponent {
   //#endregion
 
   //#region Methods
-
-  // Called when action button is clicked.
-  public clickActionButton(actionButton: IBannerButton): void {
-
-    if (!this.clickActionButtonEvent) {
-      return;
-    }
-
-    // Button is disabled.
-    if (actionButton.activeHandler && !actionButton.activeHandler()) {
-      return;
-    }
-
-    if (actionButton.clickHandler) {
-      actionButton.clickHandler(this.id, this._disposeRequestHandler);
-    }
-
-    this.clickActionButtonEvent.emit(actionButton);
-  }
 
   // Called when banner is clicked.
   @HostListener('click', ['$event.target'])

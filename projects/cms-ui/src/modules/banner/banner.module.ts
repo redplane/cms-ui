@@ -1,5 +1,5 @@
 import {ModuleWithProviders, NgModule, Type} from '@angular/core';
-import {BannerContainerComponent} from './banner-container.component';
+import {BannerComponent} from './banner.component';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {IBannerService} from '../../services/interfaces/banners/banner-service.interface';
@@ -8,10 +8,10 @@ import {BannerService} from '../../services/implementations/banner.service';
 
 @NgModule({
   declarations: [
-    BannerContainerComponent
+    BannerComponent
   ],
   exports: [
-    BannerContainerComponent
+    BannerComponent
   ],
   imports: [
     CommonModule,

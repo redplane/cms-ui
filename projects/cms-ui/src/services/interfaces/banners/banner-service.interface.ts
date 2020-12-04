@@ -1,11 +1,11 @@
-import {IBannerSettings} from '../../../models/interfaces/banners/banner-settings.interface';
+import {IBannerContentSettings} from '../../../models/interfaces/banners/banner-content-settings.interface';
 
 export interface IBannerService {
 
   //#region Methods
 
   // Display banner in a banner container.
-  addBanner(settings: IBannerSettings, containerId?: string): string;
+  addBanner(settings: IBannerContentSettings, containerId?: string): string;
 
   // Find the banner by using specific id and delete it.
   // If id is not defined, delete all banners.
