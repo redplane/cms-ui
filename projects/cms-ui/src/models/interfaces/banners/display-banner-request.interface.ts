@@ -1,8 +1,10 @@
 import {IBannerSettings} from './banner-settings.interface';
 
-export interface IBannerDisplayRequest {
+export interface IDisplayBannerRequest {
 
   //#region Properties
+
+  id: string;
 
   // Id of a container to be displayed a banner.
   containerId?: string;

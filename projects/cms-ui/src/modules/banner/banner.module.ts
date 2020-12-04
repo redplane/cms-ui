@@ -16,6 +16,12 @@ import {BannerService} from '../../services/implementations/banner.service';
   imports: [
     CommonModule,
     RouterModule
+  ],
+  providers: [
+    {
+      provide: BANNER_SERVICE_PROVIDER,
+      useClass: BannerService
+    }
   ]
 })
 export class BannerModule {

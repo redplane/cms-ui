@@ -9,8 +9,8 @@ import {IBannerBuilder} from '../services';
 export const SPINNER_SERVICE_PROVIDER = new InjectionToken<ISpinnerService>('SPINNER_SERVICE_PROVIDER');
 
 // Banner providers.
-export const BANNER_SERVICE_PROVIDER = new InjectionToken<IBannerService>('Service provider for handling banner business');
-export const BANNER_CONTAINER_PROVIDER = new InjectionToken<string>('Banner container id');
+export const BANNER_SERVICE_PROVIDER = new InjectionToken<IBannerService>('BANNER_SERVICE_PROVIDER');
+export const BANNER_CONTAINER_PROVIDER = new InjectionToken<string>('BANNER_CONTAINER_PROVIDER');
 export const BANNER_BUILDER_PROVIDER = new InjectionToken<IBannerBuilder>('BANNER_BUILDER_PROVIDER');
 
 // Smart navigator providers.

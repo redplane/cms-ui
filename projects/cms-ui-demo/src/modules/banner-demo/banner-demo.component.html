@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card form-group">
+      <div class="card-body">
+
+        <!--Container to display banner-->
+        <banner-container [id]="insideComponentBannerId"></banner-container>
+
+        <h5 class="card-title">Basic banner</h5>
+        <p class="card-text">Banner will be displayed wherever the container is placed.</p>
+        <button class="btn btn-primary"
+                type="button"
+                (click)="displayBanner()">{{'BANNER_DEMO.DISPLAY_BANNER'}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card form-group">
+      <div class="card-body">
+
+        <!--Container to display banner-->
+        <banner-container [id]="stackableBannerId"></banner-container>
+
+        <h5 class="card-title">Stackable banner</h5>
+        <p class="card-text">Multiple messages can be stackable, when a banner is dimissed, the next one will be displayed.</p>
+        <button class="btn btn-primary mr-1"
+                type="button"
+                (click)="displayStackableBanner()">{{'BANNER_DEMO.DISPLAY_BANNER'}}</button>
+
+        <button class="btn btn-danger"
+                type="button"
+                (click)="deleteStackableBannerMessages()">
+          {{'BANNER_DEMO.DELETE_ALL_MESSAGES'}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

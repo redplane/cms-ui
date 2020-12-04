@@ -2,7 +2,7 @@ import {ISmartNavigatorService} from '../interfaces/smart-navigator-service.inte
 import {Inject, Injectable, Optional} from '@angular/core';
 import {from, Observable, Subscription} from 'rxjs';
 import {NavigationExtras, Router, NavigationEnd, UrlTree} from '@angular/router';
-import {templateSettings, template} from 'lodash';
+import {templateSettings, template} from 'lodash-es';
 import {filter} from 'rxjs/operators';
 import {SMART_NAVIGATOR_ROUTES} from '../../constants/injection-token.constant';
 import {merge as lodashMerge} from 'lodash-es';

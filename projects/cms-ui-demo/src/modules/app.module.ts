@@ -15,7 +15,9 @@ import {SmartNavigatorModule} from '@cms-ui/core';
   imports: [
     BrowserModule,
     SmartNavigatorModule.forRoot({
-      SPINNER_DEMO: '/spinner-demo'
+      LANDING: '/',
+      SPINNER_DEMO: '/spinner-demo',
+      BANNER_DEMO: '/banner-demo'
     }),
     MasterLayoutModule,
     AppRoutingModule

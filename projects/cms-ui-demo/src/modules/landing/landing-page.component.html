@@ -53,7 +53,10 @@
           <p class="card-text">{{'LANDING_PAGE.SPINNER_DEMO_DESCRIPTION'}}</p>
         </div>
         <div class="card-footer">
-          <a href="#" class="btn btn-primary" (click)="$event.preventDefault(); accessSpinnerDemoPage()">{{'LANDING_PAGE.LEARN_MORE'}}</a>
+          <a href="#" class="btn btn-primary"
+             (click)="$event.preventDefault(); accessSpinnerDemoPage()">
+            {{'LANDING_PAGE.LEARN_MORE'}}
+          </a>
         </div>
       </div>
     </div>
@@ -64,7 +67,9 @@
           <p class="card-text">{{'LANDING_PAGE_BANNER_DESCRIPTION'}}</p>
         </div>
         <div class="card-footer">
-          <a href="#" class="btn btn-primary">{{'LANDING_PAGE.LEARN_MORE'}}</a>
+          <a href="#"
+             class="btn btn-primary"
+             (click)="$event.preventDefault(); accessBannerDemoPage()">{{'LANDING_PAGE.LEARN_MORE'}}</a>
         </div>
       </div>
     </div>

@@ -4,8 +4,7 @@ export interface IBannerSettings {
 
   //#region Properties
 
-  // Id of banner.
-  id?: string;
+  readonly id: string;
 
   // Millisecond
   timeout?: ITimeoutAction;

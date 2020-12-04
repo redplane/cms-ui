@@ -1,4 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {ISmartNavigatorService, SMART_NAVIGATOR_PROVIDER} from '@cms-ui/core';
+import {ScreenCodeConstant} from '../../constants/screen-code.constant';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -8,4 +10,25 @@ import {Component} from '@angular/core';
 })
 export class NavigationBarComponent {
 
+  //#region Constructor
+
+  public constructor(@Inject(SMART_NAVIGATOR_PROVIDER) protected smartNavigatorService: ISmartNavigatorService) {
+  }
+
+  //#endregion
+
+  //#region Methods
+
+  public clickGoToLanding(event: Event): void {
+
+    if (event) {
+      event.preventDefault();
+    }
+
+    this.smartNavigatorService
+      .navigateToScreenAsync(ScreenCodeConstant.landing)
+      .subscribe();
+  }
+
+  //#endregion
 }

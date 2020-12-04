@@ -13,9 +13,8 @@ import {BANNER_BUILDER_PROVIDER, BANNER_SERVICE_PROVIDER, WINDOW} from '../../co
 import {Observable, of, Subject, Subscription, throwError} from 'rxjs';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent} from '@angular/router';
 import {delay, filter, map, mergeMap, retryWhen, switchMap, tap} from 'rxjs/operators';
-import {IBannerService} from '../../services/interfaces/banners/banner-service.interface';
-import {IBannerComponent, IBannerDisplayRequest} from '../../models';
-import {IBannerBuilder} from '../../services';
+import {IBannerComponent, IDeleteBannerRequest, IDisplayBannerRequest} from '../../models';
+import {BannerService, IBannerBuilder} from '../../services';
 import {BANNER_PRESERVE_MODE, BANNER_QUERY_MODE} from '../../constants/data-type.constant';
 
 @Component({
@@ -45,33 +44,48 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
   @ViewChild('container', {read: ViewContainerRef})
   public container: ViewContainerRef | null;
 
+  // Service for handling banner business.
+  protected bannerService: BannerService;
+
+  protected componentFactoryResolver: ComponentFactoryResolver;
+
+  protected router: Router;
+
+  protected windowService: Window;
+
+  protected bannerBuilders: IBannerBuilder[];
+
+  // Request which is currently applied to the banner container.
+  // tslint:disable-next-line:variable-name
+  private _displayingRequest: IDisplayBannerRequest | null;
+
   // Background task which is for destroying currently displayed banner.
   // tslint:disable-next-line:variable-name
   private _destroyBannerTimer: number | null;
-
-  // Id of currently displayed banner.
-  // tslint:disable-next-line:variable-name
-  private _displayingBannerId: string | null;
 
   // Subscription watch list.
   // tslint:disable-next-line:variable-name
   private readonly _subscription: Subscription;
 
+
   //#endregion
 
   //#region Constructor
 
-  public constructor(@Inject(BANNER_SERVICE_PROVIDER) protected bannerService: IBannerService,
-                     protected componentFactoryResolver: ComponentFactoryResolver,
-                     protected router: Router,
-                     @Inject(WINDOW) protected windowService: Window,
-                     @Optional() @Inject(BANNER_BUILDER_PROVIDER) protected bannerBuilders: IBannerBuilder[]) {
+  public constructor(protected injector: Injector) {
     this.id = '';
     this.queryMode = 'pop';
     this.preserveMode = 'navigate-start-clear';
     this.container = null;
     this._destroyBannerTimer = null;
-    this._displayingBannerId = null;
+    this._displayingRequest = null;
+
+    // Service reflection.
+    this.bannerService = this.injector.get(BANNER_SERVICE_PROVIDER) as any as BannerService;
+    this.componentFactoryResolver = this.injector.get(ComponentFactoryResolver);
+    this.router = this.injector.get(Router);
+    this.windowService = this.injector.get(WINDOW) as Window;
+    this.bannerBuilders = this.injector.get(BANNER_BUILDER_PROVIDER) as any as IBannerBuilder[];
 
     this._subscription = new Subscription();
   }
@@ -83,6 +97,7 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
   public ngAfterViewInit(): void {
 
     const id = this.id;
+
     // Subscription about banner display requested.
     const displayBannerSubscription = this.bannerService
       .bannerDisplayRequested
@@ -94,7 +109,7 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
         }
 
         // No banner has been displayed before.
-        if (this.container.length < 1) {
+        if (!this._displayingRequest) {
           this.bannerService.displayNextBanner(id);
         }
       });
@@ -123,7 +138,9 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
             // Clear the host view.
             if (this.container) {
               this.container.clear();
+              this._displayingRequest = null;
             }
+
             return of(void (0));
           }
 
@@ -163,15 +180,15 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
     this._subscription.add(navigationEventSubscription);
 
     const bannerDeleteRequestSubscription = this.bannerService
-      .bannerDisplayDeleted
-      .subscribe(deletedRequests => {
+      .deleteRequestEvent
+      .subscribe(deleteRequest => {
 
-        const itemIndex = deletedRequests.find(deletedRequest => deletedRequest.bannerId === this._displayingBannerId);
-        if (itemIndex == null || itemIndex < 0) {
+        // Container is invalid.
+        if (!this.container) {
           return;
         }
 
-        if (!this.container) {
+        if (!this.ableToDeleteDisplayingRequest(deleteRequest)) {
           return;
         }
 
@@ -193,7 +210,7 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
   }
 
   // Display banner by handling request.
-  protected displayBannerAsync(bannerDisplayRequest: IBannerDisplayRequest): Observable<void> {
+  protected displayBannerAsync(bannerDisplayRequest: IDisplayBannerRequest): Observable<void> {
 
     // Invalid request.
     if (!bannerDisplayRequest) {
@@ -247,6 +264,9 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
                   return;
                 }
 
+                // Update the request.
+                this._displayingRequest = bannerDisplayRequest;
+                
                 const hookDisposeRequest = componentRef.instance
                   .disposeRequestingEvent
                   .subscribe((_: any) => {
@@ -258,7 +278,8 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
                     hookDisposeRequest.unsubscribe();
                   }
 
-                  this._displayingBannerId = null;
+                  // Mark no request to be displayed.
+                  this._displayingRequest = null;
                 });
 
                 // Detect changes.
@@ -295,5 +316,22 @@ export class BannerContainerComponent implements AfterViewInit, OnDestroy {
       );
 
     //#endregion
+  }
+
+  // Whether displaying request is removable or not.
+  protected ableToDeleteDisplayingRequest(deleteRequest: IDeleteBannerRequest): boolean {
+
+    console.log(`delete id = ${deleteRequest.id}`);
+    console.log(`container id = ${deleteRequest.containerId}`);
+
+    if (deleteRequest.containerId && deleteRequest.containerId !== this.id) {
+      return false;
+    }
+
+    if (deleteRequest.id && deleteRequest.id !== this._displayingRequest?.id) {
+      return false;
+    }
+
+    return true;
   }
 }

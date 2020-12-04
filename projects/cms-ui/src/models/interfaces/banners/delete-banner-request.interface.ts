@@ -1,10 +1,10 @@
-export interface IBannerDeleteRequest {
+export interface IDeleteBannerRequest {
 
   //#region Properties
 
   containerId?: string;
 
-  bannerId?: string;
+  id?: string;
 
   //#endregion
 }

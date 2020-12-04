@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 import {MasterLayoutComponent} from './master-layout/master-layout.component';
 
 const routes: Routes = [
@@ -8,12 +8,16 @@ const routes: Routes = [
     component: MasterLayoutComponent,
     children: [
       {
-        path: '',
-        loadChildren: () => import('./landing/landing-page.module').then(m => m.LandingPageModule)
-      },
-      {
         path: 'spinner-demo',
         loadChildren: () => import('./spinner-demo/spinner-demo.module').then(m => m.SpinnerDemoModule)
+      },
+      {
+        path: 'banner-demo',
+        loadChildren: () => import('./banner-demo/banner-demo.module').then(m => m.BannerDemoModule)
+      },
+      {
+        path: '',
+        loadChildren: () => import('./landing/landing-page.module').then(m => m.LandingPageModule)
       }
     ]
   }
@@ -23,4 +27,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

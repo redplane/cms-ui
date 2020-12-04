@@ -1,6 +1,6 @@
 import {Component, HostBinding, Inject} from '@angular/core';
-import {SMART_NAVIGATOR_PROVIDER} from '../../../../cms-ui/src/constants';
-import {ISmartNavigatorService} from '../../../../cms-ui/src/services';
+import {SMART_NAVIGATOR_PROVIDER} from '@cms-ui/core';
+import {ISmartNavigatorService} from '@cms-ui/core';
 import {ScreenCodeConstant} from '../../constants/screen-code.constant';
 
 @Component({
@@ -31,6 +31,11 @@ export class LandingPageComponent {
 
   public accessSpinnerDemoPage(): void {
     this.smartNavigatorService.navigateToScreenAsync(ScreenCodeConstant.spinnerDemo)
+      .subscribe();
+  }
+
+  public accessBannerDemoPage(): void {
+    this.smartNavigatorService.navigateToScreenAsync(ScreenCodeConstant.bannerDemo)
       .subscribe();
   }
 
