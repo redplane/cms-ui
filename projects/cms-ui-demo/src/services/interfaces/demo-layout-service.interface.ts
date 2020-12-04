@@ -11,5 +11,11 @@ export interface IDemoLayoutService {
   // Update side bar items.
   setSidebar(): void;
 
+  // Setup title.
+  setTitle(title: string): void;
+
+  // Set secondary title.
+  setSecondaryTitle(title: string): void;
+
   //#endregion
 }

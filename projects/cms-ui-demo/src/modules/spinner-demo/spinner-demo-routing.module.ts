@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {SpinnerDemoComponent} from './spinner-demo.component';
-import {DemoLayoutModule} from '../shared/demo-layout/demo-layout.module';
 import {DemoLayoutComponent} from '../shared/demo-layout/demo-layout.component';
 
 //#region Routes
@@ -23,7 +22,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    DemoLayoutModule,
     RouterModule.forChild(routes)
   ]
 })
