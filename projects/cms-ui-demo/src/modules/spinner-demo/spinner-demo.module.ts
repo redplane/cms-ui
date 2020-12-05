@@ -4,14 +4,16 @@ import {SpinnerDemoRoutingModule} from './spinner-demo-routing.module';
 import {SpinnerContainerModule} from '@cms-ui/core';
 import {WINDOW_PROVIDERS} from '@cms-ui/core';
 import {DemoLayoutModule} from '../shared/demo-layout/demo-layout.module';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
-  imports: [
-    SpinnerDemoRoutingModule,
+    imports: [
+        SpinnerDemoRoutingModule,
 
-    DemoLayoutModule,
-    SpinnerContainerModule.forRoot()
-  ],
+        DemoLayoutModule,
+        SpinnerContainerModule.forRoot(),
+        CommonModule
+    ],
   declarations: [
     SpinnerDemoComponent
   ],
