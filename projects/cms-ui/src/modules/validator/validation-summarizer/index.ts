@@ -1,5 +1,3 @@
-// Component export.
+export * from '../../../services/interfaces/validation-summarizer-service.interface';
 export * from './validation-summarizer.component';
-
-// Module export.
 export * from './validation-summarizer.module';

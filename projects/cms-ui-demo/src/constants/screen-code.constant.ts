@@ -8,6 +8,8 @@ export class ScreenCodeConstant {
 
   public static readonly landing = 'LANDING';
 
+  public static readonly validationSummarizerDemo = 'VALIDATION_SUMMARIZER';
+
   //#endregion
 
 }

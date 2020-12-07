@@ -16,6 +16,11 @@ const routes: Routes = [
         loadChildren: () => import('./banner-demo/banner-demo.module').then(m => m.BannerDemoModule)
       },
       {
+        path: 'validation-summarizer-demo',
+        loadChildren: () => import('./validation-summarizer-demo/validation-summarizer-demo.module')
+          .then(m => m.ValidationSummarizerDemoModule)
+      },
+      {
         path: '',
         loadChildren: () => import('./landing/landing-page.module').then(m => m.LandingPageModule)
       }

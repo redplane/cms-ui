@@ -46,6 +46,8 @@
 
   <!-- Marketing Icons Section -->
   <div class="row">
+
+    <!--Spinner-->
     <div class="col-lg-4 mb-4">
       <div class="card h-100">
         <h4 class="card-header">{{'LANDING_PAGE.SPINNER'}}</h4>
@@ -60,6 +62,8 @@
         </div>
       </div>
     </div>
+
+    <!--Banner-->
     <div class="col-lg-4 mb-4">
       <div class="card h-100">
         <h4 class="card-header">{{'LANDING_PAGE.BANNER'}}</h4>
@@ -73,6 +77,8 @@
         </div>
       </div>
     </div>
+
+    <!--Smart navigator-->
     <div class="col-lg-4 mb-4">
       <div class="card h-100">
         <h4 class="card-header">{{'LANDING_PAGE.SMART_NAVIGATOR'}}</h4>
@@ -85,6 +91,12 @@
       </div>
     </div>
 
+
+  </div>
+  <!-- /.row -->
+
+  <h1 class="my-4">{{'LANDING_PAGE.DIALOGS'}}</h1>
+  <div class="row">
     <!--Modal dialog-->
     <div class="col-lg-4 mb-4">
       <div class="card h-100">
@@ -98,6 +110,23 @@
       </div>
     </div>
   </div>
-  <!-- /.row -->
 
+  <h1 class="my-4">{{'LANDING_PAGE.UTILITIES'}}</h1>
+  <div class="row">
+    <!--Modal dialog-->
+    <div class="col-lg-4 mb-4">
+      <div class="card h-100">
+        <h4 class="card-header">{{'LANDING_PAGE.VALIDATION_SUMMARIZER'}}</h4>
+        <div class="card-body">
+          <p class="card-text">{{'LANDING_PAGE_PAGE.VALIDATION_SUMMARIZER_DESCRIPTION'}}</p>
+        </div>
+        <div class="card-footer">
+          <a href="#" class="btn btn-primary"
+             (click)="$event.preventDefault(); clickValidationSummarizerLearnMore()">
+            {{'LANDING_PAGE.LEARN_MORE'}}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

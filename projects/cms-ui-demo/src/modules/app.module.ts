@@ -17,7 +17,8 @@ import {SmartNavigatorModule} from '@cms-ui/core';
     SmartNavigatorModule.forRoot({
       LANDING: '/',
       SPINNER_DEMO: '/spinner-demo',
-      BANNER_DEMO: '/banner-demo'
+      BANNER_DEMO: '/banner-demo',
+      VALIDATION_SUMMARIZER: '/validation-summarizer-demo'
     }),
     MasterLayoutModule,
     AppRoutingModule

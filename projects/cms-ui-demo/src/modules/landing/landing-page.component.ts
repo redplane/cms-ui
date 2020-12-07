@@ -39,5 +39,10 @@ export class LandingPageComponent {
       .subscribe();
   }
 
+  public clickValidationSummarizerLearnMore(): void {
+    this.smartNavigatorService.navigateToScreenAsync(ScreenCodeConstant.validationSummarizerDemo)
+      .subscribe();
+  }
+
   //#endregion
 }

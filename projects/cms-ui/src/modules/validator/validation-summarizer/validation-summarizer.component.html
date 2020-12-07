@@ -1,31 +1,26 @@
-<!--Only displayed when control is available-->
-<ng-container *ngIf="ngControl">
-  <!--Control has been touched | modified & invalid-->
-  <ng-container *ngIf="ngControl.invalid && (ngControl.dirty || ngControl.touched)">
-    <ng-template
-      [ngTemplateOutlet]="alternativeTemplate || defaultTemplate"
-      [ngTemplateOutletContext]="templateContext"
-    >
-    </ng-template>
-  </ng-container>
+<!--<ng-container *ngIf="ngControl">-->
+<!--  <ng-container *ngIf="ngControl.invalid && (ngControl.dirty || ngControl.touched)">-->
+<!--    <ng-template [ngTemplateOutlet]="alternativeTemplate || defaultTemplate"-->
+<!--                 [ngTemplateOutletContext]="templateContext">-->
+<!--    </ng-template>-->
+<!--  </ng-container>-->
+<!--</ng-container>-->
+
+<ng-container *ngIf="shouldValidationMessageDisplayed(ngControl)">
+  <ng-template [ngTemplateOutlet]="alternativeTemplate || defaultTemplate"
+               [ngTemplateOutletContext]="templateContext">
+  </ng-template>
 </ng-container>
 
 <!--Default validation summary template-->
-<ng-template
-  #defaultTemplate
-  let-ngControl="ngControl"
-  let-controlLabel="controlLabel"
-  let-validationMessages="validationMessages"
->
-  <!--  <ul class="validation-summary" *ngIf="validationMessages && validationMessages.length > 0">-->
-  <!--    <li *ngFor="let validationMessage of validationMessages;">-->
-  <!--      {{validationMessage.content}}-->
-  <!--    </li>-->
-  <!--  </ul>-->
-
-  <ng-container *ngIf="validationMessages && validationMessages.length > 0">
-    <mat-error *ngFor="let validationMessage of validationMessages">
-      {{ validationMessage.content }}
-    </mat-error>
-  </ng-container>
+<ng-template #defaultTemplate let-ngControl="ngControl"
+             let-controlLabel="controlLabel"
+             let-validationKey="validationKey"
+             let-validationMessages="validationMessages">
+  <ul class="default"
+      *ngIf="validationMessages && validationMessages.length">
+    <li *ngFor="let validationMessage of validationMessages;">
+      {{validationMessage}}
+    </li>
+  </ul>
 </ng-template>
