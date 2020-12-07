@@ -1,0 +1,6 @@
+.message {
+  word-break: break-word;
+}
+:host::ng-deep .mat-dialog-content {
+  max-height: 75vh;
+}

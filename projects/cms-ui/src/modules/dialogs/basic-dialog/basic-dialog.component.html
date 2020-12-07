@@ -1,0 +1,99 @@
+<!--Modal content-->
+<div mat-dialog-content>
+  <!--Modal Icon-->
+  <ng-template [ngTemplateOutlet]="iconTemplateRef || defaultIconTemplate" [ngTemplateOutletContext]="{ icon: icon }">
+  </ng-template>
+
+  <!--Modal Title-->
+  <ng-container [ngSwitch]="getTitleType()">
+    <!--Template title-->
+    <ng-container *ngSwitchCase="'template'" [ngTemplateOutlet]="title"></ng-container>
+
+    <!--Html | string title-->
+    <ng-container
+      *ngSwitchDefault
+      [ngTemplateOutlet]="defaultTitleTemplate"
+      [ngTemplateOutletContext]="{ title: title, kind: this.getTitleType() }"
+    ></ng-container>
+  </ng-container>
+
+  <!--Modal message-->
+  <ng-container [ngSwitch]="getMessageType()">
+    <!--Template message-->
+    <ng-container *ngSwitchCase="'template'" [ngTemplateOutlet]="message"></ng-container>
+
+    <!--Html | string title-->
+    <ng-container
+      *ngSwitchDefault
+      [ngTemplateOutlet]="defaultContentTemplate"
+      [ngTemplateOutletContext]="{ content: message, kind: this.getMessageType() }"
+    ></ng-container>
+  </ng-container>
+
+  <!--Actions-->
+  <ng-template
+    [ngTemplateOutlet]="actionTemplate || defaultActionTemplate"
+    [ngTemplateOutletContext]="{ buttons: buttons }"
+  ></ng-template>
+</div>
+
+<!--Default modal title template-->
+<ng-template #defaultTitleTemplate let-title="title" let-kind="kind">
+  <ng-container [ngSwitch]="kind">
+    <div class="title" *ngIf="title">
+      <!--Html content-->
+      <div *ngSwitchCase="'html'" [innerHTML]="title.content"></div>
+
+      <!--String content-->
+      <ng-container *ngSwitchDefault>
+        <div *ngIf="title.length">{{ title }}</div>
+      </ng-container>
+    </div>
+  </ng-container>
+</ng-template>
+
+<!--Default modal title template-->
+<ng-template #defaultIconTemplate let-icon="icon">
+  <div class="icon" *ngIf="icon && icon.length">
+    <mat-icon>
+      {{ icon }}
+    </mat-icon>
+  </div>
+</ng-template>
+
+<!--Default modal content template-->
+<ng-template #defaultContentTemplate let-kind="kind" let-content="content">
+  <div class="message" [ngSwitch]="kind">
+    <!--Html content-->
+    <div *ngSwitchCase="'html'" [innerHTML]="message.content"></div>
+
+    <!--String content-->
+    <ng-container *ngSwitchDefault>
+      <div *ngIf="content && content.length" mat-dialog-content>{{ content }}</div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<!--Default action template-->
+<ng-template #defaultActionTemplate let-buttons="buttons">
+  <div class="actions" *ngIf="buttons && buttons.length">
+    <ng-container *ngFor="let button of buttons" [ngSwitch]="getButtonType(button)">
+      <!--Basic button-->
+      <button *ngSwitchCase="'basic'"
+              [class.basic]="true"
+              mat-button
+              (click)="modalButtonClicked(button)"
+              type="button">
+        {{ button.title }}
+      </button>
+
+      <!--Template button-->
+      <ng-template
+        *ngSwitchCase="'template'"
+        [ngTemplateOutlet]="button.template"
+        [ngTemplateOutletContext]="{ $implicit: button }"
+      >
+      </ng-template>
+    </ng-container>
+  </div>
+</ng-template>
