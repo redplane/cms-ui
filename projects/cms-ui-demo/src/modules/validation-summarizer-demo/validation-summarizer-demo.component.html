@@ -28,18 +28,18 @@
                   </cms-validation-summarizer>
                 </div>
 
-                <!--Name-->
+                <!--Age-->
                 <label>{{'VALIDATION_SUMMARIZER_DEMO.AGE'}}</label>
                 <div class="form-group">
                   <input class="form-control"
                          [formControl]="studentAgeControl">
 
                   <cms-validation-summarizer [control-instance]="studentAgeControl"
-                                             control-label="VALIDATION_SUMMARIZER_DEMO.NAME">
+                                             control-label="VALIDATION_SUMMARIZER_DEMO.AGE">
                   </cms-validation-summarizer>
                 </div>
 
-                <!--Name-->
+                <!--Security number-->
                 <label>{{'VALIDATION_SUMMARIZER_DEMO.SECURITY_NUMBER'}}</label>
                 <div class="form-group">
                   <input class="form-control"
@@ -64,8 +64,9 @@
           <h5 class="card-title">Summarizer with custom validator</h5>
           <div class="card-text">
             <ul>
-              <li>Validation summarizer can be placed under a specific control</li>
-              <li>It retrieves control errors and display them on the screen.</li>
+              <li>This validation summarizer also supports custom validation rule.</li>
+              <li>Additional message mapping must be defined to be displayed onto screen.</li>
+              <li>For more information, please input value which is smaller than 10 into Age field.</li>
             </ul>
           </div>
           <div class="jumbotron">
@@ -77,31 +78,23 @@
                 <div class="form-group">
                   <input class="form-control"
                          name="studentName"
-                         [formControl]="studentNameControl">
+                         [formControl]="customerNameControl">
 
-                  <cms-validation-summarizer [control-instance]="studentNameControl"
+                  <cms-validation-summarizer [control-instance]="customerNameControl"
                                              control-label="VALIDATION_SUMMARIZER_DEMO.NAME">
                   </cms-validation-summarizer>
                 </div>
 
-                <!--Name-->
+                <!--Age-->
                 <label>{{'VALIDATION_SUMMARIZER_DEMO.AGE'}}</label>
                 <div class="form-group">
                   <input class="form-control"
-                         [formControl]="studentAgeControl">
+                         [formControl]="customerAgeControl">
 
-                  <cms-validation-summarizer [control-instance]="studentAgeControl"
-                                             control-label="VALIDATION_SUMMARIZER_DEMO.NAME">
+                  <cms-validation-summarizer [control-instance]="customerAgeControl"
+                                             control-label="VALIDATION_SUMMARIZER_DEMO.AGE">
                   </cms-validation-summarizer>
                 </div>
-
-                <!--Name-->
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.SECURITY_NUMBER'}}</label>
-                <div class="form-group">
-                  <input class="form-control"
-                         [formControl]="securityNoControl">
-                </div>
-
               </div>
             </div>
           </div>

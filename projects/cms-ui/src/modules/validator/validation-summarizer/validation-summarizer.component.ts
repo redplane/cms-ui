@@ -21,7 +21,7 @@ export class ValidationSummarizerComponent {
   protected _maxValidationMessages = 0;
 
   // Service for validating controls.
-  protected controlValidatorService: IValidationSummarizerService | null;
+  protected validationSummarizerService: IValidationSummarizerService | null;
 
   //#endregion
 
@@ -78,7 +78,7 @@ export class ValidationSummarizerComponent {
   //#region Constructor
 
   public constructor(protected injector: Injector) {
-    this.controlValidatorService = injector.get(VALIDATION_SUMMARIZER_PROVIDER, null, InjectFlags.Optional);
+    this.validationSummarizerService = injector.get(VALIDATION_SUMMARIZER_PROVIDER, null, InjectFlags.Optional);
     this._maxValidationMessages = 0;
     this.controlLabel = '';
     this._control = null;
@@ -91,11 +91,11 @@ export class ValidationSummarizerComponent {
 
   public ableToDisplayValidationMessages(ngControl: NgControl | FormControl | null): boolean {
 
-    if (!ngControl || !this.controlValidatorService) {
+    if (!ngControl || !this.validationSummarizerService) {
       return false;
     }
 
-    return this.controlValidatorService.shouldValidationSummarizerAbleToDisplayed(ngControl);
+    return this.validationSummarizerService.shouldValidationSummarizerAbleToDisplayed(ngControl);
   }
 
   //#endregion
@@ -104,11 +104,11 @@ export class ValidationSummarizerComponent {
 
   protected loadValidationMessages(maximumValidationMessages: number | null): ValidationMessage[] {
 
-    if (!this.controlValidatorService || !this.ngControl) {
+    if (!this.validationSummarizerService || !this.ngControl) {
       return [];
     }
 
-    let messages = this.controlValidatorService
+    let messages = this.validationSummarizerService
       .loadControlValidationMessages(this.controlLabel, this.ngControl);
 
     if (!messages) {

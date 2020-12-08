@@ -270,9 +270,11 @@ export class ValidationSummarizerService implements IValidationSummarizerService
 
     if (!this._validatorNameToValidationMessage[validatorName]) {
 
-      if (this.ableToBuiltInMessageFallback) {
-        return '';
+      if (this.ableToBuiltInMessageFallback && this._builtInMessages) {
+        return this._builtInMessages[validatorName];
       }
+
+      return '';
     }
 
     const initialMessage = this._validatorNameToValidationMessage[validatorName];

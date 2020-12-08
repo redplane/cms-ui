@@ -5,10 +5,10 @@ export class NumericValidator {
 
   //#region Methods
 
-  public static notSmallerThan(designatedMilestone: number): ValidatorFn | null {
+  public static notSmallerThan(designatedMilestone: number | string): ValidatorFn {
 
     return (abstractControl: AbstractControl): ValidationErrors | null => {
-      const value = abstractControl.value;
+      const value = parseInt(abstractControl.value as string, 10);
 
       // Skip if the value is not a number.
       if (!isNumber(value)) {
@@ -20,7 +20,7 @@ export class NumericValidator {
       }
 
       // Validation is valid.
-      if (value < designatedMilestone) {
+      if (value >= designatedMilestone) {
         return null;
       }
 

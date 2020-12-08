@@ -44,7 +44,7 @@ export class ValidationSummarizerDemoComponent {
 
 
     this.customerNameControl = new FormControl('', [Validators.required]);
-    this.customerAgeControl = new FormControl('', NumericValidator.notSmallerThan(10));
+    this.customerAgeControl = new FormControl('', [NumericValidator.notSmallerThan(10)]);
 
     this.customerForm = new FormGroup({
       name: this.customerNameControl,

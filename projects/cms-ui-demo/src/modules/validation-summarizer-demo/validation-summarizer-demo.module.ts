@@ -10,8 +10,9 @@ import {ValidationSummarizerModule} from '@cms-ui/core';
     ReactiveFormsModule,
     ValidationSummarizerModule.forRoot({
       messages: {
-        invalidName: 'MSG_CUSTOM_VALIDATOR_MESSAGE_INVALID_NAME'
-      }
+        notSmallerThan: 'MSG_CUSTOM_VALIDATOR_MESSAGE_NOT_SMALLER_THAN'
+      },
+      builtInMessageFallback: true
     })
   ],
   declarations: [
