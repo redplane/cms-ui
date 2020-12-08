@@ -1,121 +1,131 @@
-/*
-* This component is about receiving instance of another
-* form control-modules which implement
-* ControlValueAccessor interface to do validation.
-* */
-import {Component, Inject, Input, Optional, TemplateRef} from '@angular/core';
-import {NgControl} from '@angular/forms';
-import {IValidationMessageService} from '../../../services/interfaces/validation-summarizer-service.interface';
-import {VALIDATION_MESSAGE_PROVIDER} from '../../constants';
+import {Component, Inject, InjectFlags, Injector, Input, TemplateRef} from '@angular/core';
+import {FormControl, NgControl} from '@angular/forms';
+import {VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants';
+import {ValidationMessage} from '../../../models';
+import {IValidationSummarizerService} from '../../../services';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'validation-message',
-    templateUrl: 'validation-summarizer.component.html',
-    styleUrls: ['validation-summarizer.component.scss']
+  // tslint:disable-next-line:component-selector
+  selector: 'cms-validation-summarizer',
+  templateUrl: 'validation-summarizer.component.html',
+  styleUrls: ['validation-summarizer.component.scss']
 })
 export class ValidationSummarizerComponent {
 
-    //#region Properties
+  //#region Properties
 
-    // Control to be validated.
-    // tslint:disable-next-line:variable-name
-    private _control: NgControl;
+  // tslint:disable-next-line:variable-name
+  protected _control: NgControl | FormControl | null;
 
-    // Maximum number of validation messages.
-    // tslint:disable-next-line:variable-name
-    private _maxValidationMessages = 0;
+  // tslint:disable-next-line:variable-name
+  protected _maxValidationMessages = 0;
 
-    //#endregion
+  // Service for validating controls.
+  protected controlValidatorService: IValidationSummarizerService | null;
 
-    //#region Accessors
+  //#endregion
 
-    // Instance of the control that needs to be validated.
-    @Input('control-instance')
-    public set ngControl(control: NgControl) {
-        this._control = control;
+  //#region Accessors
+
+  // Instance of the control that needs to be validated.
+  @Input('control-instance')
+  public set ngControl(control: NgControl | FormControl | null) {
+    this._control = control;
+  }
+
+  // Get the instance of control that needs to be validated.
+  public get ngControl(): NgControl | FormControl | null {
+    return this._control;
+  }
+
+  // Label of control.
+  // tslint:disable-next-line:no-input-rename
+  @Input('control-label')
+  public controlLabel: string;
+
+  // Alternative template for validation summary.
+  // tslint:disable-next-line:no-input-rename
+  @Input('validation-template')
+  public alternativeTemplate: TemplateRef<any> | null;
+
+  // Get template context.
+  public get templateContext(): any {
+    return {
+      ngControl: this.ngControl,
+      controlLabel: this.controlLabel,
+      validationMessages: this.loadValidationMessages(this.maximumValidationMessages)
+    };
+  }
+
+  // Maximum number of validation messages.
+  public get maximumValidationMessages(): number {
+    return this._maxValidationMessages;
+  }
+
+  // Maximum number of validation messages.
+  @Input('maximum-validation-messages')
+  public set maximumValidationMessage(value: number) {
+    if (isNaN(value)) {
+      this._maxValidationMessages = 0;
+      return;
     }
 
-    // Get the instance of control that needs to be validated.
-    public get ngControl(): NgControl {
-        return this._control;
+    this._maxValidationMessages = value;
+  }
+
+  //#endregion
+
+  //#region Constructor
+
+  public constructor(protected injector: Injector) {
+    this.controlValidatorService = injector.get(VALIDATION_SUMMARIZER_PROVIDER, null, InjectFlags.Optional);
+    this._maxValidationMessages = 0;
+    this.controlLabel = '';
+    this._control = null;
+    this.alternativeTemplate = null;
+  }
+
+  //#endregion
+
+  //#region Methods
+
+  public ableToDisplayValidationMessages(ngControl: NgControl | FormControl | null): boolean {
+
+    if (!ngControl || !this.controlValidatorService) {
+      return false;
     }
 
-    // Label of control.
-    // tslint:disable-next-line:no-input-rename
-    @Input('control-label')
-    public controlLabel: string;
+    return this.controlValidatorService.shouldValidationSummarizerAbleToDisplayed(ngControl);
+  }
 
-    // Alternative template for validation summary.
-    // tslint:disable-next-line:no-input-rename
-    @Input('validation-template')
-    public readonly alternativeTemplate: TemplateRef<any>;
+  //#endregion
 
-    // Get template context.
-    public get templateContext(): any {
-        return {
-            ngControl: this.ngControl,
-            controlLabel: this.controlLabel,
-            validationMessages: this.getValidationMessages(this.maximumValidationMessages)
-        };
+  //#region Internal methods
+
+  protected loadValidationMessages(maximumValidationMessages: number | null): ValidationMessage[] {
+
+    if (!this.controlValidatorService || !this.ngControl) {
+      return [];
     }
 
-    // Maximum number of validation messages.
-    public get maximumValidationMessages(): number {
-        return this._maxValidationMessages;
+    let messages = this.controlValidatorService
+      .loadControlValidationMessages(this.controlLabel, this.ngControl);
+
+    if (!messages) {
+      return [];
     }
 
-    /*
-    * Maximum number of validation messages.
-    * */
-    @Input('maximum-validation-messages')
-    public set maximumValidationMessage(value: number) {
-        if (isNaN(value)) {
-            this._maxValidationMessages = null;
-            return;
-        }
-
-        this._maxValidationMessages = value;
+    if (!maximumValidationMessages || isNaN(maximumValidationMessages)) {
+      return messages;
     }
 
-    //#endregion
-
-    //#region Constructor
-
-    public constructor(@Optional() @Inject(VALIDATION_MESSAGE_PROVIDER) protected validationMessageService: IValidationMessageService) {
-        this._maxValidationMessages = 0;
+    if (maximumValidationMessages < 1) {
+      return messages;
     }
 
-    //#endregion
+    messages = messages.slice(0, maximumValidationMessages);
+    return messages;
+  }
 
-    //#region Methods
-
-    // Get validation messages.
-    protected getValidationMessages(maximumValidationMessages: number | null): string[] {
-
-        let messages = this.validationMessageService
-            .loadControlValidationMessages(this.controlLabel, this.ngControl);
-
-        if (!messages) {
-            return null;
-        }
-
-        if (isNaN(maximumValidationMessages)) {
-            return messages;
-        }
-
-        if (maximumValidationMessages == null || maximumValidationMessages < 1) {
-            return messages;
-        }
-
-        messages = messages.slice(0, maximumValidationMessages);
-        return messages;
-    }
-
-    // Whether validation message-modal should be displayed or not.
-    public shouldValidationMessageDisplayed(control: NgControl): boolean {
-        return this.validationMessageService.shouldValidationMessageDisplayed(control);
-    }
-
-    //#endregion
+  //#endregion
 }

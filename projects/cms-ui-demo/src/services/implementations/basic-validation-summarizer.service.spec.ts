@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { BasicValidationSummarizerService } from './basic-validation-summarizer.service';
+import { ValidationSummarizerService } from './translated-validation-summarizer.service';
 
 describe('DefaultControlValidatorService', () => {
   beforeEach(() => {

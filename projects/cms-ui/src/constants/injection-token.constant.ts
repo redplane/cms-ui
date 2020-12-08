@@ -15,11 +15,15 @@ export const BANNER_BUILDER_PROVIDER = new InjectionToken<IBannerContentBuilder>
 
 // Smart navigator providers.
 export const SMART_NAVIGATOR_PROVIDER = new InjectionToken<ISmartNavigatorService>('SMART_NAVIGATOR_PROVIDER');
-export const SMART_NAVIGATOR_ROUTES = new InjectionToken<{[key: string]: string}>('SMART_NAVIGATOR_ROUTES');
+export const SMART_NAVIGATOR_ROUTES = new InjectionToken<{ [key: string]: string }>('SMART_NAVIGATOR_ROUTES');
 
 // Validation summarizer providers.
 export const VALIDATION_SUMMARIZER_PROVIDER = new InjectionToken<IValidationSummarizerService>('VALIDATION_SUMMARIZER_PROVIDER');
-export const VALIDATION_SUMMARIZER_MESSAGES = new InjectionToken<{[key: string]: string}>('VALIDATION_SUMMARIZER_MESSAGES');
+export const VALIDATION_SUMMARIZER_MESSAGES = new InjectionToken<{ [key: string]: string }>('VALIDATION_SUMMARIZER_MESSAGES');
+export const VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK =
+  new InjectionToken<boolean>('VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK');
+export const VALIDATION_SUMMARIZER_BUILT_IN_MESSAGES = new InjectionToken<{ [key: string]: string }>(
+  'VALIDATION_SUMMARIZER_BUILT_IN_MESSAGES');
 
 // Windows provider
 export const WINDOW = new InjectionToken('WINDOW_PROVIDER');

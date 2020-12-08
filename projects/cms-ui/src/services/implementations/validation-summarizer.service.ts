@@ -1,21 +1,50 @@
 import {Inject, Injectable, Optional} from '@angular/core';
 import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, ValidationErrors} from '@angular/forms';
-import {merge as lodashMerge} from 'lodash';
-import {ValidationMessage} from '@cms-ui/core';
-import {TranslateService} from '@ngx-translate/core';
-import {BasicValidationSummarizerService} from '@cms-ui/core';
-import {VALIDATION_SUMMARIZER_MESSAGES} from '@cms-ui/core';
+import {merge as lodashMerge} from 'lodash-es';
+import {IValidationSummarizerService} from '../interfaces';
+import {
+  VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK,
+  VALIDATION_SUMMARIZER_BUILT_IN_MESSAGES,
+  VALIDATION_SUMMARIZER_MESSAGES
+} from '../../constants';
+import {cloneDeep} from 'lodash-es';
+import {ValidationMessage} from '../../models';
 
 @Injectable()
-export class TranslatedValidationSummarizerService extends BasicValidationSummarizerService {
+export class ValidationSummarizerService implements IValidationSummarizerService {
+
+  //#region Properties
+
+  /*
+  * Mapping between validator name and validation message.
+  * */
+  // tslint:disable-next-line:variable-name
+  protected _validatorNameToValidationMessage: { [name: string]: string; };
+
+  // Built in message which basically supported by plugin.
+  // tslint:disable-next-line:variable-name
+  protected _builtInMessages: { [name: string]: string };
+
+  //#endregion
 
   //#region Constructor
 
   // tslint:disable-next-line:max-line-length
-  public constructor(protected translateService: TranslateService,
+  public constructor(@Inject(VALIDATION_SUMMARIZER_BUILT_IN_MESSAGES) protected builtInMessages: { [key: string]: string },
                      @Optional() @Inject(VALIDATION_SUMMARIZER_MESSAGES)
-                       validatorNameToValidationMessage?: { [name: string]: string; }) {
-    super(validatorNameToValidationMessage);
+                       validatorNameToValidationMessage?: { [name: string]: string; },
+                     @Optional() @Inject(VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK)
+                     protected ableToBuiltInMessageFallback?: boolean) {
+
+    // Copy the built in message.
+    this._builtInMessages = cloneDeep(builtInMessages);
+
+    if (!validatorNameToValidationMessage) {
+      this._validatorNameToValidationMessage = {};
+      return;
+    }
+
+    this._validatorNameToValidationMessage = cloneDeep(validatorNameToValidationMessage);
   }
 
   //#endregion
@@ -34,8 +63,10 @@ export class TranslatedValidationSummarizerService extends BasicValidationSummar
     return messages[0];
   }
 
-  // Get all control validation messages.
-  public loadControlValidationMessages(controlLabel: string, control: NgControl): ValidationMessage[] | null {
+  /*
+  * Get all control validation messages.
+  * */
+  public loadControlValidationMessages(controlLabel: string, control: NgControl | FormControl): ValidationMessage[] | null {
 
     // List of validation messages.
     const messages: ValidationMessage[] = [];
@@ -57,7 +88,7 @@ export class TranslatedValidationSummarizerService extends BasicValidationSummar
         boundValue = control.errors[key].requiredLength;
       }
 
-      const additionalValue: { [key: string]: string } = {};
+      const additionalValue: { [key: string]: any } = {};
 
       if (key && key.length && boundValue) {
         additionalValue[key] = boundValue;
@@ -69,6 +100,8 @@ export class TranslatedValidationSummarizerService extends BasicValidationSummar
       }
 
       const validationMessage = new ValidationMessage(key, message);
+      validationMessage.key = key;
+      validationMessage.content = message;
       validationMessage.additionalValue[key] = boundValue;
       messages.push(validationMessage);
     }
@@ -99,7 +132,6 @@ export class TranslatedValidationSummarizerService extends BasicValidationSummar
 
     return validator[name];
   }
-
 
   // Update the dictionary which is used for mapping validation property & validation message.
   public updateValidationMessageDictionary(validationMessageDictionary: { [p: string]: string; }): void {
@@ -192,12 +224,8 @@ export class TranslatedValidationSummarizerService extends BasicValidationSummar
     return validationErrors;
   }
 
-  //#endregion
-
-  //#region Internal methods
-
   // Run validation on controls inside a form.
-  protected loadFormControlsValidationError(formGroup: FormGroup): ValidationErrors | null {
+  public loadFormControlsValidationError(formGroup: FormGroup): ValidationErrors | null {
 
     // Form group is not valid.
     if (!formGroup) {
@@ -221,25 +249,35 @@ export class TranslatedValidationSummarizerService extends BasicValidationSummar
     return validationErrors;
   }
 
+  public shouldValidationSummarizerAbleToDisplayed(control: NgControl | FormControl | null): boolean {
+    if (!control) {
+      return false;
+    }
+
+    const ableToDisplay = control.invalid && (control.dirty || control.touched) === true;
+    return true === ableToDisplay;
+  }
+
+  //#endregion
+
+  //#region Internal methods
+
   // Build validation message from specific information.
-  protected buildValidationMessage(controlLabel: string, validatorName: string,
-                                   additionalValue: { [key: string]: string; }): string | null {
+  protected buildValidationMessage(controlLabel: string, validatorName: string, additionalValue: { [key: string]: string; }): string {
     if (!this._validatorNameToValidationMessage) {
-      return null;
+      return '';
     }
 
     if (!this._validatorNameToValidationMessage[validatorName]) {
-      return null;
+
+      if (this.ableToBuiltInMessageFallback) {
+        return '';
+      }
     }
 
     const initialMessage = this._validatorNameToValidationMessage[validatorName];
-    const translatedControlLabel = this.translateService.instant(controlLabel);
-    const translatedMessage = this.translateService.instant(initialMessage, {
-      additionalValue,
-      controlLabel: translatedControlLabel
-    });
-
-    return translatedMessage;
+    // TODO: Interpolate the message.
+    return initialMessage;
   }
 
   //#endregion

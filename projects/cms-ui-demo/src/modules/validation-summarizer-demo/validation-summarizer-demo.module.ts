@@ -8,7 +8,11 @@ import {ValidationSummarizerModule} from '@cms-ui/core';
   imports: [
     ValidationSummarizerRoutingModule,
     ReactiveFormsModule,
-    ValidationSummarizerModule
+    ValidationSummarizerModule.forRoot({
+      messages: {
+        invalidName: 'MSG_CUSTOM_VALIDATOR_MESSAGE_INVALID_NAME'
+      }
+    })
   ],
   declarations: [
     ValidationSummarizerDemoComponent

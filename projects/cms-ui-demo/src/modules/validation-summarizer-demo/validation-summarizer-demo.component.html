@@ -1,7 +1,6 @@
-<!--Basic spinner-->
+<!--Basic validation summarizer-->
 <div class="row"
      [formGroup]="studentForm">
-
   <div class="col-12">
     <div class="form-group">
       <div class="card">
@@ -21,23 +20,30 @@
                 <label>{{'VALIDATION_SUMMARIZER_DEMO.NAME'}}</label>
                 <div class="form-group">
                   <input class="form-control"
+                         name="studentName"
                          [formControl]="studentNameControl">
 
-                  <validation-summarizer></validation-summarizer>
+                  <cms-validation-summarizer [control-instance]="studentNameControl"
+                                             control-label="VALIDATION_SUMMARIZER_DEMO.NAME">
+                  </cms-validation-summarizer>
                 </div>
 
                 <!--Name-->
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.NAME'}}</label>
+                <label>{{'VALIDATION_SUMMARIZER_DEMO.AGE'}}</label>
                 <div class="form-group">
                   <input class="form-control"
                          [formControl]="studentAgeControl">
+
+                  <cms-validation-summarizer [control-instance]="studentAgeControl"
+                                             control-label="VALIDATION_SUMMARIZER_DEMO.NAME">
+                  </cms-validation-summarizer>
                 </div>
 
                 <!--Name-->
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.NAME'}}</label>
+                <label>{{'VALIDATION_SUMMARIZER_DEMO.SECURITY_NUMBER'}}</label>
                 <div class="form-group">
                   <input class="form-control"
-                         [formControl]="studentNameControl">
+                         [formControl]="securityNoControl">
                 </div>
 
               </div>
@@ -47,5 +53,60 @@
       </div>
     </div>
   </div>
+</div>
 
+<div class="row"
+     [formGroup]="studentForm">
+  <div class="col-12">
+    <div class="form-group">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Summarizer with custom validator</h5>
+          <div class="card-text">
+            <ul>
+              <li>Validation summarizer can be placed under a specific control</li>
+              <li>It retrieves control errors and display them on the screen.</li>
+            </ul>
+          </div>
+          <div class="jumbotron">
+            <div class="row">
+              <div class="col-lg-12">
+
+                <!--Name-->
+                <label>{{'VALIDATION_SUMMARIZER_DEMO.NAME'}}</label>
+                <div class="form-group">
+                  <input class="form-control"
+                         name="studentName"
+                         [formControl]="studentNameControl">
+
+                  <cms-validation-summarizer [control-instance]="studentNameControl"
+                                             control-label="VALIDATION_SUMMARIZER_DEMO.NAME">
+                  </cms-validation-summarizer>
+                </div>
+
+                <!--Name-->
+                <label>{{'VALIDATION_SUMMARIZER_DEMO.AGE'}}</label>
+                <div class="form-group">
+                  <input class="form-control"
+                         [formControl]="studentAgeControl">
+
+                  <cms-validation-summarizer [control-instance]="studentAgeControl"
+                                             control-label="VALIDATION_SUMMARIZER_DEMO.NAME">
+                  </cms-validation-summarizer>
+                </div>
+
+                <!--Name-->
+                <label>{{'VALIDATION_SUMMARIZER_DEMO.SECURITY_NUMBER'}}</label>
+                <div class="form-group">
+                  <input class="form-control"
+                         [formControl]="securityNoControl">
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

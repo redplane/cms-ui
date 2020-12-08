@@ -1,1 +1,1 @@
-export * from './validation-summarizer';
+export * from './validation-summarizer/index';

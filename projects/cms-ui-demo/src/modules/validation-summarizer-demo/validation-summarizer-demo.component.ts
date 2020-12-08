@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {NumericValidator} from '../../validators/numeric.validator';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -19,6 +20,12 @@ export class ValidationSummarizerDemoComponent {
 
   public readonly securityNoControl: FormControl;
 
+  public readonly customerForm: FormGroup;
+
+  public readonly customerNameControl: FormControl;
+
+  public readonly customerAgeControl: FormControl;
+
   //#endregion
 
   //#region Constructor
@@ -33,6 +40,15 @@ export class ValidationSummarizerDemoComponent {
       name: this.studentNameControl,
       age: this.studentAgeControl,
       securityNo: this.securityNoControl
+    });
+
+
+    this.customerNameControl = new FormControl('', [Validators.required]);
+    this.customerAgeControl = new FormControl('', NumericValidator.notSmallerThan(10));
+
+    this.customerForm = new FormGroup({
+      name: this.customerNameControl,
+      age: this.customerAgeControl
     });
   }
 
