@@ -18,7 +18,8 @@ import {SmartNavigatorModule} from '@cms-ui/core';
       LANDING: '/',
       SPINNER_DEMO: '/spinner-demo',
       BANNER_DEMO: '/banner-demo',
-      VALIDATION_SUMMARIZER: '/validation-summarizer-demo'
+      VALIDATION_SUMMARIZER_DEMO: '/validation-summarizer-demo',
+      DIALOG_DEMO: '/dialog-demo'
     }),
     MasterLayoutModule,
     AppRoutingModule

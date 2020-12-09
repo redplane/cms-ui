@@ -44,5 +44,10 @@ export class LandingPageComponent {
       .subscribe();
   }
 
+  public clickDialogLearnMore(): void {
+    this.smartNavigatorService.navigateToScreenAsync(ScreenCodeConstant.dialogDemo)
+      .subscribe();
+  }
+
   //#endregion
 }

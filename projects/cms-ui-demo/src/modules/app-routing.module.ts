@@ -21,6 +21,10 @@ const routes: Routes = [
           .then(m => m.ValidationSummarizerDemoModule)
       },
       {
+        path: 'dialog-demo',
+        loadChildren: () => import('./dialog-demo/dialog-demo.module').then(m => m.DialogDemoModule)
+      },
+      {
         path: '',
         loadChildren: () => import('./landing/landing-page.module').then(m => m.LandingPageModule)
       }
