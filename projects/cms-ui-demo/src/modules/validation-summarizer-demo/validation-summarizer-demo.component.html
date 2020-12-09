@@ -23,7 +23,7 @@
                          name="studentName"
                          [formControl]="studentNameControl">
 
-                  <cms-validation-summarizer [control-instance]="studentNameControl"
+                  <cms-validation-summarizer [instance]="studentNameControl"
                                              control-label="VALIDATION_SUMMARIZER_DEMO.NAME">
                   </cms-validation-summarizer>
                 </div>
@@ -34,7 +34,7 @@
                   <input class="form-control"
                          [formControl]="studentAgeControl">
 
-                  <cms-validation-summarizer [control-instance]="studentAgeControl"
+                  <cms-validation-summarizer [instance]="studentAgeControl"
                                              control-label="VALIDATION_SUMMARIZER_DEMO.AGE">
                   </cms-validation-summarizer>
                 </div>
@@ -55,6 +55,7 @@
   </div>
 </div>
 
+<!--Summarizer with custom validator-->
 <div class="row"
      [formGroup]="studentForm">
   <div class="col-12">
@@ -80,7 +81,7 @@
                          name="studentName"
                          [formControl]="customerNameControl">
 
-                  <cms-validation-summarizer [control-instance]="customerNameControl"
+                  <cms-validation-summarizer [instance]="customerNameControl"
                                              control-label="VALIDATION_SUMMARIZER_DEMO.NAME">
                   </cms-validation-summarizer>
                 </div>
@@ -91,9 +92,61 @@
                   <input class="form-control"
                          [formControl]="customerAgeControl">
 
-                  <cms-validation-summarizer [control-instance]="customerAgeControl"
+                  <cms-validation-summarizer [instance]="customerAgeControl"
                                              control-label="VALIDATION_SUMMARIZER_DEMO.AGE">
                   </cms-validation-summarizer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row"
+     [formGroup]="productForm">
+  <div class="col-12">
+    <div class="form-group">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Summarizer with visibility handler</h5>
+          <div class="card-text">
+            <ul>
+              <li>Visibility handler can be used for deciding whether validation messages can be visible or not</li>
+              <li>If no handler is used, service handler will be used instead.</li>
+              <li>Component handler has higher priority than the service one</li>
+            </ul>
+          </div>
+          <div class="jumbotron">
+
+            <div class="row">
+              <div class="col-lg-12">
+                <!--Name-->
+                <label>{{'VALIDATION_SUMMARIZER_DEMO.NAME'}}</label>
+                <div class="form-group">
+                  <input class="form-control"
+                         name="productName"
+                         [formControl]="productNameControl">
+
+                  <cms-validation-summarizer [instance]="productNameControl"
+                                             [visibility-handler]="visibilityHandler"
+                                             control-label="VALIDATION_SUMMARIZER_DEMO.NAME">
+                  </cms-validation-summarizer>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12">
+                <label>{{'VALIDATION_SUMMARIZER_DEMO.VISIBLE'}}</label>
+                <div class="form-group">
+                  <select class="form-control"
+                          [formControl]="handlerVisibleControl">
+                    <option *ngFor="let item of visibilityOptions"
+                            [ngValue]="item.value">{{item.key}}</option>
+                  </select>
                 </div>
               </div>
             </div>

@@ -54,7 +54,7 @@ export class ValidationSummarizerService implements IValidationSummarizerService
   /*
   * Get a single control validation message.
   * */
-  public loadControlValidationMessage(controlLabel: string, control: NgControl): ValidationMessage | null {
+  public loadControlValidationMessage(controlLabel: string, control: AbstractControl): ValidationMessage | null {
     const messages = this.loadControlValidationMessages(controlLabel, control);
     if (!messages) {
       return null;
@@ -63,10 +63,13 @@ export class ValidationSummarizerService implements IValidationSummarizerService
     return messages[0];
   }
 
-  /*
-  * Get all control validation messages.
-  * */
-  public loadControlValidationMessages(controlLabel: string, control: NgControl | FormControl): ValidationMessage[] | null {
+  // Get all control validation messages.
+  public loadControlValidationMessages(controlLabel: string, control: AbstractControl | null): ValidationMessage[] | null {
+
+    // Invalid control.
+    if (!control) {
+      return null;
+    }
 
     // List of validation messages.
     const messages: ValidationMessage[] = [];
@@ -249,7 +252,7 @@ export class ValidationSummarizerService implements IValidationSummarizerService
     return validationErrors;
   }
 
-  public shouldValidationSummarizerAbleToDisplayed(control: NgControl | FormControl | null): boolean {
+  public shouldValidationSummarizerAbleToDisplayed(control: AbstractControl): boolean {
     if (!control) {
       return false;
     }

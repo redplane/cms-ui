@@ -3,6 +3,7 @@ import {ValidationSummarizerRoutingModule} from './validation-summarizer-routing
 import {ValidationSummarizerDemoComponent} from './validation-summarizer-demo.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ValidationSummarizerModule} from '@cms-ui/core';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import {ValidationSummarizerModule} from '@cms-ui/core';
         notSmallerThan: 'MSG_CUSTOM_VALIDATOR_MESSAGE_NOT_SMALLER_THAN'
       },
       builtInMessageFallback: true
-    })
+    }),
+    CommonModule
   ],
   declarations: [
     ValidationSummarizerDemoComponent

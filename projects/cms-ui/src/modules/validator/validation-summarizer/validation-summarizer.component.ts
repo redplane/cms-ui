@@ -1,5 +1,5 @@
 import {Component, Inject, InjectFlags, Injector, Input, TemplateRef} from '@angular/core';
-import {FormControl, NgControl} from '@angular/forms';
+import {AbstractControl, FormControl, NgControl} from '@angular/forms';
 import {VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants';
 import {ValidationMessage} from '../../../models';
 import {IValidationSummarizerService} from '../../../services';
@@ -15,7 +15,7 @@ export class ValidationSummarizerComponent {
   //#region Properties
 
   // tslint:disable-next-line:variable-name
-  protected _control: NgControl | FormControl | null;
+  protected _control: AbstractControl | null;
 
   // tslint:disable-next-line:variable-name
   protected _maxValidationMessages = 0;
@@ -23,24 +23,28 @@ export class ValidationSummarizerComponent {
   // Service for validating controls.
   protected validationSummarizerService: IValidationSummarizerService | null;
 
+  // Handler for handling summarizer visibility.
+  // tslint:disable-next-line:variable-name
+  protected _visibilityHandler: ((ngControl: AbstractControl) => boolean) | null;
+
   //#endregion
 
   //#region Accessors
 
   // Instance of the control that needs to be validated.
-  @Input('control-instance')
-  public set ngControl(control: NgControl | FormControl | null) {
+  @Input('instance')
+  public set ngControl(control: AbstractControl | null) {
     this._control = control;
   }
 
   // Get the instance of control that needs to be validated.
-  public get ngControl(): NgControl | FormControl | null {
+  public get ngControl(): AbstractControl | null {
     return this._control;
   }
 
   // Label of control.
   // tslint:disable-next-line:no-input-rename
-  @Input('control-label')
+  @Input('label')
   public controlLabel: string;
 
   // Alternative template for validation summary.
@@ -63,7 +67,7 @@ export class ValidationSummarizerComponent {
   }
 
   // Maximum number of validation messages.
-  @Input('maximum-validation-messages')
+  @Input('maximum-messages')
   public set maximumValidationMessage(value: number) {
     if (isNaN(value)) {
       this._maxValidationMessages = 0;
@@ -71,6 +75,16 @@ export class ValidationSummarizerComponent {
     }
 
     this._maxValidationMessages = value;
+  }
+
+  // tslint:disable-next-line:no-input-rename
+  @Input('visibility-handler')
+  public set visibilityHandler(value: ((ngControl: AbstractControl) => boolean) | null) {
+    this._visibilityHandler = value;
+  }
+
+  public get visibilityHandler(): ((ngControl: AbstractControl) => boolean) | null {
+    return this._visibilityHandler;
   }
 
   //#endregion
@@ -83,13 +97,23 @@ export class ValidationSummarizerComponent {
     this.controlLabel = '';
     this._control = null;
     this.alternativeTemplate = null;
+    this._visibilityHandler = null;
   }
 
   //#endregion
 
   //#region Methods
 
-  public ableToDisplayValidationMessages(ngControl: NgControl | FormControl | null): boolean {
+  public ableToDisplayValidationMessages(ngControl: AbstractControl): boolean {
+
+    if (!ngControl) {
+      return false;
+    }
+
+    // Visibility handler is defined.
+    if (this.visibilityHandler) {
+      return this.visibilityHandler(ngControl);
+    }
 
     if (!ngControl || !this.validationSummarizerService) {
       return false;

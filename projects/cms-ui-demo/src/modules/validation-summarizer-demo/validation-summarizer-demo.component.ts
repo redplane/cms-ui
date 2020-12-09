@@ -1,6 +1,8 @@
-import {Component} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {NumericValidator} from '../../validators/numeric.validator';
+import {KeyValue} from '@angular/common';
+import {Subscription} from 'rxjs';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -8,7 +10,7 @@ import {NumericValidator} from '../../validators/numeric.validator';
   templateUrl: 'validation-summarizer-demo.component.html',
   styleUrls: ['validation-summarizer-demo.component.scss']
 })
-export class ValidationSummarizerDemoComponent {
+export class ValidationSummarizerDemoComponent implements OnInit, OnDestroy {
 
   //#region Properties
 
@@ -26,11 +28,26 @@ export class ValidationSummarizerDemoComponent {
 
   public readonly customerAgeControl: FormControl;
 
+  public readonly productForm: FormGroup;
+
+  public readonly productNameControl: FormControl;
+
+  public readonly visibilityOptions: KeyValue<string, boolean>[];
+
+  public handlerVisibleControl: FormControl;
+
+  public visibilityHandler: (ngControl: AbstractControl) => boolean;
+
+  // tslint:disable-next-line:variable-name
+  protected _subscription: Subscription;
+
   //#endregion
 
   //#region Constructor
 
   public constructor() {
+
+    this._subscription = new Subscription();
 
     this.studentNameControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
     this.studentAgeControl = new FormControl('', [Validators.min(10)]);
@@ -50,11 +67,56 @@ export class ValidationSummarizerDemoComponent {
       name: this.customerNameControl,
       age: this.customerAgeControl
     });
+
+    this.productNameControl = new FormControl('', [Validators.required]);
+    this.handlerVisibleControl = new FormControl(false);
+    this.productForm = new FormGroup({
+      name: this.productNameControl,
+      handlerVisible: this.handlerVisibleControl
+    });
+
+    this.visibilityOptions = [
+      {
+        key: 'VALIDATION_SUMMARIZER_DEMO.YES',
+        value: true
+      },
+      {
+        key: 'VALIDATION_SUMMARIZER_DEMO.NO',
+        value: false
+      }
+    ];
+
+    this.visibilityHandler = _ => this.handlerVisibleControl.value;
   }
 
   //#endregion
 
-  //#region Methods
+  //#region Life cycles
+
+  public ngOnInit(): void {
+
+    const hookVisibilityChangedEventSubscription = this.handlerVisibleControl
+      .valueChanges
+      .subscribe(value => {
+        this.visibilityHandler = ngControl => {
+          if (!value) {
+            return false;
+          }
+
+          return ngControl.invalid && (ngControl.dirty || ngControl.touched);
+        };
+      });
+
+    this._subscription.add(hookVisibilityChangedEventSubscription);
+  }
+
+  public ngOnDestroy(): void {
+
+    if (this._subscription && !this._subscription.closed) {
+      this._subscription.unsubscribe();
+    }
+  }
 
   //#endregion
+
 }

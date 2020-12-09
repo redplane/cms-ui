@@ -6,10 +6,10 @@ export interface IValidationSummarizerService {
   //#region Methods
 
   // Get a single control validation message.
-  loadControlValidationMessage(controlLabel: string, control: NgControl): ValidationMessage | null;
+  loadControlValidationMessage(controlLabel: string, control: AbstractControl): ValidationMessage | null;
 
   // Get all control validation messages.
-  loadControlValidationMessages(controlLabel: string, control: NgControl | FormControl): ValidationMessage[] | null;
+  loadControlValidationMessages(controlLabel: string, control: AbstractControl | null): ValidationMessage[] | null;
 
   // Get all available validators belong to control.
   hasValidator(name: string, ngControl: NgControl): boolean;
@@ -33,7 +33,7 @@ export interface IValidationSummarizerService {
   loadControlValidationErrors(control: AbstractControl | FormGroup): ValidationErrors | null;
 
   // Should validation summarized to be able to displayed.
-  shouldValidationSummarizerAbleToDisplayed(control: NgControl | FormControl | null): boolean;
+  shouldValidationSummarizerAbleToDisplayed(control: AbstractControl): boolean;
 
   //#endregion
 }
