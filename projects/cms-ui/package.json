@@ -19,6 +19,12 @@
   "homepage": "https://github.com/redplane/rx-message-bus",
   "license": "MIT",
   "keywords": [
+    "cms-ui",
+    "@cms-ui",
+    "@cms-ui/core",
+    "@cms-ui-core",
+    "cms-ui-core",
+    "cms-ui/core"
   ],
   "dependencies": {
     "tslib": "^2.0.0"
