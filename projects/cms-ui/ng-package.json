@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/ngx-spinner",
+  "dest": "../../dist/cms-ui",
   "lib": {
     "entryFile": "src/public-api.ts"
   }

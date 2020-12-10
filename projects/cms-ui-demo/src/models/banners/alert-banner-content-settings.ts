@@ -1,5 +1,5 @@
-import {IBannerContentSettings, ITimeoutAction} from '@cms-ui/core';
 import {v4 as uuid} from 'uuid';
+import {IBannerContentSettings, ITimeoutAction} from '@cms-ui/core';
 
 export class AlertBannerContentSettings implements IBannerContentSettings {
 

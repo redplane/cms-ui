@@ -1,7 +1,6 @@
 import {TemplateRef} from '@angular/core';
+import { HtmlContent } from '../../html-content';
 import {IDialogButton} from './dialog-button.interface';
-import {ModalTimeoutAction} from '../../../modules/dialogs/models/modal-timeout-action';
-import {HtmlContent} from '@cms-ui/core';
 
 export interface IDialogSetting {
 
@@ -25,7 +24,8 @@ export interface IDialogSetting {
 
   height?: string;
 
-  timeout?: ModalTimeoutAction;
+  // TODO: Implement this option
+  // timeout?: ModalTimeoutAction;
 
   disableClose?: boolean;
 

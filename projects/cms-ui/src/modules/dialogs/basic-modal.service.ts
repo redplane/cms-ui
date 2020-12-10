@@ -1,15 +1,10 @@
 import {IModalService} from './modal-service.interface';
 import {Injectable, TemplateRef} from '@angular/core';
 import {Observable, of, race} from 'rxjs';
-import {MatDialog} from '@angular/material/dialog';
 import {delay, map, mergeMap, tap} from 'rxjs/operators';
 import {DialogResult} from '../../models/implementations/dialogs/dialog-result';
 import {ModalActionConstant} from './modal-action.constant';
 import {BasicDialogComponent} from './basic-dialog/basic-dialog.component';
-import {IConfirmModalSettings} from '../../models/interfaces/dialogs/basic-dialog-setting.interface';
-import {ISelectModalSettings} from './select-modal/select-modal-settings.interface';
-import {SelectModalComponent} from './select-modal/select-modal.component';
-import {ModalTimeoutAction} from './models/modal-timeout-action';
 
 @Injectable()
 export class BasicModalService implements IModalService {

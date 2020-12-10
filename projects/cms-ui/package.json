@@ -1,10 +1,25 @@
 {
   "name": "@cms-ui/core",
-  "version": "1.0.0",
+  "version": "4.0.0",
   "peerDependencies": {
     "@angular/common": "^11.0.1",
-    "@angular/core": "^11.0.1"
+    "@angular/core": "^11.0.1",
+    "rxjs": "~6.6.0"
   },
+  "author": {
+    "name": "Nguyen Duy Linh",
+    "email": "redplane_dt@yahoo.com.vn",
+    "url": "https://nguyen-duy-linh.netlify.com"
+  },
+  "bugs": "https://github.com/redplane/rx-message-bus/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/redplane/rx-message-bus.git"
+  },
+  "homepage": "https://github.com/redplane/rx-message-bus",
+  "license": "MIT",
+  "keywords": [
+  ],
   "dependencies": {
     "tslib": "^2.0.0"
   }

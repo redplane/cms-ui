@@ -1,4 +1,4 @@
-import {ModuleWithProviders, NgModule, Type} from '@angular/core';
+import {InjectFlags, Injector, ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
   VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK,
@@ -7,9 +7,16 @@ import {
   VALIDATION_SUMMARIZER_PROVIDER
 } from '../../../constants';
 import {ValidationSummarizerService} from '../../../services';
-import {ValidationSummarizerComponent} from './validation-summarizer.component';
 import {builtInValidationMessages} from '../../../constants/built-in-validation-message.constant';
 import {IValidationSummarizerSettings} from '../../../models/interfaces/validation-summarizer-settings.interface';
+import {ValidationSummarizerComponent} from './validation-summarizer.component';
+
+const basicValidationSummarizerFactory = (injector: Injector) => {
+  const builtInMessages = injector.get(VALIDATION_SUMMARIZER_BUILT_IN_MESSAGES, builtInValidationMessages);
+  const validatorNameToValidationMessage = injector.get(VALIDATION_SUMMARIZER_MESSAGES, undefined, InjectFlags.Optional);
+  const ableToBuiltInMessageFallback = injector.get(VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK, undefined, InjectFlags.Optional);
+  return new ValidationSummarizerService(builtInMessages, validatorNameToValidationMessage, ableToBuiltInMessageFallback);
+};
 
 @NgModule({
   imports: [
@@ -24,7 +31,10 @@ import {IValidationSummarizerSettings} from '../../../models/interfaces/validati
   providers: [
     {
       provide: VALIDATION_SUMMARIZER_PROVIDER,
-      useClass: ValidationSummarizerService
+      useFactory: basicValidationSummarizerFactory,
+      deps: [
+        Injector
+      ]
     }
   ]
 })
@@ -44,7 +54,10 @@ export class ValidationSummarizerModule {
         },
         {
           provide: VALIDATION_SUMMARIZER_PROVIDER,
-          useClass: (settings || {}).implementation || ValidationSummarizerService
+          useFactory: (settings || {}).implementation || basicValidationSummarizerFactory,
+          deps: [
+            Injector
+          ]
         },
         {
           provide: VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK,

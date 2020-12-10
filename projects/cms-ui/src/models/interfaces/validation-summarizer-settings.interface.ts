@@ -1,5 +1,6 @@
-import {Type} from '@angular/core';
-import {IValidationSummarizerService} from '@cms-ui/core';
+import {Injector, Type} from '@angular/core';
+import { IValidationSummarizerService } from '../../services/interfaces/validation-summarizer-service.interface';
+
 
 export interface IValidationSummarizerSettings {
 
@@ -9,7 +10,7 @@ export interface IValidationSummarizerSettings {
   messages?: { [key: string]: any };
 
   // Implementation of summarizer service.
-  implementation?: Type<IValidationSummarizerService>;
+  implementation?: (injector: Injector) => IValidationSummarizerService;
 
   // Whether to fallback to built in validation message or not.
   builtInMessageFallback?: boolean;

@@ -2,15 +2,13 @@ import {Inject, Injectable, Optional} from '@angular/core';
 import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, ValidationErrors} from '@angular/forms';
 import {merge as lodashMerge} from 'lodash-es';
 import {IValidationSummarizerService} from '../interfaces';
-import {
-  VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK,
-  VALIDATION_SUMMARIZER_BUILT_IN_MESSAGES,
-  VALIDATION_SUMMARIZER_MESSAGES
-} from '../../constants';
 import {cloneDeep} from 'lodash-es';
-import {ValidationMessage} from '../../models';
+import {
+  VALIDATION_SUMMARIZER_BUILT_IN_MESSAGES, VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK,
+  VALIDATION_SUMMARIZER_MESSAGES
+} from '../../constants/injection-token.constant';
+import { ValidationMessage } from '../../models/implementations/validation-message';
 
-@Injectable()
 export class ValidationSummarizerService implements IValidationSummarizerService {
 
   //#region Properties

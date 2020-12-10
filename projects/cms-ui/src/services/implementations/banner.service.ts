@@ -3,8 +3,8 @@ import {Observable, ReplaySubject, Subject} from 'rxjs';
 import {IBannerService} from '../interfaces/banners/banner-service.interface';
 import {IDeleteBannerRequest} from '../../models/interfaces/banners/delete-banner-content-request.interface';
 import {IBannerNextDisplayRequest} from '../../models/interfaces/banners/display-next-banner-content-request.interface';
-import {findLastIndex} from 'lodash-es';
-import {IBannerContentSettings, IDisplayBannerRequest} from '../../models';
+import { IDisplayBannerRequest } from '../../models/interfaces/banners/add-banner-content-request.interface';
+import { IBannerContentSettings } from '../../models/interfaces/banners/banner-content-settings.interface';
 
 @Injectable()
 export class BannerService implements IBannerService {

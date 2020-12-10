@@ -1,8 +1,8 @@
 import {Component, Inject, InjectFlags, Injector, Input, TemplateRef} from '@angular/core';
-import {AbstractControl, FormControl, NgControl} from '@angular/forms';
-import {VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants';
-import {ValidationMessage} from '../../../models';
-import {IValidationSummarizerService} from '../../../services';
+import {AbstractControl} from '@angular/forms';
+import {VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injection-token.constant';
+import {IValidationSummarizerService} from '../../../services/interfaces/validation-summarizer-service.interface';
+import {ValidationMessage} from '../../../models/implementations/validation-message';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -104,7 +104,7 @@ export class ValidationSummarizerComponent {
 
   //#region Methods
 
-  public ableToDisplayValidationMessages(ngControl: AbstractControl): boolean {
+  public ableToDisplayValidationMessages(ngControl: AbstractControl | null): boolean {
 
     if (!ngControl) {
       return false;

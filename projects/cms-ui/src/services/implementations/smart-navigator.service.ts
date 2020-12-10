@@ -1,5 +1,5 @@
 import {ISmartNavigatorService} from '../interfaces/smart-navigator-service.interface';
-import {Inject, Injectable, Optional} from '@angular/core';
+import {Inject, Injectable, Injector, Optional} from '@angular/core';
 import {from, Observable, Subscription} from 'rxjs';
 import {NavigationExtras, Router, NavigationEnd, UrlTree} from '@angular/router';
 import {templateSettings, template} from 'lodash-es';
@@ -7,23 +7,24 @@ import {filter} from 'rxjs/operators';
 import {SMART_NAVIGATOR_ROUTES} from '../../constants/injection-token.constant';
 import {merge as lodashMerge} from 'lodash-es';
 
-@Injectable()
 export class SmartNavigatorService implements ISmartNavigatorService {
 
   //#region Properties
 
-  // Navigation history
-  private navigationHistory = [];
-
   // tslint:disable-next-line:whitespace variable-name
   private readonly _codeToUrlMappings: { [key: string]: string; };
+
+  protected router: Router;
+
 
   //#endregion
 
   //#region Constructor
 
-  public constructor(protected router: Router,
-                     @Optional() @Inject(SMART_NAVIGATOR_ROUTES) protected codeToUrlMappings: { [key: string]: string }) {
+  public constructor(protected injector: Injector) {
+
+    const codeToUrlMappings = this.injector.get(SMART_NAVIGATOR_ROUTES);
+    this.router = this.injector.get(Router);
     this._codeToUrlMappings = {};
 
     if (codeToUrlMappings) {

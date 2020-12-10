@@ -1,7 +1,11 @@
-import {ModuleWithProviders, NgModule} from '@angular/core';
+import {Injector, ModuleWithProviders, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {SMART_NAVIGATOR_PROVIDER, SMART_NAVIGATOR_ROUTES} from '../../constants/injection-token.constant';
 import {SmartNavigatorService} from '../../services/implementations/smart-navigator.service';
+
+const basicNavigatorServiceFactory = (injector: Injector) => {
+  return new SmartNavigatorService(injector);
+};
 
 @NgModule({
   imports: [
@@ -10,7 +14,10 @@ import {SmartNavigatorService} from '../../services/implementations/smart-naviga
   providers: [
     {
       provide: SMART_NAVIGATOR_PROVIDER,
-      useClass: SmartNavigatorService
+      useFactory: basicNavigatorServiceFactory,
+      deps: [
+        Injector
+      ]
     }
   ]
 })

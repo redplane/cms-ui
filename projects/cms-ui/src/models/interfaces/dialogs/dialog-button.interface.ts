@@ -1,7 +1,7 @@
 import {DialogResult} from '../../implementations/dialogs/dialog-result';
 import {Observable} from 'rxjs';
 import {TemplateRef} from '@angular/core';
-import {HtmlContent} from '@cms-ui/core';
+import { HtmlContent } from '../../html-content';
 
 export interface IDialogButton {
 

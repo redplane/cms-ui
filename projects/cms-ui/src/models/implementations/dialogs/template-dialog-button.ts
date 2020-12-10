@@ -1,6 +1,6 @@
 import {IDialogButton} from '../../interfaces/dialogs/dialog-button.interface';
-import {HtmlContent} from '@cms-ui/core';
 import {TemplateRef} from '@angular/core';
+import { HtmlContent } from '../../html-content';
 
 export class TemplateDialogButton implements IDialogButton {
 
