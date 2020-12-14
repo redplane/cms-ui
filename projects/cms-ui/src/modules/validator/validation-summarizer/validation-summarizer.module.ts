@@ -6,17 +6,17 @@ import {
   VALIDATION_SUMMARIZER_MESSAGES,
   VALIDATION_SUMMARIZER_PROVIDER
 } from '../../../constants';
-import {ValidationSummarizerService} from '../../../services';
+import {IValidationSummarizerService, ValidationSummarizerService} from '../../../services';
 import {builtInValidationMessages} from '../../../constants/built-in-validation-message.constant';
 import {IValidationSummarizerSettings} from '../../../models/interfaces/validation-summarizer-settings.interface';
 import {ValidationSummarizerComponent} from './validation-summarizer.component';
 
-const basicValidationSummarizerFactory = (injector: Injector) => {
+export function basicValidationSummarizerFactory(injector: Injector): IValidationSummarizerService {
   const builtInMessages = injector.get(VALIDATION_SUMMARIZER_BUILT_IN_MESSAGES, builtInValidationMessages);
   const validatorNameToValidationMessage = injector.get(VALIDATION_SUMMARIZER_MESSAGES, undefined, InjectFlags.Optional);
   const ableToBuiltInMessageFallback = injector.get(VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK, undefined, InjectFlags.Optional);
   return new ValidationSummarizerService(builtInMessages, validatorNameToValidationMessage, ableToBuiltInMessageFallback);
-};
+}
 
 @NgModule({
   imports: [

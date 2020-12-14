@@ -1,9 +1,10 @@
 {
   "name": "@cms-ui/core",
-  "version": "4.0.0",
+  "version": "1.0.0-preview-005",
   "peerDependencies": {
     "@angular/common": "^11.0.1",
     "@angular/core": "^11.0.1",
+    "lodash-es": "^4.17.15",
     "rxjs": "~6.6.0"
   },
   "author": {

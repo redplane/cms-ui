@@ -2,23 +2,15 @@ import {Injector, ModuleWithProviders, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {SMART_NAVIGATOR_PROVIDER, SMART_NAVIGATOR_ROUTES} from '../../constants/injection-token.constant';
 import {SmartNavigatorService} from '../../services/implementations/smart-navigator.service';
+import {ISmartNavigatorService} from '../../services';
 
-const basicNavigatorServiceFactory = (injector: Injector) => {
+export function basicNavigatorServiceFactory(injector: Injector): ISmartNavigatorService {
   return new SmartNavigatorService(injector);
-};
+}
 
 @NgModule({
   imports: [
     RouterModule
-  ],
-  providers: [
-    {
-      provide: SMART_NAVIGATOR_PROVIDER,
-      useFactory: basicNavigatorServiceFactory,
-      deps: [
-        Injector
-      ]
-    }
   ]
 })
 export class SmartNavigatorModule {
@@ -27,6 +19,13 @@ export class SmartNavigatorModule {
     return {
       ngModule: SmartNavigatorModule,
       providers: [
+        {
+          provide: SMART_NAVIGATOR_PROVIDER,
+          useFactory: basicNavigatorServiceFactory,
+          deps: [
+            Injector
+          ]
+        },
         {
           provide: SMART_NAVIGATOR_ROUTES,
           useValue: codeToUrlMappings || {}

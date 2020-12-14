@@ -1,5 +1,5 @@
-export * from './banner';
-export * from './smart-navigator';
-export * from './spinner';
+export * from './banner/index';
+export * from './smart-navigator/index';
+export * from './spinner/index';
 
-export * from './validator';
+export * from './validator/index';
