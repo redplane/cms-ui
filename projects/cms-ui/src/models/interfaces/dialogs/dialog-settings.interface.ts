@@ -1,37 +1,28 @@
 import {TemplateRef} from '@angular/core';
-import { HtmlContent } from '../../html-content';
-import {IDialogButton} from './dialog-button.interface';
+import {HtmlContent} from '../../html-content';
 
 export interface IDialogSetting {
 
   //#region Properties
 
+  // Dialog kind
+  readonly kind: string;
+
   message: string | HtmlContent | TemplateRef<any>;
 
   title: string | HtmlContent | TemplateRef<any>;
-
-  buttons?: IDialogButton[];
-
-  minWidth?: string;
-
-  maxWidth?: string;
-
-  minHeight?: string;
-
-  maxHeight?: string;
-
-  width?: string;
-
-  height?: string;
 
   // TODO: Implement this option
   // timeout?: ModalTimeoutAction;
 
   disableClose?: boolean;
 
-  dialogClass?: string[];
+  dialogClasses?: string[];
 
-  backdropClass?: string;
+  backdropClasses?: string[];
+
+  // Whether dialog must be displayed at the center of the screen.
+  centered?: boolean;
 
   //#endregion
 }

@@ -27,20 +27,11 @@ export function basicValidationSummarizerFactory(injector: Injector): IValidatio
   ],
   exports: [
     ValidationSummarizerComponent
-  ],
-  providers: [
-    {
-      provide: VALIDATION_SUMMARIZER_PROVIDER,
-      useFactory: basicValidationSummarizerFactory,
-      deps: [
-        Injector
-      ]
-    }
   ]
 })
 export class ValidationSummarizerModule {
 
-  public static forRoot(settings: IValidationSummarizerSettings): ModuleWithProviders<ValidationSummarizerModule> {
+  public static forRoot(settings?: IValidationSummarizerSettings | undefined): ModuleWithProviders<ValidationSummarizerModule> {
     return {
       ngModule: ValidationSummarizerModule,
       providers: [
@@ -50,18 +41,18 @@ export class ValidationSummarizerModule {
         },
         {
           provide: VALIDATION_SUMMARIZER_MESSAGES,
-          useValue: (settings || {}).messages || settings.messages
+          useValue: ((settings || {}).messages)
         },
         {
           provide: VALIDATION_SUMMARIZER_PROVIDER,
-          useFactory: (settings || {}).implementation || basicValidationSummarizerFactory,
+          useFactory: ((settings || {}).implementation) || basicValidationSummarizerFactory,
           deps: [
             Injector
           ]
         },
         {
           provide: VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK,
-          useValue: (settings || {}).builtInMessageFallback || true
+          useValue: ((settings || {}).builtInMessageFallback) || true
         }
       ]
     };

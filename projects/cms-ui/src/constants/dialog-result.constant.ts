@@ -1,4 +1,4 @@
-export class ModalActionConstant {
+export class DialogResultConstant {
 
   //#region Properties
 

@@ -1,8 +1,8 @@
 // Implementations export.
-export * from './implementations';
+export * from './implementations/index';
 
 // Interfaces export.
-export * from './interfaces';
+export * from './interfaces/index';
 
 // Single classes export.
 export * from './html-content';

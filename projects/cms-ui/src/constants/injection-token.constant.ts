@@ -3,7 +3,8 @@ import {ISpinnerService} from '../services/interfaces/spinner-service.interface'
 import {IBannerService} from '../services/interfaces/banners/banner-service.interface';
 import {ISmartNavigatorService} from '../services/interfaces/smart-navigator-service.interface';
 import {IValidationSummarizerService} from '../services/interfaces/validation-summarizer-service.interface';
-import {IBannerContentBuilder} from '../services';
+import {IBannerContentBuilder, IDialogService} from '../services';
+import {IDialogBuilder} from '../services/interfaces/dialogs/dialog-builder.interface';
 
 // Spinner providers.
 export const SPINNER_SERVICE_PROVIDER = new InjectionToken<ISpinnerService>('SPINNER_SERVICE_PROVIDER');
@@ -24,6 +25,10 @@ export const VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK =
   new InjectionToken<boolean>('VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK');
 export const VALIDATION_SUMMARIZER_BUILT_IN_MESSAGES = new InjectionToken<{ [key: string]: string }>(
   'VALIDATION_SUMMARIZER_BUILT_IN_MESSAGES');
+
+// Dialog providers.
+export const DIALOG_BUILDER_PROVIDER = new InjectionToken<IDialogBuilder>('DIALOG_BUILDER_PROVIDER');
+export const DIALOG_SERVICE_PROVIDER = new InjectionToken<IDialogService>('DIALOG_SERVICE_PROVIDER');
 
 // Windows provider
 export const WINDOW = new InjectionToken('WINDOW_PROVIDER');

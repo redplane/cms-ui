@@ -7,6 +7,7 @@ import {NavigationBarModule} from './navigation-bar/navigation-bar.module';
 import {RouterModule} from '@angular/router';
 import {MasterLayoutModule} from './master-layout/master-layout.module';
 import {SmartNavigatorModule} from '@cms-ui/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {SmartNavigatorModule} from '@cms-ui/core';
       DIALOG_DEMO: '/dialog-demo'
     }),
     MasterLayoutModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

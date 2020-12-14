@@ -9,12 +9,13 @@ import {CommonModule} from '@angular/common';
   imports: [
     ValidationSummarizerRoutingModule,
     ReactiveFormsModule,
-    ValidationSummarizerModule.forRoot({
-      messages: {
-        notSmallerThan: 'MSG_CUSTOM_VALIDATOR_MESSAGE_NOT_SMALLER_THAN'
-      },
-      builtInMessageFallback: true
-    }),
+    // ValidationSummarizerModule.forRoot({
+    //   messages: {
+    //     notSmallerThan: 'MSG_CUSTOM_VALIDATOR_MESSAGE_NOT_SMALLER_THAN'
+    //   },
+    //   builtInMessageFallback: true
+    // }),
+    ValidationSummarizerModule.forRoot(),
     CommonModule
   ],
   declarations: [
