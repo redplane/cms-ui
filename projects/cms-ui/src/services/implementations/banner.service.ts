@@ -6,7 +6,6 @@ import {IBannerNextDisplayRequest} from '../../models/interfaces/banners/display
 import { IDisplayBannerRequest } from '../../models/interfaces/banners/add-banner-content-request.interface';
 import { IBannerContentSettings } from '../../models/interfaces/banners/banner-content-settings.interface';
 
-@Injectable()
 export class BannerService implements IBannerService {
 
   //#region Properties

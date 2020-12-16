@@ -1,12 +1,7 @@
-import {Inject, Injectable, Optional} from '@angular/core';
 import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, ValidationErrors} from '@angular/forms';
 import {merge as lodashMerge} from 'lodash-es';
 import {IValidationSummarizerService} from '../interfaces';
 import {cloneDeep} from 'lodash-es';
-import {
-  VALIDATION_SUMMARIZER_BUILT_IN_MESSAGES, VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK,
-  VALIDATION_SUMMARIZER_MESSAGES
-} from '../../constants/injection-token.constant';
 import { ValidationMessage } from '../../models/implementations/validation-message';
 
 export class ValidationSummarizerService implements IValidationSummarizerService {
@@ -28,10 +23,8 @@ export class ValidationSummarizerService implements IValidationSummarizerService
   //#region Constructor
 
   // tslint:disable-next-line:max-line-length
-  public constructor(@Inject(VALIDATION_SUMMARIZER_BUILT_IN_MESSAGES) protected builtInMessages: { [key: string]: string },
-                     @Optional() @Inject(VALIDATION_SUMMARIZER_MESSAGES)
-                       validatorNameToValidationMessage?: { [name: string]: string; },
-                     @Optional() @Inject(VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK)
+  public constructor(protected builtInMessages: { [key: string]: string },
+                     protected validatorNameToValidationMessage?: { [name: string]: string; },
                      protected ableToBuiltInMessageFallback?: boolean) {
 
     // Copy the built in message.

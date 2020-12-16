@@ -23,8 +23,6 @@ export const VALIDATION_SUMMARIZER_PROVIDER = new InjectionToken<IValidationSumm
 export const VALIDATION_SUMMARIZER_MESSAGES = new InjectionToken<{ [key: string]: string }>('VALIDATION_SUMMARIZER_MESSAGES');
 export const VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK =
   new InjectionToken<boolean>('VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK');
-export const VALIDATION_SUMMARIZER_BUILT_IN_MESSAGES = new InjectionToken<{ [key: string]: string }>(
-  'VALIDATION_SUMMARIZER_BUILT_IN_MESSAGES');
 
 // Dialog providers.
 export const DIALOG_BUILDER_PROVIDER = new InjectionToken<IDialogBuilder>('DIALOG_BUILDER_PROVIDER');
