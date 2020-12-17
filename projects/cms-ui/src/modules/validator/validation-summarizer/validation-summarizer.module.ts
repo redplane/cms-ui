@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ValidationSummarizerComponent} from './validation-summarizer.component';
 
+
 @NgModule({
   imports: [
     CommonModule

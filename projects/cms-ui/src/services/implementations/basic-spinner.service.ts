@@ -8,7 +8,6 @@ import {SpinnerVisibilityChangedEvent} from '../../models/implementations/spinne
 import {Visibilities} from '../../enums/visibilities';
 import {SpinnerVisibilityChanged} from '../../models/implementations/spinner-visibility-changed';
 
-@Injectable()
 export class BasicSpinnerService implements ISpinnerService {
 
   //#region Properties
