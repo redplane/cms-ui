@@ -1,6 +1,6 @@
-import {BrowserWindowRef, windowFactory, WindowRef} from '@app/services/behavior/implementations/window.service';
 import {TestBed} from '@angular/core/testing';
 import createSpy = jasmine.createSpy;
+import {BrowserWindowRef, windowFactory, WindowRef} from './window.service';
 
 export class WindowRefExt extends WindowRef { }
 
@@ -15,7 +15,7 @@ describe('Unit test for window.service', () => {
   });
 
   it('When call function from abstract class Exception will be occur', (done: DoneFn) => {
-    const windowRef = new WindowRefExt;
+    const windowRef = new WindowRefExt();
     expect(() => {
       const wd = windowRef.nativeWindow;
     }).toThrowError('Not implemented.');
