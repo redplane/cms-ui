@@ -65,3 +65,71 @@
     </table>
   </div>
 </div>
+
+
+<!--Multiple spinner-->
+<div class="row form-group">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Multiple spinners</h5>
+        <div class="card-text">
+          <ul>
+            <li>Each spinner container contains one spinner.</li>
+            <li>Multiple spinner container can be on the same layout with different ids</li>
+          </ul>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6"
+               *ngFor="let spinnerDisplay of spinnerDisplays">
+            <div [style.min-height.px]="100"
+                 [style.position]="'relative'"
+                 class="form-group">
+              <cms-spinner [id]="spinnerDisplay.containerId"
+                           class="black-transparent"></cms-spinner>
+            </div>
+            <div class="form-group">
+              <table class="table"
+                     *ngIf="spinnerDisplay.historicalRequestIds">
+                <thead>
+                <tr>
+                  <th class="text-center">Request id</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let historicalRequestId of spinnerDisplay.historicalRequestIds">
+                  <td>{{historicalRequestId}}</td>
+                  <td>
+                    <button class="btn btn-danger"
+                            (click)="deleteMultipleSpinner(spinnerDisplay.containerId, historicalRequestId)">
+                      {{'SPINNER_DEMO.DELETE_REQUEST'}}
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <button class="btn btn-danger"
+                            (click)="deleteAllMultipleSpinner(spinnerDisplay.containerId)">
+                      {{'SPINNER_DEMO.DELETE_ALL_REQUESTS'}}
+                    </button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="form-group text-center">
+              <button class="btn btn-primary"
+                      type="button"
+                      (click)="displayMultipleSpinner(spinnerDisplay.containerId)">
+                {{'SPINNER_DEMO.DISPLAY_SPINNER'}}
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

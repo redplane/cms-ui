@@ -1,9 +1,10 @@
-import {Component, HostBinding, Inject, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, HostBinding, Inject, OnInit} from '@angular/core';
 import {ISpinnerService, SPINNER_SERVICE_PROVIDER, WINDOW} from '@cms-ui/core';
 import {v4 as uuid} from 'uuid';
 import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../constants/injection-token.constant';
 import {IDemoLayoutService} from '../../services/interfaces/demo-layout-service.interface';
 import {cloneDeep} from 'lodash-es';
+import {SpinnerDisplay} from '../../models/spinners/spinner-display';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -23,6 +24,9 @@ export class SpinnerDemoComponent implements OnInit {
 
   // Stackable spinner id.
   public readonly stackableSpinnerId = uuid();
+
+  // Multiple spinner display.
+  public readonly spinnerDisplays: SpinnerDisplay[];
 
   // tslint:disable-next-line:variable-name
   private _stackableSpinnerRequestIds: string[] = [];
@@ -45,8 +49,10 @@ export class SpinnerDemoComponent implements OnInit {
 
   public constructor(@Inject(SPINNER_SERVICE_PROVIDER) protected spinnerService: ISpinnerService,
                      @Inject(DEMO_LAYOUT_SERVICE_PROVIDER) protected demoLayoutService: IDemoLayoutService,
-                     @Inject(WINDOW) protected windowService: Window) {
+                     @Inject(WINDOW) protected windowService: Window,
+                     protected changeDetectorRef: ChangeDetectorRef) {
     this._deleteSpinnerOnComponentTimer = 0;
+    this.spinnerDisplays = [new SpinnerDisplay(uuid()), new SpinnerDisplay(uuid())];
   }
 
   //#endregion
@@ -105,6 +111,55 @@ export class SpinnerDemoComponent implements OnInit {
   public deleteStackableRequestIds(): void {
     this._stackableSpinnerRequestIds = [];
     this.spinnerService.deleteSpinners(this.stackableSpinnerId);
+  }
+
+  public displayMultipleSpinner(containerId: string): void {
+
+    const itemIndex = this.spinnerDisplays.findIndex(spinnerDisplay => spinnerDisplay.containerId === containerId);
+    if (itemIndex < 0) {
+      return;
+    }
+
+    const requestId = this.spinnerService.displaySpinner(containerId);
+    this.spinnerDisplays[itemIndex].historicalRequestIds.push(requestId);
+    this.changeDetectorRef.detectChanges();
+  }
+
+  public deleteMultipleSpinner(containerId: string, requestId: string): void {
+    const itemIndex = this.spinnerDisplays.findIndex(x => x.containerId === containerId);
+    if (itemIndex < 0) {
+      return;
+    }
+
+    const spinnerDisplay = this.spinnerDisplays[itemIndex];
+    if (!spinnerDisplay) {
+      return;
+    }
+
+    const requestItemIndex = spinnerDisplay.historicalRequestIds.findIndex(x => x === requestId);
+    if (requestItemIndex < 0) {
+      return;
+    }
+
+    this.spinnerDisplays[itemIndex].historicalRequestIds.splice(requestItemIndex, 1);
+    this.spinnerService.deleteSpinner(spinnerDisplay.containerId, requestId);
+    this.changeDetectorRef.detectChanges();
+  }
+
+  public deleteAllMultipleSpinner(containerId: string): void {
+    const itemIndex = this.spinnerDisplays.findIndex(x => x.containerId === containerId);
+    if (itemIndex < 0) {
+      return;
+    }
+
+    const spinnerDisplay = this.spinnerDisplays[itemIndex];
+    if (!spinnerDisplay) {
+      return;
+    }
+
+    this.spinnerDisplays[itemIndex].historicalRequestIds.splice(0);
+    this.spinnerService.deleteSpinner(spinnerDisplay.containerId);
+    this.changeDetectorRef.detectChanges();
   }
 
   //#endregion
