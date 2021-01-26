@@ -1,4 +1,4 @@
-import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, ValidationErrors} from '@angular/forms';
+import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, NgForm, ValidationErrors} from '@angular/forms';
 import {merge as lodashMerge} from 'lodash-es';
 import {IValidationSummarizerService} from '../interfaces';
 import {cloneDeep} from 'lodash-es';
@@ -54,7 +54,7 @@ export abstract class ValidationSummarizerService implements IValidationSummariz
   }
 
   // Get all control validation messages.
-  public loadControlValidationMessages(controlLabel: string, control: AbstractControl | null): ValidationMessage[] | null {
+  public loadControlValidationMessages(controlLabel: string, control: AbstractControl | NgControl | null): ValidationMessage[] | null {
 
     // Invalid control.
     if (!control) {
@@ -138,7 +138,7 @@ export abstract class ValidationSummarizerService implements IValidationSummariz
   }
 
   // Run validation on controls inside a form.
-  public doFormControlsValidation(formGroup: FormGroup): void {
+  public doFormControlsValidation(formGroup: FormGroup | NgForm): void {
 
     // Form group is not valid.
     if (!formGroup) {
@@ -242,7 +242,7 @@ export abstract class ValidationSummarizerService implements IValidationSummariz
     return validationErrors;
   }
 
-  public shouldValidationSummarizerAbleToDisplayed(control: AbstractControl): boolean {
+  public shouldValidationSummarizerAbleToDisplayed(control: AbstractControl | NgControl): boolean {
     if (!control) {
       return false;
     }

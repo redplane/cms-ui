@@ -1,4 +1,4 @@
-import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, ValidationErrors} from '@angular/forms';
+import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, NgForm, ValidationErrors} from '@angular/forms';
 import {ValidationMessage} from '../../models/implementations/validation-message';
 
 export interface IValidationSummarizerService {
@@ -9,7 +9,7 @@ export interface IValidationSummarizerService {
   loadControlValidationMessage(controlLabel: string, control: AbstractControl): ValidationMessage | null;
 
   // Get all control validation messages.
-  loadControlValidationMessages(controlLabel: string, control: AbstractControl | null): ValidationMessage[] | null;
+  loadControlValidationMessages(controlLabel: string, control: AbstractControl | NgControl | null): ValidationMessage[] | null;
 
   // Get all available validators belong to control.
   hasValidator(name: string, ngControl: NgControl): boolean;
@@ -21,7 +21,7 @@ export interface IValidationSummarizerService {
   updateValidationMessageDictionary(validationMessageDictionary: { [key: string]: string; }): void;
 
   // Run validation on controls inside a form.
-  doFormControlsValidation(formGroup: FormGroup): void;
+  doFormControlsValidation(formGroup: FormGroup | NgForm): void;
 
   // Mark control as dirty and trigger control validation.
   doControlValidation(control: AbstractControl | FormGroup | FormControlDirective): void;
@@ -33,7 +33,7 @@ export interface IValidationSummarizerService {
   loadControlValidationErrors(control: AbstractControl | FormGroup): ValidationErrors | null;
 
   // Should validation summarized to be able to displayed.
-  shouldValidationSummarizerAbleToDisplayed(control: AbstractControl): boolean;
+  shouldValidationSummarizerAbleToDisplayed(control: AbstractControl | NgControl): boolean;
 
   //#endregion
 }

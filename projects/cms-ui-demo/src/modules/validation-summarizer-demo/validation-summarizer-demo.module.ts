@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {ValidationSummarizerRoutingModule} from './validation-summarizer-routing.module';
 import {ValidationSummarizerDemoComponent} from './validation-summarizer-demo.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
   VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK,
   VALIDATION_SUMMARIZER_MESSAGES,
@@ -24,7 +24,8 @@ import {TranslateModule} from '@ngx-translate/core';
     // }),
     TranslateModule.forChild(),
     ValidationSummarizerModule,
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
   declarations: [
     ValidationSummarizerDemoComponent

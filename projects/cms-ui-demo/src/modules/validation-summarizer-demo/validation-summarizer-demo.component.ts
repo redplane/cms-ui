@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, NgControl, Validators} from '@angular/forms';
 import {NumericValidator} from '../../validators/numeric.validator';
 import {KeyValue} from '@angular/common';
 import {Subscription} from 'rxjs';
+import {ClientViewModel} from '../../view-models/client.view-model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -36,7 +37,9 @@ export class ValidationSummarizerDemoComponent implements OnInit, OnDestroy {
 
   public handlerVisibleControl: FormControl;
 
-  public visibilityHandler: (ngControl: AbstractControl) => boolean;
+  public visibilityHandler: (ngControl: AbstractControl | NgControl) => boolean |null;
+
+  public readonly client: ClientViewModel;
 
   // tslint:disable-next-line:variable-name
   protected _subscription: Subscription;
@@ -87,6 +90,8 @@ export class ValidationSummarizerDemoComponent implements OnInit, OnDestroy {
     ];
 
     this.visibilityHandler = _ => this.handlerVisibleControl.value;
+
+    this.client = new ClientViewModel();
   }
 
   //#endregion
@@ -100,7 +105,7 @@ export class ValidationSummarizerDemoComponent implements OnInit, OnDestroy {
       .subscribe(value => {
         this.visibilityHandler = ngControl => {
           if (!value) {
-            return false;
+            return null;
           }
 
           return ngControl.invalid && (ngControl.dirty || ngControl.touched);

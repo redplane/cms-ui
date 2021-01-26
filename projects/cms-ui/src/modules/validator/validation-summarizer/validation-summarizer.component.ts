@@ -1,5 +1,5 @@
 import {Component, Inject, InjectFlags, Injector, Input, TemplateRef} from '@angular/core';
-import {AbstractControl} from '@angular/forms';
+import {AbstractControl, NgControl} from '@angular/forms';
 import {VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injection-token.constant';
 import {IValidationSummarizerService} from '../../../services/interfaces/validation-summarizer-service.interface';
 import {ValidationMessage} from '../../../models/implementations/validation-message';
@@ -15,7 +15,7 @@ export class ValidationSummarizerComponent {
   //#region Properties
 
   // tslint:disable-next-line:variable-name
-  protected _control: AbstractControl | null;
+  protected _control: AbstractControl | NgControl | null;
 
   // tslint:disable-next-line:variable-name
   protected _maxValidationMessages = 0;
@@ -25,7 +25,7 @@ export class ValidationSummarizerComponent {
 
   // Handler for handling summarizer visibility.
   // tslint:disable-next-line:variable-name
-  protected _visibilityHandler: ((ngControl: AbstractControl) => boolean) | null;
+  protected _visibilityHandler: ((ngControl: AbstractControl | NgControl) => boolean) | null;
 
   //#endregion
 
@@ -33,12 +33,12 @@ export class ValidationSummarizerComponent {
 
   // Instance of the control that needs to be validated.
   @Input('instance')
-  public set ngControl(control: AbstractControl | null) {
+  public set ngControl(control: AbstractControl | NgControl | null) {
     this._control = control;
   }
 
   // Get the instance of control that needs to be validated.
-  public get ngControl(): AbstractControl | null {
+  public get ngControl(): AbstractControl | NgControl | null {
     return this._control;
   }
 
@@ -79,11 +79,11 @@ export class ValidationSummarizerComponent {
 
   // tslint:disable-next-line:no-input-rename
   @Input('visibility-handler')
-  public set visibilityHandler(value: ((ngControl: AbstractControl) => boolean) | null) {
+  public set visibilityHandler(value: ((ngControl: AbstractControl | NgControl) => boolean) | null) {
     this._visibilityHandler = value;
   }
 
-  public get visibilityHandler(): ((ngControl: AbstractControl) => boolean) | null {
+  public get visibilityHandler(): ((ngControl: AbstractControl | NgControl) => boolean) | null {
     return this._visibilityHandler;
   }
 
@@ -104,7 +104,7 @@ export class ValidationSummarizerComponent {
 
   //#region Methods
 
-  public ableToDisplayValidationMessages(ngControl: AbstractControl | null): boolean {
+  public ableToDisplayValidationMessages(ngControl: AbstractControl | NgControl | null): boolean {
 
     if (!ngControl) {
       return false;

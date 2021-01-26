@@ -24,7 +24,7 @@
                          [formControl]="studentNameControl">
 
                   <cms-validation-summarizer [instance]="studentNameControl"
-                                             control-label="VALIDATION_SUMMARIZER_DEMO.NAME">
+                                             label="VALIDATION_SUMMARIZER_DEMO.NAME">
                   </cms-validation-summarizer>
                 </div>
 
@@ -35,7 +35,7 @@
                          [formControl]="studentAgeControl">
 
                   <cms-validation-summarizer [instance]="studentAgeControl"
-                                             control-label="VALIDATION_SUMMARIZER_DEMO.AGE">
+                                             label="VALIDATION_SUMMARIZER_DEMO.AGE">
                   </cms-validation-summarizer>
                 </div>
 
@@ -82,7 +82,7 @@
                          [formControl]="customerNameControl">
 
                   <cms-validation-summarizer [instance]="customerNameControl"
-                                             control-label="VALIDATION_SUMMARIZER_DEMO.NAME">
+                                             label="VALIDATION_SUMMARIZER_DEMO.NAME">
                   </cms-validation-summarizer>
                 </div>
 
@@ -93,7 +93,7 @@
                          [formControl]="customerAgeControl">
 
                   <cms-validation-summarizer [instance]="customerAgeControl"
-                                             control-label="VALIDATION_SUMMARIZER_DEMO.AGE">
+                                             label="VALIDATION_SUMMARIZER_DEMO.AGE">
                   </cms-validation-summarizer>
                 </div>
               </div>
@@ -105,6 +105,7 @@
   </div>
 </div>
 
+<!--Summarizer with visibility handler-->
 <div class="row"
      [formGroup]="productForm">
   <div class="col-12">
@@ -132,7 +133,7 @@
 
                   <cms-validation-summarizer [instance]="productNameControl"
                                              [visibility-handler]="visibilityHandler"
-                                             control-label="VALIDATION_SUMMARIZER_DEMO.NAME">
+                                             label="VALIDATION_SUMMARIZER_DEMO.NAME">
                   </cms-validation-summarizer>
                 </div>
               </div>
@@ -156,3 +157,65 @@
     </div>
   </div>
 </div>
+
+<!--Template driven-->
+<ng-form class="row"
+         #templateDrivenForm="ngForm">
+  <div class="col-12">
+    <div class="form-group">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Template driven form</h5>
+          <div class="card-text">
+            <ul>
+              <li>Validation summarizer also supports template driven form</li>
+            </ul>
+          </div>
+          <div class="jumbotron">
+
+            <div class="row">
+              <div class="col-lg-12">
+                <!--Name-->
+                <label>{{'VALIDATION_SUMMARIZER_DEMO.NAME'}}</label>
+                <div class="form-group">
+                  <input #clientName="ngModel"
+                         class="form-control"
+                         name="clientName"
+                         [(ngModel)]="client.name"
+
+                         [required]="true"
+                         [minLength]="5"
+                         [maxLength]="10">
+
+                  <cms-validation-summarizer [instance]="clientName"
+                                             [maximum-messages]="1"
+                                             label="VALIDATION_SUMMARIZER_DEMO.NAME">
+                  </cms-validation-summarizer>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12">
+                <label>{{'VALIDATION_SUMMARIZER_DEMO.AGE'}}</label>
+                <div class="form-group">
+                  <input #clientAge="ngModel"
+                         class="form-control"
+                         name="age"
+                         [(ngModel)]="client.age"
+                         [min]="1"
+                         [max]="100">
+
+                  <cms-validation-summarizer [instance]="clientAge"
+                                             [maximum-messages]="1"
+                                             label="VALIDATION_SUMMARIZER_DEMO.AGE">
+                  </cms-validation-summarizer>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-form>
