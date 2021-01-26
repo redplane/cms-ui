@@ -37,7 +37,7 @@ export class ValidationSummarizerDemoComponent implements OnInit, OnDestroy {
 
   public handlerVisibleControl: FormControl;
 
-  public visibilityHandler: (ngControl: AbstractControl | NgControl) => boolean |null;
+  public visibilityHandler: ((ngControl: AbstractControl | NgControl) => boolean) |null;
 
   public readonly client: ClientViewModel;
 
@@ -103,12 +103,12 @@ export class ValidationSummarizerDemoComponent implements OnInit, OnDestroy {
     const hookVisibilityChangedEventSubscription = this.handlerVisibleControl
       .valueChanges
       .subscribe(value => {
-        this.visibilityHandler = ngControl => {
+        this.visibilityHandler = (ngControl: AbstractControl | NgControl): boolean => {
           if (!value) {
-            return null;
+            return false;
           }
 
-          return ngControl.invalid && (ngControl.dirty || ngControl.touched);
+          return (ngControl.invalid && (ngControl.dirty || ngControl.touched)) as boolean;
         };
       });
 
