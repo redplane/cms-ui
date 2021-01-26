@@ -165,7 +165,7 @@ export abstract class ValidationSummarizerService implements IValidationSummariz
       if (control instanceof FormControl) {
         control.markAsTouched({onlySelf: true});
         control.markAsDirty({onlySelf: true});
-        control.updateValueAndValidity();
+        control.updateValueAndValidity({emitEvent: false});
 
         return;
       }
@@ -174,12 +174,13 @@ export abstract class ValidationSummarizerService implements IValidationSummariz
         const formControlDirective = control as FormControlDirective;
         formControlDirective.control.markAsTouched({onlySelf: true});
         formControlDirective.control.markAsDirty({onlySelf: true});
-        formControlDirective.control.updateValueAndValidity();
+        formControlDirective.control.updateValueAndValidity({emitEvent: false});
       }
 
       if (control instanceof FormGroup) {
         this.doFormControlsValidation(control);
       }
+
     } catch (exception) {
       // Suppress error.
     }

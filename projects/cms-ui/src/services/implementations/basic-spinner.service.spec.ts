@@ -1,13 +1,12 @@
-import {SPINNER_SERVICE_PROVIDER} from '@med-advisor/core-ui';
 import {TestBed} from '@angular/core/testing';
-import {SpinnerModule} from '../modules/spinner/spinner.module';
 import {v4 as uuid} from 'uuid';
 import {finalize, take} from 'rxjs/operators';
-import {Visibilities} from '@app/modules/shared/two-column-layout/enums/visibility.enum';
 import {forkJoin, Subscription} from 'rxjs';
-import {SpinnerVisibilityChanged} from '../models/spinner-visibility-changed';
-import {BasicSpinnerService} from './basic-spinner.service';
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
+import {SpinnerContainerModule} from '../../modules';
+import {SPINNER_SERVICE_PROVIDER} from '../../constants';
+import {Visibilities} from '../../enums';
+import {SpinnerVisibilityChanged} from '../../models';
 
 
 describe('Unit tests for SpinnerService', () => {
@@ -28,7 +27,7 @@ describe('Unit tests for SpinnerService', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        SpinnerModule.forRoot()
+        SpinnerContainerModule.forRoot()
       ]
     });
 
@@ -55,7 +54,7 @@ describe('Unit tests for SpinnerService', () => {
         take(1)
       )
       .subscribe(event => {
-        expect(event.visibility).toEqual(Visibilities.visbible);
+        expect(event.visibility).toEqual(Visibilities.visible);
         done();
       });
 
@@ -73,7 +72,7 @@ describe('Unit tests for SpinnerService', () => {
         finalize(() => done())
       )
       .subscribe(event => {
-        expect(event.visibility).toEqual(Visibilities.visbible);
+        expect(event.visibility).toEqual(Visibilities.visible);
       });
 
     subscription.add(hookSpinnerVisibilitySubscription);
@@ -107,7 +106,7 @@ describe('Unit tests for SpinnerService', () => {
         finalize(() => done())
       )
       .subscribe(event => {
-        expect(event.visibility).toEqual(Visibilities.visbible);
+        expect(event.visibility).toEqual(Visibilities.visible);
       });
 
     subscription.add(hookSpinnerVisibilitySubscription);
@@ -125,6 +124,7 @@ describe('Unit tests for SpinnerService', () => {
       addedRequestIds.push(addedSpinnerId);
     }
 
+    // tslint:disable-next-line:prefer-for-of
     for (let j = 0; j < addedRequestIds.length; j++) {
       spinnerService.deleteSpinner(containerId, addedRequestIds[j]);
     }
