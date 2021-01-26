@@ -7,13 +7,13 @@ import {DemoLayoutModule} from '../shared/demo-layout/demo-layout.module';
 import {CommonModule} from '@angular/common';
 
 @NgModule({
-    imports: [
-        SpinnerDemoRoutingModule,
+  imports: [
+    SpinnerDemoRoutingModule,
 
-        DemoLayoutModule,
-        SpinnerContainerModule.forRoot(),
-        CommonModule
-    ],
+    DemoLayoutModule,
+    SpinnerContainerModule.forRoot(),
+    CommonModule
+  ],
   declarations: [
     SpinnerDemoComponent
   ],

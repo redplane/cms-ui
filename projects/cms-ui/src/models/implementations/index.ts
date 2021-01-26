@@ -5,3 +5,6 @@ export * from './validation-message-context';
 
 // Dialog export.
 export * from './dialogs/index';
+
+// Smart navigator export.
+export * from './smart-navigators/index';

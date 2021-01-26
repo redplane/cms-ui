@@ -25,6 +25,11 @@ const routes: Routes = [
         loadChildren: () => import('./dialog-demo/dialog-demo.module').then(m => m.DialogDemoModule)
       },
       {
+        path: 'smart-navigator-demo',
+        loadChildren: () => import('./smart-navigator-demo/smart-navigator-demo.module')
+          .then(m => m.SmartNavigatorDemoModule)
+      },
+      {
         path: '',
         loadChildren: () => import('./landing/landing-page.module').then(m => m.LandingPageModule)
       }

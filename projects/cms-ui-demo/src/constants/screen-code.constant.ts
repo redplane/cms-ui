@@ -12,6 +12,12 @@ export class ScreenCodeConstant {
 
   public static readonly dialogDemo = 'DIALOG_DEMO';
 
+  public static readonly smartNavigatorDemo = 'SMART_NAVIGATOR_DEMO';
+
+  public static readonly smartNavigatorTab01Demo = 'SMART_NAVIGATOR_TAB_01_DEMO';
+
+  public static readonly smartNavigatorTab02Demo = 'SMART_NAVIGATOR_TAB_02_DEMO';
+
   //#endregion
 
 }

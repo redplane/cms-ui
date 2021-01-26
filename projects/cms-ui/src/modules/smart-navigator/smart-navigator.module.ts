@@ -3,6 +3,8 @@ import {RouterModule} from '@angular/router';
 import {SMART_NAVIGATOR_PROVIDER, SMART_NAVIGATOR_ROUTES} from '../../constants/injection-token.constant';
 import {SmartNavigatorService} from '../../services/implementations/smart-navigator.service';
 import {ISmartNavigatorService} from '../../services';
+import {ToRawUrlPipe} from '../../pipes/smart-navigators/to-raw-url.pipe';
+import {ToUrlTreePipe} from '../../pipes/smart-navigators/to-url-tree.pipe';
 
 export function basicNavigatorServiceFactory(injector: Injector): ISmartNavigatorService {
   return new SmartNavigatorService(injector);
@@ -11,6 +13,10 @@ export function basicNavigatorServiceFactory(injector: Injector): ISmartNavigato
 @NgModule({
   imports: [
     RouterModule
+  ],
+  declarations: [
+    ToRawUrlPipe,
+    ToUrlTreePipe
   ]
 })
 export class SmartNavigatorModule {

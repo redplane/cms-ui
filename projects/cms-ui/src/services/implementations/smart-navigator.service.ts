@@ -1,11 +1,11 @@
 import {ISmartNavigatorService} from '../interfaces/smart-navigator-service.interface';
-import {Inject, Injectable, Injector, Optional} from '@angular/core';
-import {from, Observable, Subscription} from 'rxjs';
+import {Injector} from '@angular/core';
+import {from, Observable} from 'rxjs';
 import {NavigationExtras, Router, NavigationEnd, UrlTree} from '@angular/router';
 import {templateSettings, template} from 'lodash-es';
-import {filter} from 'rxjs/operators';
 import {SMART_NAVIGATOR_ROUTES} from '../../constants/injection-token.constant';
 import {merge as lodashMerge} from 'lodash-es';
+import {NavigateToScreenRequest} from '../../models/implementations/smart-navigators/navigate-to-screen-request';
 
 export class SmartNavigatorService implements ISmartNavigatorService {
 
@@ -40,18 +40,25 @@ export class SmartNavigatorService implements ISmartNavigatorService {
 
   // Navigate to a screen by using screen code.
   // tslint:disable-next-line: whitespace
-  public navigateToScreenAsync(code: string, routeParams?: { [key: string]: any; }, extras?: NavigationExtras): Observable<boolean> {
+  public navigateToScreenAsync(request: NavigateToScreenRequest): Observable<boolean> {
+
+    if (!request) {
+      throw new Error('Invalid request');
+    }
+
     if (!this._codeToUrlMappings) {
       throw new Error('No mapping is found');
     }
-    if (!this._codeToUrlMappings[code]) {
-      throw new Error(`No url is found with screen code: ${code}`);
-    }
-    templateSettings.interpolate = /{{([\s\S]+?)}}/g;
-    const compiled = template(this._codeToUrlMappings[code]);
-    const fullUrl = compiled(routeParams);
 
-    return from(this.router.navigate([fullUrl], extras));
+    if (!this._codeToUrlMappings[request.code]) {
+      throw new Error(`No url is found with screen code: ${request.code}`);
+    }
+
+    templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+    const compiled = template(this._codeToUrlMappings[request.code]);
+    const fullUrl = compiled(request.routeParams);
+
+    return from(this.router.navigate([fullUrl], request.extras));
   }
 
   // Get raw url.
