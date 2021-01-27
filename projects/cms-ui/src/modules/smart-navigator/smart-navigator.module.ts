@@ -5,6 +5,7 @@ import {SmartNavigatorService} from '../../services/implementations/smart-naviga
 import {ISmartNavigatorService} from '../../services';
 import {ToRawUrlPipe} from '../../pipes/smart-navigators/to-raw-url.pipe';
 import {ToUrlTreePipe} from '../../pipes/smart-navigators/to-url-tree.pipe';
+import {ToUrlPipe} from '../../pipes/smart-navigators/to-url.pipe';
 
 export function basicNavigatorServiceFactory(injector: Injector): ISmartNavigatorService {
   return new SmartNavigatorService(injector);
@@ -16,7 +17,13 @@ export function basicNavigatorServiceFactory(injector: Injector): ISmartNavigato
   ],
   declarations: [
     ToRawUrlPipe,
-    ToUrlTreePipe
+    ToUrlTreePipe,
+    ToUrlPipe
+  ],
+  exports: [
+    ToRawUrlPipe,
+    ToUrlTreePipe,
+    ToUrlPipe
   ]
 })
 export class SmartNavigatorModule {

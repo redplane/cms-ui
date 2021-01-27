@@ -7,7 +7,7 @@ export interface ISmartNavigatorService {
   //#region Methods
 
   // Navigate to a specific screen by using screen code.
-  navigateToScreenAsync(request: NavigateToScreenRequest): Observable<boolean>;
+  navigateToScreenAsync(request: NavigateToScreenRequest<any>): Observable<boolean>;
 
   // Get raw url from code.
   loadRawUrl(code: string): string | null;

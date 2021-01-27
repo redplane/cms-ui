@@ -4,6 +4,7 @@ import {IDemoLayoutService} from '../../services/interfaces/demo-layout-service.
 import {ISmartNavigatorService, NavigateToScreenRequest, SMART_NAVIGATOR_PROVIDER} from '@cms-ui/core';
 import {ScreenCodeConstant} from '../../constants/screen-code.constant';
 import {Subscription} from 'rxjs';
+import {Navigator03NavigationRequest} from '../../models/smart-navigators/navigator-03.navigation-request';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,6 +16,9 @@ export class SmartNavigatorDemoComponent implements OnInit, OnDestroy {
 
   //#region Properties
 
+  // tslint:disable-next-line:variable-name
+  protected _fourthTabNavigationRequest: Navigator03NavigationRequest;
+
   protected subscription: Subscription;
 
   //#endregion
@@ -25,12 +29,20 @@ export class SmartNavigatorDemoComponent implements OnInit, OnDestroy {
     return ScreenCodeConstant;
   }
 
+  public get fourthTabNavigationRequest(): NavigateToScreenRequest<void> {
+    return this._fourthTabNavigationRequest;
+  }
+
   //#endregion
 
   //#region Constructor
 
   public constructor(@Inject(DEMO_LAYOUT_SERVICE_PROVIDER) protected demoLayoutService: IDemoLayoutService,
                      @Inject(SMART_NAVIGATOR_PROVIDER) protected smartNavigatorService: ISmartNavigatorService) {
+
+    this._fourthTabNavigationRequest = new Navigator03NavigationRequest({
+      queryParams: {id: 1, name: 'hello'}
+    });
     this.subscription = new Subscription();
   }
 

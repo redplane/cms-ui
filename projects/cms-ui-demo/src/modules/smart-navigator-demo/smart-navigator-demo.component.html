@@ -23,9 +23,25 @@
                  [routerLinkActive]="'active'"
                  (click)="$event.preventDefault();">Tab 02</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link"
+                 href="#"
+                 [routerLink]="ScreenCodes.smartNavigatorTab03Demo | toUrlTree | toUrl"
+                 [routerLinkActive]="'active'"
+                 [routerLinkActiveOptions]="{exact: true}"
+                 (click)="$event.preventDefault();">Tab 03</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link"
+                 href="#"
+                 [routerLink]="ScreenCodes.smartNavigatorTab03Demo | toUrlTree | toUrl"
+                 [queryParams]="fourthTabNavigationRequest.extras?.queryParams"
+                 [routerLinkActive]="'active'"
+                 [routerLinkActiveOptions]="{exact: true}"
+                 (click)="$event.preventDefault();">Tab 03 (with params)</a>
+            </li>
           </ul>
         </div>
-
 
         <router-outlet></router-outlet>
 

@@ -18,6 +18,8 @@ export class ScreenCodeConstant {
 
   public static readonly smartNavigatorTab02Demo = 'SMART_NAVIGATOR_TAB_02_DEMO';
 
+  public static readonly smartNavigatorTab03Demo = 'SMART_NAVIGATOR_TAB_03_DEMO';
+
   //#endregion
 
 }

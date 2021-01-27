@@ -21,7 +21,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       DIALOG_DEMO: '/dialog-demo',
       SMART_NAVIGATOR_DEMO: '/smart-navigator-demo',
       SMART_NAVIGATOR_TAB_01_DEMO: '/smart-navigator-demo/tab-01',
-      SMART_NAVIGATOR_TAB_02_DEMO: '/smart-navigator-demo/tab-02'
+      SMART_NAVIGATOR_TAB_02_DEMO: '/smart-navigator-demo/tab-02',
+      SMART_NAVIGATOR_TAB_03_DEMO: '/smart-navigator-demo/tab-03'
     }),
     MasterLayoutModule,
     AppRoutingModule,

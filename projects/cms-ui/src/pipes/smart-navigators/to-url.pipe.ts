@@ -4,9 +4,9 @@ import {SMART_NAVIGATOR_PROVIDER} from '../../constants';
 import {NavigationExtras, UrlTree} from '@angular/router';
 
 @Pipe({
-  name: 'toUrlTree'
+  name: 'toUrl'
 })
-export class ToUrlTreePipe implements PipeTransform {
+export class ToUrlPipe implements PipeTransform {
 
   //#region Services
 
@@ -25,14 +25,8 @@ export class ToUrlTreePipe implements PipeTransform {
 
   //#region Methods
 
-  public transform(value: string, routeParams?: { [key: string]: any; },
-                   extras?: NavigationExtras): UrlTree {
-
-    if (extras) {
-      extras.queryParams = null;
-    }
-
-    return this.smartNavigatorService.buildUrlTree(value, routeParams, extras);
+  public transform(value: UrlTree): string {
+    return value.toString();
   }
 
   //#endregion

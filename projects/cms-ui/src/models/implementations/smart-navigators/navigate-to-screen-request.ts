@@ -1,21 +1,25 @@
 import {NavigationExtras} from '@angular/router';
 
-export class NavigateToScreenRequest {
+export class NavigateToScreenRequest<T> {
 
   //#region Properties
 
   public code: string;
 
-  public routeParams?: { [key: string]: any; };
+  public readonly routeParams?: T;
 
-  public extras?: NavigationExtras;
+  public readonly extras?: NavigationExtras;
 
   //#endregion
 
   //#region Constructor
 
-  public constructor(code: string) {
+  public constructor(code: string,
+                     routeParams?: T,
+                     extras?: NavigationExtras) {
     this.code = code;
+    this.routeParams = routeParams;
+    this.extras = extras;
   }
 
   //#endregion

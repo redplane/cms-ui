@@ -22,6 +22,11 @@ const routes: Routes = [
             path: 'tab-02',
             loadChildren: () => import('./tabs/navigator-02/navigator-02.module')
               .then(m => m.Navigator02Module)
+          },
+          {
+            path: 'tab-03',
+            loadChildren: () => import('./tabs/navigator-03/navigator-03.module')
+              .then(m => m.Navigator03Module)
           }
         ]
       }

@@ -40,7 +40,7 @@ export class SmartNavigatorService implements ISmartNavigatorService {
 
   // Navigate to a screen by using screen code.
   // tslint:disable-next-line: whitespace
-  public navigateToScreenAsync(request: NavigateToScreenRequest): Observable<boolean> {
+  public navigateToScreenAsync(request: NavigateToScreenRequest<any>): Observable<boolean> {
 
     if (!request) {
       throw new Error('Invalid request');
@@ -78,7 +78,8 @@ export class SmartNavigatorService implements ISmartNavigatorService {
     const compiled = template(rawUrl);
     const fullUrl = compiled(routeParams);
 
-    return this.router.createUrlTree([fullUrl], extras);
+    const urlTree = this.router.createUrlTree([fullUrl], extras);
+    return urlTree;
   }
 
   //#endregion
