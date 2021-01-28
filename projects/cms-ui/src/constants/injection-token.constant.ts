@@ -5,6 +5,7 @@ import {ISmartNavigatorService} from '../services/interfaces/smart-navigator-ser
 import {IValidationSummarizerService} from '../services/interfaces/validation-summarizer-service.interface';
 import {IBannerContentBuilder, IDialogService} from '../services';
 import {IDialogBuilder} from '../services/interfaces/dialogs/dialog-builder.interface';
+import {IScreenCodeResolver} from '../services/interfaces/screen-code-resolver.interface';
 
 // Spinner providers.
 export const SPINNER_SERVICE_PROVIDER = new InjectionToken<ISpinnerService>('SPINNER_SERVICE_PROVIDER');
@@ -17,6 +18,7 @@ export const BANNER_BUILDER_PROVIDER = new InjectionToken<IBannerContentBuilder>
 // Smart navigator providers.
 export const SMART_NAVIGATOR_PROVIDER = new InjectionToken<ISmartNavigatorService>('SMART_NAVIGATOR_PROVIDER');
 export const SMART_NAVIGATOR_ROUTES = new InjectionToken<{ [key: string]: string }>('SMART_NAVIGATOR_ROUTES');
+export const SMART_NAVIGATOR_SCREEN_CODE_RESOLVER = new InjectionToken<IScreenCodeResolver>('SMART_NAVIGATOR_SCREEN_CODE_RESOLVER');
 
 // Validation summarizer providers.
 export const VALIDATION_SUMMARIZER_PROVIDER = new InjectionToken<IValidationSummarizerService>('VALIDATION_SUMMARIZER_PROVIDER');

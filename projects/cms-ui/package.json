@@ -1,6 +1,6 @@
 {
   "name": "@cms-ui/core",
-  "version": "1.0.0-preview-017",
+  "version": "1.0.0-preview-018",
   "peerDependencies": {
     "@angular/common": "^11.0.1",
     "@angular/core": "^11.0.1",
@@ -12,12 +12,12 @@
     "email": "redplane_dt@yahoo.com.vn",
     "url": "https://nguyen-duy-linh.netlify.com"
   },
-  "bugs": "https://github.com/redplane/rx-message-bus/issues",
+  "bugs": "https://github.com/redplane/cms-ui/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/redplane/rx-message-bus.git"
+    "url": "https://github.com/redplane/cms-ui/issues"
   },
-  "homepage": "https://github.com/redplane/rx-message-bus",
+  "homepage": "https://github.com/redplane/cms-ui",
   "license": "MIT",
   "keywords": [
     "cms-ui",

@@ -10,7 +10,7 @@ export interface ISmartNavigatorService {
   navigateToScreenAsync(request: NavigateToScreenRequest<any>): Observable<boolean>;
 
   // Get raw url from code.
-  loadRawUrl(code: string): string | null;
+  loadRawUrl(code: string): string;
 
   // Build url tree from screen code.
   buildUrlTree(screenCode: string, routeParams?: { [key: string]: any; },

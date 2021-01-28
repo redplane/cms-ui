@@ -4,8 +4,9 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {MasterLayoutModule} from './master-layout/master-layout.module';
-import {SmartNavigatorModule} from '@cms-ui/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {SMART_NAVIGATOR_SCREEN_CODE_RESOLVER, SmartNavigatorModule} from '@cms-ui/core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {SmartNavigatorDemoScreenCodeResolver} from '../services/implementations/screen-code-resolvers/smart-navigator-demo.screen-code-resolver';
 
 @NgModule({
   declarations: [
@@ -18,17 +19,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       SPINNER_DEMO: '/spinner-demo',
       BANNER_DEMO: '/banner-demo',
       VALIDATION_SUMMARIZER_DEMO: '/validation-summarizer-demo',
-      DIALOG_DEMO: '/dialog-demo',
-      SMART_NAVIGATOR_DEMO: '/smart-navigator-demo',
-      SMART_NAVIGATOR_TAB_01_DEMO: '/smart-navigator-demo/tab-01',
-      SMART_NAVIGATOR_TAB_02_DEMO: '/smart-navigator-demo/tab-02',
-      SMART_NAVIGATOR_TAB_03_DEMO: '/smart-navigator-demo/tab-03'
+      DIALOG_DEMO: '/dialog-demo'
     }),
     MasterLayoutModule,
     AppRoutingModule,
     NgbModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: SMART_NAVIGATOR_SCREEN_CODE_RESOLVER,
+      useClass: SmartNavigatorDemoScreenCodeResolver,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -10,5 +10,8 @@ export * from './models/index';
 // Modules export.
 export * from './modules/index';
 
+// Pipes export.
+export * from './pipes/index';
+
 // Services export.
 export * from './services/index';
