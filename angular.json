@@ -68,6 +68,7 @@
               "projects/cms-ui-demo/src/assets"
             ],
             "styles": [
+              "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "projects/cms-ui-demo/src/styles.scss"
             ],

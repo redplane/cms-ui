@@ -1,9 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, NgControl, Validators} from '@angular/forms';
-import {NumericValidator} from '../../validators/numeric.validator';
-import {KeyValue} from '@angular/common';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {ClientViewModel} from '../../view-models/client.view-model';
+import {ValidationSummarizerDemoScreenCodeConstant} from '../../constants/screen-codes/validation-summarizer-demo-screen-code.constant';
+import {IDemoLayoutService} from '../../services/interfaces/demo-layout-service.interface';
+import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../constants/injection-token.constant';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,83 +14,32 @@ export class ValidationSummarizerDemoComponent implements OnInit, OnDestroy {
 
   //#region Properties
 
-  public readonly studentForm: FormGroup;
-
-  public readonly studentNameControl: FormControl;
-
-  public readonly studentAgeControl: FormControl;
-
-  public readonly securityNoControl: FormControl;
-
-  public readonly customerForm: FormGroup;
-
-  public readonly customerNameControl: FormControl;
-
-  public readonly customerAgeControl: FormControl;
-
-  public readonly productForm: FormGroup;
-
-  public readonly productNameControl: FormControl;
-
-  public readonly visibilityOptions: KeyValue<string, boolean>[];
-
-  public handlerVisibleControl: FormControl;
-
-  public visibilityHandler: ((ngControl: AbstractControl | NgControl) => boolean) |null;
-
-  public readonly client: ClientViewModel;
-
   // tslint:disable-next-line:variable-name
   protected _subscription: Subscription;
 
   //#endregion
 
+  //#region Services
+
+  protected readonly demoLayoutService: IDemoLayoutService;
+
+  //#endregion
+
+  //#region Accessors
+
+  public get validationSummarizerDemoScreenCodes(): typeof ValidationSummarizerDemoScreenCodeConstant {
+    return ValidationSummarizerDemoScreenCodeConstant;
+  }
+
+  //#endregion
+
   //#region Constructor
 
-  public constructor() {
+  public constructor(injector: Injector) {
+
+    this.demoLayoutService = injector.get(DEMO_LAYOUT_SERVICE_PROVIDER);
 
     this._subscription = new Subscription();
-
-    this.studentNameControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
-    this.studentAgeControl = new FormControl('', [Validators.min(10)]);
-    this.securityNoControl = new FormControl('');
-
-    this.studentForm = new FormGroup({
-      name: this.studentNameControl,
-      age: this.studentAgeControl,
-      securityNo: this.securityNoControl
-    });
-
-
-    this.customerNameControl = new FormControl('', [Validators.required]);
-    this.customerAgeControl = new FormControl('', [NumericValidator.notSmallerThan(10)]);
-
-    this.customerForm = new FormGroup({
-      name: this.customerNameControl,
-      age: this.customerAgeControl
-    });
-
-    this.productNameControl = new FormControl('', [Validators.required]);
-    this.handlerVisibleControl = new FormControl(false);
-    this.productForm = new FormGroup({
-      name: this.productNameControl,
-      handlerVisible: this.handlerVisibleControl
-    });
-
-    this.visibilityOptions = [
-      {
-        key: 'VALIDATION_SUMMARIZER_DEMO.YES',
-        value: true
-      },
-      {
-        key: 'VALIDATION_SUMMARIZER_DEMO.NO',
-        value: false
-      }
-    ];
-
-    this.visibilityHandler = _ => this.handlerVisibleControl.value;
-
-    this.client = new ClientViewModel();
   }
 
   //#endregion
@@ -99,20 +47,8 @@ export class ValidationSummarizerDemoComponent implements OnInit, OnDestroy {
   //#region Life cycles
 
   public ngOnInit(): void {
-
-    const hookVisibilityChangedEventSubscription = this.handlerVisibleControl
-      .valueChanges
-      .subscribe(value => {
-        this.visibilityHandler = (ngControl: AbstractControl | NgControl): boolean => {
-          if (!value) {
-            return false;
-          }
-
-          return (ngControl.invalid && (ngControl.dirty || ngControl.touched)) as boolean;
-        };
-      });
-
-    this._subscription.add(hookVisibilityChangedEventSubscription);
+    this.demoLayoutService.setTitle('Validation Summarizer');
+    this.demoLayoutService.setSecondaryTitle('Demo');
   }
 
   public ngOnDestroy(): void {

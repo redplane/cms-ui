@@ -13,7 +13,38 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ValidationSummarizerDemoComponent
+        component: ValidationSummarizerDemoComponent,
+        children: [
+          {
+            path: 'message-template',
+            loadChildren: () => import('./vsm-with-template/vsm-with-template.module')
+              .then(m => m.VsmWithTemplateModule)
+          },
+          {
+            path: 'visibility-handler',
+            loadChildren: () => import('./vsm-with-visibility-handler/vsm-with-visibility-handler.module')
+              .then(m => m.VsmWithVisibilityHandlerModule)
+          },
+          {
+            path: 'template-driven',
+            loadChildren: () => import('./vsm-with-template-driven/vsm-with-template-driven.module')
+              .then(m => m.VsmWithTemplateDrivenModule)
+          },
+          {
+            path: 'custom-validator',
+            loadChildren: () => import('./vsm-with-custom-validator/vsm-with-custom-validator.module')
+              .then(m => m.VsmWithCustomValidatorModule)
+          },
+          {
+            path: '',
+            loadChildren: () => import('./vms-with-basic-validator/vms-with-basic-validator.module')
+              .then(m => m.VmsWithBasicValidatorModule)
+          },
+          {
+            path: '**',
+            redirectTo: ''
+          }
+        ]
       }
     ]
   }

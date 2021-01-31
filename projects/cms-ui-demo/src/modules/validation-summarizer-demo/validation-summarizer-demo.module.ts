@@ -3,6 +3,7 @@ import {ValidationSummarizerRoutingModule} from './validation-summarizer-routing
 import {ValidationSummarizerDemoComponent} from './validation-summarizer-demo.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
+  SmartNavigatorModule,
   VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK,
   VALIDATION_SUMMARIZER_MESSAGES,
   VALIDATION_SUMMARIZER_PROVIDER,
@@ -24,6 +25,7 @@ import {TranslateModule} from '@ngx-translate/core';
     // }),
     TranslateModule.forChild(),
     ValidationSummarizerModule,
+    SmartNavigatorModule,
     CommonModule,
     FormsModule
   ],

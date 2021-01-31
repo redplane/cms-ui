@@ -1,21 +1,21 @@
 import {NgModule} from '@angular/core';
-import {VsmWithTemplateComponent} from './vsm-with-template.component';
-import {VsmWithTemplateRoutingModule} from './vsm-with-template-routing.module';
+import {VsmWithVisibilityHandlerRoutingModule} from './vsm-with-visibility-handler-routing.module';
+import {VsmWithVisibilityHandlerComponent} from './vsm-with-visibility-handler.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ValidationSummarizerModule} from '@cms-ui/core';
 import {CommonModule} from '@angular/common';
 
 @NgModule({
   imports: [
-    VsmWithTemplateRoutingModule,
+    VsmWithVisibilityHandlerRoutingModule,
     ReactiveFormsModule,
     ValidationSummarizerModule,
     CommonModule
   ],
   declarations: [
-    VsmWithTemplateComponent
+    VsmWithVisibilityHandlerComponent
   ]
 })
-export class VsmWithTemplateModule {
+export class VsmWithVisibilityHandlerModule {
 
 }

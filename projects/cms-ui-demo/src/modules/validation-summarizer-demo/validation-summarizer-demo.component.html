@@ -1,223 +1,50 @@
-<!--Basic validation summarizer-->
-<div class="row"
-     [formGroup]="studentForm">
-  <div class="col-12">
-    <div class="form-group">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Basic validation summarizer</h5>
-          <div class="card-text">
-            <ul>
-              <li>Validation summarizer can be placed under a specific control</li>
-              <li>It retrieves control errors and display them on the screen.</li>
-            </ul>
-          </div>
-          <div class="jumbotron">
-            <div class="row">
-              <div class="col-lg-12">
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link"
+       href="#"
+       [routerLinkActive]="'active'"
+       [routerLink]="validationSummarizerDemoScreenCodes.withBasicValidator | toUrlTree | toUrl"
+       [routerLinkActiveOptions]="{exact: true}"
+       (click)="$event.preventDefault()">
+      {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR'}}
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"
+       href="#"
+       [routerLinkActive]="'active'"
+       [routerLink]="validationSummarizerDemoScreenCodes.withMessageTemplate | toUrlTree | toUrl"
+       (click)="$event.preventDefault()">
+      {{'VALIDATION_SUMMARIZER_DEMO.MESSAGE_TEMPLATE'}}
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"
+       href="#"
+       [routerLinkActive]="'active'"
+       [routerLink]="validationSummarizerDemoScreenCodes.withVisibilityHandler | toUrlTree | toUrl"
+       (click)="$event.preventDefault()">
+      {{'VALIDATION_SUMMARIZER_DEMO.VISIBILITY_HANDLER'}}
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"
+       href="#"
+       [routerLinkActive]="'active'"
+       [routerLink]="validationSummarizerDemoScreenCodes.withTemplateDriven | toUrlTree | toUrl"
+       (click)="$event.preventDefault()">
+      {{'VALIDATION_SUMMARIZER_DEMO.TEMPLATE_DRIVEN'}}
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"
+       href="#"
+       [routerLinkActive]="'active'"
+       [routerLink]="validationSummarizerDemoScreenCodes.withCustomValidator | toUrlTree | toUrl"
+       (click)="$event.preventDefault()">
+      {{'VALIDATION_SUMMARIZER_DEMO.CUSTOM_VALIDATOR'}}
+    </a>
+  </li>
+</ul>
 
-                <!--Name-->
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.NAME'}}</label>
-                <div class="form-group">
-                  <input class="form-control"
-                         name="studentName"
-                         [formControl]="studentNameControl">
-
-                  <cms-validation-summarizer [instance]="studentNameControl"
-                                             label="VALIDATION_SUMMARIZER_DEMO.NAME">
-                  </cms-validation-summarizer>
-                </div>
-
-                <!--Age-->
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.AGE'}}</label>
-                <div class="form-group">
-                  <input class="form-control"
-                         [formControl]="studentAgeControl">
-
-                  <cms-validation-summarizer [instance]="studentAgeControl"
-                                             label="VALIDATION_SUMMARIZER_DEMO.AGE">
-                  </cms-validation-summarizer>
-                </div>
-
-                <!--Security number-->
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.SECURITY_NUMBER'}}</label>
-                <div class="form-group">
-                  <input class="form-control"
-                         [formControl]="securityNoControl">
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--Summarizer with custom validator-->
-<div class="row"
-     [formGroup]="studentForm">
-  <div class="col-12">
-    <div class="form-group">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Summarizer with custom validator</h5>
-          <div class="card-text">
-            <ul>
-              <li>This validation summarizer also supports custom validation rule.</li>
-              <li>Additional message mapping must be defined to be displayed onto screen.</li>
-              <li>For more information, please input value which is smaller than 10 into Age field.</li>
-            </ul>
-          </div>
-          <div class="jumbotron">
-            <div class="row">
-              <div class="col-lg-12">
-
-                <!--Name-->
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.NAME'}}</label>
-                <div class="form-group">
-                  <input class="form-control"
-                         name="studentName"
-                         [formControl]="customerNameControl">
-
-                  <cms-validation-summarizer [instance]="customerNameControl"
-                                             label="VALIDATION_SUMMARIZER_DEMO.NAME">
-                  </cms-validation-summarizer>
-                </div>
-
-                <!--Age-->
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.AGE'}}</label>
-                <div class="form-group">
-                  <input class="form-control"
-                         [formControl]="customerAgeControl">
-
-                  <cms-validation-summarizer [instance]="customerAgeControl"
-                                             label="VALIDATION_SUMMARIZER_DEMO.AGE">
-                  </cms-validation-summarizer>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--Summarizer with visibility handler-->
-<div class="row"
-     [formGroup]="productForm">
-  <div class="col-12">
-    <div class="form-group">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Summarizer with visibility handler</h5>
-          <div class="card-text">
-            <ul>
-              <li>Visibility handler can be used for deciding whether validation messages can be visible or not</li>
-              <li>If no handler is used, service handler will be used instead.</li>
-              <li>Component handler has higher priority than the service one</li>
-            </ul>
-          </div>
-          <div class="jumbotron">
-
-            <div class="row">
-              <div class="col-lg-12">
-                <!--Name-->
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.NAME'}}</label>
-                <div class="form-group">
-                  <input class="form-control"
-                         name="productName"
-                         [formControl]="productNameControl">
-
-                  <cms-validation-summarizer [instance]="productNameControl"
-                                             [visibility-handler]="visibilityHandler"
-                                             label="VALIDATION_SUMMARIZER_DEMO.NAME">
-                  </cms-validation-summarizer>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-lg-12">
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.VISIBLE'}}</label>
-                <div class="form-group">
-                  <select class="form-control"
-                          [formControl]="handlerVisibleControl">
-                    <option *ngFor="let item of visibilityOptions"
-                            [ngValue]="item.value">{{item.key}}</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!--Template driven-->
-<ng-form class="row"
-         #templateDrivenForm="ngForm">
-  <div class="col-12">
-    <div class="form-group">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Template driven form</h5>
-          <div class="card-text">
-            <ul>
-              <li>Validation summarizer also supports template driven form</li>
-            </ul>
-          </div>
-          <div class="jumbotron">
-
-            <div class="row">
-              <div class="col-lg-12">
-                <!--Name-->
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.NAME'}}</label>
-                <div class="form-group">
-                  <input #clientName="ngModel"
-                         class="form-control"
-                         name="clientName"
-                         [(ngModel)]="client.name"
-
-                         [required]="true"
-                         [minLength]="5"
-                         [maxLength]="10">
-
-                  <cms-validation-summarizer [instance]="clientName"
-                                             [maximum-messages]="1"
-                                             label="VALIDATION_SUMMARIZER_DEMO.NAME">
-                  </cms-validation-summarizer>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-lg-12">
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.AGE'}}</label>
-                <div class="form-group">
-                  <input #clientAge="ngModel"
-                         class="form-control"
-                         name="age"
-                         [(ngModel)]="client.age"
-                         [min]="1"
-                         [max]="100">
-
-                  <cms-validation-summarizer [instance]="clientAge"
-                                             [maximum-messages]="1"
-                                             label="VALIDATION_SUMMARIZER_DEMO.AGE">
-                  </cms-validation-summarizer>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-form>
-
-
+<router-outlet></router-outlet>
