@@ -65,7 +65,8 @@
             "aot": true,
             "assets": [
               "projects/cms-ui-demo/src/favicon.ico",
-              "projects/cms-ui-demo/src/assets"
+              "projects/cms-ui-demo/src/assets",
+              "projects/cms-ui-demo/src/netlify.toml"
             ],
             "styles": [
               "node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss",
