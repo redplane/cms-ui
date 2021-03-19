@@ -1,4 +1,15 @@
-import {Component, HostBinding, Inject, Input, OnDestroy, OnInit, TemplateRef} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostBinding,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import {v4 as uuid} from 'uuid';
 import {Subscription} from 'rxjs';
 import {SpinnerVisibilityChanged} from '../../models/implementations/spinner-visibility-changed';
@@ -12,7 +23,7 @@ import {ISpinnerService} from '../../services/interfaces/spinner-service.interfa
   templateUrl: 'spinner-container.component.html',
   styleUrls: ['spinner-container.component.scss']
 })
-export class SpinnerContainerComponent implements OnInit, OnDestroy {
+export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //#region Properties
 
@@ -28,6 +39,10 @@ export class SpinnerContainerComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:variable-name
   private _hostClass: string;
 
+  // Mapping between display request id & displayed component.
+  // tslint:disable-next-line:variable-name
+  private _idToDisplayedComponent: { [id: string]: Component };
+
   // Loading spinner template.
   // tslint:disable-next-line:no-input-rename
   @Input('spinner-template')
@@ -35,6 +50,10 @@ export class SpinnerContainerComponent implements OnInit, OnDestroy {
 
   // Subscription watch list.
   protected hookVisibilityChangedSubscription: Subscription | undefined;
+
+  // Spinner template reference.
+  @ViewChild('spinnerTemplate', {static: false})
+  public spinnerTemplateRef: TemplateRef<any> | undefined;
 
   //#endregion
 
@@ -77,12 +96,15 @@ export class SpinnerContainerComponent implements OnInit, OnDestroy {
 
   //#region Constructor
 
-  public constructor(@Inject(SPINNER_SERVICE_PROVIDER) protected spinnerService: ISpinnerService) {
+  public constructor(@Inject(SPINNER_SERVICE_PROVIDER) protected spinnerService: ISpinnerService,
+                     protected viewContainerRef: ViewContainerRef) {
     this.id = uuid();
 
     this._id = uuid();
     this._visibility = Visibilities.hidden;
     this._hostClass = '';
+
+    this._idToDisplayedComponent = {};
   }
 
   //#endregion
@@ -94,9 +116,11 @@ export class SpinnerContainerComponent implements OnInit, OnDestroy {
 
   }
 
+  public ngAfterViewInit(): void {
+  }
+
   // Called when component is destroyed.
   public ngOnDestroy(): void {
-
     if (this.hookVisibilityChangedSubscription && !this.hookVisibilityChangedSubscription.closed) {
       this.hookVisibilityChangedSubscription.unsubscribe();
     }
