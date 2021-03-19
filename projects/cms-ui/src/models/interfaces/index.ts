@@ -1,6 +1,6 @@
 export * from './banners/index';
+export * from './dialogs/index';
+export * from './spinner-options.interface';
 export * from './timeout-action.interface';
 export * from './validation-summarizer-settings.interface';
 
-// Dialog export.
-export * from './dialogs/index';

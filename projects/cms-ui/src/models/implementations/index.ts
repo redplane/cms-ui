@@ -1,5 +1,5 @@
+export * from './delete-spinner-request';
 export * from './display-spinner-request';
-export * from './spinner-visibility-changed';
 export * from './validation-message';
 export * from './validation-message-context';
 

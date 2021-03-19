@@ -1,10 +1,12 @@
-import {ChangeDetectorRef, Component, HostBinding, Inject, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, ComponentFactoryResolver, HostBinding, Inject, OnInit} from '@angular/core';
 import {ISpinnerService, SPINNER_SERVICE_PROVIDER, WINDOW} from '@cms-ui/core';
 import {v4 as uuid} from 'uuid';
 import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../constants/injection-token.constant';
 import {IDemoLayoutService} from '../../services/interfaces/demo-layout-service.interface';
 import {cloneDeep} from 'lodash-es';
 import {SpinnerDisplay} from '../../models/spinners/spinner-display';
+import {Spinner01Component} from './spinner-01/spinner-01.component';
+import {Spinner02Component} from './spinner-02/spinner-02.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -24,6 +26,8 @@ export class SpinnerDemoComponent implements OnInit {
 
   // Stackable spinner id.
   public readonly stackableSpinnerId = uuid();
+
+  public readonly multiKindSpinnerId = uuid();
 
   // Multiple spinner display.
   public readonly spinnerDisplays: SpinnerDisplay[];
@@ -50,6 +54,7 @@ export class SpinnerDemoComponent implements OnInit {
   public constructor(@Inject(SPINNER_SERVICE_PROVIDER) protected spinnerService: ISpinnerService,
                      @Inject(DEMO_LAYOUT_SERVICE_PROVIDER) protected demoLayoutService: IDemoLayoutService,
                      @Inject(WINDOW) protected windowService: Window,
+                     protected componentFactoryResolver: ComponentFactoryResolver,
                      protected changeDetectorRef: ChangeDetectorRef) {
     this._deleteSpinnerOnComponentTimer = 0;
     this.spinnerDisplays = [new SpinnerDisplay(uuid()), new SpinnerDisplay(uuid())];
@@ -160,6 +165,29 @@ export class SpinnerDemoComponent implements OnInit {
     this.spinnerDisplays[itemIndex].historicalRequestIds.splice(0);
     this.spinnerService.deleteSpinner(spinnerDisplay.containerId);
     this.changeDetectorRef.detectChanges();
+  }
+
+  public displayMultiKindSpinner(designatedComponent: 'spinner-01' | 'spinner-02'): void {
+
+    switch (designatedComponent) {
+      case 'spinner-01':
+        const spinner01ComponentFactory = this.componentFactoryResolver.resolveComponentFactory(Spinner01Component);
+        this.spinnerService.displaySpinner(this.multiKindSpinnerId, {componentFactory: spinner01ComponentFactory});
+        break;
+
+      case 'spinner-02':
+        const spinner02ComponentFactory = this.componentFactoryResolver.resolveComponentFactory(Spinner02Component);
+        this.spinnerService.displaySpinner(this.multiKindSpinnerId, {componentFactory: spinner02ComponentFactory});
+        break;
+    }
+  }
+
+  public deleteMultiKindSpinner(requestId: string): void {
+    this.spinnerService.deleteSpinner(this.multiKindSpinnerId, requestId);
+  }
+
+  public deleteAllMultiKindSpinners(): void {
+    this.spinnerService.deleteSpinners(this.multiKindSpinnerId);
   }
 
   //#endregion
