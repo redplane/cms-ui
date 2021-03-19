@@ -3,21 +3,27 @@ import {SpinnerContainerComponent} from './spinner-container.component';
 import {CommonModule} from '@angular/common';
 import {SPINNER_SERVICE_PROVIDER} from '../../constants/injection-token.constant';
 import {ISpinnerService} from '../../services/interfaces/spinner-service.interface';
-import {BasicSpinnerService} from '../../services';
+import {BasicSpinnerComponent} from './basic-spinner/basic-spinner.component';
+import {SpinnerService} from '../../services/implementations/spinner.service';
 
 export function basicSpinnerFactory(): ISpinnerService {
-  return new BasicSpinnerService();
+  return new SpinnerService();
 }
 
 @NgModule({
   declarations: [
-    SpinnerContainerComponent
+    SpinnerContainerComponent,
+    BasicSpinnerComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    SpinnerContainerComponent
+    SpinnerContainerComponent,
+    BasicSpinnerComponent
+  ],
+  entryComponents: [
+    BasicSpinnerComponent
   ]
 })
 export class SpinnerContainerModule {

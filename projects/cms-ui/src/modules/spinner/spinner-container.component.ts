@@ -1,21 +1,23 @@
 import {
   AfterViewInit,
-  Component,
+  Component, ComponentFactoryResolver,
   HostBinding,
-  Inject,
+  Inject, Injector,
   Input,
   OnDestroy,
   OnInit,
   TemplateRef,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef, ViewRef
 } from '@angular/core';
 import {v4 as uuid} from 'uuid';
-import {Subscription} from 'rxjs';
-import {SpinnerVisibilityChanged} from '../../models/implementations/spinner-visibility-changed';
+import {Subject, Subscription} from 'rxjs';
 import {SPINNER_SERVICE_PROVIDER} from '../../constants/injection-token.constant';
-import {Visibilities} from '../../enums/visibilities';
 import {ISpinnerService} from '../../services/interfaces/spinner-service.interface';
+import {DisplaySpinnerRequest, ISpinnerOptions} from '../../models';
+import {DeleteSpinnerRequest} from '../../models/implementations/delete-spinner-request';
+import {BasicSpinnerComponent} from './basic-spinner/basic-spinner.component';
+import {filter} from 'rxjs/operators';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -31,29 +33,24 @@ export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestr
   // tslint:disable-next-line:variable-name
   private _id: string;
 
-  // Visibility status.
-  // tslint:disable-next-line:variable-name
-  private _visibility: Visibilities;
-
   // Class which is applied to host component.
   // tslint:disable-next-line:variable-name
   private _hostClass: string;
 
+  // Subject which emits spinner visibility event.
+  // tslint:disable-next-line:variable-name
+  private readonly _spinnerVisibilityEventSubject: Subject<DisplaySpinnerRequest | DeleteSpinnerRequest | undefined>;
+
   // Mapping between display request id & displayed component.
   // tslint:disable-next-line:variable-name
-  private _idToDisplayedComponent: { [id: string]: Component };
-
-  // Loading spinner template.
-  // tslint:disable-next-line:no-input-rename
-  @Input('spinner-template')
-  public loadingSpinnerTemplate: TemplateRef<any> | undefined;
+  private readonly _idToDisplayRequest: { [id: string]: DisplaySpinnerRequest };
 
   // Subscription watch list.
   protected hookVisibilityChangedSubscription: Subscription | undefined;
 
-  // Spinner template reference.
-  @ViewChild('spinnerTemplate', {static: false})
-  public spinnerTemplateRef: TemplateRef<any> | undefined;
+  // Subscription to handle local visibility request.
+  // tslint:disable-next-line:variable-name
+  private _localVisibilityRequestHandleSubscription: Subscription | undefined;
 
   //#endregion
 
@@ -65,31 +62,26 @@ export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestr
 
     if (this.hookVisibilityChangedSubscription && !this.hookVisibilityChangedSubscription.closed) {
       this.hookVisibilityChangedSubscription.unsubscribe();
+      this._spinnerVisibilityEventSubject.next(undefined);
     }
 
     // Register spinner visibility changed event.
     this.hookVisibilityChangedSubscription = this.spinnerService
-      .hookVisibilityChangedAsync(value)
-      .subscribe((visibilityChangedEvent: SpinnerVisibilityChanged) => this.handleVisibilityChangedEvent(visibilityChangedEvent));
+      .hookSpinnerVisibilityEvent(value)
+      .subscribe((event: DisplaySpinnerRequest | DeleteSpinnerRequest) => this._spinnerVisibilityEventSubject.next(event));
   }
 
   public get id(): string {
     return this._id;
   }
 
-  public get visibility(): Visibilities {
-    return this._visibility;
-  }
+  public get displayRequestIds(): string[] {
 
-  @HostBinding('class.hidden')
-  public get hostDisplay(): boolean {
-    switch (this._visibility) {
-      case Visibilities.visible:
-        return false;
-
-      default:
-        return true;
+    if (!this._idToDisplayRequest) {
+      return [];
     }
+
+    return Object.keys(this._idToDisplayRequest);
   }
 
   //#endregion
@@ -97,14 +89,16 @@ export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestr
   //#region Constructor
 
   public constructor(@Inject(SPINNER_SERVICE_PROVIDER) protected spinnerService: ISpinnerService,
-                     protected viewContainerRef: ViewContainerRef) {
+                     protected readonly viewContainerRef: ViewContainerRef,
+                     protected readonly componentFactoryResolver: ComponentFactoryResolver,
+                     private readonly injector: Injector) {
     this.id = uuid();
 
     this._id = uuid();
-    this._visibility = Visibilities.hidden;
     this._hostClass = '';
 
-    this._idToDisplayedComponent = {};
+    this._idToDisplayRequest = {};
+    this._spinnerVisibilityEventSubject = new Subject<DisplaySpinnerRequest | DeleteSpinnerRequest | undefined>();
   }
 
   //#endregion
@@ -113,10 +107,18 @@ export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestr
 
   public ngOnInit(): void {
 
-
+    // Subscription registration.
+    this._localVisibilityRequestHandleSubscription = this._spinnerVisibilityEventSubject
+      .pipe(
+        filter(event => event !== null && event !== undefined),
+        filter(event => event instanceof DisplaySpinnerRequest || event instanceof DeleteSpinnerRequest)
+      )
+      .subscribe(event => this.handleVisibilityChangedEvent(event));
   }
 
   public ngAfterViewInit(): void {
+    // Update component id to trigger spinner event.
+    this.id = this._id || uuid();
   }
 
   // Called when component is destroyed.
@@ -124,11 +126,98 @@ export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestr
     if (this.hookVisibilityChangedSubscription && !this.hookVisibilityChangedSubscription.closed) {
       this.hookVisibilityChangedSubscription.unsubscribe();
     }
+
+    this._spinnerVisibilityEventSubject.unsubscribe();
+
+    if (this._localVisibilityRequestHandleSubscription && !this._localVisibilityRequestHandleSubscription.closed) {
+      this._localVisibilityRequestHandleSubscription.unsubscribe();
+    }
   }
 
   // Handle visibility changed event.
-  protected handleVisibilityChangedEvent(visibilityChangedEvent: SpinnerVisibilityChanged): void {
-    this._visibility = visibilityChangedEvent.visibility;
+  protected handleVisibilityChangedEvent(event: DisplaySpinnerRequest | DeleteSpinnerRequest | undefined): void {
+
+    if (event instanceof DisplaySpinnerRequest) {
+      const displaySpinnerRequest = event as DisplaySpinnerRequest;
+
+      let purge = false;
+      if (displaySpinnerRequest.options) {
+        purge = displaySpinnerRequest.options.purge || false;
+      }
+
+      // Destroy all view in the container.
+      this.viewContainerRef.clear();
+
+      if (purge) {
+        const purgeRequest = new DeleteSpinnerRequest(displaySpinnerRequest.containerId);
+        this.handleVisibilityChangedEvent(purgeRequest);
+      }
+
+      this.displaySpinner(displaySpinnerRequest);
+      return;
+    }
+
+    if (event instanceof DeleteSpinnerRequest) {
+      const deleteSpinnerRequest = event as DeleteSpinnerRequest;
+
+      // Item index.
+      let index = 0;
+
+      // Go through every displayed request.
+      while (true) {
+
+        // Get request ids which has been registered before.
+        const requestIds = Object.keys(this._idToDisplayRequest);
+
+        if (!requestIds || !requestIds.length || index >= requestIds.length) {
+          break;
+        }
+
+        const requestId = requestIds[index];
+
+        // A specific request id is defined.
+        if (deleteSpinnerRequest.id && deleteSpinnerRequest.id.length && requestId !== deleteSpinnerRequest.id) {
+          index++;
+          continue;
+        }
+
+        delete this._idToDisplayRequest[requestId];
+      }
+
+      // Destroy all view in the container.
+      this.viewContainerRef.clear();
+
+      // There is at least one display request. Display that one.
+      const pendingRequestIds = Object.keys(this._idToDisplayRequest);
+      if (pendingRequestIds && pendingRequestIds.length) {
+        this.handleVisibilityChangedEvent(this._idToDisplayRequest[pendingRequestIds[pendingRequestIds.length - 1]]);
+      }
+
+      return;
+    }
+  }
+
+  protected displaySpinner(displaySpinnerRequest: DisplaySpinnerRequest): void {
+
+    if (!displaySpinnerRequest) {
+      return;
+    }
+
+    if (!displaySpinnerRequest.options || !displaySpinnerRequest.options.componentFactory) {
+      const defaultComponentFactory = this.componentFactoryResolver.resolveComponentFactory(BasicSpinnerComponent);
+      const basicSpinnerComponent = defaultComponentFactory.create(this.injector);
+      const insertedViewRef = this.viewContainerRef.insert(basicSpinnerComponent.hostView);
+      insertedViewRef.detectChanges();
+      this._idToDisplayRequest[displaySpinnerRequest.id] = displaySpinnerRequest;
+      return;
+    }
+
+    const componentFactory = displaySpinnerRequest.options.componentFactory;
+    const spinnerComponent = componentFactory.create(this.injector);
+    const viewRef = this.viewContainerRef.insert(spinnerComponent.hostView);
+    viewRef.detectChanges();
+    this._idToDisplayRequest[displaySpinnerRequest.id] = displaySpinnerRequest;
+
   }
 
   //#endregion
