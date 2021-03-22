@@ -1,4 +1,4 @@
-import {DialogBuilderExceptionConstant, DialogResult, IDialogBuilder, IDialogSetting} from '@cms-ui/core';
+import {DialogBuilderExceptionConstant, DialogResult, IDialogBuilder, IDialogSettings} from '@cms-ui/core';
 import {Injectable, Injector} from '@angular/core';
 import {from, Observable, throwError} from 'rxjs';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -26,7 +26,7 @@ export class BasicBsDialogBuilder implements IDialogBuilder {
 
   //#region Methods
 
-  public buildAsync<T>(settings: IDialogSetting): Observable<DialogResult<T>> {
+  public buildAsync<T>(settings: IDialogSettings): Observable<DialogResult<T>> {
 
     if (!settings) {
       return throwError(DialogBuilderExceptionConstant.invalidDialogSettings);

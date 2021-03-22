@@ -1,7 +1,8 @@
 import {TemplateRef} from '@angular/core';
 import {HtmlContent} from '../../html-content';
+import {IDialogButton} from './dialog-button.interface';
 
-export interface IDialogSetting {
+export interface IDialogSettings {
 
   //#region Properties
 
@@ -10,7 +11,7 @@ export interface IDialogSetting {
 
   message: string | HtmlContent | TemplateRef<any>;
 
-  title: string | HtmlContent | TemplateRef<any>;
+  title?: string | HtmlContent | TemplateRef<any>;
 
   // TODO: Implement this option
   // timeout?: ModalTimeoutAction;
@@ -23,6 +24,9 @@ export interface IDialogSetting {
 
   // Whether dialog must be displayed at the center of the screen.
   centered?: boolean;
+
+  // Dialog buttons which appears in the dialog.
+  buttons?: IDialogButton[];
 
   //#endregion
 }
