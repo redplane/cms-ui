@@ -8,11 +8,13 @@ export class ConfirmationDialogSettings implements IDialogSettings {
 
   public buttons?: IDialogButton[];
 
-  readonly kind: string;
+  public readonly kind: string;
 
   public message: string | HtmlContent | TemplateRef<any>;
 
   public title?: string | HtmlContent | TemplateRef<any>;
+
+  public icon?: HtmlContent | TemplateRef<any>;
 
   //#region Constructor
 

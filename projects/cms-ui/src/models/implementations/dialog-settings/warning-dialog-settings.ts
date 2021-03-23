@@ -6,12 +6,13 @@ import {DialogKindConstant} from '../../../constants/dialog-kind.constant';
 // tslint:disable-next-line:no-empty-interface
 export class WarningDialogSettings implements IDialogSettings {
 
-
   //#region Properties
 
   public readonly kind: string;
 
   public message: string | HtmlContent | TemplateRef<any>;
+
+  public icon?: HtmlContent | TemplateRef<any>;
 
   //#endregion
 

@@ -12,6 +12,8 @@ export class ErrorDialogSettings implements IDialogSettings {
 
   public message: string | HtmlContent | TemplateRef<any>;
 
+  public icon?: HtmlContent | TemplateRef<any>;
+
   //#endregion
 
   //#region Constructor

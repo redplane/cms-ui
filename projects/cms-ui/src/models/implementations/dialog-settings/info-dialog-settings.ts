@@ -12,6 +12,8 @@ export class InfoDialogSettings implements IDialogSettings {
 
   public message: string | HtmlContent | TemplateRef<any>;
 
+  public icon?: HtmlContent | TemplateRef<any>;
+
   //#region
 
   //#region Constructor
