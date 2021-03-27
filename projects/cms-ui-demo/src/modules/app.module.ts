@@ -8,6 +8,9 @@ import {SMART_NAVIGATOR_SCREEN_CODE_RESOLVER, SmartNavigatorModule} from '@cms-u
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SmartNavigatorDemoScreenCodeResolver} from '../services/implementations/screen-code-resolvers/smart-navigator-demo.screen-code-resolver';
 import {ValidationSummarizerDemoScreenCodeResolver} from '../services/implementations/screen-code-resolvers/validation-summarizer-demo.screen-code-resolver';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpLoaderFactory} from '../factories/translate.factory';
 
 @NgModule({
   declarations: [
@@ -15,6 +18,7 @@ import {ValidationSummarizerDemoScreenCodeResolver} from '../services/implementa
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     SmartNavigatorModule.forRoot({
       LANDING: '/',
       SPINNER_DEMO: '/spinner-demo',
@@ -24,7 +28,14 @@ import {ValidationSummarizerDemoScreenCodeResolver} from '../services/implementa
     }),
     MasterLayoutModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     {

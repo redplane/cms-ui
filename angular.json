@@ -167,5 +167,8 @@
       }
     }
   },
-  "defaultProject": "cms-ui-demo"
+  "defaultProject": "cms-ui-demo",
+  "cli": {
+    "analytics": "5054d9ad-b3d5-4bbc-8518-252db7d8e1b8"
+  }
 }

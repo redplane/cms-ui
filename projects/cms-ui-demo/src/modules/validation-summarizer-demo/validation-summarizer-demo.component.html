@@ -6,7 +6,7 @@
        [routerLink]="validationSummarizerDemoScreenCodes.withBasicValidator | toUrlTree | toUrl"
        [routerLinkActiveOptions]="{exact: true}"
        (click)="$event.preventDefault()">
-      {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR'}}
+      {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR' | translate}}
     </a>
   </li>
   <li class="nav-item">
@@ -15,7 +15,7 @@
        [routerLinkActive]="'active'"
        [routerLink]="validationSummarizerDemoScreenCodes.withMessageTemplate | toUrlTree | toUrl"
        (click)="$event.preventDefault()">
-      {{'VALIDATION_SUMMARIZER_DEMO.MESSAGE_TEMPLATE'}}
+      {{'VALIDATION_SUMMARIZER_DEMO.MESSAGE_TEMPLATE' | translate}}
     </a>
   </li>
   <li class="nav-item">
@@ -24,7 +24,7 @@
        [routerLinkActive]="'active'"
        [routerLink]="validationSummarizerDemoScreenCodes.withVisibilityHandler | toUrlTree | toUrl"
        (click)="$event.preventDefault()">
-      {{'VALIDATION_SUMMARIZER_DEMO.VISIBILITY_HANDLER'}}
+      {{'VALIDATION_SUMMARIZER_DEMO.VISIBILITY_HANDLER' | translate}}
     </a>
   </li>
   <li class="nav-item">
@@ -33,7 +33,7 @@
        [routerLinkActive]="'active'"
        [routerLink]="validationSummarizerDemoScreenCodes.withTemplateDriven | toUrlTree | toUrl"
        (click)="$event.preventDefault()">
-      {{'VALIDATION_SUMMARIZER_DEMO.TEMPLATE_DRIVEN'}}
+      {{'VALIDATION_SUMMARIZER_DEMO.TEMPLATE_DRIVEN' | translate}}
     </a>
   </li>
   <li class="nav-item">
@@ -42,7 +42,7 @@
        [routerLinkActive]="'active'"
        [routerLink]="validationSummarizerDemoScreenCodes.withCustomValidator | toUrlTree | toUrl"
        (click)="$event.preventDefault()">
-      {{'VALIDATION_SUMMARIZER_DEMO.CUSTOM_VALIDATOR'}}
+      {{'VALIDATION_SUMMARIZER_DEMO.CUSTOM_VALIDATOR' | translate}}
     </a>
   </li>
 </ul>

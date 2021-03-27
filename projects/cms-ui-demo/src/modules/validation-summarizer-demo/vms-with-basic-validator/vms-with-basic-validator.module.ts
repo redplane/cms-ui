@@ -4,13 +4,15 @@ import {VmsWithBasicValidatorComponent} from './vms-with-basic-validator.compone
 import {ReactiveFormsModule} from '@angular/forms';
 import {ValidationSummarizerModule} from '@cms-ui/core';
 import {CommonModule} from '@angular/common';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     VmsWithBasicValidatorRoutingModule,
     ReactiveFormsModule,
     ValidationSummarizerModule,
-    CommonModule
+    CommonModule,
+    TranslateModule
   ],
   declarations: [
     VmsWithBasicValidatorComponent

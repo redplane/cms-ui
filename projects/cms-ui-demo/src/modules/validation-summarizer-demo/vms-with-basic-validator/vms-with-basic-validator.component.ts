@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, NgControl, Validators} from '@angular/forms';
 import {KeyValue} from '@angular/common';
 import {Subscription} from 'rxjs';
@@ -19,6 +19,14 @@ export class VmsWithBasicValidatorComponent implements OnInit, OnDestroy {
   public readonly studentAgeControl: FormControl;
 
   public readonly securityNoControl: FormControl;
+
+  @ViewChild('form1', {static: false})
+  // @ts-ignore
+  public form1: ElementRef;
+
+  @ViewChild('form', {static: false})
+  // @ts-ignore
+  public form2: ElementRef;
 
   //#endregion
 
@@ -47,4 +55,17 @@ export class VmsWithBasicValidatorComponent implements OnInit, OnDestroy {
   }
 
   //#endregion
+  public scrollToItem(item: string): void {
+   switch (item) {
+     case '1':
+       this.form1.nativeElement.scrollIntoView({
+         behavior: 'smooth',
+         block: 'start',
+         inline: 'nearest'
+       });
+       break;
+     default:
+       return;
+   }
+  }
 }
