@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, NgControl, Validators} from '@angular/forms';
 import {KeyValue} from '@angular/common';
 import {Subscription} from 'rxjs';
@@ -20,6 +20,20 @@ export class VmsWithBasicValidatorComponent implements OnInit, OnDestroy {
 
   public readonly securityNoControl: FormControl;
 
+  public currentItem: string;
+
+  @ViewChild('description', {static: false})
+  // @ts-ignore
+  public description: ElementRef;
+
+  @ViewChild('api', {static: false})
+  // @ts-ignore
+  public api: ElementRef;
+
+  @ViewChild('examples', {static: false})
+  // @ts-ignore
+  public examples: ElementRef;
+
   //#endregion
 
   //#region Constructor
@@ -34,6 +48,8 @@ export class VmsWithBasicValidatorComponent implements OnInit, OnDestroy {
       age: this.studentAgeControl,
       securityNo: this.securityNoControl
     });
+
+    this.currentItem = 'description';
   }
 
   //#endregion
@@ -47,4 +63,32 @@ export class VmsWithBasicValidatorComponent implements OnInit, OnDestroy {
   }
 
   //#endregion
+  public scrollToItem(item: string): void {
+    this.currentItem = item;
+    switch (item) {
+       case 'description':
+         this.description.nativeElement.scrollIntoView({
+           behavior: 'smooth',
+           block: 'start',
+           inline: 'nearest'
+         });
+         break;
+       case 'examples':
+         this.examples.nativeElement.scrollIntoView({
+           behavior: 'smooth',
+           block: 'start',
+           inline: 'nearest'
+         });
+         break;
+       case 'api':
+         this.api.nativeElement.scrollIntoView({
+           behavior: 'smooth',
+           block: 'start',
+           inline: 'nearest'
+         });
+         break;
+       default:
+         return;
+     }
+  }
 }

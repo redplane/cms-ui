@@ -4,12 +4,14 @@ import {VsmWithCustomValidatorComponent} from './vsm-with-custom-validator.compo
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ValidationSummarizerModule} from '@cms-ui/core';
 import {CommonModule} from '@angular/common';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     VsmWithCustomValidatorRoutingModule,
     ReactiveFormsModule,
     ValidationSummarizerModule,
+    TranslateModule,
     CommonModule,
     FormsModule
   ],
