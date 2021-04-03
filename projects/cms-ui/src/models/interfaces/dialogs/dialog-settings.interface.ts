@@ -1,4 +1,4 @@
-import {TemplateRef} from '@angular/core';
+import {Injector, TemplateRef} from '@angular/core';
 import {HtmlContent} from '../../html-content';
 import {IDialogButton} from './dialog-button.interface';
 
@@ -27,6 +27,9 @@ export interface IDialogSettings {
 
   // Dialog buttons which appears in the dialog.
   buttons?: IDialogButton[];
+
+  // Injector which can be used for passing DI classes into created dialog.
+  injector?: Injector;
 
   //#endregion
 }
