@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:lib": "ng-packagr -p projects/cms-ui/ng-package.json"
+    "build:lib": "ng-packagr -p projects/cms-ui/ng-package.json",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
@@ -24,9 +25,13 @@
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@ng-bootstrap/ng-bootstrap": "^8.0.0",
     "@ngx-translate/core": "^13.0.0",
-    "bootstrap": "^4.5.3",
+    "@ngx-translate/http-loader": "^6.0.0",
+    "@types/prismjs": "^1.9.0",
+    "bootstrap": "^4.6.0",
     "lodash-es": "^4.17.15",
     "mustache": "^4.0.1",
+    "ngx-highlight-js": "^11.1.0",
+    "prismjs": "^1.9.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "uuid": "^8.3.1",

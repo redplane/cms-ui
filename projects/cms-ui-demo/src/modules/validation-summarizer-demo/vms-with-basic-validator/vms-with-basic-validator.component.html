@@ -2,33 +2,41 @@
 <div class="row"
      [formGroup]="studentForm">
   <div class="col-12">
-    <p class="lead mt-5">
-     {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR' | translate}}
-    </p>
+    <!-- Title-->
+<!--    <h2 class="mt-5">-->
+<!--     {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR' | translate}}-->
+<!--    </h2>-->
+    <!-- End title-->
+
+    <!-- Content-->
     <div class="row my-4">
+      <!-- Left content-->
       <div class="col-lg-3 col-md-4">
         <div class="list-group">
           <a (click)="scrollToItem('description')"
-             class="list-group-item list-group-item-action"
-          [class]="currentItem === 'description' ? 'list-group-item-primary' : 'list-group-item-light'">
+             [class]="currentItem === 'description' ? listGroupActiveClass : listGroupInActiveClass">
             {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_HOW_IT_WORK' | translate}}
           </a>
           <a (click)="scrollToItem('examples')"
-             class="list-group-item list-group-item-action"
-             [class]="currentItem === 'examples' ? 'list-group-item-primary' : 'list-group-item-light'">
+             [class]="currentItem === 'examples' ? listGroupActiveClass : listGroupInActiveClass">
             {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_EXAMPLES' | translate}}
           </a>
           <a (click)="scrollToItem('api')"
-             class="list-group-item list-group-item-action"
-             [class]="currentItem === 'api' ? 'list-group-item-primary' : 'list-group-item-light'">
+             [class]="currentItem === 'api' ? listGroupActiveClass : listGroupInActiveClass">
             {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_API' | translate}}
           </a>
         </div>
       </div>
+      <!-- End Left content-->
+
+      <!-- Right content-->
       <div class="col-lg-9 col-md-8">
+
+        <!-- Description section-->
         <section #description>
           <div class="card">
             <div class="card-body">
+
               <h5 class="card-title">
                 {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_HOW_IT_WORK' | translate}}
               </h5>
@@ -39,18 +47,39 @@
                   <li>Using 'cms-validation-summarizer' selector.</li>
                 </ul>
               </div>
-              <h5 class="card-title">{{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR' | translate}}</h5>
-              <div class="jumbotron">
-                <div class="row">
-                  <div class="col-lg-12">
 
+              <h5 class="card-title">{{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_USAGE' | translate}}</h5>
 
-                  </div>
+                <p class="mb-2">1.import ValidationSummarizerModule into your module:</p>
+                  <textarea highlight-js lang="ts">
+                    {{importModuleContentCodeExample}}
+                  </textarea>
+                <div class="callout callout-warning">
+                  It's important to provide exactly service and value on example code
                 </div>
-              </div>
+                <div class="callout callout-info">
+                  <p>
+                    Instead of use object for VALIDATION_SUMMARIZER_MESSAGE, you can use constant have the type {{'{[name: string]: string; }'}}
+                  </p>
+
+                <textarea highlight-js lang="ts">
+                    {{customValidatorCodeExample}}
+                 </textarea>
+                </div>
+
+                <div class="mb-2">
+                  2.Use &lt;cms-validation-summarizer&gt;&lt;/cms-validation-summarizer&gt;
+                  tag with proper property like [instance], label ... :
+                </div>
+                <textarea highlight-js lang="ts">
+                    {{selectorUsageCodeExample}}
+                 </textarea>
             </div>
           </div>
         </section>
+        <!-- End section-->
+
+        <!--  Example section-->
         <section class="mt-3" #examples>
           <div class="card">
             <div class="card-body">
@@ -60,8 +89,8 @@
               <div class="jumbotron">
                 <div class="row">
                   <div class="col-lg-12">
-
                     <!--Name-->
+                    <h6>Field is required</h6>
                     <label>{{'VALIDATION_SUMMARIZER_DEMO.NAME' | translate}}</label>
                     <div class="form-group">
                       <input class="form-control"
@@ -74,6 +103,7 @@
                     </div>
 
                     <!--Age-->
+                    <h6>Field with min value </h6>
                     <label>{{'VALIDATION_SUMMARIZER_DEMO.AGE' | translate}}</label>
                     <div class="form-group">
                       <input class="form-control"
@@ -85,6 +115,7 @@
                     </div>
 
                     <!--Security number-->
+                    <h6>Field without validator </h6>
                     <label>{{'VALIDATION_SUMMARIZER_DEMO.SECURITY_NUMBER' | translate}}</label>
                     <div class="form-group">
                       <input class="form-control"
@@ -96,62 +127,124 @@
             </div>
           </div>
         </section>
+        <!--  End section-->
+
+        <!--  Properties section-->
         <section class="mt-3" #api>
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">
                 Properties
               </h5>
-              <table class="is-full-width list-table property-table">
+              <table class="table">
                 <thead>
                 <tr>
-                  <th>Property</th>
-                  <th>Description</th>
+                  <th scope="col">Property</th>
+                  <th scope="col">Selector</th>
+                  <th scope="col">Description</th>
                 </tr>
                 </thead>
                 <tbody>
-                  <tr class="instance-property">
-                    <td>
-                      <code>
-                        <span class="property-binding">@Input()</span>
-                        <br>
-                        <span class="member-name"> </span>: (U &amp; T[]) | (U &amp; Iterable&lt;T&gt;)
-                      </code>
-                    </td>
-                    <td>
-
-                    </td>
-                  </tr>
                   <tr>
                     <td>
                       <code>
-                        <span class="property-binding">@Input()</span>
+                        <span>@Input('instance')</span>
                         <br>
-                        <span class="member-name">  </span>: (U &amp; T[]) | (U &amp; Iterable&lt;T&gt;)
+                        <span>
+                          AbstractControl | NgControl | null
+                        </span>
                       </code>
                     </td>
                     <td>
-
+                      <p>[instance]</p>
+                    </td>
+                    <td>
+                      <p>Instance of the control that needs to be validated.</p>
                     </td>
                   </tr>
+
                   <tr>
                     <td>
                       <code>
-                        <span class="property-binding">@Input()</span>
+                        <span>@Input('label')</span>
                         <br>
-                        <span class="member-name">  </span>: (U &amp; T[]) | (U &amp; Iterable&lt;T&gt;)
+                        <span>
+                          string
+                        </span>
                       </code>
                     </td>
                     <td>
-
+                      <p>label</p>
+                    </td>
+                    <td>
+                      <p>Label of control.</p>
                     </td>
                   </tr>
+
+                  <tr>
+                    <td>
+                      <code>
+                        <span>@Input('validation-template')</span>
+                        <br>
+                        <span>
+                          TemplateRef&lt;any&gt; | null
+                        </span>
+                      </code>
+                    </td>
+                    <td>
+                      <p>[validation-template]</p>
+                    </td>
+                    <td>
+                      <p>Alternative template for validation summary.</p>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <code>
+                        <span>@Input('maximum-messages')</span>
+                        <br>
+                        <span>
+                          number
+                        </span>
+                      </code>
+                    </td>
+                    <td>
+                      <p>[maximum-messages]</p>
+                    </td>
+                    <td>
+                      <p>Maximum number of validation messages.</p>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <code>
+                        <span>@Input('visibility-handler')</span>
+                        <br>
+                        <span>
+                          (ngControl: AbstractControl | NgControl) => boolean) | null
+                        </span>
+                      </code>
+                    </td>
+                    <td>
+                      <p>[visibility-handler]</p>
+                    </td>
+                    <td>
+                      <p>Handler for handling summarizer visibility.</p>
+                    </td>
+                  </tr>
+
                 </tbody>
               </table>
             </div>
           </div>
         </section>
+        <!--  End section-->
+
       </div>
+    <!-- End Right content-->
     </div>
+    <!-- End Content-->
   </div>
 </div>

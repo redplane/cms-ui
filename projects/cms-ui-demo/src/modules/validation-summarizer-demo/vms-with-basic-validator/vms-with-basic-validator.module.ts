@@ -5,6 +5,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ValidationSummarizerModule} from '@cms-ui/core';
 import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
+import { HighlightJsModule } from 'ngx-highlight-js';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import {TranslateModule} from '@ngx-translate/core';
     ReactiveFormsModule,
     ValidationSummarizerModule,
     CommonModule,
-    TranslateModule
+    TranslateModule,
+    HighlightJsModule
   ],
   declarations: [
     VmsWithBasicValidatorComponent

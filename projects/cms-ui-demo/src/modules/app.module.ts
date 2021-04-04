@@ -11,6 +11,8 @@ import {ValidationSummarizerDemoScreenCodeResolver} from '../services/implementa
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {HttpLoaderFactory} from '../factories/translate.factory';
+import {AlertBannerContentModule} from './shared/alert-banner-content/alert-banner-content.module';
+import {InfoBannerContentModule} from './shared/info-banner-content/info-banner-content.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import {HttpLoaderFactory} from '../factories/translate.factory';
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    AlertBannerContentModule,
+    InfoBannerContentModule,
   ],
   providers: [
     {
