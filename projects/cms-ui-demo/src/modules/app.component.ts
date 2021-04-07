@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
   //#region Methods
 
   public ngOnInit(): void {
-    this.translateService.use('en_US');
+    this.translateService.use('en-US');
     this.titleService.setTitle('CMS UI');
   }
 

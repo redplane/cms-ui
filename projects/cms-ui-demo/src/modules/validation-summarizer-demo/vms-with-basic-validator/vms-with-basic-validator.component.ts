@@ -2,6 +2,8 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {AbstractControl, FormControl, FormGroup, NgControl, Validators} from '@angular/forms';
 import {KeyValue} from '@angular/common';
 import {Subscription} from 'rxjs';
+import {ValidationSummarizerSectionsConstant} from '../../../constants/validation-summarizer-sections.constant';
+import {CodeExampleFilePathConstant} from '../../../constants/screen-codes/code-example-file-path.constant';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -11,7 +13,7 @@ import {Subscription} from 'rxjs';
 export class VmsWithBasicValidatorComponent implements OnInit, OnDestroy {
 
   //#region Properties
-
+  // Form group and form control declaration
   public readonly studentForm: FormGroup;
 
   public readonly studentNameControl: FormControl;
@@ -20,7 +22,14 @@ export class VmsWithBasicValidatorComponent implements OnInit, OnDestroy {
 
   public readonly securityNoControl: FormControl;
 
+  // Tracks the item corresponding to the section
   public currentItem: string;
+
+  // Define section on page
+  public validationSummarizerSectionsConstant = ValidationSummarizerSectionsConstant;
+
+  // File path to load code example from assets
+  public codeExampleFilePathConstant = CodeExampleFilePathConstant;
 
   public importModuleContentCodeExample = '@NgModule({\n' +
     '  imports: [\n' +
@@ -61,9 +70,9 @@ export class VmsWithBasicValidatorComponent implements OnInit, OnDestroy {
     '  custom: \'MSG_VALIDATION_CUSTOM\',\n' +
     '};';
 
-  public listGroupActiveClass = 'list-group-item list-group-item-action list-group-item-primary';
+  public activeClasses = 'list-group-item list-group-item-action list-group-item-primary';
 
-  public listGroupInActiveClass = 'list-group-item list-group-item-action list-group-item-light';
+  public inActiveClasses = 'list-group-item list-group-item-action list-group-item-light';
 
   @ViewChild('description', {static: false})
   // @ts-ignore
