@@ -31,45 +31,6 @@ export class VmsWithBasicValidatorComponent implements OnInit, OnDestroy {
   // File path to load code example from assets
   public codeExampleFilePathConstant = CodeExampleFilePathConstant;
 
-  public importModuleContentCodeExample = '@NgModule({\n' +
-    '  imports: [\n' +
-    '    ...\n' +
-    '    ValidationSummarizerModule,\n' +
-    '    ...\n' +
-    '  ],\n' +
-    '  declarations: [\n' +
-    '    ...\n' +
-    '  ],\n' +
-    '  exports: [\n' +
-    '    ...\n' +
-    '  ],\n' +
-    '  providers: [\n' +
-    '    {\n' +
-    '      provide: VALIDATION_SUMMARIZER_PROVIDER,\n' +
-    '      useClass: TranslatedValidationSummarizerService\n' +
-    '    },\n' +
-    '    {\n' +
-    '      provide: VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK,\n' +
-    '      useValue: true\n' +
-    '    },\n' +
-    '    {\n' +
-    '      provide: VALIDATION_SUMMARIZER_MESSAGES,\n' +
-    '      useValue: {\n' +
-    '        notSmallerThan: \'MSG_CUSTOM_VALIDATOR_MESSAGE_NOT_SMALLER_THAN\'\n' +
-    '      }\n' +
-    '    }\n' +
-    '  ]\n' +
-    '})';
-
-  public selectorUsageCodeExample = '<cms-validation-summarizer\n' +
-    '       [instance]="exampleControl"\n' +
-    '       label="EXAMPLE_LABEL">\n' +
-    ' </cms-validation-summarizer>';
-
-  public customValidatorCodeExample = 'export const customValidationMessages: {[name: string]: string; } = {\n' +
-    '  custom: \'MSG_VALIDATION_CUSTOM\',\n' +
-    '};';
-
   public activeClasses = 'list-group-item list-group-item-action list-group-item-primary';
 
   public inActiveClasses = 'list-group-item list-group-item-action list-group-item-light';
