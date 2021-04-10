@@ -13,10 +13,11 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {HttpLoaderFactory} from '../factories/translate.factory';
 import {AlertBannerContentModule} from './shared/alert-banner-content/alert-banner-content.module';
 import {InfoBannerContentModule} from './shared/info-banner-content/info-banner-content.module';
+import {ScrollTopModule} from 'src/modules/shared/scroll-top/scroll-top.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +41,7 @@ import {InfoBannerContentModule} from './shared/info-banner-content/info-banner-
     }),
     AlertBannerContentModule,
     InfoBannerContentModule,
+    ScrollTopModule,
   ],
   providers: [
     {

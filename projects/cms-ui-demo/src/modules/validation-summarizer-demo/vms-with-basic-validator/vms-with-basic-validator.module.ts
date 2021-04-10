@@ -16,7 +16,7 @@ import {ToStaticFileContentModule} from '../../shared/pipe/to-static-file-conten
     CommonModule,
     TranslateModule,
     HighlightJsModule,
-    ToStaticFileContentModule
+    ToStaticFileContentModule,
   ],
   declarations: [
     VmsWithBasicValidatorComponent

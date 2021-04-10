@@ -33,7 +33,7 @@ export class VmsWithBasicValidatorComponent implements OnInit, OnDestroy {
 
   public activeClasses = 'list-group-item list-group-item-action list-group-item-primary';
 
-  public inActiveClasses = 'list-group-item list-group-item-action list-group-item-light';
+  public inactiveClasses = 'list-group-item list-group-item-action list-group-item-light';
 
   @ViewChild('description', {static: false})
   // @ts-ignore

@@ -9,15 +9,15 @@
       <div class="col-lg-3 col-md-4">
         <div class="list-group">
           <a (click)="scrollToItem(validationSummarizerSectionsConstant.descriptionSection)"
-             [class]="currentItem === validationSummarizerSectionsConstant.descriptionSection ? activeClasses : inActiveClasses">
+             [class]="currentItem === validationSummarizerSectionsConstant.descriptionSection ? activeClasses : inactiveClasses">
             {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_HOW_IT_WORK' | translate}}
           </a>
           <a (click)="scrollToItem(validationSummarizerSectionsConstant.examplesSection)"
-             [class]="currentItem === validationSummarizerSectionsConstant.examplesSection ? activeClasses : inActiveClasses">
+             [class]="currentItem === validationSummarizerSectionsConstant.examplesSection ? activeClasses : inactiveClasses">
             {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_EXAMPLES' | translate}}
           </a>
           <a (click)="scrollToItem(validationSummarizerSectionsConstant.apiSection)"
-             [class]="currentItem === validationSummarizerSectionsConstant.apiSection ? activeClasses : inActiveClasses">
+             [class]="currentItem === validationSummarizerSectionsConstant.apiSection ? activeClasses : inactiveClasses">
             {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_API' | translate}}
           </a>
         </div>
