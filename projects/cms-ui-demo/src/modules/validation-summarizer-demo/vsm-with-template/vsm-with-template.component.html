@@ -18,7 +18,7 @@
             <div class="row">
               <div class="col-lg-12">
                 <!--Name-->
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.NAME'}}</label>
+                <label>{{'VALIDATION_SUMMARIZER_DEMO.NAME' | translate}}</label>
                 <div class="form-group">
                   <input class="form-control"
                          name="productName"
@@ -34,14 +34,14 @@
 
             <div class="row">
               <div class="col-lg-12">
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.QUANTITY'}}</label>
+                <label>{{'VALIDATION_SUMMARIZER_DEMO.QUANTITY' | translate}}</label>
                 <div class="form-group">
                   <input class="form-control"
                          name="productName"
                          [formControl]="quantityControl">
 
                   <cms-validation-summarizer [instance]="quantityControl"
-                                             label="VALIDATION_SUMMARIZER_DEMO.QUANTITY"
+                                             [label]="'VALIDATION_SUMMARIZER_DEMO.QUANTITY' | translate"
                                              [validation-template]="validationTemplate">
                   </cms-validation-summarizer>
                 </div>
@@ -63,11 +63,11 @@
       <span class="text-danger fas fa-user"></span>&nbsp;
 
       <ng-container [ngSwitch]="validationMessage.key">
-        <ng-container *ngSwitchCase="'required'"><b>(CUSTOM) {{controlLabel}}</b> is required</ng-container>
-        <ng-container *ngSwitchCase="'maxlength'"><b>(CUSTOM) {{controlLabel}}</b>'s maxlength exceeded</ng-container>
-        <ng-container *ngSwitchCase="'minlength'"><b>(CUSTOM) {{controlLabel}}</b>'s minlength not met. Expect: {{validationMessage.additionalValue.minlength}}</ng-container>
-        <ng-container *ngSwitchCase="'min'"><b>(CUSTOM) {{controlLabel}}</b>'s value must be &gt;= {{validationMessage.additionalValue.min}}</ng-container>
-        <ng-container *ngSwitchCase="'max'"><b>(CUSTOM) {{controlLabel}}</b>'s value must be &lt;= {{validationMessage.additionalValue.max}}</ng-container>
+        <ng-container *ngSwitchCase="'required'"><b>(CUSTOM) {{controlLabel | translate}}</b> is required</ng-container>
+        <ng-container *ngSwitchCase="'maxlength'"><b>(CUSTOM) {{controlLabel | translate}}</b>'s maxlength exceeded</ng-container>
+        <ng-container *ngSwitchCase="'minlength'"><b>(CUSTOM) {{controlLabel | translate}}</b>'s minlength not met. Expect: {{validationMessage.additionalValue.minlength | translate}}</ng-container>
+        <ng-container *ngSwitchCase="'min'"><b>(CUSTOM) {{controlLabel | translate}}</b>'s value must be &gt;= {{validationMessage.additionalValue.min | translate}}</ng-container>
+        <ng-container *ngSwitchCase="'max'"><b>(CUSTOM) {{controlLabel | translate}}</b>'s value must be &lt;= {{validationMessage.additionalValue.max | translate}}</ng-container>
       </ng-container>
 
     </li>

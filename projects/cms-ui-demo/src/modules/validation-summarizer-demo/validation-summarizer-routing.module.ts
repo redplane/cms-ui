@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {DemoLayoutComponent} from '../shared/demo-layout/demo-layout.component';
 import {DemoLayoutModule} from '../shared/demo-layout/demo-layout.module';
 import {ValidationSummarizerDemoComponent} from './validation-summarizer-demo.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 //#region Properties
 

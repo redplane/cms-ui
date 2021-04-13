@@ -1,0 +1,4 @@
+<cms-validation-summarizer
+       [instance]="exampleControl"
+       label="EXAMPLE_LABEL">
+ </cms-validation-summarizer>

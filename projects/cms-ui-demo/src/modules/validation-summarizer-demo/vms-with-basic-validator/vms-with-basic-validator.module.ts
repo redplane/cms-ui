@@ -4,13 +4,19 @@ import {VmsWithBasicValidatorComponent} from './vms-with-basic-validator.compone
 import {ReactiveFormsModule} from '@angular/forms';
 import {ValidationSummarizerModule} from '@cms-ui/core';
 import {CommonModule} from '@angular/common';
+import {TranslateModule} from '@ngx-translate/core';
+import { HighlightJsModule } from 'ngx-highlight-js';
+import {ToStaticFileContentModule} from '../../shared/pipe/to-static-file-content.module';
 
 @NgModule({
   imports: [
     VmsWithBasicValidatorRoutingModule,
     ReactiveFormsModule,
     ValidationSummarizerModule,
-    CommonModule
+    CommonModule,
+    TranslateModule,
+    HighlightJsModule,
+    ToStaticFileContentModule,
   ],
   declarations: [
     VmsWithBasicValidatorComponent

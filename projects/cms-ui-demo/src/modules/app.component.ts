@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Title} from '@angular/platform-browser';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,10 @@ export class AppComponent implements OnInit {
 
   //#region Constructor
 
-  public constructor(protected titleService: Title) {
+  public constructor(
+    protected titleService: Title,
+    protected translateService: TranslateService
+  ) {
   }
 
   //#endregion
@@ -26,6 +30,7 @@ export class AppComponent implements OnInit {
   //#region Methods
 
   public ngOnInit(): void {
+    this.translateService.use('en-US');
     this.titleService.setTitle('CMS UI');
   }
 

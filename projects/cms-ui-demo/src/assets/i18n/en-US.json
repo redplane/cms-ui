@@ -1,0 +1,38 @@
+{
+  "LANDING_PAGE" : {
+    "UTILITIES": "Utilities",
+    "LEARN_MORE": "Learn more",
+    "DIALOGS": "Dialogs",
+    "DIALOG": "Dialog",
+    "DIALOG_DESCRIPTION": "Dialog description",
+    "SPINNER": "Spinner",
+    "SPINNER_DEMO_DESCRIPTION": "Spinner description",
+    "BANNER": "Banner",
+    "BANNER_DESCRIPTION": "Banner description",
+    "SMART_NAVIGATOR": "Smart navigator",
+    "SMART_NAVIGATOR_DESCRIPTION": "Smart navigator description",
+    "VALIDATION_SUMMARIZER": "Validation summarize",
+    "VALIDATION_SUMMARIZER_DESCRIPTION": "Validation summarize description"
+  },
+  "VALIDATION_SUMMARIZER_DEMO": {
+    "BASIC_VALIDATOR": "Basic validator",
+    "BASIC_VALIDATOR_HOW_IT_WORK": "Description",
+    "BASIC_VALIDATOR_USAGE": "Usage",
+    "BASIC_VALIDATOR_EXAMPLES": "Examples",
+    "BASIC_VALIDATOR_API": "Properties",
+    "MESSAGE_TEMPLATE": "Message template",
+    "VISIBILITY_HANDLER": "Visibility handler",
+    "TEMPLATE_DRIVEN": "Template driven",
+    "CUSTOM_VALIDATOR": "Custom validator",
+    "NAME": "User Name",
+    "AGE": "Age",
+    "SECURITY_NUMBER": "Security number"
+  },
+  "MSG_VALIDATION_PROPERTY_REQUIRED": "value is required!",
+  "MSG_VALIDATION_PROPERTY_MIN":"min value is not valid!",
+  "MSG_VALIDATION_PROPERTY_MAX":"max value is not valid!",
+  "MSG_VALIDATION_PROPERTY_MIN_LENGTH":"min length value is not valid!",
+  "MSG_VALIDATION_PROPERTY_MAX_LENGTH":"max length value is not valid!",
+  "MSG_VALIDATION_PROPERTY_PATTERN":"pattern is not valid!",
+  "MSG_VALIDATION_PROPERTY_EMAIL": "email is not valid!"
+}

@@ -1,0 +1,4 @@
+export const customValidationMessages: {[name: string]: string; } = {
+  custom: 'MSG_VALIDATION_CUSTOM',
+};
+
