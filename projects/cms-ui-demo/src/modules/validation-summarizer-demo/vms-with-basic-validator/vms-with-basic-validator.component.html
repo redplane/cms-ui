@@ -1,34 +1,6 @@
 <!--Basic validation summarizer-->
-<div class="row"
-     [formGroup]="studentForm">
-  <div class="col-12">
-
-    <!-- Content-->
-    <div class="row my-4">
-      <!-- Left content-->
-      <div class="col-lg-3 col-md-4">
-        <div class="list-group">
-          <a (click)="scrollToItem(validationSummarizerSectionsConstant.descriptionSection)"
-             [class]="currentItem === validationSummarizerSectionsConstant.descriptionSection ? activeClasses : inactiveClasses">
-            {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_HOW_IT_WORK' | translate}}
-          </a>
-          <a (click)="scrollToItem(validationSummarizerSectionsConstant.examplesSection)"
-             [class]="currentItem === validationSummarizerSectionsConstant.examplesSection ? activeClasses : inactiveClasses">
-            {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_EXAMPLES' | translate}}
-          </a>
-          <a (click)="scrollToItem(validationSummarizerSectionsConstant.apiSection)"
-             [class]="currentItem === validationSummarizerSectionsConstant.apiSection ? activeClasses : inactiveClasses">
-            {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_API' | translate}}
-          </a>
-        </div>
-      </div>
-      <!-- End Left content-->
-
-      <!-- Right content-->
-      <div class="col-lg-9 col-md-8">
-
         <!-- Description section-->
-        <section #description>
+        <section class="description" #description>
           <div class="card">
             <div class="card-body">
 
@@ -75,8 +47,8 @@
         <!-- End section-->
 
         <!--  Example section-->
-        <section class="mt-3" #examples>
-          <div class="card">
+        <section class="examples mt-3" #examples>
+          <div class="card" [formGroup]="studentForm">
             <div class="card-body">
               <h5 class="card-title">
                 {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_EXAMPLES' | translate}}
@@ -125,7 +97,7 @@
         <!--  End section-->
 
         <!--  Properties section-->
-        <section class="mt-3" #api>
+        <section class="api mt-3" #api>
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">
@@ -137,9 +109,4 @@
         </section>
         <!--  End section-->
 
-      </div>
-    <!-- End Right content-->
-    </div>
-    <!-- End Content-->
-  </div>
-</div>
+

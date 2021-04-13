@@ -1,9 +1,12 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, NgControl, Validators} from '@angular/forms';
-import {KeyValue} from '@angular/common';
-import {Subscription} from 'rxjs';
+import {Component, ElementRef, Inject, Injector, OnDestroy, OnInit, ViewChild, ViewChildren} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ValidationSummarizerSectionsConstant} from '../../../constants/validation-summarizer-sections.constant';
 import {CodeExampleFilePathConstant} from '../../../constants/screen-codes/code-example-file-path.constant';
+import {INgRxMessageBusService, MESSAGE_BUS_SERVICE_PROVIDER} from 'ngrx-message-bus';
+import {ScrollToItemChannelEvent} from '../../../models/channel-events/scroll-to-item.channel-event';
+import {Subscription} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {DOCUMENT} from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -22,36 +25,19 @@ export class VmsWithBasicValidatorComponent implements OnInit, OnDestroy {
 
   public readonly securityNoControl: FormControl;
 
-  // Tracks the item corresponding to the section
-  public currentItem: string;
-
-  // Define section on page
-  public validationSummarizerSectionsConstant = ValidationSummarizerSectionsConstant;
+  public readonly subscription: Subscription;
 
   // File path to load code example from assets
   public codeExampleFilePathConstant = CodeExampleFilePathConstant;
-
-  public activeClasses = 'list-group-item list-group-item-action list-group-item-primary';
-
-  public inactiveClasses = 'list-group-item list-group-item-action list-group-item-light';
-
-  @ViewChild('description', {static: false})
-  // @ts-ignore
-  public description: ElementRef;
-
-  @ViewChild('api', {static: false})
-  // @ts-ignore
-  public api: ElementRef;
-
-  @ViewChild('examples', {static: false})
-  // @ts-ignore
-  public examples: ElementRef;
 
   //#endregion
 
   //#region Constructor
 
-  public constructor() {
+  public constructor(
+    @Inject(MESSAGE_BUS_SERVICE_PROVIDER) protected messageBusService: INgRxMessageBusService,
+    @Inject(DOCUMENT) protected document: Document
+  ) {
     this.studentNameControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
     this.studentAgeControl = new FormControl('', [Validators.min(10)]);
     this.securityNoControl = new FormControl('');
@@ -62,7 +48,7 @@ export class VmsWithBasicValidatorComponent implements OnInit, OnDestroy {
       securityNo: this.securityNoControl
     });
 
-    this.currentItem = 'description';
+    this.subscription = new Subscription();
   }
 
   //#endregion
@@ -70,38 +56,23 @@ export class VmsWithBasicValidatorComponent implements OnInit, OnDestroy {
   //#region Methods
 
   public ngOnInit(): void {
+    const hookScrollEventSubscription = this.messageBusService.hookTypedMessageChannel<string>(new ScrollToItemChannelEvent())
+      .pipe(
+        tap(item => this.document.querySelector(`.${item}`)?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        }))
+      )
+      .subscribe();
+    this.subscription.add(hookScrollEventSubscription);
   }
 
   public ngOnDestroy(): void {
+    if (this.subscription && !this.subscription.closed) {
+      this.subscription.unsubscribe();
+    }
   }
 
   //#endregion
-  public scrollToItem(item: string): void {
-    this.currentItem = item;
-    switch (item) {
-       case 'description':
-         this.description.nativeElement.scrollIntoView({
-           behavior: 'smooth',
-           block: 'start',
-           inline: 'nearest'
-         });
-         break;
-       case 'examples':
-         this.examples.nativeElement.scrollIntoView({
-           behavior: 'smooth',
-           block: 'start',
-           inline: 'nearest'
-         });
-         break;
-       case 'api':
-         this.api.nativeElement.scrollIntoView({
-           behavior: 'smooth',
-           block: 'start',
-           inline: 'nearest'
-         });
-         break;
-       default:
-         return;
-     }
-  }
 }

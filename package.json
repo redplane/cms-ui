@@ -30,6 +30,7 @@
     "bootstrap": "^4.6.0",
     "lodash-es": "^4.17.15",
     "mustache": "^4.0.1",
+    "ngrx-message-bus": "^4.0.0",
     "ngx-highlight-js": "^11.1.0",
     "prismjs": "^1.9.0",
     "rxjs": "~6.6.0",

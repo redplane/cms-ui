@@ -14,6 +14,7 @@ import {HttpLoaderFactory} from '../factories/translate.factory';
 import {AlertBannerContentModule} from './shared/alert-banner-content/alert-banner-content.module';
 import {InfoBannerContentModule} from './shared/info-banner-content/info-banner-content.module';
 import {ScrollTopModule} from 'src/modules/shared/scroll-top/scroll-top.module';
+import {NgRxMessageBusModule} from 'ngrx-message-bus';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {ScrollTopModule} from 'src/modules/shared/scroll-top/scroll-top.module';
     AlertBannerContentModule,
     InfoBannerContentModule,
     ScrollTopModule,
+    NgRxMessageBusModule.forRoot()
   ],
   providers: [
     {
