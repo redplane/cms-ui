@@ -1,0 +1,64 @@
+# Build library using Linux image.
+os: linux
+
+branches:
+  only:
+    # Main release branch
+    - master
+
+    # Nightly build branch
+    - preview
+
+    # Development & bug fixing branches.
+    - /feature\/.*/
+    - /fix\/.*/
+
+language: node_js
+node_js:
+  - 12.10.0
+
+env:
+  global:
+    # @cms-ui/core (myget.org) key
+    # key: MY_GET_KEY
+    - secure: "OwZBnHH9IPFcc39OlUO5bCpjTZcemxgOtd3BK+6v2Wo5f0oQiAGRGc9PwVmIPdkN6+3MYIghb6UXkAUq4JxNh/TFUn9j3L1ooMWCx9DdEm9LMWYSpeL3AYNQEYb9eQ3K/NYLLpa01FgwdcYOzW1lBE5Dqm4uCTHSK9ho0109f1m7fiAclca86uVQc0RUOFSw/CY4jcPsSQuJRn9uWmuL9M2ds7sU2T1f8dDNWm5neW+lQxroCZiNHUO4fIYQVegP6tXJ8+mbiFIu7WeO6NfaRihdT3keRGET21pZ+/bZpuyR4fib5XN09gks5kIai04fvfq88Plk0y1gbAmY39fug8u52Z0p2a2+1IZWjtVOY+7p3gv68Sx35pvGXtYW4MXRc51VEAkxORFD8y/Fbp1768q4Gi1Vle/bgQwWa27sXdbF0EX6MffEFWsOajG2CcE1h2S7NaS9SxEdX02gy1RP6TM0JsrSpgjCV8UXOgbYls7pwMurXNyqX5IlCXCeecI6JilsUZDskYJjMOlUksad1ZeeBQd7P+AmaEdOQto5GUBKTnWSq/gIu9tc45C/LCZbimkv7Lumqitl3FPFged8r1N89jMywuSRzhCG2iDXxelzLG2QkNUpzimBB0q04cAXUjL7nqKjQxFDD8eBRDm7sKGiphrGLEoNwYslPQt9J9k="
+
+
+jobs:
+  include:
+
+    # Install dependencies
+    - stage: installDependencies
+      name: "Install dependencies"
+      install:
+        # Install npm libraries
+        - npm install
+
+    # Build library
+    - stage: buildLibrary
+      name: "Build cms-ui library"
+      script:
+        - npm run build:lib
+
+    # Build demo page
+    - stage: buildDemoPage
+      name: "Build demo page"
+      script:
+        - npm run build:app:production
+
+    # Library deployment (preview)
+    - stage: deployPreview
+      name: "Preview deployment"
+      before_script:
+        # Go to distributed folder
+        - cd "dist/cms-ui"
+        - 
+
+
+
+
+
+
+
+
+
