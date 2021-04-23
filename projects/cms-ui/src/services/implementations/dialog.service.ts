@@ -3,7 +3,7 @@ import {Observable, of, race, throwError} from 'rxjs';
 import {map, mergeMap, retryWhen, tap} from 'rxjs/operators';
 import {DialogResult} from '../../models/implementations/dialogs/dialog-result';
 import {DialogResultConstant} from '../../constants/dialog-result.constant';
-import {IDialogSetting} from '../../models/interfaces/dialogs/dialog-settings.interface';
+import {IDialogSettings} from '../../models/interfaces/dialogs/dialog-settings.interface';
 import {Injector} from '@angular/core';
 import {IDialogBuilder} from '../interfaces/dialogs/dialog-builder.interface';
 import {DIALOG_BUILDER_PROVIDER} from '../../constants';
@@ -30,7 +30,7 @@ export abstract class DialogService implements IDialogService {
 
   // Display confirm modal asynchronously
   // Will be return true or false base on action of user in the modal
-  public displayDialogAsync<T>(settings: IDialogSetting): Observable<T> {
+  public displayDialogAsync<T>(settings: IDialogSettings): Observable<T> {
 
     return this.buildDialogAsync<T>(settings)
       .pipe(
@@ -54,7 +54,7 @@ export abstract class DialogService implements IDialogService {
 
   //#region Internal methods
 
-  protected buildDialogAsync<T>(settings: IDialogSetting): Observable<DialogResult<T>> {
+  protected buildDialogAsync<T>(settings: IDialogSettings): Observable<DialogResult<T>> {
 
     if (!settings) {
       return throwError('INVALID_DIALOG_SETTING');
