@@ -52,7 +52,7 @@ jobs:
       before_script:
         # Go to distributed folder
         - cd "dist/cms-ui"
-        - 
+        -
 
 
 
