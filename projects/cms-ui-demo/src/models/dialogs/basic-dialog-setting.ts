@@ -1,8 +1,8 @@
-import {HtmlContent, IDialogButton, IDialogSetting} from '@cms-ui/core';
+import {HtmlContent, IDialogButton, IDialogSettings} from '@cms-ui/core';
 import {TemplateRef} from '@angular/core';
 import {DialogKindConstant} from '../../constants/dialog-kind.constant';
 
-export class BasicDialogSetting implements IDialogSetting {
+export class BasicDialogSetting implements IDialogSettings {
 
   //#region Properties
 
