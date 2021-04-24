@@ -48,6 +48,9 @@ jobs:
       install:
         # Install npm libraries
         - npm install
+          
+        # Disable npm test
+        - echo "npm test temporarily disabled"
 
     # Build library
     - stage: buildLibrary
