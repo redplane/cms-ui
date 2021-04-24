@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
-import {ValidationSummarizerComponent} from '@cms-ui/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ValidationSummarizerComponent} from './validation-summarizer.component';
 import {Subscription} from 'rxjs';
 
 describe('ValidationSummarizerComponent', () => {

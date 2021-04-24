@@ -1,5 +1,6 @@
 # Build library using Linux image.
 os: windows
+cache: npm
 
 # Branches to trigger CI/CD
 branches:
@@ -38,6 +39,7 @@ notifications:
     recipients:
       - redplane_dt@yahoo.com.vn
       - lightalakanzam@gmail.com
+      - leduc.road50@gmail.com
 
 jobs:
   include:
@@ -68,11 +70,11 @@ jobs:
     # Library deployment (dev)
     - stage: deployDevelopment
       name: "Library deployment (development)"
-      if: branch = dev
+      if: branch = dev AND type = push
 
       before_script:
         # Delete previous .npmrc
-        - del /f .npmrc
+        - if exists .npmrc del /f .npmrc
 
       script:
         # Create .npmrc file
@@ -85,16 +87,16 @@ jobs:
 
       after_script:
         # Remove the created file: .npmrc.
-        - del /f .npmrc
+        - if exists .npmrc del /f .npmrc
 
     # Library deployment (release)
     - stage: deployRelease
       name: "Library deployment (release)"
-      if: branch = master
+      if: branch = master AND type = push
 
       before_script:
         # Delete previous .npmrc
-        - del /f .npmrc
+        - if exists .npmrc del /f .npmrc
 
       script:
         # Write npmrc configuration
@@ -104,7 +106,7 @@ jobs:
         - npm publish "dist/cms-ui"
 
       after_script:
-        - del /f .npmrc
+        - if exists .npmrc del /f .npmrc
 
     # Demo page deployment (dev)
     - stage: deployDemoPage
