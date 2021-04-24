@@ -1,13 +1,14 @@
 # Build library using Linux image.
-os: linux
+os: windows
 
+# Branches to trigger CI/CD
 branches:
   only:
     # Main release branch
     - master
 
     # Nightly build branch
-    - preview
+    - dev
 
     # Development & bug fixing branches.
     - /feature\/.*/
@@ -23,6 +24,20 @@ env:
     # key: MY_GET_KEY
     - secure: "OwZBnHH9IPFcc39OlUO5bCpjTZcemxgOtd3BK+6v2Wo5f0oQiAGRGc9PwVmIPdkN6+3MYIghb6UXkAUq4JxNh/TFUn9j3L1ooMWCx9DdEm9LMWYSpeL3AYNQEYb9eQ3K/NYLLpa01FgwdcYOzW1lBE5Dqm4uCTHSK9ho0109f1m7fiAclca86uVQc0RUOFSw/CY4jcPsSQuJRn9uWmuL9M2ds7sU2T1f8dDNWm5neW+lQxroCZiNHUO4fIYQVegP6tXJ8+mbiFIu7WeO6NfaRihdT3keRGET21pZ+/bZpuyR4fib5XN09gks5kIai04fvfq88Plk0y1gbAmY39fug8u52Z0p2a2+1IZWjtVOY+7p3gv68Sx35pvGXtYW4MXRc51VEAkxORFD8y/Fbp1768q4Gi1Vle/bgQwWa27sXdbF0EX6MffEFWsOajG2CcE1h2S7NaS9SxEdX02gy1RP6TM0JsrSpgjCV8UXOgbYls7pwMurXNyqX5IlCXCeecI6JilsUZDskYJjMOlUksad1ZeeBQd7P+AmaEdOQto5GUBKTnWSq/gIu9tc45C/LCZbimkv7Lumqitl3FPFged8r1N89jMywuSRzhCG2iDXxelzLG2QkNUpzimBB0q04cAXUjL7nqKjQxFDD8eBRDm7sKGiphrGLEoNwYslPQt9J9k="
 
+    # key: NPMJS_KEY
+    - secure: "OK6rO7ys9/IB5ymt7fq+KYkLgIl0P/7aOqjOhjWXwG1M2w+iXqOwcpsfsOk6Em6ComNXkoh7vMnWceTei5Oy1tcOF53Jrjjf5v7W3q6aBT3rXkh2W12GbcD6ihHfSSZQkOICez66TPTVF4gIeOoYt9mYyG4yLrl0WJ0MPGnTDU0yQ3+ERk4skfI2/B5HcYTvO0KnJ1Mho74Fd5OmeIYroQLNGoq8CrEXo81WSQoZ+OqoFJhzaZ3Ri76CnURMdZADRkrWM+jbud7dTFcCUoLB+KCG5M/KE2WMRiE+3suzKh3E1vQ4daNpZtCy62Ypg9aCJqjtMHhY1AaXCOF/zVCWn9U/hreoBrLcGserBPMxD3e5xC/wN3N+4FR925c4T1lDg35y77oTc6OjWqVZ28Yn8j1+h4IxYX2OPW9IsQhLJ9S0hngNMJ+5AnSi9ratw84be5+SkRELQ0kHNgCuYox7A5IIINz0xsKzA6HfS9O4NQGKDr3hQaYZmbsC4S6bXs8Z1clqfx0vqDV+MxjnxgnUR7ygvltUMP+TKXRTRsrV+xuxS4T/7ePdcX1Gc1xbtQ6NayeNIVk6aArY6f7wDNnOziiLc2/t/Fs6hfVmBuK858h2qa3gwOvBkOo7HqRsVqbJoQVC/0ufatPHRcypkvqaQUbI5K62LJuW3lACwdoG124="
+
+    # key: NETLIFY_AUTH_TOKEN
+    - secure: "l4PH9nRfCTG5XXXfKMdZDQXUS7dPfnhpe69v2STQnIeDYPZxdOxnY6VOSRJlBYF1oh3BgHyFq36yJz0c200FZ2nE7oj0J+FaBVB+HNITbuDVRvgVG5gpj9K1d2UCg6Sgaxco9QVZEsKlfVU3TXg3PWz/AaI2qcieM2zQlBnJrwMTLzSUfH7d4Wos7YDVM1EQvV7jfl6ipJjCDeVPP7b1rgoNiOQTTkKwbUyAseMVZKGY0jiGgOb6Qmy5yU3t1/QE4Ar6JzalYK1eP1WfjeHx11ZLLQkuA2QOgeFVNXL+4ijeLS6KDLjx+wFKG/8jPK83KLHdxzA6dwIama+eCzrWiW6kLtYVAMgYRqrhvf2yJ1FnJLoJarnku3lK6sYNfaK6f+yQ8MkG8E9O+X4Cgykh7VBq9qnXuX1OSwh1EkCKvlq6d/GtG57qzXzxo1y22csskvfaUkm3BJjvVxQ68qmgQLvhxAbvh1zFypN83eyHPnAgdZCf90rZgIcjlUIA/5gHl7oWIjzqtIC2NAdsEGDh7+qjW/+dlgAhonzAlZex6yk93z77uKvWia6DBaJiGqjJXO73OBlPOhqArKYftJHOfpsdldOHJqoeeHaOGGQD4BKZwd+0iFfgmsD64ARdh2sclNI0DWeZG4Blb8s8M2QTvoc6ErybJgd+nIeOzoJGYyw="
+
+    #key: NETLIFY_SITE_ID
+    - secure: "q6UPF2PWSAfOTMknQZTLeV0uzWhibF4nUmEv+H4NTWbzTReupaHDhpDOR/cfyM9ZS/jG/loit7E7GzNtmPyaGnWBOWKlIklK1Yq+4f1AB9IMdoD/fPiucw5wlgb5lD0hmCqujpAz8zvBmm8N8cX1PqWbtKCifjv17uEvLgCzKbVc7EbdZBHPQWBiphtTMIry/FXUlmrlWZuARDLSfqn9xn/wP24nFNXxMWLD3Wg76pAfPTU4vhdBSSYNTnQ8NSx0E17Sic0qfETjzOOAFmiFCb1C10/QzmXxWuhW1tvRwuP9txsjehg+rB+cTEcyOMEQSqDnGuVSUWqtCaSuenS/xe0LPUHzoxmNRgvJbOUjLQoGFu0jivnZ7AxlsIQeNHuIRSg77Sfz0ryFQHEeQKmhT50sJ3RvaxCVlSyVp0+8Wrsl10/zERmKIh5zjzh/aTsbRKJncluaeeWbIY19olJNpQlElv91EPc2kYptgDsrIPLbx7z3cyvN4XJi6M7ob3wfSBbg22fCoNGYJuRbDIbpJRSOeNncwDuXee4lVZQqbTX3O337QS6TY7nkUCcs0eZ9geqQrIi6zUodwSgsovPIrnq3omy7i2+xmJKp5zKZz5G9t/vMyyxpeRowA00vqqlR1W+gJQ2vL2dxDaCnIWEYE64Nw+YjEyKIq1UaKNpCR+M="
+
+notifications:
+  email:
+    recipients:
+      - redplane_dt@yahoo.com.vn
+      - lightalakanzam@gmail.com
 
 jobs:
   include:
@@ -46,13 +61,59 @@ jobs:
       script:
         - npm run build:app:production
 
-    # Library deployment (preview)
-    - stage: deployPreview
-      name: "Preview deployment"
+    # Library deployment (dev)
+    - stage: deployDevelopment
+      name: "Library deployment (development)"
+      if: branch = dev
+
       before_script:
-        # Go to distributed folder
-        - cd "dist/cms-ui"
-        -
+        # Delete previous .npmrc
+        - del /f .npmrc
+
+      script:
+        # Create .npmrc file
+        - echo registry=https://www.myget.org/F/cms-ui/npm/ >> .npmrc
+        - echo always-auth=true >> .npmrc
+        - echo //www.myget.org/F/cms-ui/npm/:_authToken=${MY_GET_KEY} >> .npmrc
+
+        # Begin publishing to MyGet hosting
+        - npm publish "dist/cms-ui"
+
+      after_script:
+        # Remove the created file: .npmrc.
+        - del /f .npmrc
+
+    # Library deployment (release)
+    - stage: deployRelease
+      name: "Library deployment (release)"
+      if: branch = master
+
+      before_script:
+        # Delete previous .npmrc
+        - del /f .npmrc
+
+      script:
+        # Write npmrc configuration
+        - echo //registry.npmjs.org/:_authToken=${NPMJS_KEY} >> .npmrc
+
+        # Publish library to npmjs.org
+        - npm publish "dist/cms-ui"
+
+      after_script:
+        - del /f .npmrc
+
+    # Demo page deployment (dev)
+    - stage: deployDemoPage
+      name: "Demo page deployment (dev)"
+      if: branch = dev
+      install:
+        # Install netlify cli
+        - npm install netlify-cli -g
+
+        # Deploy demo page
+        - netlify deploy --dir="dist/cms-ui-demo" --prod --auth="${NETLIFY_AUTH_TOKEN}" --site="${NETLIFY_SITE_ID}"
+
+
 
 
 
