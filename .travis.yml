@@ -48,7 +48,8 @@ jobs:
       install:
         # Install npm libraries
         - npm install
-          
+
+      script:
         # Disable npm test
         - echo "npm test temporarily disabled"
 
