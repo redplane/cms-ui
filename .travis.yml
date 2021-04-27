@@ -74,7 +74,7 @@ jobs:
 
       before_script:
         # Delete previous .npmrc
-        - if exists .npmrc del /f .npmrc
+        - del .npmrc 2>nul
 
       script:
         # Create .npmrc file
@@ -87,7 +87,7 @@ jobs:
 
       after_script:
         # Remove the created file: .npmrc.
-        - if exists .npmrc del /f .npmrc
+        - del .npmrc 2>nul
 
     # Library deployment (release)
     - stage: deployRelease
@@ -96,7 +96,7 @@ jobs:
 
       before_script:
         # Delete previous .npmrc
-        - if exists .npmrc del /f .npmrc
+        - del .npmrc 2>nul
 
       script:
         # Write npmrc configuration
@@ -106,7 +106,7 @@ jobs:
         - npm publish "dist/cms-ui"
 
       after_script:
-        - if exists .npmrc del /f .npmrc
+        - del .npmrc 2>nul
 
     # Demo page deployment (dev)
     - stage: deployDemoPage
