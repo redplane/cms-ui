@@ -72,10 +72,6 @@ jobs:
       name: "Library deployment (development)"
       if: branch = dev AND type = push
 
-      before_script:
-        # Delete previous .npmrc
-        - del .npmrc 2>nul
-
       script:
         # Create .npmrc file
         - echo registry=https://www.myget.org/F/cms-ui/npm/ >> .npmrc
@@ -93,10 +89,6 @@ jobs:
     - stage: deployRelease
       name: "Library deployment (release)"
       if: branch = master AND type = push
-
-      before_script:
-        # Delete previous .npmrc
-        - del .npmrc 2>nul
 
       script:
         # Write npmrc configuration
