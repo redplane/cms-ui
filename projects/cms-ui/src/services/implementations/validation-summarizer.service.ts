@@ -23,9 +23,9 @@ export abstract class ValidationSummarizerService implements IValidationSummariz
   //#region Constructor
 
   // tslint:disable-next-line:max-line-length
-  public constructor(protected builtInMessages: { [key: string]: string },
-                     validatorNameToValidationMessage?: { [name: string]: string; },
-                     protected ableToBuiltInMessageFallback?: boolean) {
+  protected constructor(protected builtInMessages: { [key: string]: string },
+                        validatorNameToValidationMessage?: { [name: string]: string; },
+                        protected ableToBuiltInMessageFallback?: boolean) {
 
     this._builtInMessages = cloneDeep(builtInMessages);
 
