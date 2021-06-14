@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
-import {AlertBannerContentComponent} from './alert-banner-content.component';
 import {CommonModule} from '@angular/common';
+import {AlertBannerContentComponent} from './alert-banner-content.component';
 
 @NgModule({
   imports: [

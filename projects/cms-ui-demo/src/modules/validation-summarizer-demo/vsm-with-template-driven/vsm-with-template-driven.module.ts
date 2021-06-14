@@ -4,12 +4,14 @@ import {VsmWithTemplateDrivenComponent} from './vsm-with-template-driven.compone
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ValidationSummarizerModule} from '@cms-ui/core';
 import {CommonModule} from '@angular/common';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     VsmWithTemplateDrivenRoutingModule,
     ReactiveFormsModule,
     ValidationSummarizerModule,
+    TranslateModule,
     CommonModule,
     FormsModule
   ],
