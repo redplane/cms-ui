@@ -18,7 +18,6 @@ import {TranslatedValidationSummarizerService} from '../../../services/implement
         notGreaterThan: 'MSG_VALUE_NOT_GREATER_THAN'
       }
     }),
-
     VmsChildModuleRoutingModule,
     RouterModule,
     ReactiveFormsModule,

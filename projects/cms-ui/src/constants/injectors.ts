@@ -6,7 +6,7 @@ import {IValidationSummarizerService} from '../services/interfaces/validation-su
 import {IBannerContentBuilder, IDialogService} from '../services';
 import {IDialogBuilder} from '../services/interfaces/dialogs/dialog-builder.interface';
 import {IScreenCodeResolver} from '../services/interfaces/screen-code-resolver.interface';
-import {TYPE_VALIDATION_SUMMARIZER_MESSAGE} from './data-types';
+import {TYPE_VALIDATION_SUMMARIZER_MESSAGE} from './data-type.constant';
 
 // Spinner providers.
 export const SPINNER_SERVICE_PROVIDER = new InjectionToken<ISpinnerService>('SPINNER_SERVICE_PROVIDER');

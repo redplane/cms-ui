@@ -9,7 +9,7 @@ import {
 import {IValidationSummarizerModuleOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 import {
   buildChildValidationSummarizerMessageFallback,
-  buildChildValidationSummarizerMessages
+  buildChildValidationSummarizerMessages,
 } from '../../../factories/validation-summarizer.factory';
 import {VALIDATION_SUMMARIZER_CHILD_OPTIONS_PROVIDER} from '../../../constants/internal-injectors';
 

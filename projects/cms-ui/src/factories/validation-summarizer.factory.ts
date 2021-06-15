@@ -3,7 +3,7 @@ import {TYPE_VALIDATION_SUMMARIZER_MESSAGE, VALIDATION_SUMMARIZER_MESSAGES} from
 import {merge as lodashMerge} from 'lodash-es';
 import {IValidationSummarizerModuleOptions} from '../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 
-// tslint:disable-next-line:max-line-length
+// Build child validation summarizer messages.
 export function buildChildValidationSummarizerMessages(injector: Injector,
                                                        childOptions: IValidationSummarizerModuleOptions)
   : TYPE_VALIDATION_SUMMARIZER_MESSAGE {
@@ -16,6 +16,7 @@ export function buildChildValidationSummarizerMessages(injector: Injector,
   return finalMessages;
 }
 
+// Build child validation summarizer message fallback option
 export function buildChildValidationSummarizerMessageFallback(childOptions: IValidationSummarizerModuleOptions)
   : boolean {
 
