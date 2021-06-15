@@ -1,5 +1,5 @@
 {
-  "LANDING_PAGE" : {
+  "LANDING_PAGE": {
     "UTILITIES": "Utilities",
     "LEARN_MORE": "Learn more",
     "DIALOGS": "Dialogs",
@@ -26,13 +26,20 @@
     "CUSTOM_VALIDATOR": "Custom validator",
     "NAME": "User Name",
     "AGE": "Age",
-    "SECURITY_NUMBER": "Security number"
+    "SECURITY_NUMBER": "Security number",
+    "QUANTITY": "Quantity",
+    "VISIBLE": "Visible",
+    "YES": "Yes",
+    "NO": "No"
   },
-  "MSG_VALIDATION_PROPERTY_REQUIRED": "value is required!",
-  "MSG_VALIDATION_PROPERTY_MIN":"min value is not valid!",
-  "MSG_VALIDATION_PROPERTY_MAX":"max value is not valid!",
-  "MSG_VALIDATION_PROPERTY_MIN_LENGTH":"min length value is not valid!",
-  "MSG_VALIDATION_PROPERTY_MAX_LENGTH":"max length value is not valid!",
-  "MSG_VALIDATION_PROPERTY_PATTERN":"pattern is not valid!",
-  "MSG_VALIDATION_PROPERTY_EMAIL": "email is not valid!"
+  "VALIDATION_MESSAGES": {
+    "MSG_VALIDATION_PROPERTY_REQUIRED": "{{controlLabel}} is required.",
+    "MSG_VALIDATION_PROPERTY_MIN": "{{controlLabel}} minimum value must be {{additionalValue.min}}",
+    "MSG_VALIDATION_PROPERTY_MAX": "max value is not valid!",
+    "MSG_VALIDATION_PROPERTY_MIN_LENGTH": "{{controlLabel}}'s minimum  length must be {{additionalValue.minlength}}",
+    "MSG_VALIDATION_PROPERTY_MAX_LENGTH": "max length value is not valid!",
+    "MSG_VALIDATION_PROPERTY_PATTERN": "pattern is not valid!",
+    "MSG_VALIDATION_PROPERTY_EMAIL": "email is not valid!",
+    "MSG_CUSTOM_VALIDATOR_MESSAGE_NOT_SMALLER_THAN": "{{controlLabel}} cannot be smaller than {{additionalValue.notSmallerThan}}"
+  }
 }

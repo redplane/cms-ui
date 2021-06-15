@@ -25,7 +25,7 @@
                          [formControl]="customerNameControl">
 
                   <cms-validation-summarizer [instance]="customerNameControl"
-                                             label="VALIDATION_SUMMARIZER_DEMO.NAME">
+                                             [label]="'VALIDATION_SUMMARIZER_DEMO.NAME' | translate">
                   </cms-validation-summarizer>
                 </div>
 
@@ -37,7 +37,7 @@
                          [formControl]="customerAgeControl">
 
                   <cms-validation-summarizer [instance]="customerAgeControl"
-                                             label="VALIDATION_SUMMARIZER_DEMO.AGE">
+                                             [label]="'VALIDATION_SUMMARIZER_DEMO.AGE' | translate">
                   </cms-validation-summarizer>
                 </div>
               </div>
