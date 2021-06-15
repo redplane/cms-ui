@@ -14,6 +14,7 @@ export class ValidationSummarizerDemoScreenCodeResolver extends DefaultScreenCod
     codeToUrl[ValidationSummarizerDemoScreenCodeConstant.withVisibilityHandler] = '/validation-summarizer-demo/visibility-handler';
     codeToUrl[ValidationSummarizerDemoScreenCodeConstant.withTemplateDriven] = '/validation-summarizer-demo/template-driven';
     codeToUrl[ValidationSummarizerDemoScreenCodeConstant.withCustomValidator] = '/validation-summarizer-demo/custom-validator';
+    codeToUrl[ValidationSummarizerDemoScreenCodeConstant.withChildValidatorModule] = '/validation-summarizer-demo/child-validator-module';
     codeToUrl[ValidationSummarizerDemoScreenCodeConstant.withBasicValidator] = '/validation-summarizer-demo';
     super(codeToUrl);
   }

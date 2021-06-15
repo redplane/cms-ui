@@ -12,6 +12,8 @@ export class ValidationSummarizerDemoScreenCodeConstant {
 
   public static readonly withBasicValidator = 'VALIDATION_SUMMARIZER_DEMO.WITH_BASIC_VALIDATOR';
 
+  public static readonly withChildValidatorModule = 'VALIDATION_SUMMARIZER_DEMO.WITH_CHILD_VALIDATOR_MODULE';
+
   //#endregion
 
 }

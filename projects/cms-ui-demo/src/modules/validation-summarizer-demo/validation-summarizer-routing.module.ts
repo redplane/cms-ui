@@ -3,7 +3,6 @@ import {RouterModule, Routes} from '@angular/router';
 import {DemoLayoutComponent} from '../shared/demo-layout/demo-layout.component';
 import {DemoLayoutModule} from '../shared/demo-layout/demo-layout.module';
 import {ValidationSummarizerDemoComponent} from './validation-summarizer-demo.component';
-import {TranslateModule} from '@ngx-translate/core';
 
 //#region Properties
 
@@ -35,6 +34,11 @@ const routes: Routes = [
             path: 'custom-validator',
             loadChildren: () => import('./vsm-with-custom-validator/vsm-with-custom-validator.module')
               .then(m => m.VsmWithCustomValidatorModule)
+          },
+          {
+            path: 'child-validator-module',
+            loadChildren: () => import('./vms-child-module/vms-child-module.module')
+              .then(m => m.VmsChildModuleModule)
           },
           {
             path: '',

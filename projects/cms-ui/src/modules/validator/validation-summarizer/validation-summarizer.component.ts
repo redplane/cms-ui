@@ -1,6 +1,6 @@
 import {Component, Inject, InjectFlags, Injector, Input, TemplateRef} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
-import {VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injection-token.constant';
+import {VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injectors';
 import {IValidationSummarizerService} from '../../../services/interfaces/validation-summarizer-service.interface';
 import {ValidationMessage} from '../../../models/implementations/validation-message';
 

@@ -45,6 +45,15 @@
       {{'VALIDATION_SUMMARIZER_DEMO.CUSTOM_VALIDATOR' | translate}}
     </a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link"
+       href="#"
+       [routerLinkActive]="'active'"
+       [routerLink]="validationSummarizerDemoScreenCodes.withChildValidatorModule | toUrlTree | toUrl"
+       (click)="$event.preventDefault(); resetCurrentItem()">
+      {{'VALIDATION_SUMMARIZER_DEMO.CHILD_VALIDATOR_MODULE' | translate}}
+    </a>
+  </li>
 </ul>
 <div class="row">
   <div class="col-12">

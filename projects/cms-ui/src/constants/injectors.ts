@@ -6,6 +6,7 @@ import {IValidationSummarizerService} from '../services/interfaces/validation-su
 import {IBannerContentBuilder, IDialogService} from '../services';
 import {IDialogBuilder} from '../services/interfaces/dialogs/dialog-builder.interface';
 import {IScreenCodeResolver} from '../services/interfaces/screen-code-resolver.interface';
+import {TYPE_VALIDATION_SUMMARIZER_MESSAGE} from './data-types';
 
 // Spinner providers.
 export const SPINNER_SERVICE_PROVIDER = new InjectionToken<ISpinnerService>('SPINNER_SERVICE_PROVIDER');
@@ -22,7 +23,8 @@ export const SMART_NAVIGATOR_SCREEN_CODE_RESOLVER = new InjectionToken<IScreenCo
 
 // Validation summarizer providers.
 export const VALIDATION_SUMMARIZER_PROVIDER = new InjectionToken<IValidationSummarizerService>('VALIDATION_SUMMARIZER_PROVIDER');
-export const VALIDATION_SUMMARIZER_MESSAGES = new InjectionToken<{ [key: string]: string }>('VALIDATION_SUMMARIZER_MESSAGES');
+export const VALIDATION_SUMMARIZER_MESSAGES =
+  new InjectionToken<TYPE_VALIDATION_SUMMARIZER_MESSAGE>('VALIDATION_SUMMARIZER_MESSAGES');
 export const VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK =
   new InjectionToken<boolean>('VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK');
 

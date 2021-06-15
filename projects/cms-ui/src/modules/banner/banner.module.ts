@@ -3,7 +3,7 @@ import {BannerComponent} from './banner.component';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {IBannerService} from '../../services/interfaces/banners/banner-service.interface';
-import {BANNER_SERVICE_PROVIDER} from '../../constants/injection-token.constant';
+import {BANNER_SERVICE_PROVIDER} from '../../constants/injectors';
 import {BannerService} from '../../services/implementations/banner.service';
 
 @NgModule({

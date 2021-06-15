@@ -1,6 +1,6 @@
 import {Injector, ModuleWithProviders, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {SMART_NAVIGATOR_PROVIDER, SMART_NAVIGATOR_ROUTES} from '../../constants/injection-token.constant';
+import {SMART_NAVIGATOR_PROVIDER, SMART_NAVIGATOR_ROUTES} from '../../constants/injectors';
 import {SmartNavigatorService} from '../../services/implementations/smart-navigator.service';
 import {ISmartNavigatorService} from '../../services';
 import {ToRawUrlPipe} from '../../pipes/smart-navigators/to-raw-url.pipe';

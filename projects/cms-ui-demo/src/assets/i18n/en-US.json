@@ -24,11 +24,14 @@
     "VISIBILITY_HANDLER": "Visibility handler",
     "TEMPLATE_DRIVEN": "Template driven",
     "CUSTOM_VALIDATOR": "Custom validator",
+    "CHILD_VALIDATOR_MODULE": "Child validator module",
     "NAME": "User Name",
     "AGE": "Age",
     "SECURITY_NUMBER": "Security number",
     "QUANTITY": "Quantity",
     "VISIBLE": "Visible",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
     "YES": "Yes",
     "NO": "No"
   },
@@ -40,6 +43,7 @@
     "MSG_VALIDATION_PROPERTY_MAX_LENGTH": "max length value is not valid!",
     "MSG_VALIDATION_PROPERTY_PATTERN": "pattern is not valid!",
     "MSG_VALIDATION_PROPERTY_EMAIL": "email is not valid!",
-    "MSG_CUSTOM_VALIDATOR_MESSAGE_NOT_SMALLER_THAN": "{{controlLabel}} cannot be smaller than {{additionalValue.notSmallerThan}}"
+    "MSG_CUSTOM_VALIDATOR_MESSAGE_NOT_SMALLER_THAN": "{{controlLabel}} cannot be smaller than {{additionalValue.notSmallerThan}}",
+    "MSG_VALUE_NOT_GREATER_THAN": "{{controlLabel}} cannot be greater than {{additionalValue.notGreaterThan}}"
   }
 }

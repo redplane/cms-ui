@@ -9,7 +9,7 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {BANNER_BUILDER_PROVIDER, BANNER_SERVICE_PROVIDER, WINDOW} from '../../constants/injection-token.constant';
+import {BANNER_BUILDER_PROVIDER, BANNER_SERVICE_PROVIDER, WINDOW} from '../../constants/injectors';
 import {Observable, of, Subject, Subscription, throwError} from 'rxjs';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent} from '@angular/router';
 import {delay, filter, map, mergeMap, retryWhen, switchMap, tap} from 'rxjs/operators';
