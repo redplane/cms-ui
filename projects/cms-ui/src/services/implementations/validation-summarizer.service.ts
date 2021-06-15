@@ -1,7 +1,6 @@
 import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, NgForm, ValidationErrors} from '@angular/forms';
-import {merge as lodashMerge} from 'lodash-es';
+import {cloneDeep, merge as lodashMerge} from 'lodash-es';
 import {IValidationSummarizerService} from '../interfaces';
-import {cloneDeep} from 'lodash-es';
 import {ValidationMessage} from '../../models/implementations/validation-message';
 
 export abstract class ValidationSummarizerService implements IValidationSummarizerService {
@@ -63,7 +62,6 @@ export abstract class ValidationSummarizerService implements IValidationSummariz
 
     // List of validation messages.
     const messages: ValidationMessage[] = [];
-    // TODO: Not working for validators that are added later
     if (!control.errors || !control.errors) {
       return [];
     }
@@ -79,6 +77,8 @@ export abstract class ValidationSummarizerService implements IValidationSummariz
         boundValue = control.errors[key][key];
       } else if (key === 'minlength' || key === 'maxlength') {
         boundValue = control.errors[key].requiredLength;
+      } else {
+        boundValue = control.errors[key];
       }
 
       const additionalValue: { [key: string]: any } = {};
@@ -271,9 +271,8 @@ export abstract class ValidationSummarizerService implements IValidationSummariz
       return '';
     }
 
-    const initialMessage = this._validatorNameToValidationMessage[validatorName];
-    // TODO: Interpolate the message.
-    return initialMessage;
+    const validationMessage = this._validatorNameToValidationMessage[validatorName];
+    return validationMessage;
   }
 
   //#endregion
