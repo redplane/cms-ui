@@ -1,7 +1,9 @@
 import {Type} from '@angular/core';
 import {IValidationSummarizerService} from '../../../services';
+import {IValidationSummarizerOptions} from './validation-summarizer-options.interface';
 
-export interface IValidationSummarizerModuleOptions {
+export interface IValidationSummarizerModuleOptions
+  extends IValidationSummarizerOptions {
 
   //#region Properties
 
@@ -12,7 +14,7 @@ export interface IValidationSummarizerModuleOptions {
   useBuiltInValidationMessage?: boolean;
 
   // Messages which will be used when the validation has issue.
-  validationMessages?: {[key: string]: string};
+  validationMessages?: { [key: string]: string };
 
   //#endregion
 

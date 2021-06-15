@@ -1,8 +1,12 @@
-import {Component, Inject, InjectFlags, Injector, Input, TemplateRef} from '@angular/core';
+import {Component, InjectFlags, Injector, Input, TemplateRef} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
 import {VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injectors';
-import {IValidationSummarizerService} from '../../../services/interfaces/validation-summarizer-service.interface';
+import {IValidationSummarizerService} from '../../../services/interfaces/validation-summarizers/validation-summarizer-service.interface';
 import {ValidationMessage} from '../../../models/implementations/validation-message';
+import {IValidationSummarizerOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-options.interface';
+import {VALIDATION_SUMMARIZER_OPTIONS_PROVIDER} from '../../../constants/internal-injectors';
+import {v4 as uuid} from 'uuid';
+
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -14,11 +18,19 @@ export class ValidationSummarizerComponent {
 
   //#region Properties
 
+  // Component id.
+  // tslint:disable-next-line:variable-name
+  protected _id: string;
+
   // tslint:disable-next-line:variable-name
   protected _control: AbstractControl | NgControl | null;
 
   // tslint:disable-next-line:variable-name
   protected _maxValidationMessages = 0;
+
+  // Validation summarizer options.
+  // tslint:disable-next-line:variable-name
+  protected _options: IValidationSummarizerOptions;
 
   // Service for validating controls.
   protected validationSummarizerService: IValidationSummarizerService | null;
@@ -30,6 +42,20 @@ export class ValidationSummarizerComponent {
   //#endregion
 
   //#region Accessors
+
+  public get id(): string {
+    return this._id;
+  }
+
+  @Input()
+  public set id(value: string) {
+
+    if (!value || !value.length) {
+      return;
+    }
+
+    this._id = value;
+  }
 
   // Instance of the control that needs to be validated.
   @Input('instance')
@@ -87,12 +113,23 @@ export class ValidationSummarizerComponent {
     return this._visibilityHandler;
   }
 
+  // Validation summarizer options.
+  public get options(): IValidationSummarizerOptions {
+    return this._options;
+  }
+
   //#endregion
 
   //#region Constructor
 
   public constructor(protected injector: Injector) {
-    this.validationSummarizerService = injector.get(VALIDATION_SUMMARIZER_PROVIDER, null, InjectFlags.Optional);
+
+    // Service resolve.
+    this.validationSummarizerService = injector.get(VALIDATION_SUMMARIZER_PROVIDER,
+      null, InjectFlags.Optional);
+    this._options = injector.get(VALIDATION_SUMMARIZER_OPTIONS_PROVIDER, {});
+
+    this._id = uuid();
     this._maxValidationMessages = 0;
     this.controlLabel = '';
     this._control = null;

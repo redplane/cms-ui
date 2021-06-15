@@ -12,12 +12,14 @@ import {
   buildChildValidationSummarizerMessages,
 } from '../../../factories/validation-summarizer.factory';
 import {VALIDATION_SUMMARIZER_CHILD_OPTIONS_PROVIDER} from '../../../constants/internal-injectors';
+import {ValidationSummarizerItemComponent} from './validation-summarizer-item/validation-summarizer-item.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [
+    ValidationSummarizerItemComponent,
     ValidationSummarizerComponent
   ],
   exports: [

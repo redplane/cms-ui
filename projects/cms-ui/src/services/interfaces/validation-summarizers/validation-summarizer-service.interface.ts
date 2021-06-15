@@ -1,5 +1,5 @@
 import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, NgForm, ValidationErrors} from '@angular/forms';
-import {ValidationMessage} from '../../models/implementations/validation-message';
+import {ValidationMessage} from '../../../models/implementations/validation-message';
 
 export interface IValidationSummarizerService {
 
