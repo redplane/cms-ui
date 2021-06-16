@@ -1,11 +1,7 @@
-import {Inject, Injectable, Optional} from '@angular/core';
-import {
-  builtInValidationMessages,
-  VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK,
-  VALIDATION_SUMMARIZER_MESSAGES,
-  ValidationSummarizerService
-} from '@cms-ui/core';
+import {Inject, Injectable} from '@angular/core';
+import {VALIDATION_SUMMARIZER_MODULE_OPTIONS_PROVIDER, ValidationSummarizerService} from '@cms-ui/core';
 import {TranslateService} from '@ngx-translate/core';
+import {IValidationSummarizerModuleOptions} from '../../../../cms-ui/src/models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 
 @Injectable()
 export class TranslatedValidationSummarizerService extends ValidationSummarizerService {
@@ -14,12 +10,9 @@ export class TranslatedValidationSummarizerService extends ValidationSummarizerS
 
   // tslint:disable-next-line:max-line-length
   public constructor(
-    protected readonly translateService: TranslateService,
-    @Optional() @Inject(VALIDATION_SUMMARIZER_MESSAGES)
-      validatorNameToValidationMessage?: { [name: string]: string; },
-    @Optional() @Inject(VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK)
-    protected ableToBuiltInMessageFallback?: boolean) {
-    super(builtInValidationMessages, validatorNameToValidationMessage, ableToBuiltInMessageFallback);
+    @Inject(VALIDATION_SUMMARIZER_MODULE_OPTIONS_PROVIDER) validationSummarizerOptions: IValidationSummarizerModuleOptions,
+    protected readonly translateService: TranslateService) {
+    super(validationSummarizerOptions);
   }
 
   //#endregion
@@ -35,14 +28,7 @@ export class TranslatedValidationSummarizerService extends ValidationSummarizerS
     }
 
     // Message to be translated.
-    let message = this._validatorNameToValidationMessage[validatorName];
-
-    // Message is not found. Build a fall back message.
-    if (!message) {
-      if (this.ableToBuiltInMessageFallback && this._builtInMessages) {
-        message = this._builtInMessages[validatorName];
-      }
-    }
+    const message = this._validatorNameToValidationMessage[validatorName];
 
     if (!message) {
       return '';

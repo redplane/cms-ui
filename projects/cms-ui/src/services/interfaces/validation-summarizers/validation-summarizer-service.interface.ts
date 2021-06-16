@@ -1,5 +1,5 @@
 import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, NgForm, ValidationErrors} from '@angular/forms';
-import {ValidationMessage} from '../../../models/implementations/validation-message';
+import {ValidationMessage} from '../../../models/implementations/validation-summarizers/validation-message';
 
 export interface IValidationSummarizerService {
 
@@ -31,9 +31,6 @@ export interface IValidationSummarizerService {
 
   // Get control validation errors.
   loadControlValidationErrors(control: AbstractControl | FormGroup): ValidationErrors | null;
-
-  // Should validation summarized to be able to displayed.
-  shouldValidationSummarizerAbleToDisplayed(control: AbstractControl | NgControl): boolean;
 
   //#endregion
 }

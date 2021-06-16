@@ -12,9 +12,7 @@ import {TranslateModule} from '@ngx-translate/core';
     ValidationSummarizerRoutingModule,
     ReactiveFormsModule,
     TranslateModule.forChild(),
-    ValidationSummarizerModule.forRoot({
-      validationService: TranslatedValidationSummarizerService,
-      useBuiltInValidationMessage: true,
+    ValidationSummarizerModule.forRoot(TranslatedValidationSummarizerService, {
       validationMessages: {
         notSmallerThan: 'MSG_CUSTOM_VALIDATOR_MESSAGE_NOT_SMALLER_THAN'
       }

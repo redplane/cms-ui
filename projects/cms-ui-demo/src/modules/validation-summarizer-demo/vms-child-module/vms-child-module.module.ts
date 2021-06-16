@@ -11,9 +11,7 @@ import {TranslatedValidationSummarizerService} from '../../../services/implement
 @NgModule({
   imports: [
     CommonModule,
-    ValidationSummarizerModule.forChild({
-      validationService: TranslatedValidationSummarizerService,
-      useBuiltInValidationMessage: true,
+    ValidationSummarizerModule.forChild(TranslatedValidationSummarizerService,{
       validationMessages: {
         notGreaterThan: 'MSG_VALUE_NOT_GREATER_THAN'
       }

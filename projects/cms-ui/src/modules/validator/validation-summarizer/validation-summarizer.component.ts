@@ -1,11 +1,11 @@
 import {Component, InjectFlags, Injector, Input, TemplateRef} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
-import {VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injectors';
+import {VALIDATION_SUMMARIZER_MODULE_OPTIONS_PROVIDER, VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injectors';
 import {IValidationSummarizerService} from '../../../services/interfaces/validation-summarizers/validation-summarizer-service.interface';
-import {ValidationMessage} from '../../../models/implementations/validation-message';
+import {ValidationMessage} from '../../../models/implementations/validation-summarizers/validation-message';
 import {IValidationSummarizerOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-options.interface';
-import {VALIDATION_SUMMARIZER_OPTIONS_PROVIDER} from '../../../constants/internal-injectors';
 import {v4 as uuid} from 'uuid';
+import {IValidationSummarizerModuleOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class ValidationSummarizerComponent {
 
   // Component id.
   // tslint:disable-next-line:variable-name
-  protected _id: string;
+  protected _groupId: string;
 
   // tslint:disable-next-line:variable-name
   protected _control: AbstractControl | NgControl | null;
@@ -30,7 +30,7 @@ export class ValidationSummarizerComponent {
 
   // Validation summarizer options.
   // tslint:disable-next-line:variable-name
-  protected _options: IValidationSummarizerOptions;
+  protected _options: IValidationSummarizerModuleOptions;
 
   // Service for validating controls.
   protected validationSummarizerService: IValidationSummarizerService | null;
@@ -43,18 +43,22 @@ export class ValidationSummarizerComponent {
 
   //#region Accessors
 
-  public get id(): string {
-    return this._id;
+  // Id of group the validation summarizer belongs to.
+  // This can be used for identifying whether to apply validation summarizer item template builder or not.
+  public get groupId(): string {
+    return this._groupId;
   }
 
-  @Input()
-  public set id(value: string) {
+  // Set item group id.
+  // tslint:disable-next-line:no-input-rename
+  @Input('group-id')
+  public set groupId(value: string) {
 
     if (!value || !value.length) {
       return;
     }
 
-    this._id = value;
+    this._groupId = value;
   }
 
   // Instance of the control that needs to be validated.
@@ -94,7 +98,7 @@ export class ValidationSummarizerComponent {
 
   // Maximum number of validation messages.
   @Input('maximum-messages')
-  public set maximumValidationMessage(value: number) {
+  public set maximumValidationMessages(value: number) {
     if (isNaN(value)) {
       this._maxValidationMessages = 0;
       return;
@@ -127,10 +131,12 @@ export class ValidationSummarizerComponent {
     // Service resolve.
     this.validationSummarizerService = injector.get(VALIDATION_SUMMARIZER_PROVIDER,
       null, InjectFlags.Optional);
-    this._options = injector.get(VALIDATION_SUMMARIZER_OPTIONS_PROVIDER, {});
+    this._options = injector.get(VALIDATION_SUMMARIZER_MODULE_OPTIONS_PROVIDER, {});
 
-    this._id = uuid();
-    this._maxValidationMessages = 0;
+    this._groupId = this._options.groupId || uuid();
+    this._maxValidationMessages = this._options.maximumMessages || 0;
+    this._visibilityHandler = this._options.visibilityHandler || null;
+
     this.controlLabel = '';
     this._control = null;
     this.alternativeTemplate = null;
@@ -152,11 +158,12 @@ export class ValidationSummarizerComponent {
       return this.visibilityHandler(ngControl);
     }
 
-    if (!ngControl || !this.validationSummarizerService) {
+    if (!ngControl) {
       return false;
     }
 
-    return this.validationSummarizerService.shouldValidationSummarizerAbleToDisplayed(ngControl);
+    const ableToDisplay = ngControl.invalid && (ngControl.dirty || ngControl.touched) === true;
+    return true === ableToDisplay;
   }
 
   //#endregion

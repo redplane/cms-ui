@@ -4,12 +4,13 @@
 
   <!--Use item template builder-->
   <ng-container *ngSwitchCase="true">
+    {{templateContext.validationMessages | json}}
     <ng-container *ngIf="templateContext.validationMessages && templateContext.validationMessages.length > 0">
-      <validation-summarizer-item *ngFor="let validationMessage of templateContext.validationMessages"
-                                  [containerId]="id"
-                                  [validationMessage]="validationMessage"
-                                  [ngControl]="ngControl"
-                                  [controlLabel]="controlLabel"></validation-summarizer-item>
+      <ng-template validationSummarizerItem
+                   [containerId]="groupId"
+                   [validationMessages]="templateContext.validationMessages"
+                   [ngControl]="ngControl"
+                   [controlLabel]="controlLabel"></ng-template>
     </ng-container>
   </ng-container>
 

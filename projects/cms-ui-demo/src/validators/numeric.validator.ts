@@ -56,6 +56,26 @@ export class NumericValidator {
     };
   }
 
+  public static isEven(): ValidatorFn {
+    return (abstractControl: AbstractControl): ValidationErrors | null => {
+      const value = parseInt(abstractControl.value as string, 10);
+
+      // Skip if the value is not a number.
+      if (!isNumber(value)) {
+        return null;
+      }
+
+      // Validation is valid.
+      if (value % 2 === 0) {
+        return null;
+      }
+
+      return {
+        isEven: value
+      };
+    };
+  }
+
   //#endregion
 
 }

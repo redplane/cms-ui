@@ -1,7 +1,8 @@
 export * from './delete-spinner-request';
 export * from './display-spinner-request';
-export * from './validation-message';
-export * from './validation-summarizers/validation-message-context';
+
+// Validation summarizer export.
+export * from './validation-summarizers/index';
 
 // Dialog export.
 export * from './dialogs/index';

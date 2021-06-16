@@ -1,1 +1,1 @@
-export * from './validation-summarizer-item.component';
+export * from './validation-summarizer-item.directive';

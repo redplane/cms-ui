@@ -25,6 +25,7 @@
     "TEMPLATE_DRIVEN": "Template driven",
     "CUSTOM_VALIDATOR": "Custom validator",
     "CHILD_VALIDATOR_MODULE": "Child validator module",
+    "VALIDATION_ITEM_TEMPLATE": "Validation item template",
     "NAME": "User Name",
     "AGE": "Age",
     "SECURITY_NUMBER": "Security number",

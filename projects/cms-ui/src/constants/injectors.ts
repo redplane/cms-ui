@@ -6,8 +6,8 @@ import {IValidationSummarizerService} from '../services/interfaces/validation-su
 import {IBannerContentBuilder, IDialogService} from '../services';
 import {IDialogBuilder} from '../services/interfaces/dialogs/dialog-builder.interface';
 import {IScreenCodeResolver} from '../services/interfaces/screen-code-resolver.interface';
-import {TYPE_VALIDATION_SUMMARIZER_MESSAGE} from './data-type.constant';
 import {IValidationSummarizerItemTemplateBuilder} from '../services/interfaces/validation-summarizers/validation-summarizer-item-template-builder.interface';
+import {IValidationSummarizerModuleOptions} from '../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 
 // Spinner providers.
 export const SPINNER_SERVICE_PROVIDER = new InjectionToken<ISpinnerService>('SPINNER_SERVICE_PROVIDER');
@@ -24,12 +24,9 @@ export const SMART_NAVIGATOR_SCREEN_CODE_RESOLVER = new InjectionToken<IScreenCo
 
 // Validation summarizer providers.
 export const VALIDATION_SUMMARIZER_PROVIDER = new InjectionToken<IValidationSummarizerService>('VALIDATION_SUMMARIZER_PROVIDER');
-export const VALIDATION_SUMMARIZER_MESSAGES =
-  new InjectionToken<TYPE_VALIDATION_SUMMARIZER_MESSAGE>('VALIDATION_SUMMARIZER_MESSAGES');
-export const VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK =
-  new InjectionToken<boolean>('VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK');
 export const VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER =
   new InjectionToken<IValidationSummarizerItemTemplateBuilder[]>('VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER');
+export const VALIDATION_SUMMARIZER_MODULE_OPTIONS_PROVIDER = new InjectionToken<IValidationSummarizerModuleOptions>('VALIDATION_SUMMARIZER_OPTIONS_PROVIDER');
 
 // Dialog providers.
 export const DIALOG_BUILDER_PROVIDER = new InjectionToken<IDialogBuilder>('DIALOG_BUILDER_PROVIDER');

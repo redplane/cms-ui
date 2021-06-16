@@ -1,7 +1,9 @@
 import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, NgForm, ValidationErrors} from '@angular/forms';
-import {cloneDeep, merge as lodashMerge} from 'lodash-es';
+import {merge as lodashMerge} from 'lodash-es';
 import {IValidationSummarizerService} from '../interfaces';
-import {ValidationMessage} from '../../models/implementations/validation-message';
+import {ValidationMessage} from '../../models/implementations/validation-summarizers/validation-message';
+import {IValidationSummarizerModuleOptions} from '../../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
+import {builtInValidationMessages} from '../../constants';
 
 export abstract class ValidationSummarizerService implements IValidationSummarizerService {
 
@@ -13,27 +15,15 @@ export abstract class ValidationSummarizerService implements IValidationSummariz
   // tslint:disable-next-line:variable-name
   protected _validatorNameToValidationMessage: { [name: string]: string; };
 
-  // Built in message which basically supported by plugin.
-  // tslint:disable-next-line:variable-name
-  protected _builtInMessages: { [name: string]: string };
-
   //#endregion
 
   //#region Constructor
 
   // tslint:disable-next-line:max-line-length
-  protected constructor(protected builtInMessages: { [key: string]: string },
-                        validatorNameToValidationMessage?: { [name: string]: string; },
-                        protected ableToBuiltInMessageFallback?: boolean) {
-
-    this._builtInMessages = cloneDeep(builtInMessages);
-
-    if (!validatorNameToValidationMessage) {
-      this._validatorNameToValidationMessage = {};
-      return;
-    }
-
-    this._validatorNameToValidationMessage = cloneDeep(validatorNameToValidationMessage);
+  protected constructor(private readonly validationSummarizerOptions: IValidationSummarizerModuleOptions) {
+    this._validatorNameToValidationMessage = lodashMerge(
+      builtInValidationMessages,
+      validationSummarizerOptions.validationMessages || {});
   }
 
   //#endregion
@@ -243,15 +233,6 @@ export abstract class ValidationSummarizerService implements IValidationSummariz
     return validationErrors;
   }
 
-  public shouldValidationSummarizerAbleToDisplayed(control: AbstractControl | NgControl): boolean {
-    if (!control) {
-      return false;
-    }
-
-    const ableToDisplay = control.invalid && (control.dirty || control.touched) === true;
-    return true === ableToDisplay;
-  }
-
   //#endregion
 
   //#region Internal methods
@@ -262,16 +243,11 @@ export abstract class ValidationSummarizerService implements IValidationSummariz
       return '';
     }
 
-    if (!this._validatorNameToValidationMessage[validatorName]) {
-
-      if (this.ableToBuiltInMessageFallback && this._builtInMessages) {
-        return this._builtInMessages[validatorName];
-      }
-
+    const validationMessage = this._validatorNameToValidationMessage[validatorName];
+    if (!validationMessage) {
       return '';
     }
 
-    const validationMessage = this._validatorNameToValidationMessage[validatorName];
     return validationMessage;
   }
 
