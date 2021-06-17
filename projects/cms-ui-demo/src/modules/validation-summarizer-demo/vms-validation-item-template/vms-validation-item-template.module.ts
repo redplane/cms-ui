@@ -6,8 +6,11 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER, ValidationSummarizerModule} from '@cms-ui/core';
 import {TranslatedValidationSummarizerService} from '../../../services/implementations/translated-validation-summarizer.service';
 import {HighlightJsModule} from 'ngx-highlight-js';
-import {RequiredValidationItemTemplateComponent} from './item-templates/required-validation-item-template.component';
-import {RequiredValidationItemTemplateBuilder} from './item-templates/required-validation.item-template-builder';
+import {CustomValidationItemTemplateComponent} from './item-templates/custom-validation-item-template.component';
+import {CustomValidationItemTemplateBuilder} from './item-templates/custom-validation.item-template-builder';
+import {DefaultValidationItemTemplateComponent} from './item-templates/default-validation-item-template.component';
+import {DefaultValidationItemTemplateBuilder} from './item-templates/default-validation.item-template-builder';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports: [
@@ -22,21 +25,29 @@ import {RequiredValidationItemTemplateBuilder} from './item-templates/required-v
       },
       maximumMessages: 1
     }),
-    HighlightJsModule
+    HighlightJsModule,
+    RouterModule
   ],
   declarations: [
-    RequiredValidationItemTemplateComponent,
+    CustomValidationItemTemplateComponent,
+    DefaultValidationItemTemplateComponent,
     VmsValidationItemTemplateComponent
   ],
   providers: [
     {
       provide: VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER,
-      useClass: RequiredValidationItemTemplateBuilder,
+      useClass: CustomValidationItemTemplateBuilder,
+      multi: true
+    },
+    {
+      provide: VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER,
+      useClass: DefaultValidationItemTemplateBuilder,
       multi: true
     }
   ],
   entryComponents: [
-    RequiredValidationItemTemplateComponent
+    CustomValidationItemTemplateComponent,
+    DefaultValidationItemTemplateComponent
   ]
 })
 export class VmsValidationItemTemplateModule {

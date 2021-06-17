@@ -5,7 +5,14 @@ import {VmsValidationItemTemplateComponent} from './vms-validation-item-template
 const routes: Routes = [
   {
     path: '',
-    component: VmsValidationItemTemplateComponent
+    component: VmsValidationItemTemplateComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./vms-child-validation-item-template/vms-child-validation-item-template.module')
+          .then(m => m.VmsChildValidationItemTemplateModule)
+      }
+    ]
   }
 ];
 

@@ -5,8 +5,8 @@ import {ValidationMessage} from '../../../../models';
 import {AbstractControl, NgControl} from '@angular/forms';
 import {NO_SUITABLE_VALIDATION_SUMMARIZER_ITEM_TEMPLATE_BUILDER_FOUND} from '../../../../constants/internal-exception-codes';
 import {ValidationItemBuildContext} from '../../../../models/implementations/validation-summarizers/validation-item-build-context';
-import {forkJoin, from, Observable, Subject, Subscription} from 'rxjs';
-import {debounceTime, map, switchMap} from 'rxjs/operators';
+import {forkJoin, from, Observable, of, Subject, Subscription} from 'rxjs';
+import {catchError, debounceTime, map, switchMap} from 'rxjs/operators';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
@@ -113,20 +113,28 @@ export class ValidationSummarizerItemDirective implements OnInit, AfterViewInit,
         switchMap(validationMessages => {
 
           // Observables to be completed.
-          const observables: Observable<ComponentRef<any>>[] = [];
+          const observables: Observable<ComponentRef<any> | null>[] = [];
           for (const validationMessage of validationMessages) {
-            const loadValidationItemComponentRefObservable = from(this.loadValidationItemComponentRef(validationMessage));
+            const loadValidationItemComponentRefObservable = from(this.loadValidationItemComponentRef(validationMessage))
+              .pipe(
+                catchError(() => {
+                  return of(null);
+                })
+              );
             observables.push(loadValidationItemComponentRefObservable);
           }
 
           return forkJoin(observables);
         })
       )
-      .subscribe((componentRefs: ComponentRef<any>[]) => {
+      .subscribe((componentRefs: (ComponentRef<any> | null) []) => {
         // Clear the view container.
         this.viewContainerRef.clear();
 
         for (const componentRef of componentRefs) {
+          if (!componentRef) {
+            continue;
+          }
           this.viewContainerRef.insert(componentRef.hostView);
         }
       });

@@ -5,7 +5,8 @@ import {IValidationSummarizerModuleOptions} from '../models/interfaces/validatio
 
 // Build child validation summarizer options.
 export function buildChildValidationSummarizerOptions(injector: Injector,
-                                                     childOptions: IValidationSummarizerModuleOptions): IValidationSummarizerModuleOptions {
+                                                      // tslint:disable-next-line:max-line-length
+                                                      childOptions: IValidationSummarizerModuleOptions): IValidationSummarizerModuleOptions {
 
   const addedOptions = injector.get(VALIDATION_SUMMARIZER_MODULE_OPTIONS_PROVIDER,
     {}, InjectFlags.SkipSelf);

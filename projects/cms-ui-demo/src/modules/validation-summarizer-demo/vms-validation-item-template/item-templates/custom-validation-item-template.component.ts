@@ -4,10 +4,11 @@ import {VALIDATION_ITEM_CONTEXT_PROVIDER} from '../../../../constants/injection-
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'required-validation-item-template',
-  template: `<b>(External component)</b> <span class="text-danger">{{validationMessageContext.label}} is required</span>`
+  selector: 'custom-validation-item',
+  template: `<b>(Custom validation)</b> <span class="text-danger">{{validationMessageContext.validationMessage?.content}}</span>`,
+  styleUrls: ['custom-validation-item-template.component.scss']
 })
-export class RequiredValidationItemTemplateComponent {
+export class CustomValidationItemTemplateComponent {
 
   //#region Constructor
 

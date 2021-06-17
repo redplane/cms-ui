@@ -4,7 +4,6 @@
 
   <!--Use item template builder-->
   <ng-container *ngSwitchCase="true">
-    {{templateContext.validationMessages | json}}
     <ng-container *ngIf="templateContext.validationMessages && templateContext.validationMessages.length > 0">
       <ng-template validationSummarizerItem
                    [containerId]="groupId"

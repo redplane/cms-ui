@@ -1,15 +1,24 @@
 import {IValidationSummarizerItemTemplateBuilder, ValidationItemBuildContext} from '@cms-ui/core';
 import {Observable, of} from 'rxjs';
 import {ComponentFactoryResolver, ComponentRef, Injectable, Injector} from '@angular/core';
-import {RequiredValidationItemTemplateComponent} from './required-validation-item-template.component';
+import {CustomValidationItemTemplateComponent} from './custom-validation-item-template.component';
 import {VALIDATION_ITEM_CONTEXT_PROVIDER} from '../../../../constants/injection-token.constant';
+import {ValidationKeys} from '../../../../constants/validation-keys';
 
 @Injectable()
-export class RequiredValidationItemTemplateBuilder implements IValidationSummarizerItemTemplateBuilder {
+export class CustomValidationItemTemplateBuilder implements IValidationSummarizerItemTemplateBuilder {
+
+  //#region Properties
+
+  // tslint:disable-next-line:variable-name
+  private readonly _validValidationKeys: string[];
+
+  //#endregion
 
   //#region Constructor
 
   public constructor(private readonly injector: Injector) {
+    this._validValidationKeys = [ValidationKeys.notSmallerThan, ValidationKeys.notGreaterThan, ValidationKeys.isEven];
   }
 
 
@@ -18,15 +27,20 @@ export class RequiredValidationItemTemplateBuilder implements IValidationSummari
   //#region Methods
 
   public ableToBuildTemplateAsync(context: ValidationItemBuildContext): Observable<boolean> {
-    return of(true);
+
+    const validationMessage = context.validationMessage;
+    if (!validationMessage || !validationMessage.key || !validationMessage.key.length) {
+      return of(false);
+    }
+
+    const index = this._validValidationKeys.indexOf(validationMessage.key);
+    return of(index !== -1);
   }
 
   public buildTemplateAsync(context: ValidationItemBuildContext): Observable<ComponentRef<any>> {
-
-    console.log(context);
     const componentFactoryResolver = this.injector.get(ComponentFactoryResolver);
     const componentFactory = componentFactoryResolver
-      .resolveComponentFactory(RequiredValidationItemTemplateComponent);
+      .resolveComponentFactory(CustomValidationItemTemplateComponent);
 
     const childInjector = Injector.create({
       providers: [
