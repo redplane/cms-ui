@@ -8,6 +8,7 @@ import {IDialogBuilder} from '../services/interfaces/dialogs/dialog-builder.inte
 import {IScreenCodeResolver} from '../services/interfaces/screen-code-resolver.interface';
 import {IValidationSummarizerItemTemplateBuilder} from '../services/interfaces/validation-summarizers/validation-summarizer-item-template-builder.interface';
 import {IValidationSummarizerModuleOptions} from '../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
+import {IValidationSummarizerOptionProvider} from '../providers';
 
 // Spinner providers.
 export const SPINNER_SERVICE_PROVIDER = new InjectionToken<ISpinnerService>('SPINNER_SERVICE_PROVIDER');
@@ -26,7 +27,7 @@ export const SMART_NAVIGATOR_SCREEN_CODE_RESOLVER = new InjectionToken<IScreenCo
 export const VALIDATION_SUMMARIZER_PROVIDER = new InjectionToken<IValidationSummarizerService>('VALIDATION_SUMMARIZER_PROVIDER');
 export const VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER =
   new InjectionToken<IValidationSummarizerItemTemplateBuilder[]>('VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER');
-export const VALIDATION_SUMMARIZER_MODULE_OPTIONS_PROVIDER = new InjectionToken<IValidationSummarizerModuleOptions>('VALIDATION_SUMMARIZER_OPTIONS_PROVIDER');
+export const VALIDATION_SUMMARIZER_OPTION_PROVIDER = new InjectionToken<IValidationSummarizerOptionProvider>('VALIDATION_SUMMARIZER_OPTION_PROVIDER');
 
 // Dialog providers.
 export const DIALOG_BUILDER_PROVIDER = new InjectionToken<IDialogBuilder>('DIALOG_BUILDER_PROVIDER');
