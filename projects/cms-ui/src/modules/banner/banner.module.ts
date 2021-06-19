@@ -6,7 +6,11 @@ import {BANNER_SERVICE_PROVIDER} from '../../constants/injectors';
 import {BannerService} from '../../services/implementations/banners/banner.service';
 import {WINDOW_PROVIDERS} from '../../services/implementations/window.service';
 import {IBannerModuleOption} from '../../providers/interfaces/banner-module-option.interface';
-import {buildBannerProvider, buildEmptyContentBuilderProvider} from '../../factories/banner.factory';
+import {
+  buildBannerProvider,
+  buildEmptyContentBuilderProvider,
+  buildNullBannerProvider
+} from '../../factories/banner.factory';
 
 @NgModule({
   declarations: [
@@ -49,7 +53,7 @@ export class BannerModule {
       ngModule: BannerModule,
       providers: [
         // Banner service registration.
-        (options || {}).serviceProvider || buildBannerProvider(),
+        (options || {}).serviceProvider || buildNullBannerProvider(),
 
         // Banner content builder.
         (options || {}).contentBuilderProviders || buildEmptyContentBuilderProvider()

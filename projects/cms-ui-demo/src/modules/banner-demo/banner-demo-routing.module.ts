@@ -11,7 +11,14 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: BannerDemoComponent
+        component: BannerDemoComponent,
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('./child-banner-demo/child-banner-demo.module')
+              .then(m => m.ChildBannerDemoModule)
+          }
+        ]
       }
     ]
   }

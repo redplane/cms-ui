@@ -6,6 +6,7 @@ import {AlertBannerContentBuilder} from '../../services/implementations/banners/
 import {InfoBannerContentBuilder} from '../../services/implementations/banners/info-banner-content.builder';
 import {AlertBannerContentComponent} from '../shared/alert-banner-content/alert-banner-content.component';
 import {InfoBannerContentComponent} from '../shared/info-banner-content/info-banner-content.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import {InfoBannerContentComponent} from '../shared/info-banner-content/info-ban
         }
       ]
     }),
-    BannerDemoRoutingModule
+    BannerDemoRoutingModule,
+    RouterModule
   ],
   declarations: [
     BannerDemoComponent
