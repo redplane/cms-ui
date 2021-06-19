@@ -14,7 +14,7 @@ import {builtInValidationMessages} from '../../constants';
 import {v4 as uuid} from 'uuid';
 import {IValidationSummarizerOptionProvider} from '../../providers';
 
-export abstract class ValidationSummarizerService implements IValidationSummarizerService {
+export class ValidationSummarizerService implements IValidationSummarizerService {
 
   //#region Properties
 
@@ -32,7 +32,7 @@ export abstract class ValidationSummarizerService implements IValidationSummariz
   //#region Constructor
 
   // tslint:disable-next-line:max-line-length
-  protected constructor(private readonly validationSummarizerOptionProvider: IValidationSummarizerOptionProvider) {
+  public constructor(private readonly validationSummarizerOptionProvider: IValidationSummarizerOptionProvider) {
 
     const option = this.validationSummarizerOptionProvider
       .getOption() || {};

@@ -18,7 +18,7 @@ import {RouterModule} from '@angular/router';
     TranslateModule,
     ReactiveFormsModule,
 
-    ValidationSummarizerModule.forChild(TranslatedValidationSummarizerService, {
+    ValidationSummarizerModule.forChild({
       useValidationItemBuilder: true,
       validationMessages: {
         isEven: 'MSG_VALUE_MUST_BE_EVEN'

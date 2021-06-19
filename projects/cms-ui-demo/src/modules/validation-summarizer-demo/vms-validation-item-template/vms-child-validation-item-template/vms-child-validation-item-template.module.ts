@@ -14,7 +14,7 @@ import {TranslatedValidationSummarizerService} from '../../../../services/implem
     CommonModule,
     TranslateModule,
 
-    ValidationSummarizerModule.forChild(TranslatedValidationSummarizerService, {
+    ValidationSummarizerModule.forChild({
       useValidationItemBuilder: false
     })
   ],
