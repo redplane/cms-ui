@@ -1,6 +1,6 @@
 import {Component, InjectFlags, Injector, Input, TemplateRef} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
-import {VALIDATION_SUMMARIZER_MODULE_OPTIONS_PROVIDER, VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injectors';
+import {VALIDATION_SUMMARIZER_OPTION_PROVIDER, VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injectors';
 import {IValidationSummarizerService} from '../../../services/interfaces/validation-summarizers/validation-summarizer-service.interface';
 import {ValidationMessage} from '../../../models/implementations/validation-summarizers/validation-message';
 import {IValidationSummarizerOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-options.interface';
@@ -131,7 +131,9 @@ export class ValidationSummarizerComponent {
     // Service resolve.
     this.validationSummarizerService = injector.get(VALIDATION_SUMMARIZER_PROVIDER,
       null, InjectFlags.Optional);
-    this._options = injector.get(VALIDATION_SUMMARIZER_MODULE_OPTIONS_PROVIDER, {});
+
+    const validationSummarizerOptions = injector.get(VALIDATION_SUMMARIZER_OPTION_PROVIDER);
+    this._options = validationSummarizerOptions.getOption();
 
     this._groupId = this._options.groupId || uuid();
     this._maxValidationMessages = this._options.maximumMessages || 0;

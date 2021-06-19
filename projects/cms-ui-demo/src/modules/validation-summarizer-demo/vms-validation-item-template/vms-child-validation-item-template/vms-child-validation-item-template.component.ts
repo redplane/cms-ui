@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injector, OnInit} from '@angular/core';
 import {VmsChildValidationItemTemplateControls} from './vms-child-validation-item-template-controls';
 import {ControlContainer, FormGroup, FormGroupDirective} from '@angular/forms';
+import {VALIDATION_SUMMARIZER_PROVIDER} from '@cms-ui/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -31,7 +32,8 @@ export class VmsChildValidationItemTemplateComponent implements OnInit {
 
   //#region Constructor
 
-  public constructor(protected readonly controlContainer: ControlContainer) {
+  public constructor(protected readonly controlContainer: ControlContainer,
+                     private readonly injector: Injector) {
   }
 
   //#endregion
@@ -43,6 +45,7 @@ export class VmsChildValidationItemTemplateComponent implements OnInit {
       const formGroupDirective = this.controlContainer as FormGroupDirective;
       this._formGroup = formGroupDirective.form;
     }
+
   }
 
   //#endregion

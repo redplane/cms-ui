@@ -1,13 +1,25 @@
-import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, NgForm, ValidationErrors} from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormControlDirective,
+  FormGroup,
+  NgControl,
+  NgForm,
+  ValidationErrors
+} from '@angular/forms';
 import {merge as lodashMerge} from 'lodash-es';
 import {IValidationSummarizerService} from '../interfaces';
 import {ValidationMessage} from '../../models/implementations/validation-summarizers/validation-message';
-import {IValidationSummarizerModuleOptions} from '../../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 import {builtInValidationMessages} from '../../constants';
+import {v4 as uuid} from 'uuid';
+import {IValidationSummarizerOptionProvider} from '../../providers';
 
 export abstract class ValidationSummarizerService implements IValidationSummarizerService {
 
   //#region Properties
+
+  // tslint:disable-next-line:variable-name
+  private readonly _id: string;
 
   /*
   * Mapping between validator name and validation message.
@@ -20,15 +32,25 @@ export abstract class ValidationSummarizerService implements IValidationSummariz
   //#region Constructor
 
   // tslint:disable-next-line:max-line-length
-  protected constructor(private readonly validationSummarizerOptions: IValidationSummarizerModuleOptions) {
+  protected constructor(private readonly validationSummarizerOptionProvider: IValidationSummarizerOptionProvider) {
+
+    const option = this.validationSummarizerOptionProvider
+      .getOption() || {};
+
     this._validatorNameToValidationMessage = lodashMerge(
       builtInValidationMessages,
-      validationSummarizerOptions.validationMessages || {});
+      option.validationMessages || {});
+
+    this._id = uuid();
   }
 
   //#endregion
 
   //#region Methods
+
+  public getId(): string {
+    return this._id;
+  }
 
   /*
   * Get a single control validation message.
