@@ -8,6 +8,9 @@ branches:
     # Main release branch
     - master
 
+    # Preview branch
+    - preview
+
     # Nightly build branch
     - dev
 
@@ -67,10 +70,10 @@ jobs:
       script:
         - npm run build:app:production
 
-    # Library deployment (dev)
+    # Library deployment (preview)
     - stage: deployDevelopment
-      name: "Library deployment (development)"
-      if: branch = dev AND type = push
+      name: "Library deployment (preview)"
+      if: branch = preview AND type = push
 
       script:
         # Create .npmrc file
