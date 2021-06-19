@@ -1,6 +1,10 @@
 # Build library using Linux image.
 os: windows
-cache: npm
+cache:
+  npm: true
+  directories:
+    - node_modules
+    - cms-ui/dist
 
 # Branches to trigger CI/CD
 branches:
@@ -21,6 +25,7 @@ branches:
 language: node_js
 node_js:
   - 12.10.0
+
 
 env:
   global:
