@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import {v4 as uuid} from 'uuid';
 import {Subject, Subscription} from 'rxjs';
-import {SPINNER_SERVICE_PROVIDER} from '../../constants/injection-token.constant';
+import {SPINNER_SERVICE_PROVIDER} from '../../constants/injectors';
 import {ISpinnerService} from '../../services/interfaces/spinner-service.interface';
 import {DisplaySpinnerRequest, ISpinnerOptions} from '../../models';
 import {DeleteSpinnerRequest} from '../../models/implementations/delete-spinner-request';

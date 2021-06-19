@@ -4,12 +4,14 @@ import {VsmWithVisibilityHandlerComponent} from './vsm-with-visibility-handler.c
 import {ReactiveFormsModule} from '@angular/forms';
 import {ValidationSummarizerModule} from '@cms-ui/core';
 import {CommonModule} from '@angular/common';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     VsmWithVisibilityHandlerRoutingModule,
     ReactiveFormsModule,
     ValidationSummarizerModule,
+    TranslateModule,
     CommonModule
   ],
   declarations: [

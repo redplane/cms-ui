@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, ComponentFactoryResolver, HostBinding, Inject, OnInit} from '@angular/core';
-import {ISpinnerService, SPINNER_SERVICE_PROVIDER, WINDOW} from '@cms-ui/core';
+import {ISpinnerService, SPINNER_SERVICE_PROVIDER} from '@cms-ui/core';
 import {v4 as uuid} from 'uuid';
-import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../constants/injection-token.constant';
+import {DEMO_LAYOUT_SERVICE_PROVIDER, WINDOW} from '../../constants/injection-token.constant';
 import {IDemoLayoutService} from '../../services/interfaces/demo-layout-service.interface';
 import {cloneDeep} from 'lodash-es';
 import {SpinnerDisplay} from '../../models/spinners/spinner-display';

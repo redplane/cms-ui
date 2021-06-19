@@ -1,10 +1,28 @@
 <!--Only displayed when control is available-->
-<ng-container *ngIf="ableToDisplayValidationMessages(ngControl)">
-  <ng-template
-    [ngTemplateOutlet]="alternativeTemplate || defaultTemplate"
-    [ngTemplateOutletContext]="templateContext"
-  >
-  </ng-template>
+<ng-container *ngIf="ableToDisplayValidationMessages(ngControl)"
+              [ngSwitch]="options.useValidationItemBuilder">
+
+  <!--Use item template builder-->
+  <ng-container *ngSwitchCase="true">
+    <ng-container *ngIf="templateContext.validationMessages && templateContext.validationMessages.length > 0">
+      <ng-template validationSummarizerItem
+                   [containerId]="groupId"
+                   [validationMessages]="templateContext.validationMessages"
+                   [ngControl]="ngControl"
+                   [controlLabel]="controlLabel"></ng-template>
+    </ng-container>
+  </ng-container>
+
+
+  <!--Using item template-->
+  <ng-container *ngSwitchDefault>
+    <ng-template
+      [ngTemplateOutlet]="alternativeTemplate || defaultTemplate"
+      [ngTemplateOutletContext]="templateContext"
+    >
+    </ng-template>
+  </ng-container>
+
 </ng-container>
 
 <!--Default validation summary template-->
@@ -14,9 +32,10 @@
   let-controlLabel="controlLabel"
   let-validationMessages="validationMessages"
 >
-    <ul class="validation-summary" *ngIf="validationMessages && validationMessages.length > 0">
-      <li *ngFor="let validationMessage of validationMessages;">
-        {{validationMessage.content}}
-      </li>
-    </ul>
+  <ul class="validation-summary"
+      *ngIf="validationMessages && validationMessages.length > 0">
+    <li *ngFor="let validationMessage of validationMessages;">
+      {{validationMessage.content}}
+    </li>
+  </ul>
 </ng-template>

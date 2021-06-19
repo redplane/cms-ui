@@ -1,0 +1,18 @@
+label {
+  font-weight: bold;
+}
+
+::ng-deep ngx-prism pre[class*=language-] {
+  background: #e9ecef;
+}
+::ng-deep ngx-prism pre[class*=language-] > code {
+  border-left: none !important;
+  box-shadow: none !important;
+  font-size: 16px;
+}
+
+.instance-property {
+  font-size: 10px;
+}
+
+/*# sourceMappingURL=validation-summarizer-demo.component.css.map */

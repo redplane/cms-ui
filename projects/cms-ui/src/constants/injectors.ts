@@ -2,10 +2,13 @@ import {InjectionToken} from '@angular/core';
 import {ISpinnerService} from '../services/interfaces/spinner-service.interface';
 import {IBannerService} from '../services/interfaces/banners/banner-service.interface';
 import {ISmartNavigatorService} from '../services/interfaces/smart-navigator-service.interface';
-import {IValidationSummarizerService} from '../services/interfaces/validation-summarizer-service.interface';
+import {IValidationSummarizerService} from '../services/interfaces/validation-summarizers/validation-summarizer-service.interface';
 import {IBannerContentBuilder, IDialogService} from '../services';
 import {IDialogBuilder} from '../services/interfaces/dialogs/dialog-builder.interface';
 import {IScreenCodeResolver} from '../services/interfaces/screen-code-resolver.interface';
+import {IValidationSummarizerItemTemplateBuilder} from '../services/interfaces/validation-summarizers/validation-summarizer-item-template-builder.interface';
+import {IValidationSummarizerModuleOptions} from '../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
+import {IValidationSummarizerOptionProvider} from '../providers';
 
 // Spinner providers.
 export const SPINNER_SERVICE_PROVIDER = new InjectionToken<ISpinnerService>('SPINNER_SERVICE_PROVIDER');
@@ -22,13 +25,10 @@ export const SMART_NAVIGATOR_SCREEN_CODE_RESOLVER = new InjectionToken<IScreenCo
 
 // Validation summarizer providers.
 export const VALIDATION_SUMMARIZER_PROVIDER = new InjectionToken<IValidationSummarizerService>('VALIDATION_SUMMARIZER_PROVIDER');
-export const VALIDATION_SUMMARIZER_MESSAGES = new InjectionToken<{ [key: string]: string }>('VALIDATION_SUMMARIZER_MESSAGES');
-export const VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK =
-  new InjectionToken<boolean>('VALIDATION_SUMMARIZER_BUILT_IN_MESSAGE_FALLBACK');
+export const VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER =
+  new InjectionToken<IValidationSummarizerItemTemplateBuilder[]>('VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER');
+export const VALIDATION_SUMMARIZER_OPTION_PROVIDER = new InjectionToken<IValidationSummarizerOptionProvider>('VALIDATION_SUMMARIZER_OPTION_PROVIDER');
 
 // Dialog providers.
 export const DIALOG_BUILDER_PROVIDER = new InjectionToken<IDialogBuilder>('DIALOG_BUILDER_PROVIDER');
 export const DIALOG_SERVICE_PROVIDER = new InjectionToken<IDialogService>('DIALOG_SERVICE_PROVIDER');
-
-// Windows provider
-export const WINDOW = new InjectionToken('WINDOW_PROVIDER');

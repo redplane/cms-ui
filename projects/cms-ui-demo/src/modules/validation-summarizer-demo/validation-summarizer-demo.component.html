@@ -5,8 +5,8 @@
        [routerLinkActive]="'active'"
        [routerLink]="validationSummarizerDemoScreenCodes.withBasicValidator | toUrlTree | toUrl"
        [routerLinkActiveOptions]="{exact: true}"
-       (click)="$event.preventDefault()">
-      {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR'}}
+       (click)="$event.preventDefault(); resetCurrentItem()">
+      {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR' | translate}}
     </a>
   </li>
   <li class="nav-item">
@@ -14,8 +14,8 @@
        href="#"
        [routerLinkActive]="'active'"
        [routerLink]="validationSummarizerDemoScreenCodes.withMessageTemplate | toUrlTree | toUrl"
-       (click)="$event.preventDefault()">
-      {{'VALIDATION_SUMMARIZER_DEMO.MESSAGE_TEMPLATE'}}
+       (click)="$event.preventDefault(); resetCurrentItem()">
+      {{'VALIDATION_SUMMARIZER_DEMO.MESSAGE_TEMPLATE' | translate}}
     </a>
   </li>
   <li class="nav-item">
@@ -23,8 +23,8 @@
        href="#"
        [routerLinkActive]="'active'"
        [routerLink]="validationSummarizerDemoScreenCodes.withVisibilityHandler | toUrlTree | toUrl"
-       (click)="$event.preventDefault()">
-      {{'VALIDATION_SUMMARIZER_DEMO.VISIBILITY_HANDLER'}}
+       (click)="$event.preventDefault(); resetCurrentItem()">
+      {{'VALIDATION_SUMMARIZER_DEMO.VISIBILITY_HANDLER' | translate}}
     </a>
   </li>
   <li class="nav-item">
@@ -32,8 +32,8 @@
        href="#"
        [routerLinkActive]="'active'"
        [routerLink]="validationSummarizerDemoScreenCodes.withTemplateDriven | toUrlTree | toUrl"
-       (click)="$event.preventDefault()">
-      {{'VALIDATION_SUMMARIZER_DEMO.TEMPLATE_DRIVEN'}}
+       (click)="$event.preventDefault(); resetCurrentItem()">
+      {{'VALIDATION_SUMMARIZER_DEMO.TEMPLATE_DRIVEN' | translate}}
     </a>
   </li>
   <li class="nav-item">
@@ -41,10 +41,60 @@
        href="#"
        [routerLinkActive]="'active'"
        [routerLink]="validationSummarizerDemoScreenCodes.withCustomValidator | toUrlTree | toUrl"
-       (click)="$event.preventDefault()">
-      {{'VALIDATION_SUMMARIZER_DEMO.CUSTOM_VALIDATOR'}}
+       (click)="$event.preventDefault(); resetCurrentItem()">
+      {{'VALIDATION_SUMMARIZER_DEMO.CUSTOM_VALIDATOR' | translate}}
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"
+       href="#"
+       [routerLinkActive]="'active'"
+       [routerLink]="validationSummarizerDemoScreenCodes.withChildValidatorModule | toUrlTree | toUrl"
+       (click)="$event.preventDefault(); resetCurrentItem()">
+      {{'VALIDATION_SUMMARIZER_DEMO.CHILD_VALIDATOR_MODULE' | translate}}
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link"
+       href="#"
+       [routerLinkActive]="'active'"
+       [routerLink]="validationSummarizerDemoScreenCodes.withValidationItemTemplate | toUrlTree | toUrl"
+       (click)="$event.preventDefault(); resetCurrentItem()">
+      {{'VALIDATION_SUMMARIZER_DEMO.VALIDATION_ITEM_TEMPLATE' | translate}}
     </a>
   </li>
 </ul>
+<div class="row">
+  <div class="col-12">
 
-<router-outlet></router-outlet>
+    <!-- Content-->
+    <div class="row my-4">
+      <!-- Left content-->
+      <div class="col-lg-3 col-md-4">
+        <div class="list-group">
+          <a (click)="scrollToItem(validationSummarizerSectionsConstant.descriptionSection)"
+             [class]="currentItem === validationSummarizerSectionsConstant.descriptionSection ? activeClasses : inactiveClasses">
+            {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_HOW_IT_WORK' | translate}}
+          </a>
+          <a (click)="scrollToItem(validationSummarizerSectionsConstant.examplesSection)"
+             [class]="currentItem === validationSummarizerSectionsConstant.examplesSection ? activeClasses : inactiveClasses">
+            {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_EXAMPLES' | translate}}
+          </a>
+          <a (click)="scrollToItem(validationSummarizerSectionsConstant.apiSection)"
+             [class]="currentItem === validationSummarizerSectionsConstant.apiSection ? activeClasses : inactiveClasses">
+            {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_API' | translate}}
+          </a>
+        </div>
+      </div>
+      <!-- End Left content-->
+
+      <!-- Right content-->
+      <div class="col-lg-9 col-md-8">
+        <router-outlet></router-outlet>
+      </div>
+      <!-- End Right content-->
+    </div>
+    <!-- End Content-->
+  </div>
+</div>
+

@@ -1,8 +1,12 @@
-import {Component, Inject, InjectFlags, Injector, Input, TemplateRef} from '@angular/core';
+import {Component, InjectFlags, Injector, Input, TemplateRef} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
-import {VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injection-token.constant';
-import {IValidationSummarizerService} from '../../../services/interfaces/validation-summarizer-service.interface';
-import {ValidationMessage} from '../../../models/implementations/validation-message';
+import {VALIDATION_SUMMARIZER_OPTION_PROVIDER, VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injectors';
+import {IValidationSummarizerService} from '../../../services/interfaces/validation-summarizers/validation-summarizer-service.interface';
+import {ValidationMessage} from '../../../models/implementations/validation-summarizers/validation-message';
+import {IValidationSummarizerOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-options.interface';
+import {v4 as uuid} from 'uuid';
+import {IValidationSummarizerModuleOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
+
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -14,11 +18,19 @@ export class ValidationSummarizerComponent {
 
   //#region Properties
 
+  // Component id.
+  // tslint:disable-next-line:variable-name
+  protected _groupId: string;
+
   // tslint:disable-next-line:variable-name
   protected _control: AbstractControl | NgControl | null;
 
   // tslint:disable-next-line:variable-name
   protected _maxValidationMessages = 0;
+
+  // Validation summarizer options.
+  // tslint:disable-next-line:variable-name
+  protected _options: IValidationSummarizerModuleOptions;
 
   // Service for validating controls.
   protected validationSummarizerService: IValidationSummarizerService | null;
@@ -30,6 +42,24 @@ export class ValidationSummarizerComponent {
   //#endregion
 
   //#region Accessors
+
+  // Id of group the validation summarizer belongs to.
+  // This can be used for identifying whether to apply validation summarizer item template builder or not.
+  public get groupId(): string {
+    return this._groupId;
+  }
+
+  // Set item group id.
+  // tslint:disable-next-line:no-input-rename
+  @Input('group-id')
+  public set groupId(value: string) {
+
+    if (!value || !value.length) {
+      return;
+    }
+
+    this._groupId = value;
+  }
 
   // Instance of the control that needs to be validated.
   @Input('instance')
@@ -68,7 +98,7 @@ export class ValidationSummarizerComponent {
 
   // Maximum number of validation messages.
   @Input('maximum-messages')
-  public set maximumValidationMessage(value: number) {
+  public set maximumValidationMessages(value: number) {
     if (isNaN(value)) {
       this._maxValidationMessages = 0;
       return;
@@ -87,13 +117,28 @@ export class ValidationSummarizerComponent {
     return this._visibilityHandler;
   }
 
+  // Validation summarizer options.
+  public get options(): IValidationSummarizerOptions {
+    return this._options;
+  }
+
   //#endregion
 
   //#region Constructor
 
   public constructor(protected injector: Injector) {
-    this.validationSummarizerService = injector.get(VALIDATION_SUMMARIZER_PROVIDER, null, InjectFlags.Optional);
-    this._maxValidationMessages = 0;
+
+    // Service resolve.
+    this.validationSummarizerService = injector.get(VALIDATION_SUMMARIZER_PROVIDER,
+      null, InjectFlags.Optional);
+
+    const validationSummarizerOptions = injector.get(VALIDATION_SUMMARIZER_OPTION_PROVIDER);
+    this._options = validationSummarizerOptions.getOption();
+
+    this._groupId = this._options.groupId || uuid();
+    this._maxValidationMessages = this._options.maximumMessages || 0;
+    this._visibilityHandler = this._options.visibilityHandler || null;
+
     this.controlLabel = '';
     this._control = null;
     this.alternativeTemplate = null;
@@ -115,11 +160,12 @@ export class ValidationSummarizerComponent {
       return this.visibilityHandler(ngControl);
     }
 
-    if (!ngControl || !this.validationSummarizerService) {
+    if (!ngControl) {
       return false;
     }
 
-    return this.validationSummarizerService.shouldValidationSummarizerAbleToDisplayed(ngControl);
+    const ableToDisplay = ngControl.invalid && (ngControl.dirty || ngControl.touched) === true;
+    return true === ableToDisplay;
   }
 
   //#endregion

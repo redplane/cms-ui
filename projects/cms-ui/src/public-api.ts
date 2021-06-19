@@ -13,5 +13,8 @@ export * from './modules/index';
 // Pipes export.
 export * from './pipes/index';
 
+// Providers export.
+export * from './providers/index';
+
 // Services export.
 export * from './services/index';

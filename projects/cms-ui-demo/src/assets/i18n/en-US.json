@@ -1,0 +1,53 @@
+{
+  "LANDING_PAGE": {
+    "UTILITIES": "Utilities",
+    "LEARN_MORE": "Learn more",
+    "DIALOGS": "Dialogs",
+    "DIALOG": "Dialog",
+    "DIALOG_DESCRIPTION": "Dialog description",
+    "SPINNER": "Spinner",
+    "SPINNER_DEMO_DESCRIPTION": "Spinner description",
+    "BANNER": "Banner",
+    "BANNER_DESCRIPTION": "Banner description",
+    "SMART_NAVIGATOR": "Smart navigator",
+    "SMART_NAVIGATOR_DESCRIPTION": "Smart navigator description",
+    "VALIDATION_SUMMARIZER": "Validation summarize",
+    "VALIDATION_SUMMARIZER_DESCRIPTION": "Validation summarize description"
+  },
+  "VALIDATION_SUMMARIZER_DEMO": {
+    "BASIC_VALIDATOR": "Basic validator",
+    "BASIC_VALIDATOR_HOW_IT_WORK": "Description",
+    "BASIC_VALIDATOR_USAGE": "Usage",
+    "BASIC_VALIDATOR_EXAMPLES": "Examples",
+    "BASIC_VALIDATOR_API": "Properties",
+    "MESSAGE_TEMPLATE": "Message template",
+    "VISIBILITY_HANDLER": "Visibility handler",
+    "TEMPLATE_DRIVEN": "Template driven",
+    "CUSTOM_VALIDATOR": "Custom validator",
+    "CHILD_VALIDATOR_MODULE": "Child validator module",
+    "VALIDATION_ITEM_TEMPLATE": "Validation item template",
+    "NAME": "Username",
+    "CHILD_NAME": "Child name",
+    "CHILD_AGE": "Child age",
+    "AGE": "Age",
+    "SECURITY_NUMBER": "Security number",
+    "QUANTITY": "Quantity",
+    "VISIBLE": "Visible",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "YES": "Yes",
+    "NO": "No"
+  },
+  "VALIDATION_MESSAGES": {
+    "MSG_VALIDATION_PROPERTY_REQUIRED": "{{controlLabel}} is required.",
+    "MSG_VALIDATION_PROPERTY_MIN": "{{controlLabel}} minimum value must be {{additionalValue.min}}",
+    "MSG_VALIDATION_PROPERTY_MAX": "{{controlLabel}} cannot exceeded {{additionalValue.max}}",
+    "MSG_VALIDATION_PROPERTY_MIN_LENGTH": "{{controlLabel}}'s minimum  length must be {{additionalValue.minlength}}",
+    "MSG_VALIDATION_PROPERTY_MAX_LENGTH": "max length value is not valid!",
+    "MSG_VALIDATION_PROPERTY_PATTERN": "pattern is not valid!",
+    "MSG_VALIDATION_PROPERTY_EMAIL": "email is not valid!",
+    "MSG_CUSTOM_VALIDATOR_MESSAGE_NOT_SMALLER_THAN": "{{controlLabel}} cannot be smaller than {{additionalValue.notSmallerThan}}",
+    "MSG_VALUE_NOT_GREATER_THAN": "{{controlLabel}} cannot be greater than {{additionalValue.notGreaterThan}}",
+    "MSG_VALUE_MUST_BE_EVEN": "{{controlLabel}} must be an even."
+  }
+}

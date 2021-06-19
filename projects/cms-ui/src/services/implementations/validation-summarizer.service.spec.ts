@@ -5,10 +5,12 @@ import {builtInValidationMessages, VALIDATION_SUMMARIZER_PROVIDER} from '../../c
 import {ValidationSummarizerService} from './validation-summarizer.service';
 import {ValidationSummarizerModule} from '../../modules';
 import {IValidationSummarizerService} from '../interfaces';
+import {ValidationSummarizerOptionProvider} from '../../providers';
 
 export class BasicValidationSummarizerService extends ValidationSummarizerService {
+  // TODO: Implement this.
   public constructor() {
-    super(builtInValidationMessages, {}, true);
+    super(new ValidationSummarizerOptionProvider([]));
   }
 }
 

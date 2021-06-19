@@ -1,0 +1,28 @@
+<ng-container *ngIf="formGroup"
+              [formGroup]="formGroup">
+
+  <!--Name-->
+  <h6>Field is required</h6>
+  <label>{{'VALIDATION_SUMMARIZER_DEMO.CHILD_NAME' | translate}}</label>
+  <div class="form-group">
+    <input class="form-control"
+           name="studentName"
+           [formControlName]="controlNames.childUsername">
+
+    <cms-validation-summarizer [instance]="formGroup.get(controlNames.childUsername)"
+                               [label]="'VALIDATION_SUMMARIZER_DEMO.NAME' | translate">
+    </cms-validation-summarizer>
+  </div>
+  <!--Age-->
+  <h6>Field with min value </h6>
+  <label>{{'VALIDATION_SUMMARIZER_DEMO.CHILD_AGE' | translate}}</label>
+  <div class="form-group">
+    <input class="form-control"
+           type="number"
+           [formControlName]="controlNames.childAge">
+
+    <cms-validation-summarizer [instance]="formGroup.get(controlNames.childAge)"
+                               [label]="'VALIDATION_SUMMARIZER_DEMO.AGE' | translate">
+    </cms-validation-summarizer>
+  </div>
+</ng-container>

@@ -1,56 +1,113 @@
 <!--Basic validation summarizer-->
-<div class="row"
-     [formGroup]="studentForm">
-  <div class="col-12">
-    <div class="form-group">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Basic validation summarizer</h5>
-          <div class="card-text">
-            <ul>
-              <li>Validation summarizer can be placed under a specific control</li>
-              <li>It retrieves control errors and display them on the screen.</li>
-            </ul>
-          </div>
-          <div class="jumbotron">
-            <div class="row">
-              <div class="col-lg-12">
+<!-- Description section-->
+<section class="description" #description>
+  <div class="card">
+    <div class="card-body">
 
-                <!--Name-->
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.NAME'}}</label>
-                <div class="form-group">
-                  <input class="form-control"
-                         name="studentName"
-                         [formControl]="studentNameControl">
+      <h5 class="card-title">
+        {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_HOW_IT_WORK' | translate}}
+      </h5>
+      <div class="card-text">
+        <ul>
+          <li>Validation summarizer can be placed under a specific control</li>
+          <li>It retrieves control errors and display them on the screen.</li>
+          <li>Using 'cms-validation-summarizer' selector.</li>
+        </ul>
+      </div>
 
-                  <cms-validation-summarizer [instance]="studentNameControl"
-                                             label="VALIDATION_SUMMARIZER_DEMO.NAME">
-                  </cms-validation-summarizer>
-                </div>
+      <h5 class="card-title">{{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_USAGE' | translate}}</h5>
 
-                <!--Age-->
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.AGE'}}</label>
-                <div class="form-group">
-                  <input class="form-control"
-                         [formControl]="studentAgeControl">
+      <p class="mb-2">1.import ValidationSummarizerModule into your module:</p>
+      <textarea highlight-js lang="ts">
+                    {{codeExampleFilePathConstant.importVsmModule | ToStaticFileContentAsync | async}}
+                  </textarea>
+      <div class="callout callout-warning">
+        It's important to provide exactly service and value on example code
+      </div>
+      <div class="callout callout-info">
+        <p>
+          Instead of use object for VALIDATION_SUMMARIZER_MESSAGE, you can use constant have the
+          type {{'{[name: string]: string; }'}}
+        </p>
 
-                  <cms-validation-summarizer [instance]="studentAgeControl"
-                                             label="VALIDATION_SUMMARIZER_DEMO.AGE">
-                  </cms-validation-summarizer>
-                </div>
+        <textarea highlight-js lang="ts">
+                    {{codeExampleFilePathConstant.customValidatorConstant | ToStaticFileContentAsync | async}}
+                 </textarea>
+      </div>
 
-                <!--Security number-->
-                <label>{{'VALIDATION_SUMMARIZER_DEMO.SECURITY_NUMBER'}}</label>
-                <div class="form-group">
-                  <input class="form-control"
-                         [formControl]="securityNoControl">
-                </div>
+      <div class="mb-2">
+        2.Use &lt;cms-validation-summarizer&gt;&lt;/cms-validation-summarizer&gt;
+        tag with proper property like [instance], label ... :
+      </div>
+      <textarea highlight-js lang="ts">
+                    {{codeExampleFilePathConstant.cmsValidatorSelector | ToStaticFileContentAsync | async}}
+                 </textarea>
+    </div>
+  </div>
+</section>
+<!-- End section-->
 
-              </div>
+<!--  Example section-->
+<section class="examples mt-3" #examples>
+  <div class="card" [formGroup]="studentForm">
+    <div class="card-body">
+      <h5 class="card-title">
+        {{'VALIDATION_SUMMARIZER_DEMO.BASIC_VALIDATOR_EXAMPLES' | translate}}
+      </h5>
+      <div class="jumbotron">
+        <div class="row">
+          <div class="col-lg-12">
+            <!--Name-->
+            <h6>Field is required</h6>
+            <label>{{'VALIDATION_SUMMARIZER_DEMO.NAME' | translate}}</label>
+            <div class="form-group">
+              <input class="form-control"
+                     name="studentName"
+                     [formControl]="studentNameControl">
+
+              <cms-validation-summarizer [instance]="studentNameControl"
+                                         [label]="'VALIDATION_SUMMARIZER_DEMO.NAME' | translate">
+              </cms-validation-summarizer>
+            </div>
+
+            <!--Age-->
+            <h6>Field with min value </h6>
+            <label>{{'VALIDATION_SUMMARIZER_DEMO.AGE' | translate}}</label>
+            <div class="form-group">
+              <input class="form-control"
+                     [formControl]="studentAgeControl">
+
+              <cms-validation-summarizer [instance]="studentAgeControl"
+                                         [label]="'VALIDATION_SUMMARIZER_DEMO.AGE' | translate">
+              </cms-validation-summarizer>
+            </div>
+
+            <!--Security number-->
+            <h6>Field without validator </h6>
+            <label>{{'VALIDATION_SUMMARIZER_DEMO.SECURITY_NUMBER' | translate}}</label>
+            <div class="form-group">
+              <input class="form-control"
+                     [formControl]="securityNoControl">
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
+<!--  End section-->
+
+<!--  Properties section-->
+<section class="api mt-3" #api>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">
+        Properties
+      </h5>
+      <div [innerHTML]="codeExampleFilePathConstant.vmsApiProperties | ToStaticFileContentAsync | async"></div>
+    </div>
+  </div>
+</section>
+<!--  End section-->
+
+

@@ -1,10 +1,11 @@
 import {Injector, ModuleWithProviders, NgModule, Type} from '@angular/core';
 import {SpinnerContainerComponent} from './spinner-container.component';
 import {CommonModule} from '@angular/common';
-import {SPINNER_SERVICE_PROVIDER} from '../../constants/injection-token.constant';
+import {SPINNER_SERVICE_PROVIDER} from '../../constants/injectors';
 import {ISpinnerService} from '../../services/interfaces/spinner-service.interface';
 import {BasicSpinnerComponent} from './basic-spinner/basic-spinner.component';
 import {SpinnerService} from '../../services/implementations/spinner.service';
+import {WINDOW_PROVIDERS} from '../../services/implementations/window.service';
 
 export function basicSpinnerFactory(): ISpinnerService {
   return new SpinnerService();
@@ -21,6 +22,9 @@ export function basicSpinnerFactory(): ISpinnerService {
   exports: [
     SpinnerContainerComponent,
     BasicSpinnerComponent
+  ],
+  providers: [
+    WINDOW_PROVIDERS
   ],
   entryComponents: [
     BasicSpinnerComponent

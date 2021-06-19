@@ -36,6 +36,16 @@ const routes: Routes = [
               .then(m => m.VsmWithCustomValidatorModule)
           },
           {
+            path: 'child-validator-module',
+            loadChildren: () => import('./vms-child-module/vms-child-module.module')
+              .then(m => m.VmsChildModuleModule)
+          },
+          {
+            path: 'validation-item-template',
+            loadChildren: () => import('./vms-validation-item-template/vms-validation-item-template.module')
+              .then(m => m.VmsValidationItemTemplateModule)
+          },
+          {
             path: '',
             loadChildren: () => import('./vms-with-basic-validator/vms-with-basic-validator.module')
               .then(m => m.VmsWithBasicValidatorModule)
