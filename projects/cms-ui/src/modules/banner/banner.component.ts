@@ -16,7 +16,7 @@ import {filter, map, mergeMap, retryWhen, switchMap, tap} from 'rxjs/operators';
 import {BANNER_PRESERVE_MODE, BANNER_QUERY_MODE} from '../../constants/data-type.constant';
 import {findLastIndex} from 'lodash-es';
 import {IBannerContentBuilder} from '../../services/interfaces/banners/banner-content-builder.interface';
-import {BannerService} from '../../services/implementations/banner.service';
+import {BannerService} from '../../services/implementations/banners/banner.service';
 import {IDisplayBannerRequest} from '../../models/interfaces/banners/add-banner-content-request.interface';
 import {IBannerContentComponent} from '../../models/interfaces/banners/banner-content-component.interface';
 import {IDeleteBannerRequest} from '../../models/interfaces/banners/delete-banner-content-request.interface';
