@@ -5,11 +5,14 @@ import {BasicBsDialogModule} from '../shared/dialog/basic-bs-dialog/basic-bs-dia
 import {DIALOG_BUILDER_PROVIDER, DIALOG_SERVICE_PROVIDER, DialogService} from '@cms-ui/core';
 import {BasicBsDialogBuilder} from '../../services/implementations/dialogs/basic-bs-dialog.builder';
 import {BasicDialogService} from '../../services/implementations/dialogs/basic-dialog.service';
+import {BasicBsDialogComponent} from '../shared/dialog/basic-bs-dialog/basic-bs-dialog.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     DialogDemoRoutingModule,
     BasicBsDialogModule,
+    TranslateModule,
   ],
   declarations: [
     DialogDemoComponent
@@ -27,6 +30,9 @@ import {BasicDialogService} from '../../services/implementations/dialogs/basic-d
       provide: DIALOG_SERVICE_PROVIDER,
       useClass: BasicDialogService
     }
+  ],
+  entryComponents: [
+    BasicBsDialogComponent
   ]
 })
 export class DialogDemoModule {

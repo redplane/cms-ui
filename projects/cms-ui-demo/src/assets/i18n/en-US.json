@@ -49,5 +49,22 @@
     "MSG_CUSTOM_VALIDATOR_MESSAGE_NOT_SMALLER_THAN": "{{controlLabel}} cannot be smaller than {{additionalValue.notSmallerThan}}",
     "MSG_VALUE_NOT_GREATER_THAN": "{{controlLabel}} cannot be greater than {{additionalValue.notGreaterThan}}",
     "MSG_VALUE_MUST_BE_EVEN": "{{controlLabel}} must be an even."
+  },
+
+  "BANNER_DEMO": {
+
+    "CHILD_BANNER": {
+      "NESTED_BANNER": "Nested banner",
+      "DISPLAY_BANNER": "Display child banner",
+      "DELETE_ALL_MESSAGES": "Delete all messages",
+
+      "BANNER_SETTING_CAN_BE_NESTED": "Banner setting can be extended through nested module by using <code>forChild</code> method",
+      "BANNER_SETTING_WILL_BE_EXTENDED": "Banner setting will be extended when using <code>forChild</code> function. Otherwise, the defined one will be used.",
+      "BANNER_SERVICE_WILL_BE_A_NEW_INSTANCE": "A new instance of <code>IBannerService</code> will be added if it is specified."
+    }
+  },
+
+  "DIALOG_DEMO": {
+    "SHOW_DIALOG": "Show dialog"
   }
 }

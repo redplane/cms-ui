@@ -7,7 +7,6 @@ import {IBannerContentBuilder, IDialogService} from '../services';
 import {IDialogBuilder} from '../services/interfaces/dialogs/dialog-builder.interface';
 import {IScreenCodeResolver} from '../services/interfaces/screen-code-resolver.interface';
 import {IValidationSummarizerItemTemplateBuilder} from '../services/interfaces/validation-summarizers/validation-summarizer-item-template-builder.interface';
-import {IValidationSummarizerModuleOptions} from '../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 import {IValidationSummarizerOptionProvider} from '../providers';
 
 // Spinner providers.
@@ -15,7 +14,6 @@ export const SPINNER_SERVICE_PROVIDER = new InjectionToken<ISpinnerService>('SPI
 
 // Banner providers.
 export const BANNER_SERVICE_PROVIDER = new InjectionToken<IBannerService>('BANNER_SERVICE_PROVIDER');
-export const BANNER_CONTAINER_PROVIDER = new InjectionToken<string>('BANNER_CONTAINER_PROVIDER');
 export const BANNER_BUILDER_PROVIDER = new InjectionToken<IBannerContentBuilder>('BANNER_BUILDER_PROVIDER');
 
 // Smart navigator providers.

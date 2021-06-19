@@ -1,12 +1,16 @@
-import {ModuleWithProviders, NgModule, Type} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {BannerComponent} from './banner.component';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
-import {IBannerService} from '../../services/interfaces/banners/banner-service.interface';
 import {BANNER_SERVICE_PROVIDER} from '../../constants/injectors';
-import {BannerService} from '../../services/implementations/banner.service';
-import {WINDOW} from '../../constants/internal-injectors';
+import {BannerService} from '../../services/implementations/banners/banner.service';
 import {WINDOW_PROVIDERS} from '../../services/implementations/window.service';
+import {IBannerModuleOption} from '../../providers/interfaces/banner-module-option.interface';
+import {
+  buildBannerProvider,
+  buildEmptyContentBuilderProvider,
+  buildNullBannerProvider
+} from '../../factories/banner.factory';
 
 @NgModule({
   declarations: [
@@ -31,14 +35,28 @@ export class BannerModule {
 
   //#region Methods
 
-  public static forRoot(bannerService?: Type<IBannerService>): ModuleWithProviders<BannerModule> {
+  public static forRoot(options?: IBannerModuleOption): ModuleWithProviders<BannerModule> {
     return {
       ngModule: BannerModule,
       providers: [
-        {
-          provide: BANNER_SERVICE_PROVIDER,
-          useClass: bannerService || BannerService
-        }
+        // Banner service registration.
+        (options || {}).serviceProvider || buildBannerProvider(),
+
+        // Banner content builder.
+        (options || {}).contentBuilderProviders || buildEmptyContentBuilderProvider()
+      ]
+    };
+  }
+
+  public static forChild(options?: IBannerModuleOption): ModuleWithProviders<BannerModule> {
+    return {
+      ngModule: BannerModule,
+      providers: [
+        // Banner service registration.
+        (options || {}).serviceProvider || buildNullBannerProvider(),
+
+        // Banner content builder.
+        (options || {}).contentBuilderProviders || buildEmptyContentBuilderProvider()
       ]
     };
   }
