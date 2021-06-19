@@ -1,9 +1,9 @@
-import {ISpinnerService} from '../interfaces';
+import {ISpinnerService} from '../../interfaces';
 import {Observable, ReplaySubject, Subject} from 'rxjs';
-import {DisplaySpinnerRequest} from '../../models/implementations/display-spinner-request';
+import {DisplaySpinnerRequest} from '../../../models/implementations/display-spinner-request';
 import {v4 as uuidv4} from 'uuid';
-import {DeleteSpinnerRequest} from '../../models/implementations/delete-spinner-request';
-import {ISpinnerOptions} from '../../models';
+import {DeleteSpinnerRequest} from '../../../models/implementations/delete-spinner-request';
+import {IDisplaySpinnerOptions} from '../../../models';
 
 export class SpinnerService implements ISpinnerService {
 
@@ -33,7 +33,7 @@ export class SpinnerService implements ISpinnerService {
 
   //#region Methods
 
-  public displaySpinner(containerId: string, options?: ISpinnerOptions): string {
+  public displaySpinner(containerId: string, options?: IDisplaySpinnerOptions): string {
 
     // Initialize request id.
     const requestId = uuidv4();

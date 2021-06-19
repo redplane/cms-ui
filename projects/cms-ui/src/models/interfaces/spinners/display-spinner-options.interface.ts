@@ -1,6 +1,6 @@
 import {ComponentFactory} from '@angular/core';
 
-export class ISpinnerOptions {
+export class IDisplaySpinnerOptions {
 
   //#region Properties
 
