@@ -6,12 +6,11 @@ import {ValidationSummarizerModule} from '@cms-ui/core';
 import {RouterModule} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
-import {TranslatedValidationSummarizerService} from '../../../services/implementations/translated-validation-summarizer.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    ValidationSummarizerModule.forChild(TranslatedValidationSummarizerService,{
+    ValidationSummarizerModule.forChild({
       validationMessages: {
         notGreaterThan: 'MSG_VALUE_NOT_GREATER_THAN'
       }

@@ -32,7 +32,7 @@ describe('ValidationSummarizerComponent', () => {
     subscription = new Subscription();
     await TestBed.configureTestingModule({
       imports: [
-        ValidationSummarizerModule.forRoot(BasicValidationSummarizerService, {})
+        ValidationSummarizerModule.forRoot({})
       ],
       providers: []
     })

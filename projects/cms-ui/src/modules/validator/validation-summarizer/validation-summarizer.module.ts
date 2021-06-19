@@ -1,12 +1,16 @@
-import {ModuleWithProviders, NgModule, Type} from '@angular/core';
+import {ModuleWithProviders, NgModule, Provider} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ValidationSummarizerComponent} from './validation-summarizer.component';
 import {VALIDATION_SUMMARIZER_OPTION_PROVIDER, VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants';
 import {IValidationSummarizerModuleOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 import {ValidationSummarizerItemDirective} from './validation-summarizer-item/validation-summarizer-item.directive';
-import {IValidationSummarizerService} from '../../../services';
 import {VALIDATION_SUMMARIZER_OPTION} from '../../../constants/internal-injectors';
-import {buildValidationSummarizerOptionProvider} from '../../../factories/validation-summarizer.factory';
+import {
+  buildNullValidatorService,
+  buildValidationSummarizerOptionProvider,
+  buildValidatorService
+} from '../../../factories/validation-summarizer.factory';
+
 
 @NgModule({
   imports: [
@@ -25,7 +29,6 @@ export class ValidationSummarizerModule {
   //#region Methods
 
   public static forRoot(
-    validationService: Type<IValidationSummarizerService>,
     options: IValidationSummarizerModuleOptions)
     : ModuleWithProviders<ValidationSummarizerModule> {
     return {
@@ -39,23 +42,20 @@ export class ValidationSummarizerModule {
           multi: true
         },
 
+        // Validation summarizer option.
         {
           provide: VALIDATION_SUMMARIZER_OPTION_PROVIDER,
           useFactory: buildValidationSummarizerOptionProvider,
           deps: [VALIDATION_SUMMARIZER_OPTION]
         },
 
-        // Validation summarizer service registration.
-        {
-          provide: VALIDATION_SUMMARIZER_PROVIDER,
-          useClass: validationService
-        },
+        // Build validator provider.
+        options.validatorProvider || buildValidatorService()
       ]
     };
   }
 
   public static forChild(
-    validationService: Type<IValidationSummarizerService>,
     options: IValidationSummarizerModuleOptions)
     : ModuleWithProviders<ValidationSummarizerModule> {
     return {
@@ -71,10 +71,9 @@ export class ValidationSummarizerModule {
           useFactory: buildValidationSummarizerOptionProvider,
           deps: [VALIDATION_SUMMARIZER_OPTION]
         },
-        {
-          provide: VALIDATION_SUMMARIZER_PROVIDER,
-          useClass: validationService
-        }
+
+        // Validation summarizer service registration.
+        options.validatorProvider || buildNullValidatorService()
       ]
     };
   }
