@@ -1,6 +1,6 @@
-import { Component, Inject, HostListener } from '@angular/core';
+import {Component, HostListener, Inject} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {WINDOW} from '@cms-ui/core';
+import {WINDOW} from '../../../constants/injection-token.constant';
 
 @Component({
   selector: 'app-scroll-top',
@@ -23,7 +23,9 @@ export class ScrollTopComponent {
 
   //#region Constructor
   constructor(@Inject(DOCUMENT) private document: Document,
-              @Inject(WINDOW) protected windowService: Window) { }
+              @Inject(WINDOW) protected windowService: Window) {
+  }
+
   //#endregion
 
   //#region Methods
@@ -32,8 +34,8 @@ export class ScrollTopComponent {
   public onWindowScroll(): void {
     if (this.windowService.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop > 100) {
       this.windowScrolled = true;
-    }
-    else if (this.windowScrolled && this.windowService.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop < 10) {
+    } else if (this.windowScrolled && this.windowService.pageYOffset
+      || document.documentElement.scrollTop || document.body.scrollTop < 10) {
       this.windowScrolled = false;
     }
   }

@@ -9,3 +9,6 @@ export const DEMO_LAYOUT_SERVICE_PROVIDER = new InjectionToken<IDemoLayoutServic
 
 // Validation summarizer settings.
 export const VALIDATION_ITEM_CONTEXT_PROVIDER = new InjectionToken<ValidationItemBuildContext>('VALIDATION_ITEM_CONTEXT_PROVIDER');
+
+// Windows provider
+export const WINDOW = new InjectionToken('WINDOW');

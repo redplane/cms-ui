@@ -1,29 +1,30 @@
 import {
   AfterViewInit,
   Component,
-  ComponentFactory,
-  ComponentFactoryResolver, ComponentRef,
-  Inject, Injector,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Injector,
   Input,
-  OnDestroy, Optional,
+  OnDestroy,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {BANNER_BUILDER_PROVIDER, BANNER_SERVICE_PROVIDER, WINDOW} from '../../constants/injectors';
-import {Observable, of, Subject, Subscription, throwError} from 'rxjs';
+import {BANNER_BUILDER_PROVIDER, BANNER_SERVICE_PROVIDER} from '../../constants/injectors';
+import {Observable, of, Subscription, throwError} from 'rxjs';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent} from '@angular/router';
-import {delay, filter, map, mergeMap, retryWhen, switchMap, tap} from 'rxjs/operators';
+import {filter, map, mergeMap, retryWhen, switchMap, tap} from 'rxjs/operators';
 import {BANNER_PRESERVE_MODE, BANNER_QUERY_MODE} from '../../constants/data-type.constant';
 import {findLastIndex} from 'lodash-es';
-import { IBannerContentBuilder } from '../../services/interfaces/banners/banner-content-builder.interface';
-import { BannerService } from '../../services/implementations/banner.service';
-import { IDisplayBannerRequest } from '../../models/interfaces/banners/add-banner-content-request.interface';
-import { IBannerContentComponent } from '../../models/interfaces/banners/banner-content-component.interface';
-import { IDeleteBannerRequest } from '../../models/interfaces/banners/delete-banner-content-request.interface';
+import {IBannerContentBuilder} from '../../services/interfaces/banners/banner-content-builder.interface';
+import {BannerService} from '../../services/implementations/banner.service';
+import {IDisplayBannerRequest} from '../../models/interfaces/banners/add-banner-content-request.interface';
+import {IBannerContentComponent} from '../../models/interfaces/banners/banner-content-component.interface';
+import {IDeleteBannerRequest} from '../../models/interfaces/banners/delete-banner-content-request.interface';
+import {WINDOW} from '../../constants/internal-injectors';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'cms-banner-container',
+  selector: 'cms-banner',
   templateUrl: 'banner.component.html'
 })
 export class BannerComponent implements AfterViewInit, OnDestroy {

@@ -5,7 +5,7 @@
       <div class="card-body">
 
         <!--Container to display banner-->
-        <cms-banner-container [id]="insideComponentBannerId"></cms-banner-container>
+        <cms-banner [id]="insideComponentBannerId"></cms-banner>
 
         <h5 class="card-title">Basic banner</h5>
         <p class="card-text">Banner will be displayed wherever the container is placed.</p>
@@ -24,7 +24,7 @@
       <div class="card-body">
 
         <!--Container to display banner-->
-        <cms-banner-container [id]="timeoutBannerId"></cms-banner-container>
+        <cms-banner [id]="timeoutBannerId"></cms-banner>
 
         <h5 class="card-title">Timeout banner</h5>
         <div class="card-text">
@@ -50,7 +50,7 @@
         <!--Container to display banner-->
         <div>-------------------------------------------------------</div>
         <small>Banner will be displayed here</small>
-        <cms-banner-container [id]="stackableBannerId"></cms-banner-container>
+        <cms-banner [id]="stackableBannerId"></cms-banner>
         <div>-------------------------------------------------------</div>
 
         <h5 class="card-title">Stackable banner</h5>
@@ -84,7 +84,7 @@
         <!--Container to display banner-->
         <div>-------------------------------------------------------</div>
         <small>Banner will be displayed here</small>
-        <cms-banner-container [id]="queuedBannerId" [query-mode]="'dequeue'"></cms-banner-container>
+        <cms-banner [id]="queuedBannerId" [query-mode]="'dequeue'"></cms-banner>
         <div>-------------------------------------------------------</div>
 
         <h5 class="card-title">Queue banner</h5>
@@ -118,7 +118,7 @@
         <!--Container to display banner-->
         <div>-------------------------------------------------------</div>
         <small>Banner will be displayed here</small>
-        <cms-banner-container [id]="multiKindBannerId"></cms-banner-container>
+        <cms-banner [id]="multiKindBannerId"></cms-banner>
         <div>-------------------------------------------------------</div>
 
         <h5 class="card-title">Multi-kind banner</h5>

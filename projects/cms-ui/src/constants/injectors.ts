@@ -31,6 +31,3 @@ export const VALIDATION_SUMMARIZER_MODULE_OPTIONS_PROVIDER = new InjectionToken<
 // Dialog providers.
 export const DIALOG_BUILDER_PROVIDER = new InjectionToken<IDialogBuilder>('DIALOG_BUILDER_PROVIDER');
 export const DIALOG_SERVICE_PROVIDER = new InjectionToken<IDialogService>('DIALOG_SERVICE_PROVIDER');
-
-// Windows provider
-export const WINDOW = new InjectionToken('WINDOW_PROVIDER');

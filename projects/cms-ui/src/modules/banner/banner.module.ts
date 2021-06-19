@@ -5,6 +5,8 @@ import {RouterModule} from '@angular/router';
 import {IBannerService} from '../../services/interfaces/banners/banner-service.interface';
 import {BANNER_SERVICE_PROVIDER} from '../../constants/injectors';
 import {BannerService} from '../../services/implementations/banner.service';
+import {WINDOW} from '../../constants/internal-injectors';
+import {WINDOW_PROVIDERS} from '../../services/implementations/window.service';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,7 @@ import {BannerService} from '../../services/implementations/banner.service';
     RouterModule
   ],
   providers: [
+    WINDOW_PROVIDERS,
     {
       provide: BANNER_SERVICE_PROVIDER,
       useClass: BannerService
