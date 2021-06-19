@@ -1,4 +1,4 @@
-import {ISpinnerOptions} from '../interfaces';
+import {IDisplaySpinnerOptions} from '../interfaces';
 
 export class DisplaySpinnerRequest {
 
@@ -6,7 +6,7 @@ export class DisplaySpinnerRequest {
 
   public constructor(public containerId: string,
                      public id: string,
-                     public options?: ISpinnerOptions) {
+                     public options?: IDisplaySpinnerOptions) {
   }
 
   //#endregion

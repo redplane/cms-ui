@@ -1,27 +1,27 @@
 import {
   AfterViewInit,
-  Component, ComponentFactoryResolver,
-  HostBinding,
-  Inject, Injector,
+  Component,
+  ComponentFactoryResolver,
+  Inject,
+  Injector,
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
   ViewChild,
-  ViewContainerRef, ViewRef
+  ViewContainerRef
 } from '@angular/core';
 import {v4 as uuid} from 'uuid';
 import {Subject, Subscription} from 'rxjs';
 import {SPINNER_SERVICE_PROVIDER} from '../../constants/injectors';
 import {ISpinnerService} from '../../services/interfaces/spinner-service.interface';
-import {DisplaySpinnerRequest, ISpinnerOptions} from '../../models';
+import {DisplaySpinnerRequest} from '../../models';
 import {DeleteSpinnerRequest} from '../../models/implementations/delete-spinner-request';
 import {BasicSpinnerComponent} from './basic-spinner/basic-spinner.component';
 import {filter} from 'rxjs/operators';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'cms-spinner',
+  selector: 'cms-spinner-container',
   templateUrl: 'spinner-container.component.html',
   styleUrls: ['spinner-container.component.scss']
 })
@@ -51,6 +51,10 @@ export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestr
   // Subscription to handle local visibility request.
   // tslint:disable-next-line:variable-name
   private _localVisibilityRequestHandleSubscription: Subscription | undefined;
+
+  // Area which spinner will be displayed.
+  @ViewChild('content', {read: ViewContainerRef, static: false})
+  public viewContainerRef: ViewContainerRef | undefined;
 
   //#endregion
 
@@ -89,7 +93,6 @@ export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestr
   //#region Constructor
 
   public constructor(@Inject(SPINNER_SERVICE_PROVIDER) protected spinnerService: ISpinnerService,
-                     protected readonly viewContainerRef: ViewContainerRef,
                      protected readonly componentFactoryResolver: ComponentFactoryResolver,
                      private readonly injector: Injector) {
     this.id = uuid();
@@ -136,6 +139,11 @@ export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestr
 
   // Handle visibility changed event.
   protected handleVisibilityChangedEvent(event: DisplaySpinnerRequest | DeleteSpinnerRequest | undefined): void {
+
+    // Invalid view container ref.
+    if (!this.viewContainerRef) {
+      return;
+    }
 
     if (event instanceof DisplaySpinnerRequest) {
       const displaySpinnerRequest = event as DisplaySpinnerRequest;
@@ -199,7 +207,7 @@ export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestr
 
   protected displaySpinner(displaySpinnerRequest: DisplaySpinnerRequest): void {
 
-    if (!displaySpinnerRequest) {
+    if (!displaySpinnerRequest || !this.viewContainerRef) {
       return;
     }
 
