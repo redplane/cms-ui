@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {VALIDATION_SUMMARIZER_MODULE_OPTIONS_PROVIDER, ValidationSummarizerService} from '@cms-ui/core';
 import {TranslateService} from '@ngx-translate/core';
-import {IValidationSummarizerModuleOptions} from '../../../../cms-ui/src/models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
+import {IValidationSummarizerModuleOptions} from '@cms-ui/core';
 
 @Injectable()
 export class TranslatedValidationSummarizerService extends ValidationSummarizerService {
