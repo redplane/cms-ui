@@ -62,5 +62,9 @@
       "BANNER_SETTING_WILL_BE_EXTENDED": "Banner setting will be extended when using <code>forChild</code> function. Otherwise, the defined one will be used.",
       "BANNER_SERVICE_WILL_BE_A_NEW_INSTANCE": "A new instance of <code>IBannerService</code> will be added if it is specified."
     }
+  },
+
+  "DIALOG_DEMO": {
+    "SHOW_DIALOG": "Show dialog"
   }
 }
