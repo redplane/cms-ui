@@ -17,7 +17,7 @@ export class RequireRolePermissionModule {
     public static forRoot(option: RequireRolePermissionOption): ModuleWithProviders<RequireRolePermissionModule> {
         return {
             ngModule: RequireRolePermissionModule,
-            providers: option.providers
+            providers: option.providers || []
         };
     }
 

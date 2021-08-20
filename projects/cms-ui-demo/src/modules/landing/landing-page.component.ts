@@ -1,7 +1,6 @@
 import {Component, HostBinding, Inject} from '@angular/core';
-import {NavigateToScreenRequest, SMART_NAVIGATOR_PROVIDER} from '@cms-ui/core';
-import {ISmartNavigatorService} from '@cms-ui/core';
-import {ScreenCodeConstant} from '../../constants/screen-code.constant';
+import {ISmartNavigatorService, NavigateToScreenRequest, SMART_NAVIGATOR_PROVIDER} from '@cms-ui/core';
+import {ScreenCodes} from '../../constants/screen.codes';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,6 +17,10 @@ export class LandingPageComponent {
     return 'page';
   }
 
+  public get screenCodes(): typeof ScreenCodes {
+    return ScreenCodes;
+  }
+
   //#endregion
 
   //#region Constructor
@@ -29,28 +32,13 @@ export class LandingPageComponent {
 
   //#region Methods
 
-  public accessSpinnerDemoPage(): void {
-    this.smartNavigatorService.navigateToScreenAsync(new NavigateToScreenRequest(ScreenCodeConstant.spinnerDemo))
-      .subscribe();
-  }
-
-  public accessBannerDemoPage(): void {
-    this.smartNavigatorService.navigateToScreenAsync(new NavigateToScreenRequest(ScreenCodeConstant.bannerDemo))
-      .subscribe();
-  }
-
-  public accessSmartNavigatorDemoPage(): void {
-    this.smartNavigatorService.navigateToScreenAsync(new NavigateToScreenRequest(ScreenCodeConstant.smartNavigatorDemo))
-      .subscribe();
-  }
-
   public clickValidationSummarizerLearnMore(): void {
-    this.smartNavigatorService.navigateToScreenAsync(new NavigateToScreenRequest(ScreenCodeConstant.validationSummarizerDemo))
+    this.smartNavigatorService.navigateToScreenAsync(new NavigateToScreenRequest(ScreenCodes.validationSummarizerDemo))
       .subscribe();
   }
 
   public clickDialogLearnMore(): void {
-    this.smartNavigatorService.navigateToScreenAsync(new NavigateToScreenRequest(ScreenCodeConstant.dialogDemo))
+    this.smartNavigatorService.navigateToScreenAsync(new NavigateToScreenRequest(ScreenCodes.dialogDemo))
       .subscribe();
   }
 

@@ -2,7 +2,7 @@ import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../constants/injection-token.constant';
 import {IDemoLayoutService} from '../../services/interfaces/demo-layout-service.interface';
 import {ISmartNavigatorService, NavigateToScreenRequest, SMART_NAVIGATOR_PROVIDER} from '@cms-ui/core';
-import {ScreenCodeConstant} from '../../constants/screen-code.constant';
+import {ScreenCodes} from '../../constants/screen.codes';
 import {Subscription} from 'rxjs';
 import {Navigator03NavigationRequest} from '../../models/smart-navigators/navigator-03.navigation-request';
 
@@ -25,8 +25,8 @@ export class SmartNavigatorDemoComponent implements OnInit, OnDestroy {
 
   //#region Accessors
 
-  public get ScreenCodes(): typeof ScreenCodeConstant {
-    return ScreenCodeConstant;
+  public get ScreenCodes(): typeof ScreenCodes {
+    return ScreenCodes;
   }
 
   public get fourthTabNavigationRequest(): NavigateToScreenRequest<void> {
@@ -63,7 +63,7 @@ export class SmartNavigatorDemoComponent implements OnInit, OnDestroy {
 
   public accessTab01(): void {
     const tab01NavigationSubscription = this.smartNavigatorService
-      .navigateToScreenAsync(new NavigateToScreenRequest(ScreenCodeConstant.smartNavigatorTab01Demo))
+      .navigateToScreenAsync(new NavigateToScreenRequest(ScreenCodes.smartNavigatorTab01Demo))
       .subscribe();
 
     this.subscription.add(tab01NavigationSubscription);
@@ -71,7 +71,7 @@ export class SmartNavigatorDemoComponent implements OnInit, OnDestroy {
 
   public accessTab02(): void {
     const tab02NavigationSubscription = this.smartNavigatorService
-      .navigateToScreenAsync(new NavigateToScreenRequest(ScreenCodeConstant.smartNavigatorTab02Demo))
+      .navigateToScreenAsync(new NavigateToScreenRequest(ScreenCodes.smartNavigatorTab02Demo))
       .subscribe();
 
     this.subscription.add(tab02NavigationSubscription);

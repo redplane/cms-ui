@@ -14,7 +14,7 @@ export class MeetRequirementDirective implements OnInit, OnDestroy {
 
   // Name of requirement which must be satisfied.
   // tslint:disable-next-line:variable-name
-  private _requirement: string;
+  private _requirement: string | undefined;
 
   // Handle the requirement which is assigned to the current directive.
   // tslint:disable-next-line:variable-name
@@ -42,6 +42,7 @@ export class MeetRequirementDirective implements OnInit, OnDestroy {
                      protected readonly templateRef: TemplateRef<any>,
                      @Inject(MEET_REQUIREMENT_SERVICE_PROVIDER)
                      protected readonly meetRequirementService: IMeetRequirementService) {
+    this._requirement = undefined;
     this._handleRequirementSubject = new Subject<string>();
     this._subscription = new Subscription();
   }

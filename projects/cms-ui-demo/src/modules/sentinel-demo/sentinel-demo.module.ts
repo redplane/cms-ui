@@ -1,24 +1,21 @@
 import {NgModule} from '@angular/core';
-import {LandingPageComponent} from './landing-page.component';
-import {LandingPageRoutingModule} from './landing-page-routing.module';
+import {SentinelDemoComponent} from './sentinel-demo.component';
+import {SentinelDemoRoutingModule} from './sentinel-demo-routing.module';
 import {RouterModule} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 import {SmartNavigatorModule} from '@cms-ui/core';
 
 @NgModule({
   imports: [
+    SentinelDemoRoutingModule,
     RouterModule,
-    LandingPageRoutingModule,
     TranslateModule,
     SmartNavigatorModule
   ],
   declarations: [
-    LandingPageComponent
-  ],
-  exports: [
-    LandingPageComponent,
+    SentinelDemoComponent
   ]
 })
-export class LandingPageModule {
+export class SentinelDemoModule {
 
 }

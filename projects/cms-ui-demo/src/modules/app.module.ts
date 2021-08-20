@@ -15,6 +15,7 @@ import {AlertBannerContentModule} from './shared/alert-banner-content/alert-bann
 import {InfoBannerContentModule} from './shared/info-banner-content/info-banner-content.module';
 import {ScrollTopModule} from 'src/modules/shared/scroll-top/scroll-top.module';
 import {NgRxMessageBusModule} from 'ngrx-message-bus';
+import {ApplicationScr} from '../services/implementations/application.scr';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,11 @@ import {NgRxMessageBusModule} from 'ngrx-message-bus';
     NgRxMessageBusModule.forRoot()
   ],
   providers: [
+    {
+      provide: SMART_NAVIGATOR_SCREEN_CODE_RESOLVER,
+      useClass: ApplicationScr,
+      multi: true
+    },
     {
       provide: SMART_NAVIGATOR_SCREEN_CODE_RESOLVER,
       useClass: SmartNavigatorDemoScreenCodeResolver,

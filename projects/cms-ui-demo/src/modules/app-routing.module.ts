@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {MasterLayoutComponent} from './master-layout/master-layout.component';
 
 const routes: Routes = [
@@ -28,6 +28,11 @@ const routes: Routes = [
         path: 'smart-navigator-demo',
         loadChildren: () => import('./smart-navigator-demo/smart-navigator-demo.module')
           .then(m => m.SmartNavigatorDemoModule)
+      },
+      {
+        path: 'sentinel-demo',
+        loadChildren: () => import('./sentinel-demo/sentinel-demo.module')
+          .then(m => m.SentinelDemoModule)
       },
       {
         path: '',

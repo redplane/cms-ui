@@ -11,8 +11,10 @@
     "BANNER_DESCRIPTION": "Banner description",
     "SMART_NAVIGATOR": "Smart navigator",
     "SMART_NAVIGATOR_DESCRIPTION": "Smart navigator description",
-    "VALIDATION_SUMMARIZER": "Validation summarize",
-    "VALIDATION_SUMMARIZER_DESCRIPTION": "Validation summarize description"
+    "VALIDATION_SUMMARIZER": "Validation summarizer",
+    "VALIDATION_SUMMARIZER_DESCRIPTION": "Validation summarize description",
+    "SENTINEL": "Sentinel",
+    "SENTINEL_DESCRIPTION": "Sentinel description"
   },
   "VALIDATION_SUMMARIZER_DEMO": {
     "BASIC_VALIDATOR": "Basic validator",
@@ -62,6 +64,16 @@
       "BANNER_SETTING_WILL_BE_EXTENDED": "Banner setting will be extended when using <code>forChild</code> function. Otherwise, the defined one will be used.",
       "BANNER_SERVICE_WILL_BE_A_NEW_INSTANCE": "A new instance of <code>IBannerService</code> will be added if it is specified."
     }
+  },
+
+  "SENTINEL_DEMO": {
+    "FEATURE_SENTINEL": "Feature sentinel",
+    "FEATURE_SENTINEL_DESCRIPTION": "Feature sentinel description",
+    "ROLE_SENTINEL": "Role sentinel",
+    "ROLE_SENTINEL_DESCRIPTION": "Role sentinel description",
+    "REQUIREMENT_SENTINEL": "Requirement sentinel",
+    "REQUIREMENT_SENTINEL_DESCRIPTION": "Requirement sentinel description",
+    "LEARN_MORE": "Learn more"
   },
 
   "DIALOG_DEMO": {
