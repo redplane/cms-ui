@@ -76,7 +76,17 @@
     "LEARN_MORE": "Learn more"
   },
 
+  "DEMO_LAYOUT": {
+    "DESCRIPTION": "Description",
+    "INPUTS_N_EVENTS": "Inputs & events",
+    "EXAMPLES": "Examples"
+  },
+
   "DIALOG_DEMO": {
     "SHOW_DIALOG": "Show dialog"
+  },
+
+  "FEATURE_SENTINEL_DEMO": {
+    "FEATURE_SENTINEL": "Feature sentinel"
   }
 }

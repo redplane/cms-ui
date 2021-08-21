@@ -1,14 +1,14 @@
 import {Directive, Inject, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
-import {REQUIRE_ROLE_PERMISSION_SERVICE_PROVIDER} from '../../../constants';
+import {FEATURE_SENTINEL_SERVICE_PROVIDER} from '../../../constants';
+import {IFeatureSentinelService} from './feature-sentinel-service.interface';
 import {of, Subject, Subscription} from 'rxjs';
-import {catchError, debounceTime, switchMap} from 'rxjs/operators';
-import {IRequireRolePermissionService} from './require-role-permission-service.interface';
+import {catchError, debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[hasRoles]'
+  selector: '[hasFeatureAccess]'
 })
-export class RequireRolePermissionDirective implements OnInit, OnDestroy {
+export class RequirePermissionFeatureDirective implements OnInit, OnDestroy {
 
   //#region Properties
 
@@ -18,7 +18,7 @@ export class RequireRolePermissionDirective implements OnInit, OnDestroy {
 
   // Raise event about displaying feature content.
   // tslint:disable-next-line:variable-name
-  private _displayRoleContentSubject: Subject<string[]>;
+  private _displayFeatureContentSubject: Subject<string[]>;
 
   // Subscription watch list.
   // tslint:disable-next-line:variable-name
@@ -28,7 +28,7 @@ export class RequireRolePermissionDirective implements OnInit, OnDestroy {
 
   //#region Accessors
 
-  @Input('hasRoles')
+  @Input('hasFeatureAccess')
   public set name(value: string | string[]) {
 
     if (value instanceof Array) {
@@ -37,20 +37,20 @@ export class RequireRolePermissionDirective implements OnInit, OnDestroy {
       this._names = [value];
     }
 
-    this._displayRoleContentSubject.next(this._names);
+    this._displayFeatureContentSubject.next(this._names);
   }
 
   //#endregion
 
   //#region Constructor
 
-  public constructor(@Inject(REQUIRE_ROLE_PERMISSION_SERVICE_PROVIDER)
-                     protected readonly requireRolePermissionService: IRequireRolePermissionService,
+  public constructor(@Inject(FEATURE_SENTINEL_SERVICE_PROVIDER)
+                     protected readonly requireFeaturePermissionService: IFeatureSentinelService,
                      protected readonly viewContainerRef: ViewContainerRef,
                      protected readonly templateRef: TemplateRef<any>) {
 
     this._names = [];
-    this._displayRoleContentSubject = new Subject<string[]>();
+    this._displayFeatureContentSubject = new Subject<string[]>();
     this._subscription = new Subscription();
   }
 
@@ -60,19 +60,20 @@ export class RequireRolePermissionDirective implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
 
-    const displayFeatureContentSubscription = this._displayRoleContentSubject
+    const displayFeatureContentSubscription = this._displayFeatureContentSubject
       .pipe(
+        distinctUntilChanged(),
         debounceTime(250),
         switchMap((names: string[]) => {
-          return this.requireRolePermissionService.hasAnyRoleAsync(names)
+          return this.requireFeaturePermissionService.ableToAccessFeaturesAsync(names)
             .pipe(
               catchError(_ => of(false))
             );
         }),
       )
       .subscribe(ableToAccessFeature => {
-        this.viewContainerRef.clear();
         if (!ableToAccessFeature) {
+          this.viewContainerRef.clear();
           return;
         }
 
@@ -80,15 +81,7 @@ export class RequireRolePermissionDirective implements OnInit, OnDestroy {
       });
     this._subscription.add(displayFeatureContentSubscription);
 
-    const hookRoleValidationSubscription = this.requireRolePermissionService
-      .hookValidationEventAsync()
-      .subscribe(() => {
-        this._displayRoleContentSubject.next(this._names);
-      });
-    this._subscription.add(hookRoleValidationSubscription);
-
-    // Trigger validation.
-    this._displayRoleContentSubject.next(this._names);
+    this._displayFeatureContentSubject.next(this._names);
   }
 
   public ngOnDestroy(): void {

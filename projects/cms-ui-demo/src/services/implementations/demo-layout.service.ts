@@ -2,63 +2,64 @@ import {IDemoLayoutService} from '../interfaces/demo-layout-service.interface';
 import {Inject, Injectable, Optional} from '@angular/core';
 import {DEMO_LAYOUT_SETTINGS} from '../../constants/injection-token.constant';
 import {DemoLayoutSetting} from '../../models/demo-layout-setting';
-import {Observable, ReplaySubject} from 'rxjs';
-import {v4 as uuid} from 'uuid';
+import {Observable, ReplaySubject, Subject} from 'rxjs';
+import {merge as lodashMerge} from 'lodash-es';
+import {SideBarSetting} from '../../side-bar-setting';
 
 @Injectable()
 export class DemoLayoutService implements IDemoLayoutService {
 
   //#region Properties
 
-  // Subject which is for updating secondary title.
   // tslint:disable-next-line:variable-name
-  private _secondaryTitleUpdatedSubject: ReplaySubject<string>;
+  private _setting: DemoLayoutSetting;
 
-  // Subject which is for updating title.
   // tslint:disable-next-line:variable-name
-  private _titleUpdatedSubject: ReplaySubject<string>;
+  private _sideBarSetting: SideBarSetting;
 
-  public readonly id: string;
+  // tslint:disable-next-line:variable-name
+  private readonly _settingChangedSubject: Subject<DemoLayoutSetting>;
 
-  // Event which will be raised when secondary title is updated.
-  public readonly secondaryTitleUpdated: Observable<string>;
-
-  // Event which will be raised when primary title is updated.
-  public readonly titleUpdated: Observable<string>;
+  // tslint:disable-next-line:variable-name
+  private readonly _sideBarSettingChangedSubject: Subject<SideBarSetting>;
 
   //#endregion
 
   //#region Constructor
 
-  public constructor(@Optional() @Inject(DEMO_LAYOUT_SETTINGS) protected demoLayoutSetting: DemoLayoutSetting) {
+  public constructor(@Optional() @Inject(DEMO_LAYOUT_SETTINGS)
+                     protected demoLayoutSetting: DemoLayoutSetting) {
 
-    if (this.demoLayoutSetting) {
-      this.id = demoLayoutSetting.id;
-    } else {
-      this.id = uuid();
-    }
+    this._setting = new DemoLayoutSetting();
+    this._sideBarSetting = new SideBarSetting();
 
-    this._secondaryTitleUpdatedSubject = new ReplaySubject<string>();
-    this.secondaryTitleUpdated = this._secondaryTitleUpdatedSubject.asObservable();
-
-    this._titleUpdatedSubject = new ReplaySubject<string>();
-    this.titleUpdated = this._titleUpdatedSubject.asObservable();
+    this._settingChangedSubject = new ReplaySubject(1);
+    this._sideBarSettingChangedSubject = new ReplaySubject(1);
   }
 
   //#endregion
+
 
   //#region Methods
 
-  public setSecondaryTitle(title: string): void {
-    this._secondaryTitleUpdatedSubject.next(title);
+  public hookLayoutSettingsChanged(): Observable<DemoLayoutSetting> {
+    return this._settingChangedSubject.asObservable();
   }
 
-  public setSidebar(): void {
+  public changeLayoutSetting(value: DemoLayoutSetting): void {
+    this._setting = lodashMerge(this._setting, value);
+    this._settingChangedSubject.next(this._setting);
   }
 
-  public setTitle(title: string): void {
-    this._titleUpdatedSubject.next(title);
+  public changeSideBarSetting(value: SideBarSetting): void {
+    this._sideBarSetting = lodashMerge(this._setting, value);
+    this._sideBarSettingChangedSubject.next(this._sideBarSetting);
+  }
+
+  public hookSideBarSettingChanged(): Observable<SideBarSetting> {
+    return this._sideBarSettingChangedSubject.asObservable();
   }
 
   //#endregion
+
 }

@@ -1,14 +1,14 @@
 import {Directive, Inject, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
-import {REQUIRE_FEATURE_PERMISSION_SERVICE_PROVIDER} from '../../../constants';
-import {IRequireFeaturePermissionService} from './require-feature-permission-service.interface';
+import {ROLE_SENTINEL_SERVICE_PROVIDER} from '../../../constants';
 import {of, Subject, Subscription} from 'rxjs';
-import {catchError, debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
+import {catchError, debounceTime, switchMap} from 'rxjs/operators';
+import {IRoleSentinelService} from './role-sentinel-service.interface';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[hasFeatureAccess]'
+  selector: '[hasRoles]'
 })
-export class RequirePermissionFeatureDirective implements OnInit, OnDestroy {
+export class RoleSentinelDirective implements OnInit, OnDestroy {
 
   //#region Properties
 
@@ -18,7 +18,7 @@ export class RequirePermissionFeatureDirective implements OnInit, OnDestroy {
 
   // Raise event about displaying feature content.
   // tslint:disable-next-line:variable-name
-  private _displayFeatureContentSubject: Subject<string[]>;
+  private _displayRoleContentSubject: Subject<string[]>;
 
   // Subscription watch list.
   // tslint:disable-next-line:variable-name
@@ -28,7 +28,7 @@ export class RequirePermissionFeatureDirective implements OnInit, OnDestroy {
 
   //#region Accessors
 
-  @Input('hasFeatureAccess')
+  @Input('hasRoles')
   public set name(value: string | string[]) {
 
     if (value instanceof Array) {
@@ -37,20 +37,20 @@ export class RequirePermissionFeatureDirective implements OnInit, OnDestroy {
       this._names = [value];
     }
 
-    this._displayFeatureContentSubject.next(this._names);
+    this._displayRoleContentSubject.next(this._names);
   }
 
   //#endregion
 
   //#region Constructor
 
-  public constructor(@Inject(REQUIRE_FEATURE_PERMISSION_SERVICE_PROVIDER)
-                     protected readonly requireFeaturePermissionService: IRequireFeaturePermissionService,
+  public constructor(@Inject(ROLE_SENTINEL_SERVICE_PROVIDER)
+                     protected readonly requireRolePermissionService: IRoleSentinelService,
                      protected readonly viewContainerRef: ViewContainerRef,
                      protected readonly templateRef: TemplateRef<any>) {
 
     this._names = [];
-    this._displayFeatureContentSubject = new Subject<string[]>();
+    this._displayRoleContentSubject = new Subject<string[]>();
     this._subscription = new Subscription();
   }
 
@@ -60,20 +60,19 @@ export class RequirePermissionFeatureDirective implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
 
-    const displayFeatureContentSubscription = this._displayFeatureContentSubject
+    const displayFeatureContentSubscription = this._displayRoleContentSubject
       .pipe(
-        distinctUntilChanged(),
         debounceTime(250),
         switchMap((names: string[]) => {
-          return this.requireFeaturePermissionService.ableToAccessFeaturesAsync(names)
+          return this.requireRolePermissionService.hasAnyRoleAsync(names)
             .pipe(
               catchError(_ => of(false))
             );
         }),
       )
       .subscribe(ableToAccessFeature => {
+        this.viewContainerRef.clear();
         if (!ableToAccessFeature) {
-          this.viewContainerRef.clear();
           return;
         }
 
@@ -81,7 +80,15 @@ export class RequirePermissionFeatureDirective implements OnInit, OnDestroy {
       });
     this._subscription.add(displayFeatureContentSubscription);
 
-    this._displayFeatureContentSubject.next(this._names);
+    const hookRoleValidationSubscription = this.requireRolePermissionService
+      .hookValidationEventAsync()
+      .subscribe(() => {
+        this._displayRoleContentSubject.next(this._names);
+      });
+    this._subscription.add(hookRoleValidationSubscription);
+
+    // Trigger validation.
+    this._displayRoleContentSubject.next(this._names);
   }
 
   public ngOnDestroy(): void {

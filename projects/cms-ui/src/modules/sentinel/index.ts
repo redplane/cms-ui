@@ -1,3 +1,3 @@
-export * from './meet-requirement/index';
-export * from './require-feature-permission/index';
+export * from './requirement-sentinel/index';
+export * from './feature-sentinel/index';
 export * from './require-role-permission/index';

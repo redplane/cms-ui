@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs';
 
-export interface IRequireFeaturePermissionService {
+export interface IFeatureSentinelService {
 
     //#region Methods
 

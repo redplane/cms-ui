@@ -1,10 +1,10 @@
-import {IMeetRequirementService} from './meet-requirement-service.interface';
+import {IMeetRequirementService} from './requirement-sentinel-service.interface';
 import {Observable, of} from 'rxjs';
 import {Injector} from '@angular/core';
 import {IRequirementHandler} from './requirement-handler.interface';
 import {REQUIREMENT_HANDLER_PROVIDER} from '../../../constants';
 
-export class MeetRequirementService implements IMeetRequirementService {
+export class RequirementSentinelService implements IMeetRequirementService {
 
     //#region Properties
 

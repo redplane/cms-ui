@@ -1,3 +1,3 @@
-export * from './require-role-permission.directive';
-export * from './require-role-permission.module';
-export * from './require-role-permission-service.interface';
+export * from './role-sentinel.directive';
+export * from './role-sentinel.module';
+export * from './role-sentinel-service.interface';

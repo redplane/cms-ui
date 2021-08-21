@@ -5,11 +5,15 @@ import {CommonModule} from '@angular/common';
 import {DemoLayoutSetting} from '../../../models/demo-layout-setting';
 import {DEMO_LAYOUT_SERVICE_PROVIDER, DEMO_LAYOUT_SETTINGS} from '../../../constants/injection-token.constant';
 import {DemoLayoutService} from '../../../services/implementations/demo-layout.service';
+import {TranslateModule} from '@ngx-translate/core';
+import {SmartNavigatorModule} from '@cms-ui/core';
 
 @NgModule({
   imports: [
     RouterModule,
-    CommonModule
+    CommonModule,
+    TranslateModule,
+    SmartNavigatorModule
   ],
   declarations: [
     DemoLayoutComponent

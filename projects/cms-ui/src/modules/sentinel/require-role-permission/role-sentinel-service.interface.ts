@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs';
 
-export interface IRequireRolePermissionService {
+export interface IRoleSentinelService {
 
   //#region Methods
 

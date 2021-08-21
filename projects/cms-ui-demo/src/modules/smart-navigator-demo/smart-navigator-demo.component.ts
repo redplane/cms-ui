@@ -5,6 +5,7 @@ import {ISmartNavigatorService, NavigateToScreenRequest, SMART_NAVIGATOR_PROVIDE
 import {ScreenCodes} from '../../constants/screen.codes';
 import {Subscription} from 'rxjs';
 import {Navigator03NavigationRequest} from '../../models/smart-navigators/navigator-03.navigation-request';
+import {DemoLayoutSetting} from '../../models/demo-layout-setting';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -51,8 +52,10 @@ export class SmartNavigatorDemoComponent implements OnInit, OnDestroy {
   //#region Methods
 
   public ngOnInit(): void {
-    this.demoLayoutService.setTitle('Smart navigator');
-    this.demoLayoutService.setSecondaryTitle('Demo');
+
+    const setting = new DemoLayoutSetting();
+    setting.title = 'SMART_NAVIGATOR_DEMO.SMART_NAVIGATOR_DEMO';
+    this.demoLayoutService.changeLayoutSetting(setting);
   }
 
   public ngOnDestroy(): void {

@@ -1,7 +1,7 @@
 import {Observable, Subject} from 'rxjs';
-import {IRequireFeaturePermissionService} from './require-feature-permission-service.interface';
+import {IFeatureSentinelService} from './feature-sentinel-service.interface';
 
-export abstract class RequireFeaturePermissionService implements IRequireFeaturePermissionService {
+export abstract class FeatureSentinelService implements IFeatureSentinelService {
 
   //#region Properties
 

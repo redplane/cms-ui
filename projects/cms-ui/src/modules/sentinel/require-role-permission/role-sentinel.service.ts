@@ -1,7 +1,7 @@
-import {IRequireRolePermissionService} from './require-role-permission-service.interface';
+import {IRoleSentinelService} from './role-sentinel-service.interface';
 import {Observable, Subject} from 'rxjs';
 
-export abstract class RequireRolePermissionService implements IRequireRolePermissionService {
+export abstract class RoleSentinelService implements IRoleSentinelService {
 
 //#region Properties
 

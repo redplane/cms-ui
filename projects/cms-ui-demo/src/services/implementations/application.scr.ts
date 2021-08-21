@@ -11,6 +11,7 @@ export class ApplicationScr extends DefaultScreenCodeResolver {
 
     const codeToUrl: { [id: string]: string } = {};
     codeToUrl[ScreenCodes.sentinelDemo] = '/sentinel-demo';
+    codeToUrl[ScreenCodes.featureSentinelDemo] = '/sentinel-demo/feature-sentinel-demo';
 
     super(codeToUrl);
   }

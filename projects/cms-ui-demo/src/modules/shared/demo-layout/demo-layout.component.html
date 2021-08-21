@@ -1,27 +1,35 @@
 <!-- Page Content -->
-<div class="container">
+<div class="container-fluid">
 
   <!-- Page Heading/Breadcrumbs -->
-  <h1 class="mt-4 mb-3">{{title}}
-    <small>{{secondaryTitle}}</small>
+  <h1 class="mt-4 mb-3">{{title | translate}}
+    <small>{{secondaryTitle | translate}}</small>
   </h1>
 
   <!-- Content Row -->
   <div class="row">
     <!-- Sidebar Column -->
-    <div class="col-lg-3 mb-4"
-         *ngIf="isSidebarAvailable()">
-      <div class="list-group">
-        <a *ngFor="let item of sidebarMenuItems"
-           class="list-group-item"
-           [class.active]="isSidebarItemActive(item)">{{item.title}}</a>
+    <div class="col-lg-3 col-md-4"
+         *ngIf="shouldSideBarAvailable()">
+      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+
+        <ng-container *ngFor="let item of sidebarMenuItems">
+          <a class="nav-link"
+             [routerLink]="item.routerLink | toUrl"
+             [routerLinkActive]="item.routerLinkActive">
+            {{item.title| translate}}
+          </a>
+        </ng-container>
+
+
       </div>
+
     </div>
 
     <!-- Content Column -->
-    <div [class.col-12]="!isSidebarAvailable()"
-         [class.col-lg-9]="isSidebarAvailable()"
-         [class.col-md-4]="isSidebarAvailable()">
+    <div [class.col-12]="!shouldSideBarAvailable()"
+         [class.col-lg-9]="shouldSideBarAvailable()"
+         [class.col-md-4]="shouldSideBarAvailable()">
       <router-outlet></router-outlet>
     </div>
   </div>

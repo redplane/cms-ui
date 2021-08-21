@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {RequirePermissionFeatureDirective} from './require-feature-permission.directive';
+import {RequirePermissionFeatureDirective} from './feature-sentinel.directive';
 
 @NgModule({
   declarations: [
@@ -9,5 +9,5 @@ import {RequirePermissionFeatureDirective} from './require-feature-permission.di
     RequirePermissionFeatureDirective
   ]
 })
-export class RequireFeaturePermissionModule {
+export class FeatureSentinelModule {
 }

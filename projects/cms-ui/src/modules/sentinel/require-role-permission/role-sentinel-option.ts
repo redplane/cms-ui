@@ -1,6 +1,6 @@
 import {Provider} from '@angular/core';
 
-export class RequireRolePermissionOption {
+export class RoleSentinelOption {
 
     public providers?: Provider[];
 

@@ -1,21 +1,22 @@
+import {DemoLayoutSetting} from '../../models/demo-layout-setting';
+import {Observable} from 'rxjs';
+import {SideBarSetting} from '../../side-bar-setting';
+
 export interface IDemoLayoutService {
-
-  //#region Properties
-
-  readonly id: string;
-
-  //#endregion
 
   //#region Methods
 
-  // Update side bar items.
-  setSidebar(): void;
+  // Update setting.
+  changeLayoutSetting(value: DemoLayoutSetting): void;
 
-  // Setup title.
-  setTitle(title: string): void;
+  // Called when setting is changed.
+  hookLayoutSettingsChanged(): Observable<DemoLayoutSetting>;
 
-  // Set secondary title.
-  setSecondaryTitle(title: string): void;
+  // Update side bar setting.
+  changeSideBarSetting(value: SideBarSetting): void;
+
+  // Hook side bar setting
+  hookSideBarSettingChanged(): Observable<SideBarSetting>;
 
   //#endregion
 }

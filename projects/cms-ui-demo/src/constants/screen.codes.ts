@@ -22,6 +22,8 @@ export class ScreenCodes {
 
   public static readonly sentinelDemo = 'SENTINEL_DEMO';
 
+  public static readonly featureSentinelDemo = 'FEATURE_SENTINEL_DEMO';
+
   //#endregion
 
 }

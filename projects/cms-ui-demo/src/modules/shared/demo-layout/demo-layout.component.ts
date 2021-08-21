@@ -1,23 +1,15 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  HostBinding,
-  Inject,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Inject, OnDestroy, OnInit} from '@angular/core';
 import {SideBarMenuItem} from '../../../models/side-bar-menu-item';
 import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../../constants/injection-token.constant';
 import {IDemoLayoutService} from '../../../services/interfaces/demo-layout-service.interface';
-import {DemoLayoutService} from '../../../services/implementations/demo-layout.service';
 import {Subscription} from 'rxjs';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'demo-layout',
   templateUrl: 'demo-layout.component.html',
-  styleUrls: ['demo-layout.component.scss']
+  styleUrls: ['demo-layout.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DemoLayoutComponent implements OnInit, OnDestroy {
 
@@ -25,7 +17,7 @@ export class DemoLayoutComponent implements OnInit, OnDestroy {
 
   // List of menu items which will be displayed on side bar.
   // tslint:disable-next-line:variable-name
-  private readonly _sidebarMenuItems: SideBarMenuItem[];
+  private _sidebarMenuItems: SideBarMenuItem[];
 
   // Main title.
   // tslint:disable-next-line:variable-name
@@ -82,23 +74,22 @@ export class DemoLayoutComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
 
-    if (this.demoLayoutService instanceof DemoLayoutService) {
-      const basicDemoLayoutService = this.demoLayoutService as DemoLayoutService;
+    const hookSettingChangedSubscription = this.demoLayoutService
+      .hookLayoutSettingsChanged()
+      .subscribe(setting => {
+        this._title = setting.title || '';
+        this._secondaryTitle = setting.secondaryTitle || '';
+        this.changeDetectorRef.detectChanges();
+      });
+    this._subscription.add(hookSettingChangedSubscription);
 
-      const titleUpdatedSubscription = basicDemoLayoutService.titleUpdated
-        .subscribe(value => {
-          this._title = value;
-          this.changeDetectorRef.detectChanges();
-        });
-      this._subscription.add(titleUpdatedSubscription);
-
-      const secondaryTitleUpdatedSubscription = basicDemoLayoutService.secondaryTitleUpdated
-        .subscribe(value => {
-          this._secondaryTitle = value;
-          this.changeDetectorRef.detectChanges();
-        });
-      this._subscription.add(secondaryTitleUpdatedSubscription);
-    }
+    const hookSideBarSettingChangedSubscription = this.demoLayoutService
+      .hookSideBarSettingChanged()
+      .subscribe(sideBarSetting => {
+        this._sidebarMenuItems = sideBarSetting.items || [];
+        this.changeDetectorRef.detectChanges();
+      });
+    this._subscription.add(hookSettingChangedSubscription);
   }
 
   public ngOnDestroy(): void {
@@ -112,23 +103,11 @@ export class DemoLayoutComponent implements OnInit, OnDestroy {
 
   //#region Methods
 
-  public isSidebarAvailable(): boolean {
-
-    if (!this.sidebarMenuItems || !this.sidebarMenuItems.length) {
+  public shouldSideBarAvailable(): boolean {
+    if (!this._sidebarMenuItems || !this._sidebarMenuItems.length) {
       return false;
     }
-
     return true;
-  }
-
-  // Whether side bar item is active or not.
-  public isSidebarItemActive(item: SideBarMenuItem): boolean {
-
-    if (!item || !item.isActiveHandler) {
-      return false;
-    }
-
-    return item.isActiveHandler();
   }
 
   //#endregion
