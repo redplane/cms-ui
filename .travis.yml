@@ -82,7 +82,7 @@ jobs:
         - echo //www.myget.org/F/cms-ui/npm/:_authToken=${MY_GET_KEY} >> .npmrc
 
         # Begin publishing to MyGet hosting
-        - npm publish "dist/cms-ui"
+        - npm publish "dist/@cms-ui/core"
 
       after_script:
         # Remove the created file: .npmrc.
@@ -98,7 +98,7 @@ jobs:
         - echo //registry.npmjs.org/:_authToken=${NPMJS_KEY} >> .npmrc
 
         # Publish library to npmjs.org
-        - npm publish "dist/cms-ui"
+        - npm publish "dist/@cms-ui/core"
 
       after_script:
         - del .npmrc 2>nul

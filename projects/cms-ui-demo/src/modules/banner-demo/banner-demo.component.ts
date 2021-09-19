@@ -48,8 +48,10 @@ export class BannerDemoComponent implements OnInit {
   //#region Methods
 
   public ngOnInit(): void {
-    this.demoLayoutService.setTitle('Banner');
-    this.demoLayoutService.setSecondaryTitle('Demo');
+    this.demoLayoutService.changeLayoutSetting({
+      title: 'Banner',
+      secondaryTitle: 'Demo'
+    });
   }
 
   public displayBanner(): void {

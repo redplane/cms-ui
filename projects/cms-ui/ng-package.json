@@ -1,7 +1,11 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/cms-ui",
+  "dest": "../../dist/@cms-ui/core",
   "lib": {
-    "entryFile": "src/public-api.ts"
+    "entryFile": "src/public-api.ts",
+    "umdModuleIds": {
+      "lodash-es": "lodash-es",
+     "uuid": "uuid"
+    }
   }
 }

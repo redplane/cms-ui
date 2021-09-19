@@ -65,8 +65,10 @@ export class SpinnerDemoComponent implements OnInit {
   //#region Life cycle
 
   public ngOnInit(): void {
-    this.demoLayoutService.setTitle('Spinner');
-    this.demoLayoutService.setSecondaryTitle('Demo');
+    this.demoLayoutService.changeLayoutSetting({
+      title: 'Spinner',
+      secondaryTitle: 'Demo'
+    });
   }
 
   //#endregion

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "cms-ui": {
+    "@cms-ui/core": {
       "projectType": "library",
       "root": "projects/cms-ui",
       "sourceRoot": "projects/cms-ui/src",
@@ -43,7 +43,7 @@
         }
       }
     },
-    "cms-ui-demo": {
+    "@cms-ui/demo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -57,7 +57,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/cms-ui-demo",
+            "outputPath": "dist/@cms-ui/demo",
             "index": "projects/cms-ui-demo/src/index.html",
             "main": "projects/cms-ui-demo/src/main.ts",
             "polyfills": "projects/cms-ui-demo/src/polyfills.ts",
