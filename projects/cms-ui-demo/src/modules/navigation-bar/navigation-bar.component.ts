@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {ISmartNavigatorService, NavigateToScreenRequest, SMART_NAVIGATOR_PROVIDER} from '@cms-ui/core';
-import {ScreenCodeConstant} from '../../constants/screen-code.constant';
+import {ScreenCodes} from '../../constants/screen.codes';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -26,7 +26,7 @@ export class NavigationBarComponent {
     }
 
     this.smartNavigatorService
-      .navigateToScreenAsync(new NavigateToScreenRequest(ScreenCodeConstant.landing))
+      .navigateToScreenAsync(new NavigateToScreenRequest(ScreenCodes.landing))
       .subscribe();
   }
 

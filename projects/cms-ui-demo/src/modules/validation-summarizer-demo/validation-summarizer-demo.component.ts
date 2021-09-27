@@ -1,5 +1,5 @@
-import {Component, ComponentRef, Injector, OnDestroy, OnInit} from '@angular/core';
-import {Observable, of, Subscription} from 'rxjs';
+import {Component, Injector, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
 import {ValidationSummarizerDemoScreenCodeConstant} from '../../constants/screen-codes/validation-summarizer-demo-screen-code.constant';
 import {IDemoLayoutService} from '../../services/interfaces/demo-layout-service.interface';
 import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../constants/injection-token.constant';
@@ -62,8 +62,10 @@ export class ValidationSummarizerDemoComponent implements OnInit, OnDestroy {
   //#region Life cycles
 
   public ngOnInit(): void {
-    this.demoLayoutService.setTitle('Validation Summarizer');
-    this.demoLayoutService.setSecondaryTitle('Demo');
+    this.demoLayoutService.changeLayoutSetting({
+      title: 'Validation Summarizer',
+      secondaryTitle: 'Demo'
+    });
   }
 
   public ngOnDestroy(): void {
@@ -81,6 +83,7 @@ export class ValidationSummarizerDemoComponent implements OnInit, OnDestroy {
   public resetCurrentItem(): void {
     this.currentItem = this.validationSummarizerSectionsConstant.descriptionSection;
   }
+
   //#endregion
 
 }

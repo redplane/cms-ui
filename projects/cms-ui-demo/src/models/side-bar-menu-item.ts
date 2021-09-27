@@ -1,23 +1,24 @@
+import {UrlTree} from '@angular/router';
+
 export class SideBarMenuItem {
 
   //#region Properties
 
-  public readonly id: string;
-
   // Menu item title.
   public readonly title: string;
 
-  // Whether item is activated or not.
-  public isActiveHandler: (() => boolean) | null;
+  public readonly routerLink: UrlTree;
+
+  public readonly routerLinkActive: string;
 
   //#endregion
 
   //#region Constructor
 
-  public constructor(id: string, title: string) {
-    this.id = id;
+  public constructor(title: string, routerLink: UrlTree, routerLinkActive: string = 'active') {
     this.title = title;
-    this.isActiveHandler = null;
+    this.routerLink = routerLink;
+    this.routerLinkActive = routerLinkActive;
   }
 
   //#endregion

@@ -3,6 +3,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
+    "preserveSymlinks": true,
     "outDir": "../../out-tsc/lib",
     "target": "es2015",
     "declaration": true,
@@ -12,8 +13,7 @@
     "lib": [
       "dom",
       "es2018"
-    ],
-    "preserveSymlinks": true
+    ]
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,

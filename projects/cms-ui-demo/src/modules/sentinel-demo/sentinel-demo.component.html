@@ -1,0 +1,57 @@
+<!-- Page Content -->
+<div class="container">
+
+  <h1 class="my-4">Sentinel demos</h1>
+
+  <!-- Marketing Icons Section -->
+  <div class="row">
+
+    <!--Feature sentinel-->
+    <div class="col-lg-4 mb-4">
+      <div class="card h-100">
+        <h4 class="card-header">{{'SENTINEL_DEMO.FEATURE_SENTINEL' | translate}}</h4>
+        <div class="card-body">
+          <p class="card-text">{{'SENTINEL_DEMO.FEATURE_SENTINEL_DESCRIPTION' | translate}}</p>
+        </div>
+        <div class="card-footer">
+          <a class="btn btn-primary"
+             [routerLink]="screenCodes.featureSentinelDemo | toRawUrl">
+            {{'SENTINEL_DEMO.LEARN_MORE' | translate | translate}}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!--Role sentinel-->
+    <div class="col-lg-4 mb-4">
+      <div class="card h-100">
+        <h4 class="card-header">{{'SENTINEL_DEMO.ROLE_SENTINEL' | translate}}</h4>
+        <div class="card-body">
+          <p class="card-text">{{'SENTINEL_DEMO.ROLE_SENTINEL_DESCRIPTION' | translate}}</p>
+        </div>
+        <div class="card-footer">
+          <a [routerLink]="screenCodes.bannerDemo | toRawUrl"
+             class="btn btn-primary">{{'SENTINEL_DEMO.LEARN_MORE' | translate | translate}}</a>
+        </div>
+      </div>
+    </div>
+
+    <!--Requirement sentinel-->
+    <div class="col-lg-4 mb-4">
+      <div class="card h-100">
+        <h4 class="card-header">{{'SENTINEL_DEMO.REQUIREMENT_SENTINEL' | translate}}</h4>
+        <div class="card-body">
+          <p class="card-text">{{'SENTINEL_DEMO.REQUIREMENT_SENTINEL_DESCRIPTION' | translate}}</p>
+        </div>
+        <div class="card-footer">
+          <a class="btn btn-primary"
+             [routerLink]="screenCodes.smartNavigatorDemo | toRawUrl">
+            {{'SENTINEL_DEMO.LEARN_MORE' | translate | translate}}
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

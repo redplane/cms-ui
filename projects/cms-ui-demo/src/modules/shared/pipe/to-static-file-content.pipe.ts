@@ -4,7 +4,7 @@ import {map} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 
 @Pipe({
-  name: 'ToStaticFileContentAsync'
+  name: 'toStaticFileContentAsync'
 })
 
 export class ToStaticFileContentPipe implements PipeTransform {

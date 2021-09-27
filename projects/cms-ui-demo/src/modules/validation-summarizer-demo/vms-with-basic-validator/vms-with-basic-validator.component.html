@@ -19,7 +19,7 @@
 
       <p class="mb-2">1.import ValidationSummarizerModule into your module:</p>
       <textarea highlight-js lang="ts">
-                    {{codeExampleFilePathConstant.importVsmModule | ToStaticFileContentAsync | async}}
+                    {{codeExampleFilePathConstant.importVsmModule | toStaticFileContentAsync | async}}
                   </textarea>
       <div class="callout callout-warning">
         It's important to provide exactly service and value on example code
@@ -31,7 +31,7 @@
         </p>
 
         <textarea highlight-js lang="ts">
-                    {{codeExampleFilePathConstant.customValidatorConstant | ToStaticFileContentAsync | async}}
+                    {{codeExampleFilePathConstant.customValidatorConstant | toStaticFileContentAsync | async}}
                  </textarea>
       </div>
 
@@ -40,7 +40,7 @@
         tag with proper property like [instance], label ... :
       </div>
       <textarea highlight-js lang="ts">
-                    {{codeExampleFilePathConstant.cmsValidatorSelector | ToStaticFileContentAsync | async}}
+                    {{codeExampleFilePathConstant.cmsValidatorSelector | toStaticFileContentAsync | async}}
                  </textarea>
     </div>
   </div>
@@ -104,7 +104,7 @@
       <h5 class="card-title">
         Properties
       </h5>
-      <div [innerHTML]="codeExampleFilePathConstant.vmsApiProperties | ToStaticFileContentAsync | async"></div>
+      <div [innerHTML]="codeExampleFilePathConstant.vmsApiProperties | toStaticFileContentAsync | async"></div>
     </div>
   </div>
 </section>

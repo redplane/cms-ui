@@ -1,6 +1,6 @@
 import {DefaultScreenCodeResolver, IScreenCodeResolver} from '@cms-ui/core';
 import {Injectable} from '@angular/core';
-import {ScreenCodeConstant} from '../../../constants/screen-code.constant';
+import {ScreenCodes} from '../../../constants/screen.codes';
 
 @Injectable()
 export class SmartNavigatorDemoScreenCodeResolver extends DefaultScreenCodeResolver {
@@ -10,10 +10,10 @@ export class SmartNavigatorDemoScreenCodeResolver extends DefaultScreenCodeResol
   public constructor() {
 
     const codeToUrl: { [key: string]: string } = {};
-    codeToUrl[ScreenCodeConstant.smartNavigatorDemo] = '/smart-navigator-demo';
-    codeToUrl[ScreenCodeConstant.smartNavigatorTab01Demo] = '/smart-navigator-demo/tab-01';
-    codeToUrl[ScreenCodeConstant.smartNavigatorTab02Demo] = '/smart-navigator-demo/tab-02';
-    codeToUrl[ScreenCodeConstant.smartNavigatorTab03Demo] = '/smart-navigator-demo/tab-03';
+    codeToUrl[ScreenCodes.smartNavigatorDemo] = '/smart-navigator-demo';
+    codeToUrl[ScreenCodes.smartNavigatorTab01Demo] = '/smart-navigator-demo/tab-01';
+    codeToUrl[ScreenCodes.smartNavigatorTab02Demo] = '/smart-navigator-demo/tab-02';
+    codeToUrl[ScreenCodes.smartNavigatorTab03Demo] = '/smart-navigator-demo/tab-03';
 
     super(codeToUrl);
   }

@@ -8,6 +8,8 @@ import {IDialogBuilder} from '../services/interfaces/dialogs/dialog-builder.inte
 import {IScreenCodeResolver} from '../services/interfaces/screen-code-resolver.interface';
 import {IValidationSummarizerItemTemplateBuilder} from '../services/interfaces/validation-summarizers/validation-summarizer-item-template-builder.interface';
 import {IValidationSummarizerOptionProvider} from '../providers';
+import {IMeetRequirementService} from '../modules/sentinel/requirement-sentinel/requirement-sentinel-service.interface';
+import {IFeatureSentinelService, IRequirementHandler, IRoleSentinelService} from '../modules/sentinel';
 
 // Spinner providers.
 export const SPINNER_SERVICE_PROVIDER = new InjectionToken<ISpinnerService>('SPINNER_SERVICE_PROVIDER');
@@ -30,3 +32,11 @@ export const VALIDATION_SUMMARIZER_OPTION_PROVIDER = new InjectionToken<IValidat
 // Dialog providers.
 export const DIALOG_BUILDER_PROVIDER = new InjectionToken<IDialogBuilder>('DIALOG_BUILDER_PROVIDER');
 export const DIALOG_SERVICE_PROVIDER = new InjectionToken<IDialogService>('DIALOG_SERVICE_PROVIDER');
+
+// Sentinel providers
+export const REQUIREMENT_SENTINEL_SERVICE_PROVIDER = new InjectionToken<IMeetRequirementService>('REQUIREMENT_SENTINEL_SERVICE_PROVIDER');
+export const REQUIREMENT_HANDLER_PROVIDER = new InjectionToken<IRequirementHandler>('REQUIREMENT_HANDLER_PROVIDER');
+
+export const FEATURE_SENTINEL_SERVICE_PROVIDER = new InjectionToken<IFeatureSentinelService>('FEATURE_SENTINEL_SERVICE_PROVIDER');
+export const ROLE_SENTINEL_SERVICE_PROVIDER =
+  new InjectionToken<IRoleSentinelService>('ROLE_SENTINEL_SERVICE_PROVIDER');

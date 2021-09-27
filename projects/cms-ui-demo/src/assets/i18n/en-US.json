@@ -11,8 +11,10 @@
     "BANNER_DESCRIPTION": "Banner description",
     "SMART_NAVIGATOR": "Smart navigator",
     "SMART_NAVIGATOR_DESCRIPTION": "Smart navigator description",
-    "VALIDATION_SUMMARIZER": "Validation summarize",
-    "VALIDATION_SUMMARIZER_DESCRIPTION": "Validation summarize description"
+    "VALIDATION_SUMMARIZER": "Validation summarizer",
+    "VALIDATION_SUMMARIZER_DESCRIPTION": "Validation summarize description",
+    "SENTINEL": "Sentinel",
+    "SENTINEL_DESCRIPTION": "Sentinel description"
   },
   "VALIDATION_SUMMARIZER_DEMO": {
     "BASIC_VALIDATOR": "Basic validator",
@@ -64,7 +66,27 @@
     }
   },
 
+  "SENTINEL_DEMO": {
+    "FEATURE_SENTINEL": "Feature sentinel",
+    "FEATURE_SENTINEL_DESCRIPTION": "Feature sentinel description",
+    "ROLE_SENTINEL": "Role sentinel",
+    "ROLE_SENTINEL_DESCRIPTION": "Role sentinel description",
+    "REQUIREMENT_SENTINEL": "Requirement sentinel",
+    "REQUIREMENT_SENTINEL_DESCRIPTION": "Requirement sentinel description",
+    "LEARN_MORE": "Learn more"
+  },
+
+  "DEMO_LAYOUT": {
+    "DESCRIPTION": "Description",
+    "INPUTS_N_EVENTS": "Inputs & events",
+    "EXAMPLES": "Examples"
+  },
+
   "DIALOG_DEMO": {
     "SHOW_DIALOG": "Show dialog"
+  },
+
+  "FEATURE_SENTINEL_DEMO": {
+    "FEATURE_SENTINEL": "Feature sentinel"
   }
 }

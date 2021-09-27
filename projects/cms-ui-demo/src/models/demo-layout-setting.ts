@@ -2,14 +2,15 @@ export class DemoLayoutSetting {
 
   //#region Properties
 
-  public id: string;
+  public title?: string;
+
+  public secondaryTitle?: string;
 
   //#endregion
 
   //#region Constructor
 
   public constructor() {
-    this.id = '';
   }
 
   //#endregion
