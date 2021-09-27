@@ -1,5 +1,7 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   ComponentRef,
@@ -25,7 +27,8 @@ import {WINDOW} from '../../constants/internal-injectors';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'cms-banner',
-  templateUrl: 'banner.component.html'
+  templateUrl: 'banner.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BannerComponent implements AfterViewInit, OnDestroy {
 
@@ -49,21 +52,6 @@ export class BannerComponent implements AfterViewInit, OnDestroy {
   @ViewChild('container', {read: ViewContainerRef})
   public container: ViewContainerRef | null;
 
-  // Service for handling banner business.
-  protected bannerService: BannerService;
-
-  // Component factory resolver.
-  protected componentFactoryResolver: ComponentFactoryResolver;
-
-  // Router service.
-  protected router: Router;
-
-  // Window service.
-  protected windowService: Window;
-
-  // Banner builder.
-  protected bannerBuilders: IBannerContentBuilder[];
-
   // Request which is currently applied to the banner container.
   // tslint:disable-next-line:variable-name
   private _displayingRequest: IDisplayBannerRequest | null;
@@ -80,6 +68,26 @@ export class BannerComponent implements AfterViewInit, OnDestroy {
   // tslint:disable-next-line:variable-name
   private readonly _subscription: Subscription;
 
+  //#endregion
+
+  //#region Services
+
+  // Service for handling banner business.
+  protected readonly bannerService: BannerService;
+
+  // Component factory resolver.
+  protected readonly componentFactoryResolver: ComponentFactoryResolver;
+
+  // Router service.
+  protected readonly router: Router;
+
+  // Window service.
+  protected readonly windowService: Window;
+
+  // Banner builder.
+  protected readonly bannerBuilders: IBannerContentBuilder[];
+
+  protected readonly changeDetectorRef: ChangeDetectorRef;
 
   //#endregion
 
@@ -100,7 +108,7 @@ export class BannerComponent implements AfterViewInit, OnDestroy {
     this.router = this.injector.get(Router);
     this.windowService = this.injector.get(WINDOW) as Window;
     this.bannerBuilders = this.injector.get(BANNER_BUILDER_PROVIDER) as any as IBannerContentBuilder[];
-
+    this.changeDetectorRef = this.injector.get(ChangeDetectorRef);
     this._subscription = new Subscription();
   }
 
@@ -167,7 +175,9 @@ export class BannerComponent implements AfterViewInit, OnDestroy {
             );
         })
       )
-      .subscribe();
+      .subscribe(() => {
+        this.changeDetectorRef.markForCheck();
+      });
 
     this._subscription.add(nextBannerDisplayRequestSubscription);
 
@@ -187,11 +197,13 @@ export class BannerComponent implements AfterViewInit, OnDestroy {
         if (((e instanceof NavigationCancel) || (e instanceof NavigationEnd) || (e instanceof NavigationError))
           && this.preserveMode === 'navigate-end-clear') {
           this.container.clear();
+          this.changeDetectorRef.markForCheck();
         }
 
         if ((e instanceof NavigationStart)
           && this.preserveMode === 'navigate-start-clear') {
           this.container.clear();
+          this.changeDetectorRef.markForCheck();
         }
       });
     this._subscription.add(navigationEventSubscription);
@@ -202,9 +214,7 @@ export class BannerComponent implements AfterViewInit, OnDestroy {
 
   // Called when component is destroyed.
   public ngOnDestroy(): void {
-    if (this._subscription && !this._subscription.closed) {
-      this._subscription.unsubscribe();
-    }
+    this._subscription?.unsubscribe();
 
     // Clear the previous timeout.
     if (this._destroyBannerTimer) {
@@ -251,6 +261,7 @@ export class BannerComponent implements AfterViewInit, OnDestroy {
 
         this.container.clear();
         this._displayingRequest = null;
+        this.changeDetectorRef.markForCheck();
       });
     this._subscription.add(deleteRequestSubscription);
   }

@@ -1,5 +1,7 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   Inject,
@@ -23,7 +25,8 @@ import {filter} from 'rxjs/operators';
   // tslint:disable-next-line:component-selector
   selector: 'cms-spinner-container',
   templateUrl: 'spinner-container.component.html',
-  styleUrls: ['spinner-container.component.scss']
+  styleUrls: ['spinner-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -94,6 +97,7 @@ export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestr
 
   public constructor(@Inject(SPINNER_SERVICE_PROVIDER) protected spinnerService: ISpinnerService,
                      protected readonly componentFactoryResolver: ComponentFactoryResolver,
+                     protected readonly changeDetectorRef: ChangeDetectorRef,
                      private readonly injector: Injector) {
     this.id = uuid();
 
@@ -116,7 +120,10 @@ export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestr
         filter(event => event !== null && event !== undefined),
         filter(event => event instanceof DisplaySpinnerRequest || event instanceof DeleteSpinnerRequest)
       )
-      .subscribe(event => this.handleVisibilityChangedEvent(event));
+      .subscribe(event => {
+        this.handleVisibilityChangedEvent(event);
+        this.changeDetectorRef.markForCheck();
+      });
   }
 
   public ngAfterViewInit(): void {
@@ -126,15 +133,10 @@ export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestr
 
   // Called when component is destroyed.
   public ngOnDestroy(): void {
-    if (this.hookVisibilityChangedSubscription && !this.hookVisibilityChangedSubscription.closed) {
-      this.hookVisibilityChangedSubscription.unsubscribe();
-    }
 
-    this._spinnerVisibilityEventSubject.unsubscribe();
-
-    if (this._localVisibilityRequestHandleSubscription && !this._localVisibilityRequestHandleSubscription.closed) {
-      this._localVisibilityRequestHandleSubscription.unsubscribe();
-    }
+    this.hookVisibilityChangedSubscription?.unsubscribe();
+    this._spinnerVisibilityEventSubject?.unsubscribe();
+    this._localVisibilityRequestHandleSubscription?.unsubscribe();
   }
 
   // Handle visibility changed event.
@@ -215,7 +217,7 @@ export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestr
       const defaultComponentFactory = this.componentFactoryResolver.resolveComponentFactory(BasicSpinnerComponent);
       const basicSpinnerComponent = defaultComponentFactory.create(this.injector);
       const insertedViewRef = this.viewContainerRef.insert(basicSpinnerComponent.hostView);
-      insertedViewRef.detectChanges();
+      insertedViewRef.markForCheck();
       this._idToDisplayRequest[displaySpinnerRequest.id] = displaySpinnerRequest;
       return;
     }
@@ -223,7 +225,7 @@ export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestr
     const componentFactory = displaySpinnerRequest.options.componentFactory;
     const spinnerComponent = componentFactory.create(this.injector);
     const viewRef = this.viewContainerRef.insert(spinnerComponent.hostView);
-    viewRef.detectChanges();
+    viewRef.markForCheck();
     this._idToDisplayRequest[displaySpinnerRequest.id] = displaySpinnerRequest;
 
   }

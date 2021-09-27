@@ -108,18 +108,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "cms-ui-demo:build"
+            "browserTarget": "@cms-ui/demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "cms-ui-demo:build:production"
+              "browserTarget": "@cms-ui/demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cms-ui-demo:build"
+            "browserTarget": "@cms-ui/demo:build"
           }
         },
         "test": {
@@ -160,14 +160,14 @@
           },
           "configurations": {
             "production": {
-              "devServerTarget": "cms-ui-demo:serve:production"
+              "devServerTarget": "@cms-ui/demo:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "cms-ui-demo",
+  "defaultProject": "@cms-ui/demo",
   "cli": {
     "analytics": "42066c0a-a4d0-494d-9c44-000353e690af"
   }
