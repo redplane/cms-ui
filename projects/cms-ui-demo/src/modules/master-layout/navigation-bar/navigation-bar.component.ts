@@ -1,12 +1,13 @@
-import {Component, Inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {ISmartNavigatorService, NavigateToScreenRequest, SMART_NAVIGATOR_PROVIDER} from '@cms-ui/core';
-import {ScreenCodes} from '../../constants/screen.codes';
+import {ScreenCodes} from '../../../constants/screen.codes';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'navigation-bar',
+  selector: 'div[navigation-bar]',
   templateUrl: 'navigation-bar.component.html',
-  styleUrls: ['navigation-bar.component.scss']
+  styleUrls: ['navigation-bar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavigationBarComponent {
 

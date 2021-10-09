@@ -65,7 +65,7 @@
         </div>
         <div class="card-footer">
           <a href="#" class="btn btn-primary"
-             (click)="$event.preventDefault(); clickDialogLearnMore()">
+             [routerLink]="screenCodes.dialogDemo | toUrlTree | toUrl">
             {{'LANDING_PAGE.LEARN_MORE' | translate | translate}}</a>
         </div>
       </div>

@@ -6,6 +6,7 @@ import {SmartNavigatorModule, VALIDATION_SUMMARIZER_PROVIDER, ValidationSummariz
 import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {TranslatedValidationSummarizerService} from '../../services/implementations/translated-validation-summarizer.service';
+import {DemoLayoutModule} from '../shared/demo-layout/demo-layout.module';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import {TranslatedValidationSummarizerService} from '../../services/implementati
     }),
     SmartNavigatorModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    DemoLayoutModule
   ],
   declarations: [
     ValidationSummarizerDemoComponent

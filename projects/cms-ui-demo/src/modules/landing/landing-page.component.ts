@@ -1,4 +1,4 @@
-import {Component, HostBinding, Inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostBinding, Inject} from '@angular/core';
 import {ISmartNavigatorService, NavigateToScreenRequest, SMART_NAVIGATOR_PROVIDER} from '@cms-ui/core';
 import {ScreenCodes} from '../../constants/screen.codes';
 
@@ -6,7 +6,8 @@ import {ScreenCodes} from '../../constants/screen.codes';
   // tslint:disable-next-line:component-selector
   selector: 'landing-page',
   templateUrl: 'landing-page.component.html',
-  styleUrls: ['landing-page.component.scss']
+  styleUrls: ['landing-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LandingPageComponent {
 
@@ -31,11 +32,6 @@ export class LandingPageComponent {
   //#endregion
 
   //#region Methods
-
-  public clickValidationSummarizerLearnMore(): void {
-    this.smartNavigatorService.navigateToScreenAsync(new NavigateToScreenRequest(ScreenCodes.validationSummarizerDemo))
-      .subscribe();
-  }
 
   public clickDialogLearnMore(): void {
     this.smartNavigatorService.navigateToScreenAsync(new NavigateToScreenRequest(ScreenCodes.dialogDemo))

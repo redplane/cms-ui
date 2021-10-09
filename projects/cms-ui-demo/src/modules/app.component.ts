@@ -3,7 +3,7 @@ import {Title} from '@angular/platform-browser';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'body[app-root]',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

@@ -1,15 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
 //#region Layout
 
-master-layout .page {
-  display: block;
-  margin-top: 100px;
+html, body {
+  height: 100%;
 }
 
 //#endregion
-
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
 
 .callout {
   padding: 20px;
@@ -39,3 +34,80 @@ master-layout .page {
     }
   }
 }
+
+//#region Tree
+
+.tree {
+  position: relative;
+  background: white;
+  font-size: .85rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+
+  span {
+    font-size: 13px;
+    font-style: italic;
+    letter-spacing: .4px;
+    color: #a8a8a8;
+  }
+
+  .fa-folder-open, .fa-folder {
+    color: #007bff;
+  }
+
+  .fa-html5 {
+    color: #f21f10;
+  }
+
+  ul {
+    padding-left: 5px;
+    list-style: none;
+
+    li {
+      position: relative;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 15px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+
+      &:before {
+        position: absolute;
+        top: 15px;
+        left: 0;
+        width: 10px;
+        height: 1px;
+        margin: auto;
+        content: '';
+        background-color: #666;
+      }
+
+      &:after {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 1px;
+        height: 100%;
+        content: '';
+        background-color: #666;
+      }
+
+      &:last-child:after {
+        height: 15px;
+      }
+    }
+
+    a {
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+//#endregion

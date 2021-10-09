@@ -1,8 +1,20 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Inject, OnDestroy, OnInit} from '@angular/core';
-import {SideBarMenuItem} from '../../../models/side-bar-menu-item';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  HostBinding,
+  Inject,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../../constants/injection-token.constant';
 import {IDemoLayoutService} from '../../../services/interfaces/demo-layout-service.interface';
-import {Subscription} from 'rxjs';
+import {ReplaySubject, Subject, Subscription} from 'rxjs';
+import {ResizedEvent} from 'angular-resize-event';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -11,13 +23,9 @@ import {Subscription} from 'rxjs';
   styleUrls: ['demo-layout.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DemoLayoutComponent implements OnInit, OnDestroy {
+export class DemoLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //#region Properties
-
-  // List of menu items which will be displayed on side bar.
-  // tslint:disable-next-line:variable-name
-  private _sidebarMenuItems: SideBarMenuItem[];
 
   // Main title.
   // tslint:disable-next-line:variable-name
@@ -27,9 +35,19 @@ export class DemoLayoutComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line:variable-name
   private _secondaryTitle: string;
 
+  // Demo items template.
+  private _demoItemsTemplateRef: TemplateRef<any> | null = null;
+
   // Subscription watch list.
   // tslint:disable-next-line:variable-name
   private readonly _subscription: Subscription;
+
+  //#endregion
+
+  //#region Events
+
+  // Event about layout readiness.
+  public readonly readyEvent: Subject<void> = new ReplaySubject(1);
 
   //#endregion
 
@@ -38,11 +56,6 @@ export class DemoLayoutComponent implements OnInit, OnDestroy {
   @HostBinding('class')
   public get hostClass(): string {
     return 'page';
-  }
-
-  // List of menu items to be displayed.
-  public get sidebarMenuItems(): SideBarMenuItem[] {
-    return this._sidebarMenuItems;
   }
 
   // Primary title.
@@ -55,13 +68,16 @@ export class DemoLayoutComponent implements OnInit, OnDestroy {
     return this._secondaryTitle;
   }
 
+  // Demo items layout.
+  @ViewChild('demoItemsLayout', {read: ViewContainerRef})
+  public demoItemsLayout!: ViewContainerRef;
+
   //#endregion
 
   //#region Constructor
 
   public constructor(@Inject(DEMO_LAYOUT_SERVICE_PROVIDER) protected demoLayoutService: IDemoLayoutService,
                      protected changeDetectorRef: ChangeDetectorRef) {
-    this._sidebarMenuItems = [];
     this._title = '';
     this._secondaryTitle = '';
 
@@ -74,40 +90,40 @@ export class DemoLayoutComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
 
+    // Hook setting changed subscription
     const hookSettingChangedSubscription = this.demoLayoutService
       .hookLayoutSettingsChanged()
       .subscribe(setting => {
         this._title = setting.title || '';
         this._secondaryTitle = setting.secondaryTitle || '';
-        this.changeDetectorRef.detectChanges();
-      });
-    this._subscription.add(hookSettingChangedSubscription);
-
-    const hookSideBarSettingChangedSubscription = this.demoLayoutService
-      .hookSideBarSettingChanged()
-      .subscribe(sideBarSetting => {
-        this._sidebarMenuItems = sideBarSetting.items || [];
-        this.changeDetectorRef.detectChanges();
+        this.changeDetectorRef.markForCheck();
       });
     this._subscription.add(hookSettingChangedSubscription);
   }
 
-  public ngOnDestroy(): void {
+  public ngAfterViewInit(): void {
+    this.readyEvent.next();
+  }
 
-    if (this._subscription && !this._subscription.closed) {
-      this._subscription.unsubscribe();
-    }
+  public ngOnDestroy(): void {
+    this._subscription?.unsubscribe();
   }
 
   //#endregion
 
   //#region Methods
 
-  public shouldSideBarAvailable(): boolean {
-    if (!this._sidebarMenuItems || !this._sidebarMenuItems.length) {
-      return false;
+  public buildSideBar(templateRef: TemplateRef<any>): void {
+
+    if (!templateRef) {
+      this.demoItemsLayout.clear();
+      this._demoItemsTemplateRef = null;
+      return;
     }
-    return true;
+
+    this.demoItemsLayout.clear();
+    this._demoItemsTemplateRef = templateRef;
+    this.demoItemsLayout.createEmbeddedView(templateRef);
   }
 
   //#endregion

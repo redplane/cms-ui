@@ -1,38 +1,18 @@
-<!-- Page Content -->
-<div class="container-fluid">
+<!-- Page Heading/Breadcrumbs -->
+<h1 class="title pt-1 pb-1 bg-light">{{title | translate}}
+<!--  <small>{{secondaryTitle | translate}}</small>-->
+</h1>
 
-  <!-- Page Heading/Breadcrumbs -->
-  <h1 class="mt-4 mb-3">{{title | translate}}
-    <small>{{secondaryTitle | translate}}</small>
-  </h1>
-
-  <!-- Content Row -->
-  <div class="row">
-    <!-- Sidebar Column -->
-    <div class="col-lg-3 col-md-4"
-         *ngIf="shouldSideBarAvailable()">
-      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-
-        <ng-container *ngFor="let item of sidebarMenuItems">
-          <a class="nav-link"
-             [routerLink]="item.routerLink | toUrl"
-             [routerLinkActive]="item.routerLinkActive">
-            {{item.title| translate}}
-          </a>
-        </ng-container>
-
-
-      </div>
-
-    </div>
-
-    <!-- Content Column -->
-    <div [class.col-12]="!shouldSideBarAvailable()"
-         [class.col-lg-9]="shouldSideBarAvailable()"
-         [class.col-md-4]="shouldSideBarAvailable()">
-      <router-outlet></router-outlet>
-    </div>
+<!-- Content Row -->
+<div class="row h-100">
+  <!-- Sidebar Column -->
+  <div class="col-lg-3 col-md-4 h-100 pe-0 scrollable-y">
+    <ng-template #demoItemsLayout></ng-template>
   </div>
-  <!-- /.row -->
 
+  <!-- Content Column -->
+  <div class="col-lg-9 col-md-8 h-100 ps-0 scrollable-y pt-1">
+    <router-outlet></router-outlet>
+  </div>
 </div>
+<!-- /.row -->

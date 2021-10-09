@@ -1,18 +1,20 @@
 import {NgModule} from '@angular/core';
 import {MasterLayoutComponent} from './master-layout.component';
-import {NavigationBarModule} from '../navigation-bar/navigation-bar.module';
+import {NavigationBarModule} from './navigation-bar/navigation-bar.module';
 import {RouterModule} from '@angular/router';
-import {ScrollTopModule} from 'src/modules/shared/scroll-top/scroll-top.module';
+import {CommonModule} from '@angular/common';
+import {AngularResizedEventModule} from 'angular-resize-event';
 
 @NgModule({
   declarations: [
     MasterLayoutComponent
   ],
-    imports: [
-        NavigationBarModule,
-        RouterModule,
-        ScrollTopModule
-    ],
+  imports: [
+    NavigationBarModule,
+    AngularResizedEventModule,
+    RouterModule,
+    CommonModule
+  ],
   exports: [
     MasterLayoutComponent
   ]

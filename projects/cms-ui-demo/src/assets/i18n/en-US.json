@@ -77,9 +77,14 @@
   },
 
   "DEMO_LAYOUT": {
+    "MODULE_DESCRIPTION": "Module description",
     "DESCRIPTION": "Description",
     "INPUTS_N_EVENTS": "Inputs & events",
-    "EXAMPLES": "Examples"
+    "EXAMPLES": "Examples",
+    "CODE": "Code",
+    "PROPERTIES": "Properties",
+    "EVENTS": "Events",
+    "METHODS": "Methods"
   },
 
   "DIALOG_DEMO": {
