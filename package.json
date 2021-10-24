@@ -8,6 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "playground": "ng serve @cms-ui/playground",
     "build:lib": "ng-packagr -p projects/cms-ui/ng-package.json",
     "postbuild:lib": "cpx \"./README.md\" \"dist/@cms-ui/core\"",
     "build:app:production": "ng build cms-ui-demo --prod --source-map=true"
