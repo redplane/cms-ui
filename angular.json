@@ -57,7 +57,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/@cms-ui/demo",
+            "outputPath": "dist/cms-ui-demo",
             "index": "projects/cms-ui-demo/src/index.html",
             "main": "projects/cms-ui-demo/src/main.ts",
             "polyfills": "projects/cms-ui-demo/src/polyfills.ts",
@@ -149,24 +149,9 @@
               "**/node_modules/**"
             ]
           }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/cms-ui-demo/e2e/protractor.conf.js",
-            "devServerTarget": "cms-ui-demo:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "@cms-ui/demo:serve:production"
-            }
-          }
         }
       }
     }
   },
-  "defaultProject": "@cms-ui/demo",
-  "cli": {
-    "analytics": "42066c0a-a4d0-494d-9c44-000353e690af"
-  }
+  "defaultProject": "@cms-ui/demo"
 }
