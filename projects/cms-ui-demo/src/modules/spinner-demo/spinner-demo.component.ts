@@ -1,12 +1,12 @@
 import {ChangeDetectorRef, Component, ComponentFactoryResolver, HostBinding, Inject, OnInit} from '@angular/core';
 import {ISpinnerService, SPINNER_SERVICE_PROVIDER} from '@cms-ui/core';
 import {v4 as uuid} from 'uuid';
-import {DEMO_LAYOUT_SERVICE_PROVIDER, WINDOW} from '../../constants/injection-token.constant';
-import {IDemoLayoutService} from '../../services/interfaces/demo-layout-service.interface';
+import {DEMO_LAYOUT_SERVICE_PROVIDER, WINDOW} from '../../constants/injectors';
 import {cloneDeep} from 'lodash-es';
 import {SpinnerDisplay} from '../../models/spinners/spinner-display';
 import {Spinner01Component} from './spinner-01/spinner-01.component';
 import {Spinner02Component} from './spinner-02/spinner-02.component';
+import {DemoLayoutService} from '../shared/demo-layout/demo-layout.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -52,7 +52,7 @@ export class SpinnerDemoComponent implements OnInit {
   //#region Constructor
 
   public constructor(@Inject(SPINNER_SERVICE_PROVIDER) protected spinnerService: ISpinnerService,
-                     @Inject(DEMO_LAYOUT_SERVICE_PROVIDER) protected demoLayoutService: IDemoLayoutService,
+                     @Inject(DEMO_LAYOUT_SERVICE_PROVIDER) protected demoLayoutService: DemoLayoutService,
                      @Inject(WINDOW) protected windowService: Window,
                      protected componentFactoryResolver: ComponentFactoryResolver,
                      protected changeDetectorRef: ChangeDetectorRef) {

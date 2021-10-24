@@ -1,11 +1,11 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../../constants/injection-token.constant';
-import {IDemoLayoutService} from '../../../services/interfaces/demo-layout-service.interface';
+import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../../constants/injectors';
 import {DemoLayoutSetting} from '../../../models/demo-layout-setting';
 import {SideBarMenuItem} from '../../../models/side-bar-menu-item';
 import {ISmartNavigatorService, SMART_NAVIGATOR_PROVIDER} from '@cms-ui/core';
 import {ScreenCodes} from '../../../constants/screen.codes';
 import {SideBarSetting} from '../../../side-bar-setting';
+import {DemoLayoutService} from '../../shared/demo-layout/demo-layout.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -21,7 +21,7 @@ export class FeatureSentinelDemoComponent implements OnInit, OnDestroy {
   //#region Constructor
 
   public constructor(@Inject(DEMO_LAYOUT_SERVICE_PROVIDER)
-                     protected readonly demoLayoutService: IDemoLayoutService,
+                     protected readonly demoLayoutService: DemoLayoutService,
                      @Inject(SMART_NAVIGATOR_PROVIDER) protected readonly smartNavigatorService: ISmartNavigatorService) {
   }
 
@@ -46,7 +46,7 @@ export class FeatureSentinelDemoComponent implements OnInit, OnDestroy {
     const sideBarItems = [descriptionItem, inputAndEventItem, exampleItem];
     const sideBarSetting = new SideBarSetting();
     sideBarSetting.items = sideBarItems;
-    this.demoLayoutService.changeSideBarSetting(sideBarSetting);
+    // this.demoLayoutService.changeSideBarSetting(sideBarSetting);
   }
 
   public ngOnDestroy(): void {

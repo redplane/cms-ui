@@ -4,14 +4,14 @@
 </h1>
 
 <!-- Content Row -->
-<div class="row h-100">
+<div class="d-flex flex-grow-1 flex-shrink-1 overflow-y-hidden">
   <!-- Sidebar Column -->
-  <div class="col-lg-3 col-md-4 h-100 pe-0 scrollable-y">
+  <div class="col-lg-3 col-md-4 pe-0 scrollable-y">
     <ng-template #demoItemsLayout></ng-template>
   </div>
 
   <!-- Content Column -->
-  <div class="col-lg-9 col-md-8 h-100 ps-0 scrollable-y pt-1">
+  <div class="col-lg-9 col-md-8 ps-0 scrollable-y pt-1">
     <router-outlet></router-outlet>
   </div>
 </div>

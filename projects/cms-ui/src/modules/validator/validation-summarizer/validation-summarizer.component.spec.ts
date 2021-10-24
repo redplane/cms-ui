@@ -11,10 +11,14 @@ import {IValidationSummarizerOptionProvider} from '../../../providers';
 export class BasicValidationSummarizerService
   extends ValidationSummarizerService implements IValidationSummarizerService {
 
+  //#region Constructor
+
   public constructor(
     @Inject(VALIDATION_SUMMARIZER_OPTION_PROVIDER) validationSummarizerOptionProvider: IValidationSummarizerOptionProvider) {
     super(validationSummarizerOptionProvider);
   }
+
+  //#endregion
 }
 
 describe('ValidationSummarizerComponent', () => {
@@ -40,9 +44,7 @@ describe('ValidationSummarizerComponent', () => {
   });
 
   afterEach(() => {
-    if (subscription && !subscription.closed) {
-      subscription.unsubscribe();
-    }
+    subscription?.unsubscribe();
   });
 
   //#endregion

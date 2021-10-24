@@ -17,15 +17,16 @@
     "SENTINEL_DESCRIPTION": "Sentinel description"
   },
   "VALIDATION_SUMMARIZER_DEMO": {
-    "BASIC_VALIDATOR": "Basic validator",
+    "BASIC_USAGE": "Basic usage",
     "BASIC_VALIDATOR_HOW_IT_WORK": "Description",
     "BASIC_VALIDATOR_USAGE": "Usage",
     "BASIC_VALIDATOR_EXAMPLES": "Examples",
     "BASIC_VALIDATOR_API": "Properties",
     "MESSAGE_TEMPLATE": "Message template",
+    "TEMPLATE_DRIVEN_SUPPORT": "Template driven support",
     "VISIBILITY_HANDLER": "Visibility handler",
     "TEMPLATE_DRIVEN": "Template driven",
-    "CUSTOM_VALIDATOR": "Custom validator",
+    "CUSTOM_VALIDATOR": "With custom validators",
     "CHILD_VALIDATOR_MODULE": "Child validator module",
     "VALIDATION_ITEM_TEMPLATE": "Validation item template",
     "NAME": "Username",
@@ -83,8 +84,10 @@
     "EXAMPLES": "Examples",
     "CODE": "Code",
     "PROPERTIES": "Properties",
-    "EVENTS": "Events",
-    "METHODS": "Methods"
+    "MODULE_EVENTS": "Events",
+    "METHODS": "Methods",
+    "MODULE_API": "Api",
+    "MODULE_PROPERTIES": "Properties"
   },
 
   "DIALOG_DEMO": {

@@ -2,7 +2,7 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {ExampleDescriptionLayoutComponent} from './example-description-layout.component';
 import {ToTrustedHtmlPipeModule} from '@cms-ui/core';
 import {ExampleDescriptionLayoutOption} from './example-description-layout-option';
-import {EXAMPLE_DEMO_DESCRIPTION_MODULE_NAME_PROVIDER} from '../../../constants/injection-token.constant';
+import {EXAMPLE_DEMO_DESCRIPTION_MODULE_NAME_PROVIDER} from '../../../constants/injectors';
 import {CommonModule} from '@angular/common';
 
 @NgModule({

@@ -6,13 +6,16 @@
 }
 
 ::ng-deep .page {
-  display: block;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
   width: 100%;
 }
 
 .content {
   display: flex;
   flex-direction: row;
+  flex: 1 1 auto;
   position: relative;
   overflow-y: hidden;
 }

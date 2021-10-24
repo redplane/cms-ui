@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {DemoLayoutComponent} from '../shared/demo-layout/demo-layout.component';
-import {DemoLayoutModule} from '../shared/demo-layout/demo-layout.module';
 import {ValidationSummarizerDemoComponent} from './validation-summarizer-demo.component';
 
 //#region Properties
@@ -46,9 +45,14 @@ const routes: Routes = [
               .then(m => m.VmsValidationItemTemplateModule)
           },
           {
-            path: '',
+            path: 'basic-validator',
             loadChildren: () => import('./vms-with-basic-validator/vms-with-basic-validator.module')
               .then(m => m.VmsWithBasicValidatorModule)
+          },
+          {
+            path: '',
+            loadChildren: () => import('./vms-module-description/vms-module-description.module')
+              .then(m => m.VmsModuleDescriptionModule)
           },
           {
             path: '**',
@@ -66,7 +70,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    DemoLayoutModule,
     RouterModule.forChild(routes)
   ],
   exports: [

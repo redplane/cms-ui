@@ -63,6 +63,7 @@ html, body {
   ul {
     padding-left: 5px;
     list-style: none;
+    margin-bottom: 0;
 
     li {
       position: relative;
@@ -102,12 +103,25 @@ html, body {
 
     a {
       cursor: pointer;
+      text-decoration: solid;
 
       &:hover {
         text-decoration: none;
       }
+
+      &.active {
+        font-weight: bolder;
+      }
     }
   }
+}
+
+//#endregion
+
+//#region Overflow
+
+.overflow-y-hidden {
+  overflow-y: hidden;
 }
 
 //#endregion

@@ -2,19 +2,23 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
+  Component, ComponentFactoryResolver,
   HostBinding,
-  Inject,
+  Inject, Injector,
   OnDestroy,
   OnInit,
-  TemplateRef,
+  TemplateRef, Type,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../../constants/injection-token.constant';
-import {IDemoLayoutService} from '../../../services/interfaces/demo-layout-service.interface';
+import {
+  DEMO_LAYOUT_ITEMS_BUILDER_PROVIDER,
+  DEMO_LAYOUT_ITEMS_TEMPLATE_TYPE_PROVIDER,
+  DEMO_LAYOUT_SERVICE_PROVIDER
+} from '../../../constants/injectors';
 import {ReplaySubject, Subject, Subscription} from 'rxjs';
-import {ResizedEvent} from 'angular-resize-event';
+import {DemoLayoutService} from './demo-layout.service';
+import {BaseDemoLayoutItemsBuilder} from './demo-layout-items/base-demo-layout-items.builder';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -76,7 +80,9 @@ export class DemoLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //#region Constructor
 
-  public constructor(@Inject(DEMO_LAYOUT_SERVICE_PROVIDER) protected demoLayoutService: IDemoLayoutService,
+  public constructor(@Inject(DEMO_LAYOUT_SERVICE_PROVIDER) protected readonly demoLayoutService: DemoLayoutService,
+                     @Inject(DEMO_LAYOUT_ITEMS_TEMPLATE_TYPE_PROVIDER) protected readonly demoLayoutItemsType: Type<any>,
+                     protected readonly componentFactoryResolver: ComponentFactoryResolver,
                      protected changeDetectorRef: ChangeDetectorRef) {
     this._title = '';
     this._secondaryTitle = '';
@@ -102,7 +108,14 @@ export class DemoLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit(): void {
-    this.readyEvent.next();
+
+    const componentFactory = this.componentFactoryResolver
+      .resolveComponentFactory(this.demoLayoutItemsType);
+
+    // const componentRef = componentFactory.create(this.injector);
+    this.demoItemsLayout.clear();
+    const componentRef = this.demoItemsLayout.createComponent(componentFactory);
+    componentRef.changeDetectorRef.detectChanges();
   }
 
   public ngOnDestroy(): void {
@@ -112,19 +125,6 @@ export class DemoLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   //#endregion
 
   //#region Methods
-
-  public buildSideBar(templateRef: TemplateRef<any>): void {
-
-    if (!templateRef) {
-      this.demoItemsLayout.clear();
-      this._demoItemsTemplateRef = null;
-      return;
-    }
-
-    this.demoItemsLayout.clear();
-    this._demoItemsTemplateRef = templateRef;
-    this.demoItemsLayout.createEmbeddedView(templateRef);
-  }
 
   //#endregion
 }

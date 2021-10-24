@@ -2,7 +2,7 @@ import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {
   EXAMPLE_DEMO_DESCRIPTION_MODULE_NAME_PROVIDER,
   EXAMPLE_DEMO_LAYOUT_SERVICE_PROVIDER
-} from '../../../constants/injection-token.constant';
+} from '../../../constants/injectors';
 import {IExampleDescriptionLayoutService} from './example-description-layout-service.interface';
 import {Subscription} from 'rxjs';
 

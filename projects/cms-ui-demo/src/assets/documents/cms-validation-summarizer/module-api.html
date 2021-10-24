@@ -1,0 +1,64 @@
+<h1>API</h1>
+<table class="table" style="width: 100%">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Data type</th>
+    <th>Type</th>
+    <th>Description</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><code>group-id</code></td>
+    <td><i>string</i></td>
+    <td>Input</td>
+    <td>
+      Id of group the validation summarizer belongs to.
+      This can be used for identifying whether to apply validation summarizer item template builder or not.
+    </td>
+  </tr>
+  <tr>
+    <td><code>instance</code></td>
+    <td><i>AbstractControl | NgControl | null</i></td>
+    <td>Input</td>
+    <td>
+      Instance of the control that needs to be validated.
+    </td>
+  </tr>
+  <tr>
+    <td><code>label</code></td>
+    <td><i>string</i></td>
+    <td>Input</td>
+    <td>
+      Label to be displayed in the validation message.
+    </td>
+  </tr>
+  <tr>
+    <td><code>validation-template</code></td>
+    <td><i>TemplateRef&lt;any&gt; | null</i></td>
+    <td>Input</td>
+    <td>
+      Custom template for validation messages.
+    </td>
+  </tr>
+  <tr>
+    <td><code>maximum-messages</code></td>
+    <td><i>number</i></td>
+    <td>Input</td>
+    <td>
+      <div>Maximum number of messages which can be displayed in validation summarizer control</div>
+      <small><b>By default</b>, every validation message will be displayed</small>
+    </td>
+  </tr>
+  <tr>
+    <td><code>visibility-handler</code></td>
+    <td><i>(ngControl: AbstractControl | NgControl) => boolean</i></td>
+    <td>Input</td>
+    <td>
+      <div>To control how and when validation messages will be displayed.</div>
+      <small><b>Normally</b>, validation message will be displayed when control is <b>dirty</b> & <b>touched</b></small>
+    </td>
+  </tr>
+  </tbody>
+</table>

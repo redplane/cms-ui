@@ -1,27 +1,38 @@
 import {NgModule} from '@angular/core';
-import {VmsChildModuleRoutingModule} from './vms-child-module-routing.module';
 import {CommonModule} from '@angular/common';
-import {VmsChildModuleComponent} from './vms-child-module.component';
-import {ValidationSummarizerModule} from '@cms-ui/core';
 import {RouterModule} from '@angular/router';
-import {ReactiveFormsModule} from '@angular/forms';
 import {TranslateModule} from '@ngx-translate/core';
+import {DemoPageComponent} from '../../shared/demo-layout/demo-page/demo-page.component';
+import {DemoPageModule} from '../../shared/demo-layout/demo-page/demo-page.module';
+import {
+  DEMO_LAYOUT_ITEMS_TEMPLATE_TYPE_PROVIDER, DEMO_PAGE_SERVICE_PROVIDER, DEMO_PAGE_TEMPLATE_PATH_PROVIDER,
+  MODULE_DESCRIPTION_SERVICE_PROVIDER,
+  MODULE_DESCRIPTION_TEMPLATE_PATH_PROVIDER
+} from '../../../constants/injectors';
+import {ModuleDescriptionService} from '../../../services/implementations/module-descriptions/module-description.service';
+import {DemoPageService} from '../../../services/implementations/module-descriptions/demo-page.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    ValidationSummarizerModule.forChild({
-      validationMessages: {
-        notGreaterThan: 'MSG_VALUE_NOT_GREATER_THAN'
+    DemoPageModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: DemoPageComponent
       }
-    }),
-    VmsChildModuleRoutingModule,
-    RouterModule,
-    ReactiveFormsModule,
+    ]),
     TranslateModule
   ],
-  declarations: [
-    VmsChildModuleComponent
+  providers: [
+    {
+      provide: DEMO_PAGE_TEMPLATE_PATH_PROVIDER,
+      useValue: '/assets/documents/cms-validation-summarizer/with-child-validator.html'
+    },
+    {
+      provide: DEMO_PAGE_SERVICE_PROVIDER,
+      useClass: DemoPageService
+    }
   ]
 })
 export class VmsChildModuleModule {

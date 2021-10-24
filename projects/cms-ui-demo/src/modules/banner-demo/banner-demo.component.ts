@@ -1,10 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../constants/injection-token.constant';
-import {IDemoLayoutService} from '../../services/interfaces/demo-layout-service.interface';
+import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../constants/injectors';
 import {v4 as uuid} from 'uuid';
 import {BANNER_SERVICE_PROVIDER, IBannerService} from '@cms-ui/core';
 import {AlertBannerContentSettings} from '../../models/banners/alert-banner-content-settings';
 import {InfoBannerContentSettings} from '../../models/banners/info-banner-content-settings';
+import {DemoLayoutService} from '../shared/demo-layout/demo-layout.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -32,7 +32,7 @@ export class BannerDemoComponent implements OnInit {
 
   //#region Constructor
 
-  public constructor(@Inject(DEMO_LAYOUT_SERVICE_PROVIDER) protected demoLayoutService: IDemoLayoutService,
+  public constructor(@Inject(DEMO_LAYOUT_SERVICE_PROVIDER) protected demoLayoutService: DemoLayoutService,
                      @Inject(BANNER_SERVICE_PROVIDER) protected bannerService: IBannerService) {
     this.insideComponentBannerId = uuid();
     this.timeoutBannerId = uuid();

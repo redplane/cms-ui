@@ -1,20 +1,18 @@
 import {NgModule} from '@angular/core';
-import {VmsValidationItemTemplateComponent} from './vms-validation-item-template.component';
-import {VmsValidationItemTemplateRoutingModule} from './vms-validation-item-template-routing.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER, ValidationSummarizerModule} from '@cms-ui/core';
-import {TranslatedValidationSummarizerService} from '../../../services/implementations/translated-validation-summarizer.service';
-import {HighlightJsModule} from 'ngx-highlight-js';
-import {CustomValidationItemTemplateComponent} from './item-templates/custom-validation-item-template.component';
-import {CustomValidationItemTemplateBuilder} from './item-templates/custom-validation.item-template-builder';
-import {DefaultValidationItemTemplateComponent} from './item-templates/default-validation-item-template.component';
-import {DefaultValidationItemTemplateBuilder} from './item-templates/default-validation.item-template-builder';
+import {ValidationSummarizerModule} from '@cms-ui/core';
+import {DEMO_PAGE_SERVICE_PROVIDER, DEMO_PAGE_TEMPLATE_PATH_PROVIDER} from '../../../constants/injectors';
+import {DemoPageService} from '../../../services/implementations/module-descriptions/demo-page.service';
 import {RouterModule} from '@angular/router';
+import {DemoPageComponent} from '../../shared/demo-layout/demo-page/demo-page.component';
 
 @NgModule({
   imports: [
-    VmsValidationItemTemplateRoutingModule,
+    RouterModule.forChild([{
+      path: '',
+      component: DemoPageComponent
+    }]),
     TranslateModule,
     ReactiveFormsModule,
 
@@ -24,30 +22,17 @@ import {RouterModule} from '@angular/router';
         isEven: 'MSG_VALUE_MUST_BE_EVEN'
       },
       maximumMessages: 1
-    }),
-    HighlightJsModule,
-    RouterModule
-  ],
-  declarations: [
-    CustomValidationItemTemplateComponent,
-    DefaultValidationItemTemplateComponent,
-    VmsValidationItemTemplateComponent
+    })
   ],
   providers: [
     {
-      provide: VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER,
-      useClass: CustomValidationItemTemplateBuilder,
-      multi: true
+      provide: DEMO_PAGE_TEMPLATE_PATH_PROVIDER,
+      useValue: '/assets/documents/cms-validation-summarizer/with-custom-validator.html'
     },
     {
-      provide: VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER,
-      useClass: DefaultValidationItemTemplateBuilder,
-      multi: true
+      provide: DEMO_PAGE_SERVICE_PROVIDER,
+      useClass: DemoPageService
     }
-  ],
-  entryComponents: [
-    CustomValidationItemTemplateComponent,
-    DefaultValidationItemTemplateComponent
   ]
 })
 export class VmsValidationItemTemplateModule {

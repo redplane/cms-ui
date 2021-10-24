@@ -1,21 +1,30 @@
 import {NgModule} from '@angular/core';
-import {VsmWithTemplateComponent} from './vsm-with-template.component';
-import {VsmWithTemplateRoutingModule} from './vsm-with-template-routing.module';
-import {ReactiveFormsModule} from '@angular/forms';
 import {ValidationSummarizerModule} from '@cms-ui/core';
 import {CommonModule} from '@angular/common';
-import {TranslateModule} from '@ngx-translate/core';
+import {RouterModule} from '@angular/router';
+import {DemoPageComponent} from '../../shared/demo-layout/demo-page/demo-page.component';
+import {DEMO_PAGE_SERVICE_PROVIDER, DEMO_PAGE_TEMPLATE_PATH_PROVIDER} from '../../../constants/injectors';
+import {DemoPageService} from '../../../services/implementations/module-descriptions/demo-page.service';
 
 @NgModule({
   imports: [
-    CommonModule,
-    TranslateModule,
-    VsmWithTemplateRoutingModule,
-    ReactiveFormsModule,
-    ValidationSummarizerModule
+    RouterModule.forChild([
+      {
+        path: '',
+        component: DemoPageComponent
+      }
+    ]),
+    CommonModule
   ],
-  declarations: [
-    VsmWithTemplateComponent
+  providers: [
+    {
+      provide: DEMO_PAGE_SERVICE_PROVIDER,
+      useClass: DemoPageService
+    },
+    {
+      provide: DEMO_PAGE_TEMPLATE_PATH_PROVIDER,
+      useValue: '/assets/documents/cms-validation-summarizer/with-template.html'
+    }
   ]
 })
 export class VsmWithTemplateModule {
