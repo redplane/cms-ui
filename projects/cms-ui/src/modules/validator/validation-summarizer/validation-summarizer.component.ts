@@ -1,4 +1,14 @@
-import {Component, InjectFlags, Injector, Input, TemplateRef} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  InjectFlags,
+  Injector,
+  Input,
+  OnDestroy,
+  OnInit,
+  TemplateRef
+} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
 import {VALIDATION_SUMMARIZER_OPTION_PROVIDER, VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injectors';
 import {IValidationSummarizerService} from '../../../services/interfaces/validation-summarizers/validation-summarizer-service.interface';
@@ -6,17 +16,23 @@ import {ValidationMessage} from '../../../models/implementations/validation-summ
 import {IValidationSummarizerOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-options.interface';
 import {v4 as uuid} from 'uuid';
 import {IValidationSummarizerModuleOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
+import {Observable, Subscription} from 'rxjs';
 
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'cms-validation-summarizer',
   templateUrl: 'validation-summarizer.component.html',
-  styleUrls: ['validation-summarizer.component.scss']
+  styleUrls: ['validation-summarizer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ValidationSummarizerComponent {
+export class ValidationSummarizerComponent implements OnInit, OnDestroy {
 
   //#region Properties
+
+  // Context of template.
+  // tslint:disable-next-line:variable-name
+  private _templateContext: any;
 
   // Component id.
   // tslint:disable-next-line:variable-name
@@ -38,6 +54,17 @@ export class ValidationSummarizerComponent {
   // Handler for handling summarizer visibility.
   // tslint:disable-next-line:variable-name
   protected _visibilityHandler: ((ngControl: AbstractControl | NgControl) => boolean) | null;
+
+  // Hook status changes subscription
+  // tslint:disable-next-line:variable-name
+  private _hookStatusChangesSubscription: Subscription | undefined;
+
+  // For marking component as changed.
+  // tslint:disable-next-line:variable-name
+  private _changeDetectorRef: ChangeDetectorRef;
+
+  // Subscription watch list.
+  private readonly _subscription: Subscription;
 
   //#endregion
 
@@ -65,6 +92,21 @@ export class ValidationSummarizerComponent {
   @Input('instance')
   public set ngControl(control: AbstractControl | NgControl | null) {
     this._control = control;
+
+    // Unsubscribe subscription.
+    this._hookStatusChangesSubscription?.unsubscribe();
+
+    let statusChangesObservable: Observable<any> | null = null;
+    if (this._control instanceof AbstractControl) {
+      statusChangesObservable = (this._control as AbstractControl).statusChanges;
+    } else if (this._control instanceof NgControl) {
+      statusChangesObservable = (this._control as NgControl).statusChanges;
+    }
+
+    this._hookStatusChangesSubscription = statusChangesObservable?.subscribe(() => {
+      this._templateContext = this.getTemplateContext();
+      this._changeDetectorRef.markForCheck();
+    });
   }
 
   // Get the instance of control that needs to be validated.
@@ -84,11 +126,7 @@ export class ValidationSummarizerComponent {
 
   // Get template context.
   public get templateContext(): any {
-    return {
-      ngControl: this.ngControl,
-      controlLabel: this.controlLabel,
-      validationMessages: this.loadValidationMessages(this.maximumValidationMessages)
-    };
+    return this._templateContext;
   }
 
   // Maximum number of validation messages.
@@ -133,6 +171,8 @@ export class ValidationSummarizerComponent {
       null, InjectFlags.Optional);
 
     const validationSummarizerOptions = injector.get(VALIDATION_SUMMARIZER_OPTION_PROVIDER);
+    this._changeDetectorRef = injector.get(ChangeDetectorRef);
+
     this._options = validationSummarizerOptions.getOption();
 
     this._groupId = this._options.groupId || uuid();
@@ -142,10 +182,25 @@ export class ValidationSummarizerComponent {
     this.controlLabel = '';
     this._control = null;
     this.alternativeTemplate = null;
-    this._visibilityHandler = null;
+    this._subscription = new Subscription();
   }
 
   //#endregion
+
+  //#region Life cycle hooks
+
+  public ngOnInit(): void {
+    this._templateContext = this.getTemplateContext();
+    this._changeDetectorRef.markForCheck();
+  }
+
+  public ngOnDestroy(): void {
+    this._hookStatusChangesSubscription?.unsubscribe();
+    this._subscription?.unsubscribe();
+  }
+
+  //#endregion
+
 
   //#region Methods
 
@@ -195,6 +250,15 @@ export class ValidationSummarizerComponent {
 
     messages = messages.slice(0, maximumValidationMessages);
     return messages;
+  }
+
+  // Get validation template context.
+  private getTemplateContext(): any {
+    return {
+      ngControl: this.ngControl,
+      controlLabel: this.controlLabel,
+      validationMessages: this.loadValidationMessages(this.maximumValidationMessages)
+    };
   }
 
   //#endregion

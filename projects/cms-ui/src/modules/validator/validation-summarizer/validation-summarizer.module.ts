@@ -10,6 +10,9 @@ import {
   buildValidationSummarizerOptionProvider,
   buildValidatorService
 } from '../../../factories/validation-summarizer.factory';
+import {ValidationSummarizerClassDirective} from './validation-summarizer-directive/validation-summarizer-class.directive';
+import {ValidationSummarizerControlClassDirective} from './validation-summarizer-directive/validation-summarizer-control-class.directive';
+import {ValidationSummarizerControlWatchDirective} from './validation-summarizer-directive/validation-summarizer-control-watch.directive';
 
 
 @NgModule({
@@ -17,10 +20,16 @@ import {
     CommonModule
   ],
   declarations: [
+    ValidationSummarizerClassDirective,
+    ValidationSummarizerControlClassDirective,
     ValidationSummarizerItemDirective,
+    ValidationSummarizerControlWatchDirective,
     ValidationSummarizerComponent
   ],
   exports: [
+    ValidationSummarizerClassDirective,
+    ValidationSummarizerControlClassDirective,
+    ValidationSummarizerControlWatchDirective,
     ValidationSummarizerComponent
   ]
 })

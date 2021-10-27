@@ -23,6 +23,12 @@ export interface IValidationSummarizerModuleOptions
   // Handler for toggling validation summarizer visibility.
   visibilityHandler?: ((ngControl: AbstractControl | NgControl) => boolean) | null;
 
+  // Classes which is used when validation classes must be applied to a control.
+  defaultControlValidationClasses?: string[] | null;
+
+  // Validation classes which is used when validation classes must be applied to an element.
+  defaultValidationClasses?: string[] | null;
+
   //#endregion
 
 }

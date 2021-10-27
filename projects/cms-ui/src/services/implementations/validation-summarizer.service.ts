@@ -13,6 +13,7 @@ import {ValidationMessage} from '../../models/implementations/validation-summari
 import {builtInValidationMessages} from '../../constants';
 import {v4 as uuid} from 'uuid';
 import {IValidationSummarizerOptionProvider} from '../../providers';
+import {EventEmitter} from '@angular/core';
 
 export class ValidationSummarizerService implements IValidationSummarizerService {
 
@@ -52,9 +53,7 @@ export class ValidationSummarizerService implements IValidationSummarizerService
     return this._id;
   }
 
-  /*
-  * Get a single control validation message.
-  * */
+  // Get a single control validation message.
   public loadControlValidationMessage(controlLabel: string, control: AbstractControl): ValidationMessage | null {
     const messages = this.loadControlValidationMessages(controlLabel, control);
     if (!messages) {
@@ -101,7 +100,11 @@ export class ValidationSummarizerService implements IValidationSummarizerService
 
       const message = this.buildValidationMessage(controlLabel, key, additionalValue);
       if (!message) {
-        return null;
+        return [{
+          key,
+          content: key,
+          additionalValue: additionalValue[key]
+        }];
       }
 
       const validationMessage = new ValidationMessage(key, message);
@@ -178,6 +181,7 @@ export class ValidationSummarizerService implements IValidationSummarizerService
         control.markAsTouched({onlySelf: true});
         control.markAsDirty({onlySelf: true});
         control.updateValueAndValidity({emitEvent: false});
+        (control.statusChanges as EventEmitter<any>).emit(control.status);
 
         return;
       }
@@ -187,6 +191,7 @@ export class ValidationSummarizerService implements IValidationSummarizerService
         formControlDirective.control.markAsTouched({onlySelf: true});
         formControlDirective.control.markAsDirty({onlySelf: true});
         formControlDirective.control.updateValueAndValidity({emitEvent: false});
+        (formControlDirective.statusChanges as EventEmitter<any>).emit(control.status);
       }
 
       if (control instanceof FormGroup) {

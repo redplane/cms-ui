@@ -5,7 +5,7 @@ export class IAppSettingService {
 
   //#region Methods
 
-  /* Load app configuration from json file.*/
+  /* Load modules configuration from json file.*/
   getAppSettingsAsync(): Observable<AppSettings>;
 
   //#endregion
