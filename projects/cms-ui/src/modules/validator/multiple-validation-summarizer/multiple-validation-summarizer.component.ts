@@ -2,9 +2,16 @@ import {ChangeDetectionStrategy, Component, Inject, Input, OnDestroy, OnInit, Te
 import {AbstractControl, NgControl} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
 import {ValidationMessage} from '../../../models';
-import {VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants';
+import {
+  MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS_PROVIDER,
+  MULTIPLE_VALIDATION_SUMMARIZER_SERVICE_PROVIDER
+} from '../../../constants';
 import {IValidationSummarizerService} from '../../../services';
-import {AbstractControlContext} from './abstract-control-context';
+import {MultipleValidationTemplateContext} from './multiple-validation-template-context';
+import {IMultipleValidationSummarizerOptions} from '../../../models/interfaces/multiple-validation-summarizers/multiple-validation-summarizer-options.interface';
+import {v4 as uuid} from 'uuid';
+import {MultipleValidationItemTemplateContext} from './multiple-validation-item-template-context';
+import {MultipleValidationControlContext} from './multiple-validation-control-context';
 
 @Component({
   selector: 'cms-multiple-validation-summarizer',
@@ -15,47 +22,71 @@ export class MultipleValidationSummarizerComponent implements OnInit, OnDestroy 
 
   //#region Properties
 
+  // Group id.
+  private _groupId: string;
+
   // Abstract control contexts.
-  private _abstractControlContexts: AbstractControlContext[] = [];
+  private _abstractControlContexts: MultipleValidationTemplateContext[] = [];
 
   // Validation messages.
   private _validationMessages: ValidationMessage[] = [];
-
-  // Controls to be watched.
-  private _abstractControls: AbstractControl[] = [];
 
   // Hook abstract value changes subscription.
   private _hookAbstractControlStatusChangesSubscription: Subscription = new Subscription();
 
   // Item template
-  private _itemTemplate: TemplateRef<AbstractControlContext> | null = null;
+  private _itemTemplate: TemplateRef<MultipleValidationTemplateContext> | null = null;
+
+  // Handler for handling summarizer visibility.
+  // tslint:disable-next-line:variable-name
+  private _visibilityHandler: ((ngControl: AbstractControl | NgControl) => boolean) | null;
+
+  // Validation item template context.
+  private _validationItemTemplateContexts: MultipleValidationItemTemplateContext[];
 
   //#endregion
 
   //#region Accessors
 
+  public get groupId(): string {
+    return this._groupId;
+  }
+
+  // Id of group the multiple validation summarizer belongs to.
+  @Input('group-id')
+  public set groupId(value: string) {
+    this._groupId = value;
+  }
+
+  // Items to be validated.
   @Input('items')
-  public set abstractControls(values: Array<AbstractControl | NgControl>) {
+  public set abstractControls(items: MultipleValidationControlContext[]) {
     this._hookAbstractControlStatusChangesSubscription?.unsubscribe();
     this._hookAbstractControlStatusChangesSubscription = new Subscription();
 
-    if (!values || !values.length) {
+    if (!items || !items.length) {
       return;
     }
 
-    for (const value of values) {
+    for (const item of items) {
 
-      let statusChangesObservable: Observable<any> | null = null;
-      if (value instanceof AbstractControl) {
-        statusChangesObservable = (value as AbstractControl).statusChanges;
-      } else if (value instanceof NgControl) {
-        statusChangesObservable = (value as NgControl).statusChanges;
+      if (!item.control) {
+        continue;
       }
 
-      const statusChangesSubscription = statusChangesObservable
-        ?.subscribe(() => {
-        });
-      this._hookAbstractControlStatusChangesSubscription.add(statusChangesSubscription);
+      let statusChangesObservable: Observable<any> | null = null;
+      if (item.control instanceof AbstractControl) {
+        statusChangesObservable = (item.control as AbstractControl).statusChanges;
+      } else if (item.control instanceof NgControl) {
+        statusChangesObservable = (item.control as NgControl).statusChanges;
+      }
+
+      if (statusChangesObservable) {
+        const statusChangesSubscription = statusChangesObservable
+          ?.subscribe(() => {
+          });
+        this._hookAbstractControlStatusChangesSubscription.add(statusChangesSubscription);
+      }
     }
   }
 
@@ -65,16 +96,31 @@ export class MultipleValidationSummarizerComponent implements OnInit, OnDestroy 
   }
 
   // Validation summarizer template.
-  public get itemTemplate(): TemplateRef<AbstractControlContext> | null {
+  public get itemTemplate(): TemplateRef<MultipleValidationTemplateContext> | null {
     return this._itemTemplate;
+  }
+
+  // tslint:disable-next-line:no-input-rename
+  @Input('visibility-handler')
+  public set visibilityHandler(value: ((ngControl: AbstractControl | NgControl) => boolean) | null) {
+    this._visibilityHandler = value;
+  }
+
+  public get validationItemTemplateContexts(): MultipleValidationItemTemplateContext[] {
+    return this._validationItemTemplateContexts;
   }
 
   //#endregion
 
   //#region Constructor
 
-  public constructor(@Inject(VALIDATION_SUMMARIZER_PROVIDER)
-                     protected readonly validationSummarizerService: IValidationSummarizerService) {
+  public constructor(@Inject(MULTIPLE_VALIDATION_SUMMARIZER_SERVICE_PROVIDER)
+                     protected readonly validationSummarizerService: IValidationSummarizerService,
+                     @Inject(MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS_PROVIDER)
+                     protected readonly options: IMultipleValidationSummarizerOptions) {
+    this._groupId = this.options?.groupId || uuid();
+    this._visibilityHandler = options.visibilityHandler || null;
+    this._validationItemTemplateContexts = [];
   }
 
   //#endregion
@@ -102,24 +148,29 @@ export class MultipleValidationSummarizerComponent implements OnInit, OnDestroy 
       return false;
     }
 
-    const ableToDisplay = ngControl.invalid && (ngControl.dirty || ngControl.touched) === true;
-    return true === ableToDisplay;
+    if (!this._visibilityHandler) {
+      return (ngControl.invalid && (ngControl.dirty || ngControl.touched) === true) || false;
+    }
+
+    return this._visibilityHandler(ngControl) || false;
   }
 
-  //#endregion
+  protected loadValidationMessages(context: MultipleValidationTemplateContext,
+                                   maximumValidationMessages: number | null): ValidationMessage[] {
 
-  //#region Internal methods
-
-  protected loadValidationMessages(context: AbstractControlContext, maximumValidationMessages: number | null): ValidationMessage[] {
-
-    if (!this.validationSummarizerService || !this._abstractControls || !this._abstractControls.length) {
+    if (!this.validationSummarizerService) {
       return [];
     }
 
-    const controlLabel = context.label;
-    const ngControl = context.abstractControl;
+    const controlLabel = context.controlLabel;
+    const abstractControl = context.abstractControl;
+
+    if (!abstractControl) {
+      return [];
+    }
+
     let messages = this.validationSummarizerService
-      .loadControlValidationMessages(controlLabel, ngControl);
+      .loadControlValidationMessages(controlLabel, abstractControl);
 
     if (!messages) {
       return [];
@@ -138,7 +189,7 @@ export class MultipleValidationSummarizerComponent implements OnInit, OnDestroy 
   }
 
   // Get validation template context.
-  private getContexts(): AbstractControlContext[] {
+  protected getContexts(): MultipleValidationTemplateContext[] {
     return this._abstractControlContexts;
   }
 
