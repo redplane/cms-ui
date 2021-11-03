@@ -68,7 +68,7 @@ jobs:
     - stage: buildDemoPage
       name: "Build demo page"
       script:
-        - npm run build:modules:production
+        - npm run build:app:production
 
     # Library deployment (preview)
     - stage: deployDevelopment
