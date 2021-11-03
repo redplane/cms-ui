@@ -28,7 +28,7 @@
     "@ng-bootstrap/ng-bootstrap": "^8.0.0",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
-    "angular-resize-event": "2.1.0",
+    "angular-resize-event": "^2.1.0",
     "lodash-es": "^4.17.15",
     "moment": "^2.29.1",
     "mustache": "^4.0.1",
