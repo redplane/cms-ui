@@ -4,8 +4,12 @@ import {BasicValidationSummarizerFields} from './basic-validation-summarizer-fie
 import {IValidationSummarizerService, VALIDATION_SUMMARIZER_PROVIDER} from '@cms-ui/core';
 
 @Component({
-  selector: 'basic-validation-summarizer-demo',
+  selector: 'basic-multiple-validation-summarizer-demo',
   template: `
+
+    <!--Multiple valdiation summarizer-->
+    <cms-multiple-validation-summarizer></cms-multiple-validation-summarizer>
+
     <ng-container [formGroup]="formGroup">
 
       <label [validation-summarizer-class]
@@ -14,9 +18,6 @@ import {IValidationSummarizerService, VALIDATION_SUMMARIZER_PROVIDER} from '@cms
         <input class="form-control"
                [validation-summarizer-class]
                [formControl]="nameControl">
-        <cms-validation-summarizer [instance]="nameControl"
-                                   [label]="'Name'"
-                                   [maximum-messages]="1"></cms-validation-summarizer>
       </div>
 
       <label [validation-summarizer-class]="['text-danger']"
@@ -25,9 +26,6 @@ import {IValidationSummarizerService, VALIDATION_SUMMARIZER_PROVIDER} from '@cms
         <input class="form-control"
                [validation-summarizer-class]="['border', 'border-danger']"
                [formControlName]="controlNames.password">
-        <cms-validation-summarizer [instance]="formGroup.get(controlNames.password)"
-                                   [label]="'Password'"
-                                   [maximum-messages]="1"></cms-validation-summarizer>
       </div>
 
       <label [validation-summarizer-class]="['text-danger']"
@@ -36,14 +34,11 @@ import {IValidationSummarizerService, VALIDATION_SUMMARIZER_PROVIDER} from '@cms
         <input class="form-control"
                [validation-summarizer-control-watch]="formGroup.get(controlNames.password)"
                [formControlName]="controlNames.confirmPassword">
-        <cms-validation-summarizer [instance]="formGroup.get(controlNames.confirmPassword)"
-                                   [label]="'Confirm password'"
-                                   [maximum-messages]="1"></cms-validation-summarizer>
       </div>
       <button class="btn btn-outline-primary" type="button" (click)="clickDoValidation()">Do validation</button>
     </ng-container>`
 })
-export class BasicValidationSummarizerComponent {
+export class BasicMultipleValidationSummarizerComponent {
 
   //#region Properties
 

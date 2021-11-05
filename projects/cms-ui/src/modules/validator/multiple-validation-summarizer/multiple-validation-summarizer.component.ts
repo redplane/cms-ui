@@ -7,7 +7,6 @@ import {
   MULTIPLE_VALIDATION_SUMMARIZER_SERVICE_PROVIDER
 } from '../../../constants';
 import {IValidationSummarizerService} from '../../../services';
-import {MultipleValidationTemplateContext} from './multiple-validation-template-context';
 import {IMultipleValidationSummarizerOptions} from '../../../models/interfaces/multiple-validation-summarizers/multiple-validation-summarizer-options.interface';
 import {v4 as uuid} from 'uuid';
 import {MultipleValidationItemTemplateContext} from './multiple-validation-item-template-context';
@@ -26,7 +25,7 @@ export class MultipleValidationSummarizerComponent implements OnInit, OnDestroy 
   private _groupId: string;
 
   // Abstract control contexts.
-  private _abstractControlContexts: MultipleValidationTemplateContext[] = [];
+  private _instances: MultipleValidationControlContext[] = [];
 
   // Validation messages.
   private _validationMessages: ValidationMessage[] = [];
@@ -35,7 +34,7 @@ export class MultipleValidationSummarizerComponent implements OnInit, OnDestroy 
   private _hookAbstractControlStatusChangesSubscription: Subscription = new Subscription();
 
   // Item template
-  private _itemTemplate: TemplateRef<MultipleValidationTemplateContext> | null = null;
+  private _itemTemplate: TemplateRef<MultipleValidationItemTemplateContext> | null = null;
 
   // Handler for handling summarizer visibility.
   // tslint:disable-next-line:variable-name
@@ -43,6 +42,9 @@ export class MultipleValidationSummarizerComponent implements OnInit, OnDestroy 
 
   // Validation item template context.
   private _validationItemTemplateContexts: MultipleValidationItemTemplateContext[];
+
+  // Whether there is any invalid field or not.
+  private _hasInvalidField: boolean;
 
   //#endregion
 
@@ -59,8 +61,8 @@ export class MultipleValidationSummarizerComponent implements OnInit, OnDestroy 
   }
 
   // Items to be validated.
-  @Input('items')
-  public set abstractControls(items: MultipleValidationControlContext[]) {
+  @Input('instances')
+  public set instances(items: MultipleValidationControlContext[]) {
     this._hookAbstractControlStatusChangesSubscription?.unsubscribe();
     this._hookAbstractControlStatusChangesSubscription = new Subscription();
 
@@ -84,20 +86,27 @@ export class MultipleValidationSummarizerComponent implements OnInit, OnDestroy 
       if (statusChangesObservable) {
         const statusChangesSubscription = statusChangesObservable
           ?.subscribe(() => {
+            this._hasInvalidField = this.instances.filter(x => x.control)
+              .findIndex(x => x.control.errors !== null && x.control.errors !== undefined) !== -1;
           });
         this._hookAbstractControlStatusChangesSubscription.add(statusChangesSubscription);
       }
     }
   }
 
+  // Get instances
+  public get instances(): MultipleValidationControlContext[] {
+    return this._instances;
+  }
+
+  // Whether there is any invalid field or not.
+  public get hasInvalidField(): boolean {
+    return this._hasInvalidField;
+  }
+
   // Collection of validation messages.
   public get validationMessages(): ValidationMessage[] {
     return this._validationMessages;
-  }
-
-  // Validation summarizer template.
-  public get itemTemplate(): TemplateRef<MultipleValidationTemplateContext> | null {
-    return this._itemTemplate;
   }
 
   // tslint:disable-next-line:no-input-rename
@@ -106,9 +115,10 @@ export class MultipleValidationSummarizerComponent implements OnInit, OnDestroy 
     this._visibilityHandler = value;
   }
 
-  public get validationItemTemplateContexts(): MultipleValidationItemTemplateContext[] {
-    return this._validationItemTemplateContexts;
+  public get visibilityHandler(): (((ngControl: AbstractControl | NgControl) => boolean) | null) {
+    return this._visibilityHandler;
   }
+
 
   //#endregion
 
@@ -121,6 +131,7 @@ export class MultipleValidationSummarizerComponent implements OnInit, OnDestroy 
     this._groupId = this.options?.groupId || uuid();
     this._visibilityHandler = options.visibilityHandler || null;
     this._validationItemTemplateContexts = [];
+    this._hasInvalidField = false;
   }
 
   //#endregion
@@ -137,61 +148,6 @@ export class MultipleValidationSummarizerComponent implements OnInit, OnDestroy 
   //#endregion
 
   //#region Methods
-
-  public ableToDisplayValidationMessages(ngControl: AbstractControl | NgControl | null): boolean {
-
-    if (!ngControl) {
-      return false;
-    }
-
-    if (!ngControl) {
-      return false;
-    }
-
-    if (!this._visibilityHandler) {
-      return (ngControl.invalid && (ngControl.dirty || ngControl.touched) === true) || false;
-    }
-
-    return this._visibilityHandler(ngControl) || false;
-  }
-
-  protected loadValidationMessages(context: MultipleValidationTemplateContext,
-                                   maximumValidationMessages: number | null): ValidationMessage[] {
-
-    if (!this.validationSummarizerService) {
-      return [];
-    }
-
-    const controlLabel = context.controlLabel;
-    const abstractControl = context.abstractControl;
-
-    if (!abstractControl) {
-      return [];
-    }
-
-    let messages = this.validationSummarizerService
-      .loadControlValidationMessages(controlLabel, abstractControl);
-
-    if (!messages) {
-      return [];
-    }
-
-    if (!maximumValidationMessages || isNaN(maximumValidationMessages)) {
-      return messages;
-    }
-
-    if (maximumValidationMessages < 1) {
-      return messages;
-    }
-
-    messages = messages.slice(0, maximumValidationMessages);
-    return messages;
-  }
-
-  // Get validation template context.
-  protected getContexts(): MultipleValidationTemplateContext[] {
-    return this._abstractControlContexts;
-  }
 
   //#endregion
 }

@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {MultipleValidationSummarizerComponent} from './multiple-validation-summarizer.component';
 import {CommonModule} from '@angular/common';
 import {MultipleValidationSummarizerItemDirective} from './multiple-validation-summarizer-item.directive';
+import {ValidationSummarizerModule} from '../validation-summarizer';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import {MultipleValidationSummarizerItemDirective} from './multiple-validation-s
     MultipleValidationSummarizerComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ValidationSummarizerModule
   ],
   exports: [
     MultipleValidationSummarizerComponent

@@ -1,14 +1,22 @@
-<!--Only displayed when control is available-->
-<ng-container *ngFor="let itemContext of validationItemTemplateContexts">
-  <ng-container *ngIf="ableToDisplayValidationMessages(itemContext.control)">
+<ul *ngIf="hasInvalidField">
+  <cms-validation-summarizer *ngFor="let instance of instances"
+                             [instance]="instance.control"
+                             [label]="instance.label"
+                             [visibility-handler]="visibilityHandler"
+                             [group-id]="groupId"
+                             [validation-template]="validationSummarizerTemplate">
+  </cms-validation-summarizer>
+</ul>
 
-  </ng-container>
-</ng-container>
 
-
-<ng-template #defaultValidationItemTemplate
-             let-controlLabel="controlLabel"
-             let-validationKey="validationKey"
-             let-validationMessage="validationMessage">
-  <div>{{validationMessage}}</div>
+<!--Default validation summary template-->
+<ng-template
+  #validationSummarizerTemplate
+  let-ngControl="ngControl"
+  let-controlLabel="controlLabel"
+  let-validationMessages="validationMessages"
+>
+  <li *ngFor="let validationMessage of validationMessages;">
+    {{validationMessage.content}}
+  </li>
 </ng-template>
