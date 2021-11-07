@@ -1,7 +1,7 @@
 import {Injector, ModuleWithProviders, NgModule, Type} from '@angular/core';
 import {SpinnerContainerComponent} from './spinner-container.component';
 import {CommonModule} from '@angular/common';
-import {SPINNER_SERVICE_PROVIDER} from '../../constants/injectors';
+import {SPINNER_SERVICE_PROVIDER} from '../../constants/injectors/injectors';
 import {ISpinnerService} from '../../services/interfaces/spinner-service.interface';
 import {BasicSpinnerComponent} from './basic-spinner/basic-spinner.component';
 import {WINDOW_PROVIDERS} from '../../services/implementations/window.service';

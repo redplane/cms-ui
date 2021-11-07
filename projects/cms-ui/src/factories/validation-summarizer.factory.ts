@@ -1,36 +1,58 @@
 import {IValidationSummarizerModuleOptions} from '../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 import {IValidationSummarizerOptionProvider, ValidationSummarizerOptionProvider} from '../providers';
 import {IValidationSummarizerService} from '../services';
-import {ValidationSummarizerService} from '../services/implementations/validation-summarizer.service';
+import {ValidationSummarizerService} from '../services/implementations/validators/validation-summarizers/validation-summarizer.service';
 import {Provider} from '@angular/core';
-import {VALIDATION_SUMMARIZER_OPTION_PROVIDER, VALIDATION_SUMMARIZER_PROVIDER} from '../constants';
-import {NULL_VALIDATION_SUMMARIZER_PROVIDER} from '../constants/internal-injectors';
+import {VALIDATION_SUMMARIZER_OPTIONS_PROVIDER, VALIDATION_SUMMARIZER_SERVICE} from '../constants';
+import {VALIDATION_SUMMARIZER_OPTIONS} from '../constants/injectors/internal-injectors';
+import {IValidationSummarizerOptions} from '../models';
 
-// Build child validation summarizer options.
-export function buildValidationSummarizerOptionProvider(
-  options: IValidationSummarizerModuleOptions[]): IValidationSummarizerOptionProvider {
-  return new ValidationSummarizerOptionProvider(options);
-}
+//#region Internal function
 
 // Build up validation summarizer service.
-export function buildValidationSummarizerService(optionProvider: IValidationSummarizerOptionProvider)
+export function buildInternalValidationSummarizerService(optionProvider: IValidationSummarizerOptionProvider)
   : IValidationSummarizerService {
   return new ValidationSummarizerService(optionProvider);
 }
 
-// Build validator service.
-export function buildValidatorService(): Provider {
+// Build up validation summarizer options.
+export function buildInternalValidationSummarizerOptionsProvider(options: IValidationSummarizerOptions[])
+  : IValidationSummarizerOptionProvider {
+  return new ValidationSummarizerOptionProvider(options);
+}
+
+
+//#endregion
+
+//#region External function
+
+// Build validation summarizer options.
+export function buildValidationSummarizerOptions(options?: IValidationSummarizerModuleOptions): Provider {
   return {
-    provide: VALIDATION_SUMMARIZER_PROVIDER,
-    useFactory: buildValidationSummarizerService,
-    deps: [VALIDATION_SUMMARIZER_OPTION_PROVIDER]
+    provide: VALIDATION_SUMMARIZER_OPTIONS,
+    useValue: options,
+    multi: true
   };
 }
 
-// Build null validator service.
-export function buildNullValidatorService(): Provider {
+// Build validation summarizer options provider.
+export function buildValidationSummarizerOptionsProvider(): Provider {
   return {
-    provide: NULL_VALIDATION_SUMMARIZER_PROVIDER,
-    useValue: null
+    provide: VALIDATION_SUMMARIZER_OPTIONS_PROVIDER,
+    useFactory: buildInternalValidationSummarizerOptionsProvider,
+    deps: [VALIDATION_SUMMARIZER_OPTIONS],
+    multi: false
   };
 }
+
+// Build validator service.
+export function buildValidationSummarizerService(): Provider {
+  return {
+    provide: VALIDATION_SUMMARIZER_SERVICE,
+    useFactory: buildInternalValidationSummarizerService,
+    deps: [VALIDATION_SUMMARIZER_OPTIONS_PROVIDER],
+    multi: false
+  };
+}
+
+//#endregion

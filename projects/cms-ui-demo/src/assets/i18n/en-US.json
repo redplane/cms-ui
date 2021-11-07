@@ -41,6 +41,13 @@
     "YES": "Yes",
     "NO": "No"
   },
+
+  "MULTIPLE_VALIDATION_SUMMARIZER_DEMO": {
+    "NAME": "Name",
+    "PASSWORD": "Password",
+    "CONFIRM_PASSWORD": "Confirm password"
+  },
+
   "VALIDATION_MESSAGES": {
     "MSG_VALIDATION_PROPERTY_REQUIRED": "{{controlLabel}} is required.",
     "MSG_VALIDATION_PROPERTY_MIN": "{{controlLabel}} minimum value must be {{additionalValue.min}}",

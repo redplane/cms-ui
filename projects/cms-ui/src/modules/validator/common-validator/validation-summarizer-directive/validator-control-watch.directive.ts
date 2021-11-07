@@ -1,13 +1,13 @@
-import {Directive, Inject, Input, OnDestroy, OnInit} from '@angular/core';
+import {Directive, Inject, Injector, Input, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControlDirective, FormControlName, NgControl, NgModel} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
-import {VALIDATION_SUMMARIZER_PROVIDER} from '../../../../constants';
+import {COMMON_VALIDATOR_SERVICE} from '../../../../constants';
 import {IValidationSummarizerService} from '../../../../services';
 
 @Directive({
   selector: '[validation-summarizer-control-watch][formControl], [validation-summarizer-control-watch][formControlName], [validation-summarizer-control-watch][ngModel]'
 })
-export class ValidationSummarizerControlWatchDirective implements OnInit, OnDestroy {
+export class ValidatorControlWatchDirective implements OnInit, OnDestroy {
 
   //#region Properties
 
@@ -44,9 +44,10 @@ export class ValidationSummarizerControlWatchDirective implements OnInit, OnDest
 
   //#region Constructor
 
-  public constructor(@Inject(VALIDATION_SUMMARIZER_PROVIDER)
+  public constructor(@Inject(COMMON_VALIDATOR_SERVICE)
                      protected readonly validationSummarizerService: IValidationSummarizerService,
-                     protected readonly ngControl: NgControl) {
+                     protected readonly ngControl: NgControl,
+                     protected readonly injector: Injector) {
     this._watchedInstanceStatusChangesSubscription = new Subscription();
     this._control = null;
   }

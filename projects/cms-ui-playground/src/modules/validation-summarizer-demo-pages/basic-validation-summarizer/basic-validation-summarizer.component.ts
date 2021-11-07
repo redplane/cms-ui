@@ -1,10 +1,10 @@
 import {Component, Inject} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {BasicValidationSummarizerFields} from './basic-validation-summarizer-fields';
-import {IValidationSummarizerService, VALIDATION_SUMMARIZER_PROVIDER} from '@cms-ui/core';
+import {IValidationSummarizerService, VALIDATION_SUMMARIZER_SERVICE} from '@cms-ui/core';
 
 @Component({
-  selector: 'basic-validation-summarizer',
+  selector: 'basic-validation-summarizer-demo',
   template: `
     <ng-container [formGroup]="formGroup">
 
@@ -73,7 +73,7 @@ export class BasicValidationSummarizerComponent {
 
   //#region Constructor
 
-  public constructor(@Inject(VALIDATION_SUMMARIZER_PROVIDER)
+  public constructor(@Inject(VALIDATION_SUMMARIZER_SERVICE)
                      protected readonly validationSummarizerService: IValidationSummarizerService) {
 
     this.nameControl = new FormControl(null, [Validators.required]);

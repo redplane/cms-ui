@@ -1,15 +1,15 @@
 import {ChangeDetectorRef, Directive, ElementRef, Inject, Input} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {VALIDATION_SUMMARIZER_OPTION_PROVIDER, VALIDATION_SUMMARIZER_PROVIDER} from '../../../../constants';
+import {COMMON_VALIDATOR_OPTIONS_PROVIDER, COMMON_VALIDATOR_SERVICE} from '../../../../constants';
 import {IValidationSummarizerService} from '../../../../services';
-import {ValidationSummarizerClassBase} from './validation-summarizer-class-base';
+import {ValidatorClassBase} from './validator-class-base';
 import {IValidationSummarizerOptionProvider} from '../../../../providers';
 
 @Directive({
   selector: '[validation-summarizer-class]:not([formControl]):not([ngModel]):not([formControlName])'
 })
-export class ValidationSummarizerClassDirective extends ValidationSummarizerClassBase {
+export class ValidatorClassDirective extends ValidatorClassBase {
 
   //#region Properties
 
@@ -46,9 +46,9 @@ export class ValidationSummarizerClassDirective extends ValidationSummarizerClas
 
   //#region Constructor
 
-  public constructor(@Inject(VALIDATION_SUMMARIZER_PROVIDER)
+  public constructor(@Inject(COMMON_VALIDATOR_SERVICE)
                      protected readonly validationSummarizerService: IValidationSummarizerService,
-                     @Inject(VALIDATION_SUMMARIZER_OPTION_PROVIDER)
+                     @Inject(COMMON_VALIDATOR_OPTIONS_PROVIDER)
                      protected readonly validationSummarizerOptionProvider: IValidationSummarizerOptionProvider,
                      protected readonly changeDetectorRef: ChangeDetectorRef,
                      protected readonly elementRef: ElementRef) {

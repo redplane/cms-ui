@@ -1,8 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {ValidationSummarizerDemoLayoutComponent} from './validation-summarizer-demo-layout.component';
-import {VALIDATION_SUMMARIZER_PROVIDER, ValidationSummarizerModule} from '@cms-ui/core';
-import {BasicValidationSummarizerService} from '../../services/basic-validation-summarizer.service';
+import {CommonValidatorModule, HasAnyValidatorsModule, ValidationSummarizerModule} from '@cms-ui/core';
 
 @NgModule({
   declarations: [
@@ -27,12 +26,9 @@ import {BasicValidationSummarizerService} from '../../services/basic-validation-
         ]
       }
     ]),
-    ValidationSummarizerModule.forRoot({
-      validatorProvider: {
-        provide: VALIDATION_SUMMARIZER_PROVIDER,
-        useClass: BasicValidationSummarizerService
-      }
-    })
+    HasAnyValidatorsModule.forRoot(),
+    CommonValidatorModule.forRoot(),
+    ValidationSummarizerModule.forRoot()
   ],
   exports: [
     RouterModule

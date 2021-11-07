@@ -4,8 +4,8 @@ import {Subscription} from 'rxjs';
 import {ValidationSummarizerModule} from './validation-summarizer.module';
 import {IValidationSummarizerService, ValidationSummarizerService} from '../../../services';
 import {Inject, Injectable} from '@angular/core';
-import {VALIDATION_SUMMARIZER_OPTION_PROVIDER} from '../../../constants';
 import {IValidationSummarizerOptionProvider} from '../../../providers';
+import {VALIDATION_SUMMARIZER_OPTIONS_PROVIDER} from '../../../constants';
 
 @Injectable()
 export class BasicValidationSummarizerService
@@ -14,7 +14,7 @@ export class BasicValidationSummarizerService
   //#region Constructor
 
   public constructor(
-    @Inject(VALIDATION_SUMMARIZER_OPTION_PROVIDER) validationSummarizerOptionProvider: IValidationSummarizerOptionProvider) {
+    @Inject(VALIDATION_SUMMARIZER_OPTIONS_PROVIDER) validationSummarizerOptionProvider: IValidationSummarizerOptionProvider) {
     super(validationSummarizerOptionProvider);
   }
 

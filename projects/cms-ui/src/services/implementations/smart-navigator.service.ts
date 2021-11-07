@@ -3,10 +3,10 @@ import {InjectFlags, Injector} from '@angular/core';
 import {from, Observable} from 'rxjs';
 import {NavigationExtras, Router, UrlTree} from '@angular/router';
 import {merge as lodashMerge, template, templateSettings} from 'lodash-es';
-import {SMART_NAVIGATOR_ROUTES, SMART_NAVIGATOR_SCREEN_CODE_RESOLVER} from '../../constants/injectors';
+import {SMART_NAVIGATOR_ROUTES, SMART_NAVIGATOR_SCREEN_CODE_RESOLVER} from '../../constants/injectors/injectors';
 import {NavigateToScreenRequest} from '../../models/implementations/smart-navigators/navigate-to-screen-request';
 import {IScreenCodeResolver} from '../interfaces/screen-code-resolver.interface';
-import {SmartNavigatorExceptionConstant} from '../../constants/smart-navigator-exception.constant';
+import {SmartNavigatorExceptions} from '../../constants/smart-navigator-exceptions';
 
 export class SmartNavigatorService implements ISmartNavigatorService {
 
@@ -48,7 +48,7 @@ export class SmartNavigatorService implements ISmartNavigatorService {
   public navigateToScreenAsync(request: NavigateToScreenRequest<any>): Observable<boolean> {
 
     if (!request) {
-      throw new Error(SmartNavigatorExceptionConstant.invalidNavigationRequest);
+      throw new Error(SmartNavigatorExceptions.invalidNavigationRequest);
     }
 
     // Get raw url from screen code.
@@ -64,7 +64,7 @@ export class SmartNavigatorService implements ISmartNavigatorService {
   // Get raw url.
   public loadRawUrl(code: string): string {
     if (!code || !code.length) {
-      throw new Error(SmartNavigatorExceptionConstant.invalidScreenCode);
+      throw new Error(SmartNavigatorExceptions.invalidScreenCode);
     }
 
     let url: string | null = this._codeToUrlMappings[code];
@@ -74,7 +74,7 @@ export class SmartNavigatorService implements ISmartNavigatorService {
 
     const screenCodeResolvers = this.screenCodeResolvers;
     if (!screenCodeResolvers || !screenCodeResolvers.length) {
-      throw new Error(SmartNavigatorExceptionConstant.invalidScreenCode);
+      throw new Error(SmartNavigatorExceptions.invalidScreenCode);
     }
 
     for (const screenCodeResolver of screenCodeResolvers) {
@@ -84,7 +84,7 @@ export class SmartNavigatorService implements ISmartNavigatorService {
       }
     }
 
-    throw new Error(SmartNavigatorExceptionConstant.invalidScreenCode);
+    throw new Error(SmartNavigatorExceptions.invalidScreenCode);
   }
 
   // Build url tree.

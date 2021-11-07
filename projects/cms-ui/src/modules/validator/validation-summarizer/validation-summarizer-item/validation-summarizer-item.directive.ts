@@ -1,6 +1,6 @@
 import {AfterViewInit, ComponentRef, Directive, Inject, Input, OnDestroy, OnInit, Optional, ViewContainerRef} from '@angular/core';
 import {IValidationSummarizerItemTemplateBuilder} from '../../../../services/interfaces/validation-summarizers/validation-summarizer-item-template-builder.interface';
-import {VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER} from '../../../../constants';
+import {VALIDATION_ITEM_TEMPLATE_BUILDERS} from '../../../../constants';
 import {ValidationMessage} from '../../../../models';
 import {AbstractControl, NgControl} from '@angular/forms';
 import {NO_SUITABLE_VALIDATION_SUMMARIZER_ITEM_TEMPLATE_BUILDER_FOUND} from '../../../../constants/internal-exception-codes';
@@ -93,7 +93,7 @@ export class ValidationSummarizerItemDirective implements OnInit, AfterViewInit,
   public constructor(
     protected viewContainerRef: ViewContainerRef,
     // tslint:disable-next-line:max-line-length
-    @Inject(VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER) @Optional() protected readonly validationItemTemplateBuilders: IValidationSummarizerItemTemplateBuilder[]) {
+    @Inject(VALIDATION_ITEM_TEMPLATE_BUILDERS) @Optional() protected readonly validationItemTemplateBuilders: IValidationSummarizerItemTemplateBuilder[]) {
     this._containerId = '';
 
     this._validationTriggerSubject = new Subject<void>();

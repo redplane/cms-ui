@@ -1,5 +1,5 @@
 export * from './banners/banner.service';
-export * from './validation-summarizer.service';
+export * from './validators/validation-summarizers/validation-summarizer.service';
 export * from './smart-navigator.service';
 export * from './dialog.service';
 

@@ -1,7 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {
-  IValidationSummarizerOptionProvider,
-  VALIDATION_SUMMARIZER_OPTION_PROVIDER,
+  IValidationSummarizerOptionProvider, VALIDATION_SUMMARIZER_OPTIONS_PROVIDER,
   ValidationSummarizerService
 } from '@cms-ui/core';
 import {TranslateService} from '@ngx-translate/core';
@@ -13,7 +12,7 @@ export class TranslatedValidationSummarizerService extends ValidationSummarizerS
 
   // tslint:disable-next-line:max-line-length
   public constructor(
-    @Inject(VALIDATION_SUMMARIZER_OPTION_PROVIDER) validationSummarizerOptionProvider: IValidationSummarizerOptionProvider,
+    @Inject(VALIDATION_SUMMARIZER_OPTIONS_PROVIDER) validationSummarizerOptionProvider: IValidationSummarizerOptionProvider,
     protected readonly translateService: TranslateService) {
     super(validationSummarizerOptionProvider);
   }

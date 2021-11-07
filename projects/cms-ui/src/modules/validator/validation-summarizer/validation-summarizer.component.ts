@@ -10,13 +10,13 @@ import {
   TemplateRef
 } from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
-import {VALIDATION_SUMMARIZER_OPTION_PROVIDER, VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injectors';
 import {IValidationSummarizerService} from '../../../services/interfaces/validation-summarizers/validation-summarizer-service.interface';
 import {ValidationMessage} from '../../../models/implementations/validation-summarizers/validation-message';
 import {IValidationSummarizerOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-options.interface';
 import {v4 as uuid} from 'uuid';
 import {IValidationSummarizerModuleOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 import {Observable, Subscription} from 'rxjs';
+import {VALIDATION_SUMMARIZER_OPTIONS_PROVIDER, VALIDATION_SUMMARIZER_SERVICE} from '../../../constants';
 
 
 @Component({
@@ -167,10 +167,10 @@ export class ValidationSummarizerComponent implements OnInit, OnDestroy {
   public constructor(protected injector: Injector) {
 
     // Service resolve.
-    this.validationSummarizerService = injector.get(VALIDATION_SUMMARIZER_PROVIDER,
+    this.validationSummarizerService = injector.get(VALIDATION_SUMMARIZER_SERVICE,
       null, InjectFlags.Optional);
 
-    const validationSummarizerOptions = injector.get(VALIDATION_SUMMARIZER_OPTION_PROVIDER);
+    const validationSummarizerOptions = injector.get(VALIDATION_SUMMARIZER_OPTIONS_PROVIDER);
     this._changeDetectorRef = injector.get(ChangeDetectorRef);
 
     this._options = validationSummarizerOptions.getOption();

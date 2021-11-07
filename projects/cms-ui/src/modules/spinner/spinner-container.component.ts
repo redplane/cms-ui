@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import {v4 as uuid} from 'uuid';
 import {Subject, Subscription} from 'rxjs';
-import {SPINNER_SERVICE_PROVIDER} from '../../constants/injectors';
+import {SPINNER_SERVICE_PROVIDER} from '../../constants/injectors/injectors';
 import {ISpinnerService} from '../../services/interfaces/spinner-service.interface';
 import {DisplaySpinnerRequest} from '../../models';
 import {DeleteSpinnerRequest} from '../../models/implementations/delete-spinner-request';

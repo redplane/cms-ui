@@ -1,11 +1,11 @@
 import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {Subscription} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {builtInValidationMessages, VALIDATION_SUMMARIZER_PROVIDER} from '../../constants';
+import {builtInValidationMessages, VALIDATION_SUMMARIZER_SERVICE} from '../../../../constants';
 import {ValidationSummarizerService} from './validation-summarizer.service';
-import {ValidationSummarizerModule} from '../../modules';
-import {IValidationSummarizerService} from '../interfaces';
-import {ValidationSummarizerOptionProvider} from '../../providers';
+import {ValidationSummarizerModule} from '../../../../modules';
+import {IValidationSummarizerService} from '../../../interfaces';
+import {ValidationSummarizerOptionProvider} from '../../../../providers';
 
 export class BasicValidationSummarizerService extends ValidationSummarizerService {
   // TODO: Implement this.
@@ -36,7 +36,7 @@ describe('ValidationSummarizerService', () => {
       imports: [ValidationSummarizerModule],
       providers: [
         {
-          provide: VALIDATION_SUMMARIZER_PROVIDER,
+          provide: VALIDATION_SUMMARIZER_SERVICE,
           useFactory: validationSummarizerFactory
         }
       ]
@@ -70,7 +70,7 @@ describe('ValidationSummarizerService', () => {
       });
     subscription?.add(nameControlValueChangedSubscription);
 
-    const validationSummarizerService = TestBed.inject(VALIDATION_SUMMARIZER_PROVIDER);
+    const validationSummarizerService = TestBed.inject(VALIDATION_SUMMARIZER_SERVICE);
     validationSummarizerService
       .doFormControlsValidation(studentFormGroup);
 

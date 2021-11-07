@@ -1,18 +1,14 @@
-import {ModuleWithProviders, NgModule, Provider} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ValidationSummarizerComponent} from './validation-summarizer.component';
-import {VALIDATION_SUMMARIZER_OPTION_PROVIDER, VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants';
 import {IValidationSummarizerModuleOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 import {ValidationSummarizerItemDirective} from './validation-summarizer-item/validation-summarizer-item.directive';
-import {VALIDATION_SUMMARIZER_OPTION} from '../../../constants/internal-injectors';
 import {
-  buildNullValidatorService,
-  buildValidationSummarizerOptionProvider,
-  buildValidatorService
+  buildValidationSummarizerOptions,
+  buildValidationSummarizerOptionsProvider,
+  buildValidationSummarizerService
 } from '../../../factories/validation-summarizer.factory';
-import {ValidationSummarizerClassDirective} from './validation-summarizer-directive/validation-summarizer-class.directive';
-import {ValidationSummarizerControlClassDirective} from './validation-summarizer-directive/validation-summarizer-control-class.directive';
-import {ValidationSummarizerControlWatchDirective} from './validation-summarizer-directive/validation-summarizer-control-watch.directive';
+import {NULL_VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injectors/internal-injectors';
 
 
 @NgModule({
@@ -20,16 +16,11 @@ import {ValidationSummarizerControlWatchDirective} from './validation-summarizer
     CommonModule
   ],
   declarations: [
-    ValidationSummarizerClassDirective,
-    ValidationSummarizerControlClassDirective,
     ValidationSummarizerItemDirective,
-    ValidationSummarizerControlWatchDirective,
     ValidationSummarizerComponent
   ],
   exports: [
-    ValidationSummarizerClassDirective,
-    ValidationSummarizerControlClassDirective,
-    ValidationSummarizerControlWatchDirective,
+    ValidationSummarizerItemDirective,
     ValidationSummarizerComponent
   ]
 })
@@ -38,28 +29,19 @@ export class ValidationSummarizerModule {
   //#region Methods
 
   public static forRoot(
-    options: IValidationSummarizerModuleOptions)
+    options?: Partial<IValidationSummarizerModuleOptions>)
     : ModuleWithProviders<ValidationSummarizerModule> {
     return {
       ngModule: ValidationSummarizerModule,
       providers: [
+        // Build options
+        buildValidationSummarizerOptions(options),
 
-        // Custom partial option providers.
-        {
-          provide: VALIDATION_SUMMARIZER_OPTION,
-          useValue: options,
-          multi: true
-        },
-
-        // Validation summarizer option.
-        {
-          provide: VALIDATION_SUMMARIZER_OPTION_PROVIDER,
-          useFactory: buildValidationSummarizerOptionProvider,
-          deps: [VALIDATION_SUMMARIZER_OPTION]
-        },
+        // Build options provider.
+        buildValidationSummarizerOptionsProvider(),
 
         // Build validator provider.
-        options.validatorProvider || buildValidatorService()
+        options?.validatorProvider || buildValidationSummarizerService()
       ]
     };
   }
@@ -70,19 +52,17 @@ export class ValidationSummarizerModule {
     return {
       ngModule: ValidationSummarizerModule,
       providers: [
-        {
-          provide: VALIDATION_SUMMARIZER_OPTION,
-          useValue: options,
-          multi: true
-        },
-        {
-          provide: VALIDATION_SUMMARIZER_OPTION_PROVIDER,
-          useFactory: buildValidationSummarizerOptionProvider,
-          deps: [VALIDATION_SUMMARIZER_OPTION]
-        },
+        // Build options
+        buildValidationSummarizerOptions(options),
+
+        // Build options provider.
+        buildValidationSummarizerOptionsProvider(),
 
         // Validation summarizer service registration.
-        options.validatorProvider || buildNullValidatorService()
+        options.validatorProvider || {
+          provide: NULL_VALIDATION_SUMMARIZER_PROVIDER,
+          useValue: null
+        }
       ]
     };
   }
