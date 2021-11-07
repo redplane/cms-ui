@@ -16,17 +16,17 @@ import {Observable, Subscription} from 'rxjs';
 import {
   MULTIPLE_VALIDATION_SUMMARIZER_CONTEXT_CHANGED_EVENT,
   MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS,
-  MULTIPLE_VALIDATION_SUMMARIZER_SERVICE_PROVIDER,
-  VALIDATION_SUMMARIZER_OPTION_PROVIDER,
-  VALIDATION_SUMMARIZER_PROVIDER
+  MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS_PROVIDER,
+  MULTIPLE_VALIDATION_SUMMARIZER_SERVICE,
+  VALIDATION_SUMMARIZER_OPTIONS_PROVIDER,
+  VALIDATION_SUMMARIZER_SERVICE
 } from '../../../constants';
 import {IValidationSummarizerService} from '../../../services';
-import {IMultipleValidationSummarizerOptions} from '../../../models/interfaces/multiple-validation-summarizers/multiple-validation-summarizer-options.interface';
 import {v4 as uuid} from 'uuid';
 import {MultipleValidationSummarizerItemContextDirective} from './directives/multiple-validation-summarizer-item-context.directive';
 import {MultipleValidationSummarizerItemContext} from '../../../models/interfaces/multiple-validation-summarizers/multiple-validation-summarizer-item-context';
-import {VALIDATION_SUMMARIZER_OPTIONS} from '../../../constants/internal-injectors';
-import {buildValidationSummarizerOptionProvider} from '../../../factories/validation-summarizer.factory';
+import {IValidationSummarizerOptionProvider} from '../../../providers';
+import {VALIDATION_SUMMARIZER_OPTIONS} from '../../../constants/injectors/internal-injectors';
 
 const basicValidationHandler = (ngControl: AbstractControl | NgControl): boolean => {
   if (!ngControl) {
@@ -42,18 +42,17 @@ const basicValidationHandler = (ngControl: AbstractControl | NgControl): boolean
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
+      provide: VALIDATION_SUMMARIZER_SERVICE,
+      useExisting: MULTIPLE_VALIDATION_SUMMARIZER_SERVICE
+    },
+    {
       provide: VALIDATION_SUMMARIZER_OPTIONS,
-      useValue: {},
-      multi: true
+      useExisting: MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS
     },
     {
-      provide: VALIDATION_SUMMARIZER_OPTION_PROVIDER,
-      useFactory: buildValidationSummarizerOptionProvider,
-      deps: [VALIDATION_SUMMARIZER_OPTIONS]
-    },
-    {
-      provide: VALIDATION_SUMMARIZER_PROVIDER,
-      useExisting: MULTIPLE_VALIDATION_SUMMARIZER_SERVICE_PROVIDER
+      provide: VALIDATION_SUMMARIZER_OPTIONS_PROVIDER,
+      useExisting: MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS_PROVIDER,
+      multi: false
     }
   ]
 })
@@ -144,12 +143,14 @@ export class MultipleValidationSummarizerComponent implements OnInit, AfterConte
 
   //#region Constructor
 
-  public constructor(@Inject(MULTIPLE_VALIDATION_SUMMARIZER_SERVICE_PROVIDER)
+  public constructor(@Inject(MULTIPLE_VALIDATION_SUMMARIZER_SERVICE)
                      protected readonly validationSummarizerService: IValidationSummarizerService,
-                     @Inject(MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS)
-                     protected readonly options: IMultipleValidationSummarizerOptions,
+                     @Inject(MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS_PROVIDER)
+                     protected readonly optionsProvider: IValidationSummarizerOptionProvider,
                      protected readonly changeDetectorRef: ChangeDetectorRef) {
-    this._groupId = this.options?.groupId || uuid();
+
+    const options = this.optionsProvider.getOption();
+    this._groupId = options?.groupId || uuid();
     this._idToLabel = {};
     this._idToTemplate = {};
     this._idToInstance = {};

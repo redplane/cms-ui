@@ -3,7 +3,7 @@ import {InjectFlags, Injector} from '@angular/core';
 import {from, Observable} from 'rxjs';
 import {NavigationExtras, Router, UrlTree} from '@angular/router';
 import {merge as lodashMerge, template, templateSettings} from 'lodash-es';
-import {SMART_NAVIGATOR_ROUTES, SMART_NAVIGATOR_SCREEN_CODE_RESOLVER} from '../../constants/injectors';
+import {SMART_NAVIGATOR_ROUTES, SMART_NAVIGATOR_SCREEN_CODE_RESOLVER} from '../../constants/injectors/injectors';
 import {NavigateToScreenRequest} from '../../models/implementations/smart-navigators/navigate-to-screen-request';
 import {IScreenCodeResolver} from '../interfaces/screen-code-resolver.interface';
 import {SmartNavigatorExceptions} from '../../constants/smart-navigator-exceptions';

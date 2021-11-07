@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {ValidationSummarizerRoutingModule} from './validation-summarizer-routing.module';
 import {ValidationSummarizerDemoComponent} from './validation-summarizer-demo.component';
 import {FormsModule} from '@angular/forms';
-import {SmartNavigatorModule, VALIDATION_SUMMARIZER_PROVIDER, ValidationSummarizerModule} from '@cms-ui/core';
+import {SmartNavigatorModule, VALIDATION_SUMMARIZER_SERVICE, ValidationSummarizerModule} from '@cms-ui/core';
 import {CommonModule} from '@angular/common';
 import {TranslateModule} from '@ngx-translate/core';
 import {TranslatedValidationSummarizerService} from '../../services/implementations/translated-validation-summarizer.service';
@@ -19,7 +19,7 @@ import {HttpClientModule} from '@angular/common/http';
     TranslateModule.forChild(),
     ValidationSummarizerModule.forRoot({
       validatorProvider: {
-        provide: VALIDATION_SUMMARIZER_PROVIDER,
+        provide: VALIDATION_SUMMARIZER_SERVICE,
         useClass: TranslatedValidationSummarizerService
       },
       validationMessages: {

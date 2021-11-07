@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {BasicMultipleValidationSummarizerFields} from './basic-multiple-validation-summarizer-fields';
-import {IValidationSummarizerService, MULTIPLE_VALIDATION_SUMMARIZER_SERVICE_PROVIDER} from '@cms-ui/core';
+import {IValidationSummarizerService, MULTIPLE_VALIDATION_SUMMARIZER_SERVICE} from '@cms-ui/core';
 
 @Component({
   selector: 'basic-multiple-validation-summarizer-demo',
@@ -22,24 +22,26 @@ import {IValidationSummarizerService, MULTIPLE_VALIDATION_SUMMARIZER_SERVICE_PRO
     </cms-multiple-validation-summarizer>
     <ng-container [formGroup]="formGroup">
       <!--Name-->
-      <label>Name</label>
+      <label [class.is-required]="formGroup.get(controlNames.nameControl) | hasValidators: ['required']">Name</label>
       <div class="mb-2">
         <input class="form-control"
                [formControlName]="controlNames.nameControl">
       </div>
 
       <!--Password-->
-      <label>Password</label>
+      <label [class.is-required]="formGroup.get(controlNames.passwordControl) | hasValidators: ['required']">Password</label>
       <div class="mb-2">
         <input class="form-control"
-               [formControlName]="controlNames.passwordControl">
+               [formControlName]="controlNames.passwordControl"
+               [validation-summarizer-control-watch]="formGroup.get(controlNames.confirmPasswordControl)">
       </div>
 
       <!--Confirm password-->
-      <label>Confirm password</label>
+      <label [class.is-required]="formGroup.get(controlNames.confirmPasswordControl) | hasValidators: ['required']">Confirm password</label>
       <div class="mb-2">
         <input class="form-control"
-               [formControlName]="controlNames.confirmPasswordControl">
+               [formControlName]="controlNames.confirmPasswordControl"
+               [validation-summarizer-control-watch]="formGroup.get(controlNames.passwordControl)">
       </div>
       <button class="btn btn-outline-primary" type="button" (click)="clickDoValidation()">Do validation</button>
     </ng-container>
@@ -80,7 +82,7 @@ export class BasicMultipleValidationSummarizerComponent {
 
   //#region Constructor
 
-  public constructor(@Inject(MULTIPLE_VALIDATION_SUMMARIZER_SERVICE_PROVIDER)
+  public constructor(@Inject(MULTIPLE_VALIDATION_SUMMARIZER_SERVICE)
                      protected readonly multipleValidationSummarizerService: IValidationSummarizerService) {
     this._formGroup = new BasicMultipleValidationSummarizerFields().toFormGroup();
   }

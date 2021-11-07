@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, ElementRef, Inject, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormControlDirective, NgControl, NgModel} from '@angular/forms';
 import {Subscription} from 'rxjs';
-import {VALIDATION_SUMMARIZER_PROVIDER} from '../../../../constants';
+import {VALIDATION_SUMMARIZER_SERVICE} from '../../../../constants';
 import {IValidationSummarizerService} from '../../../../services';
 
-export abstract class ValidationSummarizerClassBase implements OnInit, OnDestroy {
+export abstract class ValidatorClassBase implements OnInit, OnDestroy {
 
   //#region Properties
 
@@ -45,7 +45,7 @@ export abstract class ValidationSummarizerClassBase implements OnInit, OnDestroy
 
   //#region Constructor
 
-  protected constructor(@Inject(VALIDATION_SUMMARIZER_PROVIDER)
+  protected constructor(@Inject(VALIDATION_SUMMARIZER_SERVICE)
                         protected readonly validationSummarizerService: IValidationSummarizerService,
                         protected readonly changeDetectorRef: ChangeDetectorRef,
                         protected readonly elementRef: ElementRef) {

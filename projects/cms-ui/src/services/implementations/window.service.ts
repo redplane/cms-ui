@@ -1,6 +1,6 @@
 import {isPlatformBrowser} from '@angular/common';
 import {ClassProvider, FactoryProvider, Injectable, PLATFORM_ID} from '@angular/core';
-import {WINDOW} from '../../constants/internal-injectors';
+import {WINDOW} from '../../constants/injectors/internal-injectors';
 
 /* Define abstract class for obtaining reference to the global window object. */
 export abstract class WindowRef {

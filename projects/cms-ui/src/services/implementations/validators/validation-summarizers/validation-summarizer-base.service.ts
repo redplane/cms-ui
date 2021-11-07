@@ -1,7 +1,6 @@
 import {merge as lodashMerge} from 'lodash-es';
-import {v4 as uuid} from 'uuid';
-import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, NgForm, ValidationErrors} from '@angular/forms';
-import {ValidationMessage} from '../../../models';
+import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, NgForm, NgModel, ValidationErrors} from '@angular/forms';
+import {ValidationMessage} from '../../../../models';
 import {EventEmitter} from '@angular/core';
 
 export class ValidationSummarizerBaseService {
@@ -100,22 +99,30 @@ export class ValidationSummarizerBaseService {
   }
 
   // Whether component has been attached with any multiple-validation-summarizers or not.
-  public hasValidator(name: string, ngControl: NgControl): boolean {
+  public hasValidator(name: string, ngControl: AbstractControl | NgControl | NgModel): boolean {
 
     if (!ngControl) {
       return false;
     }
 
-    const control = ngControl.control;
-    if (!control) {
+    let actualControl: AbstractControl | null = null;
+    if (ngControl instanceof NgControl) {
+      actualControl = ngControl.control;
+    } else if (ngControl instanceof NgModel) {
+      actualControl = (ngControl as NgModel).control;
+    } else if (ngControl instanceof AbstractControl) {
+      actualControl = ngControl;
+    }
+
+    if (!actualControl) {
       return false;
     }
 
-    if (!control.validator) {
+    if (!actualControl.validator) {
       return false;
     }
 
-    const validator = control.validator({} as AbstractControl);
+    const validator = actualControl.validator({} as AbstractControl);
     if (!validator) {
       return false;
     }
@@ -183,16 +190,6 @@ export class ValidationSummarizerBaseService {
     } catch (exception) {
       // Suppress error.
     }
-  }
-
-  // Except empty string
-  public isEmptyString(keyword: string): boolean {
-
-    if (!keyword || keyword && keyword.trim() === '') {
-      return false;
-    }
-
-    return true;
   }
 
   // Get control validation errors.

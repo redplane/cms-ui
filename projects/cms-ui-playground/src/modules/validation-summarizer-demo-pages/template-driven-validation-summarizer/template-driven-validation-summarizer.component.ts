@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {Account} from '../../../models/account';
-import {IValidationSummarizerService, VALIDATION_SUMMARIZER_PROVIDER} from '@cms-ui/core';
+import {IValidationSummarizerService, VALIDATION_SUMMARIZER_SERVICE} from '@cms-ui/core';
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -10,6 +10,7 @@ import {NgForm} from '@angular/forms';
           (submit)="$event.preventDefault()"
           #f="ngForm">
       <label [validation-summarizer-class]
+             [class.is-required]="name | hasValidators:['required']"
              [instance]="name">Name</label>
       <div class="mb-2">
         <input class="form-control"
@@ -50,7 +51,7 @@ export class TemplateDrivenValidationSummarizerComponent {
 
   //#region Constructor
 
-  public constructor(@Inject(VALIDATION_SUMMARIZER_PROVIDER) protected readonly validationSummarizerService: IValidationSummarizerService) {
+  public constructor(@Inject(VALIDATION_SUMMARIZER_SERVICE) protected readonly validationSummarizerService: IValidationSummarizerService) {
     this.model = new Account();
   }
 

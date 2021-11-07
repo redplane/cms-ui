@@ -1,4 +1,4 @@
-export * from './injectors';
+export * from './injectors/index';
 export * from './built-in-validation-message.constant';
 export * from './data-type.constant';
 

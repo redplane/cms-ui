@@ -1,28 +1,28 @@
 import {NgModule} from '@angular/core';
 import {BasicMultipleValidationSummarizerComponent} from './basic-multiple-validation-summarizer.component';
-import {MultipleValidationSummarizerModule} from '@cms-ui/core';
-import {AbstractControl, NgControl, ReactiveFormsModule} from '@angular/forms';
+import {MultipleValidationSummarizerModule, ValidationSummarizerModule} from '@cms-ui/core';
+import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 import {CommonModule} from '@angular/common';
-
-export function shouldValidationSummarizerVisible(ngControl: AbstractControl | NgControl): boolean {
-  return ngControl.invalid || true;
-}
+import {CommonValidatorModule} from '@cms-ui/core';
+import {HasAnyValidatorsModule} from '../../../../../cms-ui/src/modules/validator/pipes/has-validators/has-any-validators.module';
 
 @NgModule({
-    imports: [
-        RouterModule.forChild([
-            {
-                path: '',
-                component: BasicMultipleValidationSummarizerComponent
-            }
-        ]),
-        MultipleValidationSummarizerModule.forChild(),
-        ReactiveFormsModule,
-        TranslateModule.forChild(),
-        CommonModule
-    ],
+  imports: [
+    RouterModule.forChild([
+      {
+        path: '',
+        component: BasicMultipleValidationSummarizerComponent
+      }
+    ]),
+    MultipleValidationSummarizerModule.forRoot(),
+    CommonValidatorModule.forRoot(),
+    ReactiveFormsModule,
+    TranslateModule.forChild(),
+    CommonModule,
+    HasAnyValidatorsModule.forRoot()
+  ],
   declarations: [
     BasicMultipleValidationSummarizerComponent
   ],

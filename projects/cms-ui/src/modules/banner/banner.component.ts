@@ -11,7 +11,7 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {BANNER_BUILDER_PROVIDER, BANNER_SERVICE_PROVIDER} from '../../constants/injectors';
+import {BANNER_BUILDER_PROVIDER, BANNER_SERVICE_PROVIDER} from '../../constants/injectors/injectors';
 import {Observable, of, Subscription, throwError} from 'rxjs';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent} from '@angular/router';
 import {filter, map, mergeMap, retryWhen, switchMap, tap} from 'rxjs/operators';
@@ -22,7 +22,7 @@ import {BannerService} from '../../services/implementations/banners/banner.servi
 import {IDisplayBannerRequest} from '../../models/interfaces/banners/add-banner-content-request.interface';
 import {IBannerContentComponent} from '../../models/interfaces/banners/banner-content-component.interface';
 import {IDeleteBannerRequest} from '../../models/interfaces/banners/delete-banner-content-request.interface';
-import {WINDOW} from '../../constants/internal-injectors';
+import {WINDOW} from '../../constants/injectors/internal-injectors';
 
 @Component({
   // tslint:disable-next-line:component-selector

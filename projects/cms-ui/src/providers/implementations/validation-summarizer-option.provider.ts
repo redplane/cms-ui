@@ -1,7 +1,7 @@
-import {IValidationSummarizerOptionProvider} from '../interfaces/validation-summarizer-option-provider.interface';
+import {IValidationSummarizerOptionProvider} from '../interfaces/validation-summarizer-options-provider.interface';
 import {IValidationSummarizerModuleOptions} from '../../models';
 import {Inject} from '@angular/core';
-import {VALIDATION_SUMMARIZER_OPTIONS} from '../../constants/internal-injectors';
+import {VALIDATION_SUMMARIZER_OPTIONS} from '../../constants/injectors/internal-injectors';
 import {merge as lodashMerge} from 'lodash-es';
 
 export class ValidationSummarizerOptionProvider

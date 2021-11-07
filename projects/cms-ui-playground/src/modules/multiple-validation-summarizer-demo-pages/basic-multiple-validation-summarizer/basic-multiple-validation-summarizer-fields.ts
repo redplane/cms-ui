@@ -36,7 +36,6 @@ export class BasicMultipleValidationSummarizerFields {
     this._formGroup.addControl(BasicMultipleValidationSummarizerFields.passwordControl, passwordControl);
 
     const confirmPasswordControl = new FormControl('', [
-      Validators.required,
       TextValidator.match(passwordControl)
     ]);
     this._formGroup.addControl(BasicMultipleValidationSummarizerFields.confirmPasswordControl, confirmPasswordControl);

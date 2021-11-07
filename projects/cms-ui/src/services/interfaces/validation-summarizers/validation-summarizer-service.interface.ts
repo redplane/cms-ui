@@ -1,4 +1,4 @@
-import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, NgForm, ValidationErrors} from '@angular/forms';
+import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, NgForm, NgModel, ValidationErrors} from '@angular/forms';
 import {ValidationMessage} from '../../../models/implementations/validation-summarizers/validation-message';
 import {Observable, Subject} from 'rxjs';
 
@@ -13,7 +13,7 @@ export interface IValidationSummarizerService {
   loadControlValidationMessages(controlLabel: string, control: AbstractControl | NgControl | null): ValidationMessage[] | null;
 
   // Get all available multiple-validation-summarizers belong to control.
-  hasValidator(name: string, ngControl: NgControl): boolean;
+  hasValidator(name: string, ngControl: NgControl | AbstractControl | NgModel): boolean;
 
   // Update a dictionary which is used for formatting validation message.
   // key: Validation property (required, min, max, ....)
@@ -26,9 +26,6 @@ export interface IValidationSummarizerService {
 
   // Mark control as dirty and trigger control validation.
   doControlValidation(control: AbstractControl | FormGroup | FormControlDirective): void;
-
-  // Except empty string
-  isEmptyString(keyword: string): boolean;
 
   // Get control validation errors.
   loadControlValidationErrors(control: AbstractControl | FormGroup): ValidationErrors | null;

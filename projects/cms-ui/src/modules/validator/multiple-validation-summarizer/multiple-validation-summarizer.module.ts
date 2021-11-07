@@ -1,13 +1,14 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {MultipleValidationSummarizerComponent} from './multiple-validation-summarizer.component';
 import {CommonModule} from '@angular/common';
-import {MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS, MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS_PROVIDER} from '../../../constants';
 import {MultipleValidationSummarizerItemContextDirective} from './directives/multiple-validation-summarizer-item-context.directive';
-import {buildMultipleValidationSummarizerService} from '../../../factories/multiple-validation-summarizer.factory';
-import {IMultipleValidationSummarizerOptions} from '../../../models/interfaces/multiple-validation-summarizers/multiple-validation-summarizer-options.interface';
-import {MultipleValidationSummarizerOptionProvider}
-  from '../../../providers/implementations/multiple-validation-summarizer-option.provider';
+import {
+  buildMultipleValidationSummarizerOptions,
+  buildMultipleValidationSummarizerOptionsProvider,
+  buildMultipleValidationSummarizerService
+} from '../../../factories/multiple-validation-summarizer.factory';
 import {ValidationSummarizerModule} from '../validation-summarizer';
+import {IValidationSummarizerModuleOptions, IValidationSummarizerOptions} from '../../../models';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import {ValidationSummarizerModule} from '../validation-summarizer';
   ],
   imports: [
     CommonModule,
-    ValidationSummarizerModule,
+    ValidationSummarizerModule
   ],
   exports: [
     MultipleValidationSummarizerComponent,
@@ -28,25 +29,16 @@ export class MultipleValidationSummarizerModule {
   //#region For root method
 
   public static forRoot(
-    options?: Partial<IMultipleValidationSummarizerOptions>)
+    options?: Partial<IValidationSummarizerModuleOptions>)
     : ModuleWithProviders<MultipleValidationSummarizerModule> {
     return {
       ngModule: MultipleValidationSummarizerModule,
       providers: [
-
         // Option
-        {
-          provide: MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS,
-          useValue: options,
-          multi: true
-        },
+        buildMultipleValidationSummarizerOptions(options),
 
         // Option provider
-        {
-          provide: MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS_PROVIDER,
-          useClass: MultipleValidationSummarizerOptionProvider,
-          deps: [MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS]
-        },
+        buildMultipleValidationSummarizerOptionsProvider(),
 
         // Build service
         buildMultipleValidationSummarizerService()
@@ -59,25 +51,16 @@ export class MultipleValidationSummarizerModule {
   //#region For child method
 
   public static forChild(
-    options?: Partial<IMultipleValidationSummarizerOptions>)
+    options?: Partial<IValidationSummarizerOptions>)
     : ModuleWithProviders<MultipleValidationSummarizerModule> {
     return {
       ngModule: MultipleValidationSummarizerModule,
       providers: [
-
         // Option
-        {
-          provide: MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS,
-          useValue: options,
-          multi: true
-        },
+        buildMultipleValidationSummarizerOptions(options),
 
         // Option provider
-        {
-          provide: MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS_PROVIDER,
-          useClass: MultipleValidationSummarizerOptionProvider,
-          deps: [MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS]
-        },
+        buildMultipleValidationSummarizerOptionsProvider(),
 
         // Build service
         buildMultipleValidationSummarizerService()

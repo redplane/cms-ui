@@ -4,7 +4,7 @@ import {Provider} from '@angular/core';
 import {
   NULL_BANNER_CONTENT_BUILDER_SERVICE_PROVIDER,
   NULL_BANNER_SERVICE_PROVIDER
-} from '../constants/internal-injectors';
+} from '../constants/injectors/internal-injectors';
 import {BANNER_SERVICE_PROVIDER} from '../constants';
 
 //#region Services
