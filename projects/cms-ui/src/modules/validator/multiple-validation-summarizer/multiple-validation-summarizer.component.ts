@@ -11,7 +11,7 @@ import {
   QueryList,
   TemplateRef
 } from '@angular/core';
-import {AbstractControl, FormControlDirective, FormGroup, NgControl} from '@angular/forms';
+import {AbstractControl, FormControlDirective, FormGroup, NgControl, ValidationErrors} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
 import {
   MULTIPLE_VALIDATION_SUMMARIZER_CONTEXT_CHANGED_EVENT,
@@ -71,6 +71,9 @@ export class MultipleValidationSummarizerComponent implements OnInit, AfterConte
 
   // Id to instance.
   private _idToInstance: { [id: string]: AbstractControl | FormGroup | FormControlDirective | null };
+
+  // Id to validation errors.
+  private _idToValidationError: { [id: string]: ValidationErrors };
 
   // Handler for handling summarizer visibility.
   // tslint:disable-next-line:variable-name
@@ -154,6 +157,7 @@ export class MultipleValidationSummarizerComponent implements OnInit, AfterConte
     this._idToLabel = {};
     this._idToTemplate = {};
     this._idToInstance = {};
+    this._idToValidationError = {};
     this._visibilityHandler = options.visibilityHandler || basicValidationHandler;
     this._hasInvalidField = false;
     this._subscription = new Subscription();
@@ -193,6 +197,16 @@ export class MultipleValidationSummarizerComponent implements OnInit, AfterConte
 
   //#region Methods
 
+  // Whether control has validation error or not.
+  public shouldControlHasValidationError(id: string): boolean {
+    if (!id || !this._idToValidationError) {
+      return false;
+    }
+
+    const validationError = this._idToValidationError[id];
+    return validationError !== null && validationError !== undefined;
+  }
+
   //#endregion
 
   //#region Internal methods
@@ -206,6 +220,7 @@ export class MultipleValidationSummarizerComponent implements OnInit, AfterConte
     this._idToLabel = {};
     this._idToTemplate = {};
     this._hasInvalidField = false;
+    this._idToValidationError = {};
 
     // Invalid item collection.
     if (!this.itemContexts || !this.itemContexts.length) {
@@ -300,6 +315,8 @@ export class MultipleValidationSummarizerComponent implements OnInit, AfterConte
       return false;
     }
 
+    let hasValidationError = false;
+
     for (const id of ids) {
       const instance = this.idToInstance[id];
       if (!instance) {
@@ -311,15 +328,16 @@ export class MultipleValidationSummarizerComponent implements OnInit, AfterConte
         continue;
       }
 
+      this._idToValidationError[id] = validationErrors;
       const shouldValidationErrorVisible = this.visibilityHandler ? this._visibilityHandler(instance) : false;
       if (!shouldValidationErrorVisible) {
         continue;
       }
 
-      return true;
+      hasValidationError = true;
     }
 
-    return false;
+    return hasValidationError;
   }
 
   //#endregion

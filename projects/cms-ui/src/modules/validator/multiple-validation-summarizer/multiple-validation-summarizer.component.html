@@ -1,6 +1,6 @@
 <ul *ngIf="hasInvalidField">
   <ng-container *ngFor="let itemContext of itemContexts">
-    <cms-validation-summarizer *ngIf="idToInstance[itemContext.id]"
+    <cms-validation-summarizer *ngIf="idToInstance[itemContext.id] && shouldControlHasValidationError(itemContext.id)"
                                [instance]="idToInstance[itemContext.id]"
                                [label]="idToLabel[itemContext.id]"
                                [validation-template]="idToTemplate[itemContext.id] || validationSummarizerTemplate">
