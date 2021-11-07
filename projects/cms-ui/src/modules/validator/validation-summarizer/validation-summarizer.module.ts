@@ -1,10 +1,9 @@
-import {ModuleWithProviders, NgModule, Provider} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ValidationSummarizerComponent} from './validation-summarizer.component';
-import {VALIDATION_SUMMARIZER_OPTION_PROVIDER, VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants';
 import {IValidationSummarizerModuleOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 import {ValidationSummarizerItemDirective} from './validation-summarizer-item/validation-summarizer-item.directive';
-import {VALIDATION_SUMMARIZER_OPTION} from '../../../constants/internal-injectors';
+import {VALIDATION_SUMMARIZER_OPTIONS} from '../../../constants/internal-injectors';
 import {
   buildNullValidatorService,
   buildValidationSummarizerOptionProvider,
@@ -13,6 +12,7 @@ import {
 import {ValidationSummarizerClassDirective} from './validation-summarizer-directive/validation-summarizer-class.directive';
 import {ValidationSummarizerControlClassDirective} from './validation-summarizer-directive/validation-summarizer-control-class.directive';
 import {ValidationSummarizerControlWatchDirective} from './validation-summarizer-directive/validation-summarizer-control-watch.directive';
+import {VALIDATION_SUMMARIZER_OPTION_PROVIDER} from '../../../constants';
 
 
 @NgModule({
@@ -46,7 +46,7 @@ export class ValidationSummarizerModule {
 
         // Custom partial option providers.
         {
-          provide: VALIDATION_SUMMARIZER_OPTION,
+          provide: VALIDATION_SUMMARIZER_OPTIONS,
           useValue: options,
           multi: true
         },
@@ -55,7 +55,7 @@ export class ValidationSummarizerModule {
         {
           provide: VALIDATION_SUMMARIZER_OPTION_PROVIDER,
           useFactory: buildValidationSummarizerOptionProvider,
-          deps: [VALIDATION_SUMMARIZER_OPTION]
+          deps: [VALIDATION_SUMMARIZER_OPTIONS]
         },
 
         // Build validator provider.
@@ -71,14 +71,14 @@ export class ValidationSummarizerModule {
       ngModule: ValidationSummarizerModule,
       providers: [
         {
-          provide: VALIDATION_SUMMARIZER_OPTION,
+          provide: VALIDATION_SUMMARIZER_OPTIONS,
           useValue: options,
           multi: true
         },
         {
           provide: VALIDATION_SUMMARIZER_OPTION_PROVIDER,
           useFactory: buildValidationSummarizerOptionProvider,
-          deps: [VALIDATION_SUMMARIZER_OPTION]
+          deps: [VALIDATION_SUMMARIZER_OPTIONS]
         },
 
         // Validation summarizer service registration.

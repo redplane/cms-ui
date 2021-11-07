@@ -12,7 +12,7 @@ export interface IValidationSummarizerService {
   // Get all control validation messages.
   loadControlValidationMessages(controlLabel: string, control: AbstractControl | NgControl | null): ValidationMessage[] | null;
 
-  // Get all available validators belong to control.
+  // Get all available multiple-validation-summarizers belong to control.
   hasValidator(name: string, ngControl: NgControl): boolean;
 
   // Update a dictionary which is used for formatting validation message.

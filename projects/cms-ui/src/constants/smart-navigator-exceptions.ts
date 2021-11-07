@@ -1,4 +1,4 @@
-export class SmartNavigatorExceptionConstant {
+export class SmartNavigatorExceptions {
 
   //#region Properties
 

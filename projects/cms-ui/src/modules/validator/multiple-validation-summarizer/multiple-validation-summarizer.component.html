@@ -1,11 +1,11 @@
 <ul *ngIf="hasInvalidField">
-  <cms-validation-summarizer *ngFor="let instance of instances"
-                             [instance]="instance.control"
-                             [label]="instance.label"
-                             [visibility-handler]="visibilityHandler"
-                             [group-id]="groupId"
-                             [validation-template]="validationSummarizerTemplate">
-  </cms-validation-summarizer>
+  <ng-container *ngFor="let itemContext of itemContexts">
+    <cms-validation-summarizer *ngIf="idToInstance[itemContext.id]"
+                               [instance]="idToInstance[itemContext.id]"
+                               [label]="idToLabel[itemContext.id]"
+                               [validation-template]="idToTemplate[itemContext.id] || validationSummarizerTemplate">
+    </cms-validation-summarizer>
+  </ng-container>
 </ul>
 
 
@@ -17,6 +17,6 @@
   let-validationMessages="validationMessages"
 >
   <li *ngFor="let validationMessage of validationMessages;">
-    {{validationMessage.content}}
+    {{controlLabel}} {{validationMessage | json}}
   </li>
 </ng-template>

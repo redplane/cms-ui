@@ -5,8 +5,9 @@ import {IBannerContentBuilder, IBannerService, IValidationSummarizerService} fro
 
 // Validation summarizer option.
 // tslint:disable-next-line:max-line-length
-export const VALIDATION_SUMMARIZER_OPTION = new InjectionToken<IValidationSummarizerModuleOptions>('VALIDATION_SUMMARIZER_OPTIONS_PROVIDER');
+export const VALIDATION_SUMMARIZER_OPTIONS = new InjectionToken<IValidationSummarizerModuleOptions>('VALIDATION_SUMMARIZER_OPTIONS_PROVIDER');
 export const NULL_VALIDATION_SUMMARIZER_PROVIDER = new InjectionToken<IValidationSummarizerService>('BLANK_VALIDATION_SUMMARIZER_PROVIDER');
+
 
 // Banner
 export const NULL_BANNER_SERVICE_PROVIDER = new InjectionToken<IBannerService>('NULL_BANNER_SERVICE_PROVIDER');

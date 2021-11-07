@@ -1,7 +1,7 @@
 import {IValidationSummarizerOptionProvider} from '../interfaces/validation-summarizer-option-provider.interface';
 import {IValidationSummarizerModuleOptions} from '../../models';
 import {Inject} from '@angular/core';
-import {VALIDATION_SUMMARIZER_OPTION} from '../../constants/internal-injectors';
+import {VALIDATION_SUMMARIZER_OPTIONS} from '../../constants/internal-injectors';
 import {merge as lodashMerge} from 'lodash-es';
 
 export class ValidationSummarizerOptionProvider
@@ -9,7 +9,7 @@ export class ValidationSummarizerOptionProvider
 
   //#region Constructor
 
-  public constructor(@Inject(VALIDATION_SUMMARIZER_OPTION)
+  public constructor(@Inject(VALIDATION_SUMMARIZER_OPTIONS)
                      protected options: IValidationSummarizerModuleOptions[]) {
   }
 

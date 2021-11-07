@@ -1,7 +1,7 @@
 import {IValidationSummarizerModuleOptions} from '../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 import {IValidationSummarizerOptionProvider, ValidationSummarizerOptionProvider} from '../providers';
 import {IValidationSummarizerService} from '../services';
-import {ValidationSummarizerService} from '../services/implementations/validation-summarizer.service';
+import {ValidationSummarizerService} from '../services/implementations/validation-summarizers/validation-summarizer.service';
 import {Provider} from '@angular/core';
 import {VALIDATION_SUMMARIZER_OPTION_PROVIDER, VALIDATION_SUMMARIZER_PROVIDER} from '../constants';
 import {NULL_VALIDATION_SUMMARIZER_PROVIDER} from '../constants/internal-injectors';

@@ -1,42 +1,56 @@
 import {Component, Inject} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {BasicValidationSummarizerFields} from './basic-validation-summarizer-fields';
-import {IValidationSummarizerService, VALIDATION_SUMMARIZER_PROVIDER} from '@cms-ui/core';
+import {FormGroup} from '@angular/forms';
+import {BasicMultipleValidationSummarizerFields} from './basic-multiple-validation-summarizer-fields';
+import {IValidationSummarizerService, MULTIPLE_VALIDATION_SUMMARIZER_SERVICE_PROVIDER} from '@cms-ui/core';
 
 @Component({
   selector: 'basic-multiple-validation-summarizer-demo',
   template: `
-
-    <!--Multiple valdiation summarizer-->
-    <cms-multiple-validation-summarizer></cms-multiple-validation-summarizer>
-
+    <!--Multiple validation summarizer-->
+    <cms-multiple-validation-summarizer>
+      <!--Name-->
+      <item-context [instance]="formGroup.get(controlNames.nameControl)"
+                    [label]="'Name'"
+                    [template]="validationTemplate">
+      </item-context>
+      <!--Password-->
+      <item-context [instance]="formGroup.get(controlNames.passwordControl)"
+                    [label]="'Password'"></item-context>
+      <!--Confirm password-->
+      <item-context [instance]="formGroup.get(controlNames.confirmPasswordControl)"
+                    [label]="'Confirm password'"></item-context>
+    </cms-multiple-validation-summarizer>
     <ng-container [formGroup]="formGroup">
-
-      <label [validation-summarizer-class]
-             [instance]="nameControl">Name</label>
+      <!--Name-->
+      <label>Name</label>
       <div class="mb-2">
         <input class="form-control"
-               [validation-summarizer-class]
-               [formControl]="nameControl">
+               [formControlName]="controlNames.nameControl">
       </div>
 
-      <label [validation-summarizer-class]="['text-danger']"
-             [instance]="formGroup.get(controlNames.password)">Password</label>
+      <!--Password-->
+      <label>Password</label>
       <div class="mb-2">
         <input class="form-control"
-               [validation-summarizer-class]="['border', 'border-danger']"
-               [formControlName]="controlNames.password">
+               [formControlName]="controlNames.passwordControl">
       </div>
 
-      <label [validation-summarizer-class]="['text-danger']"
-             [instance]="formGroup.get(controlNames.confirmPassword)">Confirm password</label>
+      <!--Confirm password-->
+      <label>Confirm password</label>
       <div class="mb-2">
         <input class="form-control"
-               [validation-summarizer-control-watch]="formGroup.get(controlNames.password)"
-               [formControlName]="controlNames.confirmPassword">
+               [formControlName]="controlNames.confirmPasswordControl">
       </div>
       <button class="btn btn-outline-primary" type="button" (click)="clickDoValidation()">Do validation</button>
-    </ng-container>`
+    </ng-container>
+
+    <ng-template #validationTemplate
+                 let-controlLabel="controlLabel"
+                 let-validationMessages="validationMessages">
+      <li *ngFor="let validationMessage of validationMessages">
+        {{controlLabel}} {{validationMessage.content}}
+      </li>
+    </ng-template>`
 })
 export class BasicMultipleValidationSummarizerComponent {
 
@@ -44,9 +58,6 @@ export class BasicMultipleValidationSummarizerComponent {
 
   // tslint:disable-next-line:variable-name
   private readonly _formGroup: FormGroup;
-
-  // Name control.
-  public readonly nameControl: FormControl;
 
   //#endregion
 
@@ -56,24 +67,22 @@ export class BasicMultipleValidationSummarizerComponent {
     return this._formGroup;
   }
 
+
   //#endregion
 
   //#region Accessors
 
-  public get controlNames(): typeof BasicValidationSummarizerFields {
-    return BasicValidationSummarizerFields;
+  public get controlNames(): typeof BasicMultipleValidationSummarizerFields {
+    return BasicMultipleValidationSummarizerFields;
   }
 
   //#endregion
 
   //#region Constructor
 
-  public constructor(@Inject(VALIDATION_SUMMARIZER_PROVIDER)
-                     protected readonly validationSummarizerService: IValidationSummarizerService) {
-
-    this.nameControl = new FormControl(null, [Validators.required]);
-    this._formGroup = new BasicValidationSummarizerFields().toFormGroup();
-    this._formGroup.addControl('name', this.nameControl);
+  public constructor(@Inject(MULTIPLE_VALIDATION_SUMMARIZER_SERVICE_PROVIDER)
+                     protected readonly multipleValidationSummarizerService: IValidationSummarizerService) {
+    this._formGroup = new BasicMultipleValidationSummarizerFields().toFormGroup();
   }
 
   //#endregion
@@ -81,7 +90,7 @@ export class BasicMultipleValidationSummarizerComponent {
   //#region Methods
 
   public clickDoValidation(): void {
-    this.validationSummarizerService.doFormControlsValidation(this.formGroup);
+    this.multipleValidationSummarizerService.doFormControlsValidation(this.formGroup);
   }
 
   //#endregion

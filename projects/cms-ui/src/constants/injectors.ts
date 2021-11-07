@@ -7,10 +7,9 @@ import {IBannerContentBuilder, IDialogService} from '../services';
 import {IDialogBuilder} from '../services/interfaces/dialogs/dialog-builder.interface';
 import {IScreenCodeResolver} from '../services/interfaces/screen-code-resolver.interface';
 import {IValidationSummarizerItemTemplateBuilder} from '../services/interfaces/validation-summarizers/validation-summarizer-item-template-builder.interface';
-import {IValidationSummarizerOptionProvider} from '../providers';
+import {IMultipleValidationSummarizerOptionProvider, IValidationSummarizerOptionProvider} from '../providers';
 import {IMeetRequirementService} from '../modules/sentinel/requirement-sentinel/requirement-sentinel-service.interface';
 import {IFeatureSentinelService, IRequirementHandler, IRoleSentinelService} from '../modules/sentinel';
-import {IMultipleValidationSummarizerItemBuilder} from '../models/interfaces/multiple-validation-summarizers/multiple-validation-summarizer-item-builder.interface';
 import {IMultipleValidationSummarizerOptions} from '../models/interfaces/multiple-validation-summarizers/multiple-validation-summarizer-options.interface';
 
 // Spinner providers.
@@ -33,9 +32,8 @@ export const VALIDATION_SUMMARIZER_OPTION_PROVIDER = new InjectionToken<IValidat
 
 // Multiple validation summarizer
 export const MULTIPLE_VALIDATION_SUMMARIZER_SERVICE_PROVIDER = new InjectionToken<IValidationSummarizerService>('MULTIPLE_VALIDATION_SUMMARIZER_SERVICE_PROVIDER');
-export const MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS_PROVIDER = new InjectionToken<IMultipleValidationSummarizerOptions>('MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS_PROVIDER');
-export const MULTIPLE_VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER =
-  new InjectionToken<IMultipleValidationSummarizerItemBuilder>('MULTIPLE_VALIDATION_ITEM_TEMPLATE_BUILDERS_PROVIDER');
+export const MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS = new InjectionToken<Partial<IMultipleValidationSummarizerOptions>>('MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS_PROVIDER');
+export const MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS_PROVIDER = new InjectionToken<IMultipleValidationSummarizerOptionProvider>('MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS_PROVIDER');
 
 // Dialog providers.
 export const DIALOG_BUILDER_PROVIDER = new InjectionToken<IDialogBuilder>('DIALOG_BUILDER_PROVIDER');

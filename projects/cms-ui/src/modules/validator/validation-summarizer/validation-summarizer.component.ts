@@ -10,7 +10,10 @@ import {
   TemplateRef
 } from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
-import {VALIDATION_SUMMARIZER_OPTION_PROVIDER, VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injectors';
+import {
+  VALIDATION_SUMMARIZER_OPTION_PROVIDER,
+  VALIDATION_SUMMARIZER_PROVIDER
+} from '../../../constants/injectors';
 import {IValidationSummarizerService} from '../../../services/interfaces/validation-summarizers/validation-summarizer-service.interface';
 import {ValidationMessage} from '../../../models/implementations/validation-summarizers/validation-message';
 import {IValidationSummarizerOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-options.interface';

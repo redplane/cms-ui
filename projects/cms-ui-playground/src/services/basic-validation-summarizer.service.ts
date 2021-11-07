@@ -4,7 +4,6 @@ import {
   VALIDATION_SUMMARIZER_OPTION_PROVIDER,
   ValidationSummarizerService
 } from '@cms-ui/core';
-import {TranslateService} from '@ngx-translate/core';
 
 @Injectable()
 export class BasicValidationSummarizerService extends ValidationSummarizerService {
