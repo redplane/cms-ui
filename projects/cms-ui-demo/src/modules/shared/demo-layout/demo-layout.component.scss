@@ -1,9 +1,42 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import 'variables/_z-indexes.scss';
+@import 'variables/component-sizes';
+
 h1.title {
+  color: #{$primary};
   margin-bottom: 0;
   border-bottom: 1px solid rgba(0,0,0,.125);
+  position: fixed;
+  height: #{$navbarHeight};
+  z-index: #{$basicZIndex};
+  left: 0;
+  right: 0;
+  padding-left: #{$container-padding-x};
 }
 
+#demoContent {
+  padding-top: #{$navbarHeight};
+  @include make-row();
+  margin: 0;
+}
 
-.scrollable-y {
-  overflow-y: auto;
+#demoContent > #demoItem {
+  flex: 0 0 #{$demoItemsWidth};
+}
+
+#demoContent > #demoItem > #items {
+  position: fixed;
+  z-index: #{$basicZIndex};
+  width: #{$demoItemsWidth};
+  height: calc( 100vh - (#{$navbarHeight} * 2 ));
+  overflow: auto;
+}
+
+#demoContent > #demoItemContent {
+  padding-top: #{$grid-gutter-width * 0.5};
+  flex: 1 1 0;
+  padding-left: #{$grid-gutter-width};
+  padding-right: #{$grid-gutter-width};
 }

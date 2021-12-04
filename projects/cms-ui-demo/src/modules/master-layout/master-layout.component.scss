@@ -1,8 +1,36 @@
+@import 'variables/_component-sizes.scss';
+@import 'variables/_z-indexes.scss';
+
+//#region Navigation bar
+
+navigation-bar {
+  z-index: #{$navbarZIndex};
+  display: block;
+  height: #{$navbarHeight};
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+//#endregion
+
+//#region Content
+
+.content {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 auto;
+  position: relative;
+}
+
+
+//#endregion
 :host {
+  padding-top: #{$navbarHeight};
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow-y: auto;
 }
 
 ::ng-deep .page {
@@ -12,10 +40,3 @@
   width: 100%;
 }
 
-.content {
-  display: flex;
-  flex-direction: row;
-  flex: 1 1 auto;
-  position: relative;
-  overflow-y: hidden;
-}

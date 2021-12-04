@@ -4,7 +4,7 @@ import {ScreenCodes} from '../../../constants/screen.codes';
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'div[navigation-bar]',
+  selector: 'navigation-bar',
   templateUrl: 'navigation-bar.component.html',
   styleUrls: ['navigation-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

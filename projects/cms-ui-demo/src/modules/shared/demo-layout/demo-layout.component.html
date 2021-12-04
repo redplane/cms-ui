@@ -3,16 +3,17 @@
 <!--  <small>{{secondaryTitle | translate}}</small>-->
 </h1>
 
-<!-- Content Row -->
-<div class="d-flex flex-grow-1 flex-shrink-1 overflow-y-hidden">
-  <!-- Sidebar Column -->
-  <div class="col-lg-3 col-md-4 pe-0 scrollable-y">
-    <ng-template #demoItemsLayout></ng-template>
+<div id="demoContent">
+  <!-- Demo items -->
+  <div id="demoItem">
+    <div id="items" class="slim-scrollbar shadow-sm bg-light">
+      <ng-template #demoItemsLayout></ng-template>
+    </div>
   </div>
 
-  <!-- Content Column -->
-  <div class="col-lg-9 col-md-8 ps-0 scrollable-y pt-1">
+  <!-- Demo item content -->
+  <div id="demoItemContent">
     <router-outlet></router-outlet>
   </div>
 </div>
-<!-- /.row -->
+

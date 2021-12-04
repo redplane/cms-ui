@@ -4,7 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'body[app-root]',
-  templateUrl: './app.component.html',
+  template: `<router-outlet></router-outlet>`,
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {

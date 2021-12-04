@@ -71,6 +71,11 @@
             "styles": [
               "projects/cms-ui-demo/src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/cms-ui-demo/src/styles"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
