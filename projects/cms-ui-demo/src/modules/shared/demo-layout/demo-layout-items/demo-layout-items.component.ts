@@ -1,8 +1,10 @@
-import {ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, Optional} from '@angular/core';
-import {DemoLayoutItem} from './demo-layout-item';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {DEMO_LAYOUT_ITEMS_BUILDER_PROVIDER} from '../../../../constants/injectors';
-import {BaseDemoLayoutItemsBuilder} from './base-demo-layout-items.builder';
+import {DEMO_MODULE_SERVICE} from '../../../../constants/injectors';
+import {UiModule} from '../../../../models/ui-module';
+import {IDemoModuleService} from '../../../../services/interfaces/demo-module-service.interface';
+import {ISpinnerService, SPINNER_SERVICE_PROVIDER} from '@cms-ui/core';
+import {DemoModuleViewModel} from '../../../../view-models/demo-module.view-model';
 
 @Component({
   selector: 'vsm-demo-items',
@@ -14,7 +16,7 @@ export class DemoLayoutItemsComponent implements OnInit, OnDestroy {
   //#region Properties
 
   // Demo layout items.
-  private _items: DemoLayoutItem[];
+  private _items: UiModule[];
 
   private readonly _subscription: Subscription;
 
@@ -22,7 +24,7 @@ export class DemoLayoutItemsComponent implements OnInit, OnDestroy {
 
   //#region Accessors
 
-  public get items(): DemoLayoutItem[] {
+  public get items(): DemoModuleViewModel[] {
     return this._items;
   }
 
@@ -30,8 +32,8 @@ export class DemoLayoutItemsComponent implements OnInit, OnDestroy {
 
   //#region Constructor
 
-  public constructor(@Optional() @Inject(DEMO_LAYOUT_ITEMS_BUILDER_PROVIDER)
-                     protected readonly demoLayoutItemsBuilder: BaseDemoLayoutItemsBuilder) {
+  public constructor(@Inject(DEMO_MODULE_SERVICE) protected readonly demoModuleService: IDemoModuleService,
+                     protected readonly changeDetectorRef: ChangeDetectorRef) {
     this._items = [];
     this._subscription = new Subscription();
   }
@@ -42,14 +44,14 @@ export class DemoLayoutItemsComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
 
-    if (this.demoLayoutItemsBuilder) {
-      const hookDemoItemBuildSubscription = this.demoLayoutItemsBuilder
-        .loadAvailableDemoItemsAsync()
-        .subscribe(items => {
-          this._items = items;
-        });
-      this._subscription.add(hookDemoItemBuildSubscription);
-    }
+    const loadDemoModulesSubscription = this.demoModuleService
+      .loadDemoModulesAsync()
+      .subscribe(demoModules => {
+        this._items = demoModules;
+        this.changeDetectorRef.markForCheck();
+      });
+    this._subscription.add(loadDemoModulesSubscription);
+
   }
 
   public ngOnDestroy(): void {

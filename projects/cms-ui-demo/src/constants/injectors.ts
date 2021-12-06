@@ -5,6 +5,8 @@ import {IExampleDescriptionLayoutService} from '../modules/shared/example-descri
 import {DemoLayoutService} from '../modules/shared/demo-layout/demo-layout.service';
 import {DemoLayoutItem} from '../modules/shared/demo-layout/demo-layout-items/demo-layout-item';
 import {IModuleDescriptionService} from '../modules/shared/demo-layout/module-description/module-description-service.interface';
+import {IDemoModuleService} from '../services/interfaces/demo-module-service.interface';
+import {ICategoryService} from '../services/interfaces/category-service.interface';
 
 // Demo layout service settings.
 export const DEMO_LAYOUT_SETTINGS = new InjectionToken<DemoLayoutSetting>('DEMO_LAYOUT_SETTINGS');
@@ -27,3 +29,6 @@ export const MODULE_DESCRIPTION_TEMPLATE_PATH_PROVIDER = new InjectionToken<stri
 export const MODULE_DESCRIPTION_SERVICE_PROVIDER = new InjectionToken<IModuleDescriptionService>('MODULE_DESCRIPTION_SERVICE_PROVIDER');
 export const DEMO_PAGE_TEMPLATE_PATH_PROVIDER = new InjectionToken<string>('DEMO_PAGE_TEMPLATE_PATH_PROVIDER');
 export const DEMO_PAGE_SERVICE_PROVIDER = new InjectionToken<string>('DEMO_PAGE_SERVICE_PROVIDER');
+
+export const DEMO_MODULE_SERVICE = new InjectionToken<IDemoModuleService>('DEMO_MODULE_SERVICE');
+export const CATEGORY_SERVICE = new InjectionToken<ICategoryService>('CATEGORY_SERVICE');

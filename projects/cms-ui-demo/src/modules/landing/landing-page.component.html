@@ -1,110 +1,23 @@
 <!-- Page Content -->
 <div class="container">
-
-  <h1 class="my-4">UI controls</h1>
-
-  <!-- Marketing Icons Section -->
-  <div class="row">
-
-    <!--Spinner-->
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">{{'LANDING_PAGE.SPINNER' | translate}}</h4>
-        <div class="card-body">
-          <p class="card-text">{{'LANDING_PAGE.SPINNER_DEMO_DESCRIPTION' | translate}}</p>
-        </div>
-        <div class="card-footer">
-          <a class="btn btn-primary"
-             [routerLink]="screenCodes.spinnerDemo | toRawUrl">
-            {{'LANDING_PAGE.LEARN_MORE' | translate | translate}}
-          </a>
+  <ng-container *ngFor="let category of categories">
+    <h2 class="my-4">{{category.name}}</h2>
+    <div class="row">
+      <div class="col-lg-4 mb-4"
+           *ngFor="let uiModule of category.uiModules">
+        <div class="card h-100">
+          <h4 class="card-header">{{uiModule.name}}</h4>
+          <div class="card-body">
+            <p class="card-text">{{uiModule.description}}</p>
+          </div>
+          <div class="card-footer">
+            <a class="btn btn-primary"
+               [routerLink]="screenCodes.spinnerDemo | toRawUrl">
+              {{'LANDING_PAGE.LEARN_MORE' | translate | translate}}
+            </a>
+          </div>
         </div>
       </div>
     </div>
-
-    <!--Banner-->
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">{{'LANDING_PAGE.BANNER' | translate}}</h4>
-        <div class="card-body">
-          <p class="card-text">{{'LANDING_PAGE.BANNER_DESCRIPTION' | translate}}</p>
-        </div>
-        <div class="card-footer">
-          <a [routerLink]="screenCodes.bannerDemo | toRawUrl"
-             class="btn btn-primary">{{'LANDING_PAGE.LEARN_MORE' | translate | translate}}</a>
-        </div>
-      </div>
-    </div>
-
-    <!--Smart navigator-->
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">{{'LANDING_PAGE.SMART_NAVIGATOR' | translate}}</h4>
-        <div class="card-body">
-          <p class="card-text">{{'LANDING_PAGE.SMART_NAVIGATOR_DESCRIPTION' | translate}}</p>
-        </div>
-        <div class="card-footer">
-          <a class="btn btn-primary"
-             [routerLink]="screenCodes.smartNavigatorDemo | toRawUrl">{{'LANDING_PAGE.LEARN_MORE' | translate | translate}}</a>
-        </div>
-      </div>
-    </div>
-
-
-  </div>
-  <!-- /.row -->
-
-  <h1 class="my-4">{{'LANDING_PAGE.DIALOGS' | translate}}</h1>
-  <div class="row">
-    <!--Modal dialog-->
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">{{'LANDING_PAGE.DIALOG' | translate}}</h4>
-        <div class="card-body">
-          <p class="card-text">{{'LANDING_PAGE.DIALOG_DESCRIPTION' | translate}}</p>
-        </div>
-        <div class="card-footer">
-          <a href="#" class="btn btn-primary"
-             [routerLink]="screenCodes.dialogDemo | toUrlTree | toUrl">
-            {{'LANDING_PAGE.LEARN_MORE' | translate | translate}}</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <h1 class="my-4">{{'LANDING_PAGE.UTILITIES' | translate}}</h1>
-  <div class="row">
-
-    <!--Validation summarizer-->
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">{{'LANDING_PAGE.VALIDATION_SUMMARIZER' | translate}}</h4>
-        <div class="card-body">
-          <p class="card-text">{{'LANDING_PAGE.VALIDATION_SUMMARIZER_DESCRIPTION' | translate}}</p>
-        </div>
-        <div class="card-footer">
-          <a class="btn btn-primary"
-             [routerLink]="screenCodes.validationSummarizerDemo | toRawUrl">
-            {{'LANDING_PAGE.LEARN_MORE' | translate}}
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!--Sentinel demo-->
-    <div class="col-lg-4 mb-4">
-      <div class="card h-100">
-        <h4 class="card-header">{{'LANDING_PAGE.SENTINEL' | translate}}</h4>
-        <div class="card-body">
-          <p class="card-text">{{'LANDING_PAGE.SENTINEL_DESCRIPTION' | translate}}</p>
-        </div>
-        <div class="card-footer">
-          <a [routerLink]="screenCodes.sentinelDemo | toRawUrl"
-             class="btn btn-primary">
-            {{'LANDING_PAGE.LEARN_MORE' | translate}}
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
+  </ng-container>
 </div>

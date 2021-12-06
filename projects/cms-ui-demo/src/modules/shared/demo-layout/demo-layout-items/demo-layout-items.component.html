@@ -1,25 +1,20 @@
 <div class="tree">
-  <ng-template [ngTemplateOutlet]="treeViewItemTemplate"
-               [ngTemplateOutletContext]="{$implicit: items}">
-  </ng-template>
-</div>
-
-<ng-template #treeViewItemTemplate
-             let-items>
   <ul>
     <li *ngFor="let item of items">
       <i class="fa fa-folder-open"></i>
       <span>&nbsp;</span>
-      <a [routerLink]="item.routerLink"
-         [routerLinkActive]="item.routerLinkActive"
-         [routerLinkActiveOptions]="item?.routerLinkActiveOptions || {}">
-        {{item.title | translate}}
+      <a href="#" (click)="$event.preventDefault();">
+        {{item.name| translate}}
       </a>
-      <ng-container *ngIf="item.children && item.children.length">
-        <ng-template [ngTemplateOutlet]="treeViewItemTemplate"
-                     [ngTemplateOutletContext]="{$implicit: item.children}">
-        </ng-template>
-      </ng-container>
+      <ul *ngIf="item.sections && item.sections.length">
+        <li *ngFor="let section of item.sections">
+          <i class="fa fa-folder-open"></i>
+          <span>&nbsp;</span>
+          <a href="#" (click)="$event.preventDefault();">
+            {{section.name| translate}}
+          </a>
+        </li>
+      </ul>
     </li>
   </ul>
-</ng-template>
+</div>
