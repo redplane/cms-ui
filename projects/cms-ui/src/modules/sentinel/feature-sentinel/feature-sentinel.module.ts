@@ -1,13 +1,13 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
-import {RequirePermissionFeatureDirective} from './feature-sentinel.directive';
+import {FeatureSentinelDirective} from './feature-sentinel.directive';
 import {FeatureSentinelOption} from './feature-sentinel-option';
 
 @NgModule({
   declarations: [
-    RequirePermissionFeatureDirective
+    FeatureSentinelDirective
   ],
   exports: [
-    RequirePermissionFeatureDirective
+    FeatureSentinelDirective
   ]
 })
 export class FeatureSentinelModule {

@@ -1,8 +1,8 @@
 import {Directive, Inject, Injector, Input, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControlDirective, FormControlName, NgControl, NgModel} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
-import {COMMON_VALIDATOR_SERVICE} from '../../../../constants';
-import {IValidationSummarizerService} from '../../../../services';
+import {COMMON_VALIDATOR_SERVICE} from '../../../../constants/injectors/common-validator-injectors';
+import {IValidationSummarizerService} from '../../../../services/interfaces/validation-summarizers/validation-summarizer-service.interface';
 
 @Directive({
   selector: '[validation-summarizer-control-watch][formControl], [validation-summarizer-control-watch][formControlName], [validation-summarizer-control-watch][ngModel]'

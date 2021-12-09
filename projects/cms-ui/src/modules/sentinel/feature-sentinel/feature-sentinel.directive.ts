@@ -1,5 +1,5 @@
 import {Directive, Inject, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
-import {FEATURE_SENTINEL_SERVICE_PROVIDER} from '../../../constants';
+import {FEATURE_SENTINEL_SERVICE_PROVIDER} from '../../../constants/injectors/injectors';
 import {IFeatureSentinelService} from './feature-sentinel-service.interface';
 import {of, Subject, Subscription} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
@@ -8,7 +8,7 @@ import {catchError, debounceTime, distinctUntilChanged, switchMap} from 'rxjs/op
   // tslint:disable-next-line:directive-selector
   selector: '[hasFeatureAccess]'
 })
-export class RequirePermissionFeatureDirective implements OnInit, OnDestroy {
+export class FeatureSentinelDirective implements OnInit, OnDestroy {
 
   //#region Properties
 

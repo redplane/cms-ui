@@ -2,15 +2,14 @@ import {InjectionToken} from '@angular/core';
 import {ISpinnerService} from '../../services/interfaces/spinner-service.interface';
 import {IBannerService} from '../../services/interfaces/banners/banner-service.interface';
 import {ISmartNavigatorService} from '../../services/interfaces/smart-navigator-service.interface';
-import {IValidationSummarizerService} from '../../services/interfaces/validation-summarizers/validation-summarizer-service.interface';
-import {IBannerContentBuilder, IDialogService} from '../../services';
+import {IBannerContentBuilder} from '../../services/interfaces/banners/banner-content-builder.interface';
 import {IDialogBuilder} from '../../services/interfaces/dialogs/dialog-builder.interface';
 import {IScreenCodeResolver} from '../../services/interfaces/screen-code-resolver.interface';
-import {IValidationSummarizerItemTemplateBuilder} from '../../services/interfaces/validation-summarizers/validation-summarizer-item-template-builder.interface';
 import {IMeetRequirementService} from '../../modules/sentinel/requirement-sentinel/requirement-sentinel-service.interface';
-import {IFeatureSentinelService, IRequirementHandler, IRoleSentinelService} from '../../modules/sentinel';
-import {IValidationSummarizerOptionProvider} from '../../providers';
-import {IValidationSummarizerOptions} from '../../models';
+import {IRoleSentinelService} from '../../modules/sentinel/role-sentinel/role-sentinel-service.interface';
+import {IRequirementHandler} from '../../modules/sentinel/requirement-sentinel/requirement-handler.interface';
+import {IFeatureSentinelService} from '../../modules/sentinel/feature-sentinel/feature-sentinel-service.interface';
+import {IDialogService} from '../../services/interfaces/dialogs/dialog-service.interface';
 
 // Spinner providers.
 export const SPINNER_SERVICE_PROVIDER = new InjectionToken<ISpinnerService>('SPINNER_SERVICE_PROVIDER');
@@ -29,7 +28,7 @@ export const DIALOG_BUILDER_PROVIDER = new InjectionToken<IDialogBuilder>('DIALO
 export const DIALOG_SERVICE_PROVIDER = new InjectionToken<IDialogService>('DIALOG_SERVICE_PROVIDER');
 
 // Sentinel providers
-export const REQUIREMENT_SENTINEL_SERVICE_PROVIDER = new InjectionToken<IMeetRequirementService>('REQUIREMENT_SENTINEL_SERVICE_PROVIDER');
+export const REQUIREMENT_SENTINEL_SERVICE = new InjectionToken<IMeetRequirementService>('REQUIREMENT_SENTINEL_SERVICE');
 export const REQUIREMENT_HANDLER_PROVIDER = new InjectionToken<IRequirementHandler>('REQUIREMENT_HANDLER_PROVIDER');
 
 export const FEATURE_SENTINEL_SERVICE_PROVIDER = new InjectionToken<IFeatureSentinelService>('FEATURE_SENTINEL_SERVICE_PROVIDER');

@@ -1,7 +1,7 @@
 import {AfterViewInit, ComponentRef, Directive, Inject, Input, OnDestroy, OnInit, Optional, ViewContainerRef} from '@angular/core';
 import {IValidationSummarizerItemTemplateBuilder} from '../../../../services/interfaces/validation-summarizers/validation-summarizer-item-template-builder.interface';
-import {VALIDATION_ITEM_TEMPLATE_BUILDERS} from '../../../../constants';
-import {ValidationMessage} from '../../../../models';
+import {VALIDATION_ITEM_TEMPLATE_BUILDERS} from '../../../../constants/injectors/validation-summarizer-injectors';
+import {ValidationMessage} from '../../../../models/implementations/validation-summarizers/validation-message';
 import {AbstractControl, NgControl} from '@angular/forms';
 import {NO_SUITABLE_VALIDATION_SUMMARIZER_ITEM_TEMPLATE_BUILDER_FOUND} from '../../../../constants/internal-exception-codes';
 import {ValidationItemBuildContext} from '../../../../models/implementations/validation-summarizers/validation-item-build-context';

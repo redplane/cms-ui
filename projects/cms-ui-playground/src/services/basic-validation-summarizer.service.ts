@@ -5,7 +5,6 @@ import {
   ValidationSummarizerService
 } from '@cms-ui/core';
 
-@Injectable()
 export class BasicValidationSummarizerService extends ValidationSummarizerService {
 
   //#region Constructor

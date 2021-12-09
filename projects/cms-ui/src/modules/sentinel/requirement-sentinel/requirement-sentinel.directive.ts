@@ -1,11 +1,10 @@
 import {Directive, Inject, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
-import {REQUIREMENT_SENTINEL_SERVICE_PROVIDER} from '../../../constants';
+import {REQUIREMENT_SENTINEL_SERVICE} from '../../../constants/injectors/injectors';
 import {of, Subject, Subscription} from 'rxjs';
 import {catchError, debounceTime, mergeMap} from 'rxjs/operators';
 import {IMeetRequirementService} from './requirement-sentinel-service.interface';
 
 @Directive({
-  // tslint:disable-next-line:directive-selector
   selector: '[meetRequirement]'
 })
 export class RequirementSentinelDirective implements OnInit, OnDestroy {
@@ -38,10 +37,11 @@ export class RequirementSentinelDirective implements OnInit, OnDestroy {
 
   //#region Constructor
 
-  public constructor(protected readonly viewContainerRef: ViewContainerRef,
-                     protected readonly templateRef: TemplateRef<any>,
-                     @Inject(REQUIREMENT_SENTINEL_SERVICE_PROVIDER)
-                     protected readonly meetRequirementService: IMeetRequirementService) {
+  public constructor(
+    @Inject(REQUIREMENT_SENTINEL_SERVICE)
+    protected readonly meetRequirementService: IMeetRequirementService,
+    protected readonly viewContainerRef: ViewContainerRef,
+    protected readonly templateRef: TemplateRef<any>) {
     this._requirement = undefined;
     this._handleRequirementSubject = new Subject<string>();
     this._subscription = new Subscription();

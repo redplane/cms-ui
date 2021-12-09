@@ -7,19 +7,6 @@ import {Inject, Injectable} from '@angular/core';
 import {IValidationSummarizerOptionProvider} from '../../../providers';
 import {VALIDATION_SUMMARIZER_OPTIONS_PROVIDER} from '../../../constants';
 
-@Injectable()
-export class BasicValidationSummarizerService
-  extends ValidationSummarizerService implements IValidationSummarizerService {
-
-  //#region Constructor
-
-  public constructor(
-    @Inject(VALIDATION_SUMMARIZER_OPTIONS_PROVIDER) validationSummarizerOptionProvider: IValidationSummarizerOptionProvider) {
-    super(validationSummarizerOptionProvider);
-  }
-
-  //#endregion
-}
 
 describe('ValidationSummarizerComponent', () => {
 

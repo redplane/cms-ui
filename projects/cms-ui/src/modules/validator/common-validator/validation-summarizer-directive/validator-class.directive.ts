@@ -1,10 +1,10 @@
 import {ChangeDetectorRef, Directive, ElementRef, Inject, Input} from '@angular/core';
 import {AbstractControl, NgControl} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {COMMON_VALIDATOR_OPTIONS_PROVIDER, COMMON_VALIDATOR_SERVICE} from '../../../../constants';
-import {IValidationSummarizerService} from '../../../../services';
+import {COMMON_VALIDATOR_OPTIONS_PROVIDER, COMMON_VALIDATOR_SERVICE} from '../../../../constants/injectors/common-validator-injectors';
+import {IValidationSummarizerService} from '../../../../services/interfaces/validation-summarizers/validation-summarizer-service.interface';
 import {ValidatorClassBase} from './validator-class-base';
-import {IValidationSummarizerOptionProvider} from '../../../../providers';
+import {IValidationSummarizerOptionProvider} from '../../../../providers/interfaces/validation-summarizer-options-provider.interface';
 
 @Directive({
   selector: '[validation-summarizer-class]:not([formControl]):not([ngModel]):not([formControlName])'

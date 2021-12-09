@@ -14,18 +14,18 @@ import {
 import {AbstractControl, FormControlDirective, FormGroup, NgControl, ValidationErrors} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
 import {
-  MULTIPLE_VALIDATION_SUMMARIZER_CONTEXT_CHANGED_EVENT,
   MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS,
   MULTIPLE_VALIDATION_SUMMARIZER_OPTIONS_PROVIDER,
-  MULTIPLE_VALIDATION_SUMMARIZER_SERVICE,
-  VALIDATION_SUMMARIZER_OPTIONS_PROVIDER,
-  VALIDATION_SUMMARIZER_SERVICE
-} from '../../../constants';
-import {IValidationSummarizerService} from '../../../services';
+  MULTIPLE_VALIDATION_SUMMARIZER_SERVICE
+} from '../../../constants/injectors/multiple-validation-summarizer-injectors';
+import {VALIDATION_SUMMARIZER_OPTIONS_PROVIDER,
+  VALIDATION_SUMMARIZER_SERVICE} from '../../../constants/injectors/validation-summarizer-injectors';
+import {MULTIPLE_VALIDATION_SUMMARIZER_CONTEXT_CHANGED_EVENT} from '../../../constants/multiple-validation-summarizer-constants'
+import {IValidationSummarizerService} from '../../../services/interfaces/validation-summarizers/validation-summarizer-service.interface';
 import {v4 as uuid} from 'uuid';
 import {MultipleValidationSummarizerItemContextDirective} from './directives/multiple-validation-summarizer-item-context.directive';
 import {MultipleValidationSummarizerItemContext} from '../../../models/interfaces/multiple-validation-summarizers/multiple-validation-summarizer-item-context';
-import {IValidationSummarizerOptionProvider} from '../../../providers';
+import {IValidationSummarizerOptionProvider} from '../../../providers/interfaces/validation-summarizer-options-provider.interface';
 import {VALIDATION_SUMMARIZER_OPTIONS} from '../../../constants/injectors/internal-injectors';
 
 const basicValidationHandler = (ngControl: AbstractControl | NgControl): boolean => {

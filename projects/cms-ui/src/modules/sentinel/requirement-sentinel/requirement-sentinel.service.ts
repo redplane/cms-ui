@@ -1,6 +1,6 @@
 import {IMeetRequirementService} from './requirement-sentinel-service.interface';
 import {Observable, of} from 'rxjs';
-import {Injector} from '@angular/core';
+import {Injectable, InjectFlags, Injector} from '@angular/core';
 import {IRequirementHandler} from './requirement-handler.interface';
 import {REQUIREMENT_HANDLER_PROVIDER} from '../../../constants';
 
@@ -17,7 +17,7 @@ export class RequirementSentinelService implements IMeetRequirementService {
 
     public constructor(injector: Injector) {
         this._requirementHandlers = injector
-            .get(REQUIREMENT_HANDLER_PROVIDER) as unknown as IRequirementHandler[];
+            .get(REQUIREMENT_HANDLER_PROVIDER, null, InjectFlags.Optional) as unknown as IRequirementHandler[];
     }
 
     //#endregion

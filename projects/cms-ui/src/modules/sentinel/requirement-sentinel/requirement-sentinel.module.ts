@@ -1,7 +1,7 @@
 import {Injector, ModuleWithProviders, NgModule, Provider} from '@angular/core';
 import {RequirementSentinelDirective} from './requirement-sentinel.directive';
-import {RequirementSentinelService} from './requirement-sentinel.service';
-import {REQUIREMENT_SENTINEL_SERVICE_PROVIDER} from '../../../constants';
+import {REQUIREMENT_SENTINEL_SERVICE} from '../../../constants/injectors/injectors';
+import {buildSentinelDirectiveService} from '../../../factories/requirement-sentinel.factory';
 
 @NgModule({
   declarations: [
@@ -20,8 +20,8 @@ export class RequirementSentinelModule {
       ngModule: RequirementSentinelModule,
       providers: [
         {
-          provide: REQUIREMENT_SENTINEL_SERVICE_PROVIDER,
-          useClass: RequirementSentinelService,
+          provide: REQUIREMENT_SENTINEL_SERVICE,
+          useFactory: buildSentinelDirectiveService,
           deps: [
             Injector
           ]
