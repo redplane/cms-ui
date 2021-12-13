@@ -6,7 +6,7 @@ import {IValidationSummarizerService, ValidationSummarizerService} from '../serv
 
 //#region Internal methods
 
-export function buildInternalCommonValidatorService(optionProvider: IValidationSummarizerOptionProvider)
+export function loadValidationSummarizerService(optionProvider: IValidationSummarizerOptionProvider)
   : IValidationSummarizerService {
   return new ValidationSummarizerService(optionProvider);
 }
@@ -43,7 +43,7 @@ export function buildCommonValidatorOptionsProvider(): Provider {
 export function buildCommonValidatorService(): Provider {
   return {
     provide: COMMON_VALIDATOR_SERVICE,
-    useFactory: buildInternalCommonValidatorService,
+    useFactory: loadValidationSummarizerService,
     deps: [COMMON_VALIDATOR_OPTIONS_PROVIDER],
     multi: false
   };

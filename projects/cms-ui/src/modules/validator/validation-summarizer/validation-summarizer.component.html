@@ -34,8 +34,8 @@
 >
   <ul class="validation-summary"
       *ngIf="validationMessages && validationMessages.length > 0">
-    <li *ngFor="let validationMessage of validationMessages;">
-      {{validationMessage.content}}
+    <li *ngFor="let validationMessage of validationMessages;"
+        [innerHTML]="validationMessage.content | toTrustedHtml">
     </li>
   </ul>
 </ng-template>

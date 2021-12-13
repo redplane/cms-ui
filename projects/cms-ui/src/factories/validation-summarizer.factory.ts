@@ -27,7 +27,7 @@ export function buildInternalValidationSummarizerOptionsProvider(options: IValid
 //#region External function
 
 // Build validation summarizer options.
-export function buildValidationSummarizerOptions(options?: IValidationSummarizerModuleOptions): Provider {
+export function buildValidationSummarizerOptions(options: IValidationSummarizerModuleOptions): Provider {
   return {
     provide: VALIDATION_SUMMARIZER_OPTIONS,
     useValue: options,

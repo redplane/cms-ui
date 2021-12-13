@@ -9,11 +9,13 @@ import {
   buildValidationSummarizerService
 } from '../../../factories/validation-summarizer.factory';
 import {NULL_VALIDATION_SUMMARIZER_PROVIDER} from '../../../constants/injectors/internal-injectors';
+import {ToTrustedHtmlPipeModule} from '../../../pipes/index';
 
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    ToTrustedHtmlPipeModule
   ],
   declarations: [
     ValidationSummarizerItemDirective,
@@ -29,7 +31,7 @@ export class ValidationSummarizerModule {
   //#region Methods
 
   public static forRoot(
-    options?: Partial<IValidationSummarizerModuleOptions>)
+    options: Partial<IValidationSummarizerModuleOptions>)
     : ModuleWithProviders<ValidationSummarizerModule> {
     return {
       ngModule: ValidationSummarizerModule,
