@@ -1,0 +1,55 @@
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'projects/cms-ui/**'
+  pull_request:
+    branches:
+      - dev
+      - 'nightly-build/**'
+      - 'release/**'
+    paths:
+      - 'projects/cms-ui/**'
+
+jobs:
+  build_library:
+    name: Build cms-ui library
+    runs-on: ubuntu-20.04
+    permissions:
+      actions: read
+      repository-projects: read
+      pull-requests: read
+      contents: read
+    steps:
+      # Install node js (version 14)
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'npm'
+
+      - name: Install node_modules
+        run: npm install
+
+      # Do linting
+      - name: Do project linting
+        run: npm lint
+
+      # Build library & deploy
+      - run: |
+          echo "Building library"
+          npm run build:lib
+          echo "Library has been built"
+
+          echo "Creating .npmrc file..."
+          echo registry=https://www.myget.org/F/cms-ui/npm/ >> .npmrc
+          echo always-auth=true >> .npmrc
+          echo //www.myget.org/F/cms-ui/npm/:_authToken=${{ secrets.MY_GET_KEY }} >> .npmrc
+          echo "Created .npmrc file..."
+
+          echo "Publishing to MyGet"
+          npm publish "dist/@cms-ui/core"
+
+          echo "Deleting .npm rc file"
+          del .npmrc 2>nul

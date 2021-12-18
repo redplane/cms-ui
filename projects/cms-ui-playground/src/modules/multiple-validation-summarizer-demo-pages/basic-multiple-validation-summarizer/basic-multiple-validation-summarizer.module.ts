@@ -6,7 +6,7 @@ import {RouterModule} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 import {CommonModule} from '@angular/common';
 import {CommonValidatorModule} from '@cms-ui/core';
-import {HasAnyValidatorsModule} from '../../../../../cms-ui/src/modules/validator/pipes/has-validators/has-any-validators.module';
+import {HasAnyValidatorsModule} from '@cms-ui/core';
 
 @NgModule({
   imports: [

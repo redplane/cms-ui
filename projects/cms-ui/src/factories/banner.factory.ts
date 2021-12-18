@@ -6,8 +6,8 @@ import {
   NULL_BANNER_SERVICE_PROVIDER
 } from '../constants/injectors/internal-injectors';
 import {BANNER_SERVICE_PROVIDER} from '../constants/injectors/injectors';
-import {IBannerService} from '@cms-ui/core/src/services/interfaces/banners/banner-service.interface';
-import {BannerService} from '@cms-ui/core/src/services/implementations/banners/banner.service';
+import {IBannerService} from '../services/interfaces/banners/banner-service.interface';
+import {BannerService} from '../services/implementations/banners/banner.service';
 
 //#region Services
 

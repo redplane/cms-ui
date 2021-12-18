@@ -3,7 +3,7 @@ import {AbstractControl, NgControl} from '@angular/forms';
 import {MultipleValidationSummarizerItemContext} from '../../../../models/interfaces/multiple-validation-summarizers/multiple-validation-summarizer-item-context';
 import {v4 as uuid} from 'uuid';
 import {Observable, Subject} from 'rxjs';
-import {MULTIPLE_VALIDATION_SUMMARIZER_CONTEXT_CHANGED_EVENT} from '@cms-ui/core/src/constants/multiple-validation-summarizer-constants';
+import {MULTIPLE_VALIDATION_SUMMARIZER_CONTEXT_CHANGED_EVENT, MULTIPLE_VALIDATION_SUMMARIZER_PROPERTY} from '../../../../constants/multiple-validation-summarizer-constants';
 
 @Directive({
   selector: 'cms-multiple-validation-summarizer item-context'
