@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {v4 as uuid} from 'uuid';
-import {BANNER_SERVICE_PROVIDER, IBannerService} from '@cms-ui/core';
+import {BANNER_SERVICE, IBannerService} from '@cms-ui/core';
 import {WarningBannerContentSettings} from '../../../models/banners/warning-banner-content-settings';
 
 @Component({
@@ -19,7 +19,7 @@ export class ChildBannerDemoComponent {
 
   //#region Constructor
 
-  public constructor(@Inject(BANNER_SERVICE_PROVIDER) protected readonly bannerService: IBannerService) {
+  public constructor(@Inject(BANNER_SERVICE) protected readonly bannerService: IBannerService) {
     this.childBannerId = uuid();
   }
 

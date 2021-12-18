@@ -2,7 +2,7 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {BannerComponent} from './banner.component';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
-import {BANNER_SERVICE_PROVIDER} from '../../constants/injectors/injectors';
+import {BANNER_SERVICE} from '../../constants/injectors/injectors';
 import {BannerService} from '../../services/implementations/banners/banner.service';
 import {WINDOW_PROVIDERS} from '../../services/implementations/window.service';
 import {IBannerModuleOption} from '../../providers/interfaces/banner-module-option.interface';
@@ -26,7 +26,7 @@ import {
   providers: [
     WINDOW_PROVIDERS,
     {
-      provide: BANNER_SERVICE_PROVIDER,
+      provide: BANNER_SERVICE,
       useClass: BannerService
     }
   ]

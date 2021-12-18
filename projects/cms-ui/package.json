@@ -1,6 +1,6 @@
 {
   "name": "@cms-ui/core",
-  "version": "1.0.0-preview-021",
+  "version": "1.0.0-preview-022",
   "peerDependencies": {
     "@angular/common": "^11.0.1",
     "@angular/core": "^11.0.1",

@@ -5,7 +5,7 @@ import {
   NULL_BANNER_CONTENT_BUILDER_SERVICE_PROVIDER,
   NULL_BANNER_SERVICE_PROVIDER
 } from '../constants/injectors/internal-injectors';
-import {BANNER_SERVICE_PROVIDER} from '../constants/injectors/injectors';
+import {BANNER_SERVICE} from '../constants/injectors/injectors';
 import {IBannerService} from '../services/interfaces/banners/banner-service.interface';
 import {BannerService} from '../services/implementations/banners/banner.service';
 
@@ -28,7 +28,7 @@ export function buildNullBannerProvider(): Provider {
 // Build banner provider.
 export function buildBannerProvider(): Provider {
   return {
-    provide: BANNER_SERVICE_PROVIDER,
+    provide: BANNER_SERVICE,
     useFactory: buildBannerService
   };
 }

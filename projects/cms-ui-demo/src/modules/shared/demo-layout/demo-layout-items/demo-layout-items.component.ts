@@ -3,7 +3,7 @@ import {Subscription} from 'rxjs';
 import {DEMO_MODULE_SERVICE} from '../../../../constants/injectors';
 import {UiModule} from '../../../../models/ui-module';
 import {IDemoModuleService} from '../../../../services/interfaces/demo-module-service.interface';
-import {ISpinnerService, SPINNER_SERVICE_PROVIDER} from '@cms-ui/core';
+import {ISpinnerService, SPINNER_SERVICE} from '@cms-ui/core';
 import {DemoModuleViewModel} from '../../../../view-models/demo-module.view-model';
 
 @Component({

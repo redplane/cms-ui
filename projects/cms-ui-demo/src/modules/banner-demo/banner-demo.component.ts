@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../constants/injectors';
 import {v4 as uuid} from 'uuid';
-import {BANNER_SERVICE_PROVIDER, IBannerService} from '@cms-ui/core';
+import {BANNER_SERVICE, IBannerService} from '@cms-ui/core';
 import {AlertBannerContentSettings} from '../../models/banners/alert-banner-content-settings';
 import {InfoBannerContentSettings} from '../../models/banners/info-banner-content-settings';
 import {DemoLayoutService} from '../shared/demo-layout/demo-layout.service';
@@ -33,7 +33,7 @@ export class BannerDemoComponent implements OnInit {
   //#region Constructor
 
   public constructor(@Inject(DEMO_LAYOUT_SERVICE_PROVIDER) protected demoLayoutService: DemoLayoutService,
-                     @Inject(BANNER_SERVICE_PROVIDER) protected bannerService: IBannerService) {
+                     @Inject(BANNER_SERVICE) protected bannerService: IBannerService) {
     this.insideComponentBannerId = uuid();
     this.timeoutBannerId = uuid();
     this.stackableBannerId = uuid();

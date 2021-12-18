@@ -6,7 +6,7 @@ import {DialogResultConstant} from '../../constants/dialog-result.constant';
 import {IDialogSettings} from '../../models/interfaces/dialogs/dialog-settings.interface';
 import {Injector} from '@angular/core';
 import {IDialogBuilder} from '../interfaces/dialogs/dialog-builder.interface';
-import {DIALOG_BUILDER_PROVIDER} from '../../constants/injectors/injectors';
+import {DIALOG_BUILDER} from '../../constants/injectors/injectors';
 
 export abstract class DialogService implements IDialogService {
 
@@ -21,7 +21,7 @@ export abstract class DialogService implements IDialogService {
   //#region Constructor
 
   protected constructor(protected injector: Injector) {
-    this.dialogBuilders = injector.get(DIALOG_BUILDER_PROVIDER) as any as IDialogBuilder[];
+    this.dialogBuilders = injector.get(DIALOG_BUILDER) as any as IDialogBuilder[];
   }
 
   //#endregion

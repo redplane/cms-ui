@@ -2,7 +2,7 @@ import {BaseDemoLayoutItemsBuilder} from '../../../modules/shared/demo-layout/de
 import {Inject, Injectable} from '@angular/core';
 import {DemoLayoutItem} from '../../../modules/shared/demo-layout/demo-layout-items/demo-layout-item';
 import {Observable, of} from 'rxjs';
-import {ISmartNavigatorService, SMART_NAVIGATOR_PROVIDER} from '@cms-ui/core';
+import {ISmartNavigatorService, SMART_NAVIGATOR_SERVICE} from '@cms-ui/core';
 import {ValidationSummarizerDemoScreenCodes} from '../../../constants/screen-codes/validation-summarizer-demo-screen-codes';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class VmsDemoItemsBuilder extends BaseDemoLayoutItemsBuilder {
 
   //#region Constructor
 
-  public constructor(@Inject(SMART_NAVIGATOR_PROVIDER)
+  public constructor(@Inject(SMART_NAVIGATOR_SERVICE)
                      protected readonly smartNavigatorService: ISmartNavigatorService) {
     super();
   }

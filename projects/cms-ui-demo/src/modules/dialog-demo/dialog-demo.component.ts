@@ -1,5 +1,5 @@
 import {Component, Inject, OnDestroy} from '@angular/core';
-import {DIALOG_SERVICE_PROVIDER, IDialogService} from '@cms-ui/core';
+import {DIALOG_SERVICE, IDialogService} from '@cms-ui/core';
 import {BasicDialogSetting} from '../../models/dialogs/basic-dialog-setting';
 import {Subscription} from 'rxjs';
 
@@ -20,7 +20,7 @@ export class DialogDemoComponent implements OnDestroy {
 
   //#region Constructor
 
-  public constructor(@Inject(DIALOG_SERVICE_PROVIDER) protected dialogService: IDialogService) {
+  public constructor(@Inject(DIALOG_SERVICE) protected dialogService: IDialogService) {
     this._subscription = new Subscription();
   }
 

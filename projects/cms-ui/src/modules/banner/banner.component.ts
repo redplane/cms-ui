@@ -11,7 +11,7 @@ import {
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {BANNER_BUILDER_PROVIDER, BANNER_SERVICE_PROVIDER} from '../../constants/injectors/injectors';
+import {BANNER_BUILDER, BANNER_SERVICE} from '../../constants/injectors/injectors';
 import {Observable, of, Subscription, throwError} from 'rxjs';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent} from '@angular/router';
 import {filter, map, mergeMap, retryWhen, switchMap, tap} from 'rxjs/operators';
@@ -103,11 +103,11 @@ export class BannerComponent implements AfterViewInit, OnDestroy {
     this._displayRequests = [];
 
     // Service reflection.
-    this.bannerService = this.injector.get(BANNER_SERVICE_PROVIDER) as any as BannerService;
+    this.bannerService = this.injector.get(BANNER_SERVICE) as any as BannerService;
     this.componentFactoryResolver = this.injector.get(ComponentFactoryResolver);
     this.router = this.injector.get(Router);
     this.windowService = this.injector.get(WINDOW) as Window;
-    this.bannerBuilders = this.injector.get(BANNER_BUILDER_PROVIDER) as any as IBannerContentBuilder[];
+    this.bannerBuilders = this.injector.get(BANNER_BUILDER) as any as IBannerContentBuilder[];
     this.changeDetectorRef = this.injector.get(ChangeDetectorRef);
     this._subscription = new Subscription();
   }

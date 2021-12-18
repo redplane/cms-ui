@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Inject, OnInit} from '@angular/core';
-import {ISmartNavigatorService, SMART_NAVIGATOR_PROVIDER} from '@cms-ui/core';
+import {ISmartNavigatorService, SMART_NAVIGATOR_SERVICE} from '@cms-ui/core';
 import {ScreenCodes} from '../../constants/screen.codes';
 import {CATEGORY_SERVICE} from '../../constants/injectors';
 import {ICategoryService} from '../../services/interfaces/category-service.interface';
@@ -43,7 +43,7 @@ export class LandingPageComponent implements OnInit {
 
   //#region Constructor
 
-  public constructor(@Inject(SMART_NAVIGATOR_PROVIDER) protected smartNavigatorService: ISmartNavigatorService,
+  public constructor(@Inject(SMART_NAVIGATOR_SERVICE) protected smartNavigatorService: ISmartNavigatorService,
                      @Inject(CATEGORY_SERVICE) protected readonly categoryService: ICategoryService,
                      protected readonly _changeDetectorRef: ChangeDetectorRef) {
     this.__categories = [];

@@ -1,6 +1,6 @@
 import {Injector, Pipe, PipeTransform} from '@angular/core';
 import {ISmartNavigatorService} from '../../services/interfaces/smart-navigator-service.interface';
-import {SMART_NAVIGATOR_PROVIDER} from '../../constants/injectors/injectors';
+import {SMART_NAVIGATOR_SERVICE} from '../../constants/injectors/injectors';
 import {NavigationExtras, UrlTree} from '@angular/router';
 
 @Pipe({
@@ -17,7 +17,7 @@ export class ToUrlPipe implements PipeTransform {
   //#region Constructor
 
   public constructor(injector: Injector) {
-    this.smartNavigatorService = injector.get(SMART_NAVIGATOR_PROVIDER);
+    this.smartNavigatorService = injector.get(SMART_NAVIGATOR_SERVICE);
   }
 
 

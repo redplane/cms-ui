@@ -1,5 +1,5 @@
 import {Directive, Inject, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
-import {ROLE_SENTINEL_SERVICE_PROVIDER} from '../../../constants/injectors/injectors';
+import {ROLE_SENTINEL_SERVICE} from '../../../constants/injectors/injectors';
 import {of, Subject, Subscription} from 'rxjs';
 import {catchError, debounceTime, switchMap} from 'rxjs/operators';
 import {IRoleSentinelService} from './role-sentinel-service.interface';
@@ -44,7 +44,7 @@ export class RoleSentinelDirective implements OnInit, OnDestroy {
 
   //#region Constructor
 
-  public constructor(@Inject(ROLE_SENTINEL_SERVICE_PROVIDER)
+  public constructor(@Inject(ROLE_SENTINEL_SERVICE)
                      protected readonly requireRolePermissionService: IRoleSentinelService,
                      protected readonly viewContainerRef: ViewContainerRef,
                      protected readonly templateRef: TemplateRef<any>) {

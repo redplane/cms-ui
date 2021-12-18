@@ -1,6 +1,6 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../constants/injectors';
-import {ISmartNavigatorService, NavigateToScreenRequest, SMART_NAVIGATOR_PROVIDER} from '@cms-ui/core';
+import {ISmartNavigatorService, NavigateToScreenRequest, SMART_NAVIGATOR_SERVICE} from '@cms-ui/core';
 import {ScreenCodes} from '../../constants/screen.codes';
 import {Subscription} from 'rxjs';
 import {Navigator03NavigationRequest} from '../../models/smart-navigators/navigator-03.navigation-request';
@@ -39,7 +39,7 @@ export class SmartNavigatorDemoComponent implements OnInit, OnDestroy {
   //#region Constructor
 
   public constructor(@Inject(DEMO_LAYOUT_SERVICE_PROVIDER) protected demoLayoutService: DemoLayoutService,
-                     @Inject(SMART_NAVIGATOR_PROVIDER) protected smartNavigatorService: ISmartNavigatorService) {
+                     @Inject(SMART_NAVIGATOR_SERVICE) protected smartNavigatorService: ISmartNavigatorService) {
 
     this._fourthTabNavigationRequest = new Navigator03NavigationRequest({
       queryParams: {id: 1, name: 'hello'}

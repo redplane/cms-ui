@@ -1,5 +1,5 @@
 import {Directive, Inject, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef} from '@angular/core';
-import {FEATURE_SENTINEL_SERVICE_PROVIDER} from '../../../constants/injectors/injectors';
+import {FEATURE_SENTINEL_SERVICE} from '../../../constants/injectors/injectors';
 import {IFeatureSentinelService} from './feature-sentinel-service.interface';
 import {of, Subject, Subscription} from 'rxjs';
 import {catchError, debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
@@ -44,7 +44,7 @@ export class FeatureSentinelDirective implements OnInit, OnDestroy {
 
   //#region Constructor
 
-  public constructor(@Inject(FEATURE_SENTINEL_SERVICE_PROVIDER)
+  public constructor(@Inject(FEATURE_SENTINEL_SERVICE)
                      protected readonly requireFeaturePermissionService: IFeatureSentinelService,
                      protected readonly viewContainerRef: ViewContainerRef,
                      protected readonly templateRef: TemplateRef<any>) {

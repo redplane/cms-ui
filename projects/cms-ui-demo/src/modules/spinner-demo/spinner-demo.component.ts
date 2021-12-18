@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, ComponentFactoryResolver, HostBinding, Inject, OnInit} from '@angular/core';
-import {ISpinnerService, SPINNER_SERVICE_PROVIDER} from '@cms-ui/core';
+import {ISpinnerService, SPINNER_SERVICE} from '@cms-ui/core';
 import {v4 as uuid} from 'uuid';
 import {DEMO_LAYOUT_SERVICE_PROVIDER, WINDOW} from '../../constants/injectors';
 import {cloneDeep} from 'lodash-es';
@@ -51,7 +51,7 @@ export class SpinnerDemoComponent implements OnInit {
 
   //#region Constructor
 
-  public constructor(@Inject(SPINNER_SERVICE_PROVIDER) protected spinnerService: ISpinnerService,
+  public constructor(@Inject(SPINNER_SERVICE) protected spinnerService: ISpinnerService,
                      @Inject(DEMO_LAYOUT_SERVICE_PROVIDER) protected demoLayoutService: DemoLayoutService,
                      @Inject(WINDOW) protected windowService: Window,
                      protected componentFactoryResolver: ComponentFactoryResolver,

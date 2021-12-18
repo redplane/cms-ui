@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {ChildBannerDemoComponent} from './child-banner-demo.component';
 import {ChildBannerDemoRoutingModule} from './child-banner-demo-routing.module';
-import {BANNER_BUILDER_PROVIDER, BannerModule} from '@cms-ui/core';
+import {BANNER_BUILDER, BannerModule} from '@cms-ui/core';
 import {AlertBannerContentBuilder} from '../../../services/implementations/banners/alert-banner-content.builder';
 import {InfoBannerContentBuilder} from '../../../services/implementations/banners/info-banner-content.builder';
 import {TranslateModule} from '@ngx-translate/core';
@@ -15,7 +15,7 @@ import {WarningBannerContentComponent} from '../../shared/warning-banner-content
     BannerModule.forChild({
       contentBuilderProviders: [
         {
-          provide: BANNER_BUILDER_PROVIDER,
+          provide: BANNER_BUILDER,
           useClass: WarningBannerContentBuilder,
           multi: true
         }

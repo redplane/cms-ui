@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import {v4 as uuid} from 'uuid';
 import {Subject, Subscription} from 'rxjs';
-import {SPINNER_SERVICE_PROVIDER} from '../../constants/injectors/injectors';
+import {SPINNER_SERVICE} from '../../constants/injectors/injectors';
 import {ISpinnerService} from '../../services/interfaces/spinner-service.interface';
 import {DisplaySpinnerRequest} from '../../models/implementations/display-spinner-request';
 import {DeleteSpinnerRequest} from '../../models/implementations/delete-spinner-request';
@@ -95,7 +95,7 @@ export class SpinnerContainerComponent implements OnInit, AfterViewInit, OnDestr
 
   //#region Constructor
 
-  public constructor(@Inject(SPINNER_SERVICE_PROVIDER) protected spinnerService: ISpinnerService,
+  public constructor(@Inject(SPINNER_SERVICE) protected spinnerService: ISpinnerService,
                      protected readonly componentFactoryResolver: ComponentFactoryResolver,
                      protected readonly changeDetectorRef: ChangeDetectorRef,
                      private readonly injector: Injector) {

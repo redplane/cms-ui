@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
-import {ISmartNavigatorService, NavigateToScreenRequest, SMART_NAVIGATOR_PROVIDER} from '@cms-ui/core';
+import {ISmartNavigatorService, NavigateToScreenRequest, SMART_NAVIGATOR_SERVICE} from '@cms-ui/core';
 import {ScreenCodes} from '../../../constants/screen.codes';
 
 @Component({
@@ -13,7 +13,7 @@ export class NavigationBarComponent {
 
   //#region Constructor
 
-  public constructor(@Inject(SMART_NAVIGATOR_PROVIDER) protected smartNavigatorService: ISmartNavigatorService) {
+  public constructor(@Inject(SMART_NAVIGATOR_SERVICE) protected smartNavigatorService: ISmartNavigatorService) {
   }
 
   //#endregion
