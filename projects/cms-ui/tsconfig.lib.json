@@ -13,7 +13,15 @@
     "lib": [
       "dom",
       "es2018"
-    ]
+    ],
+    "paths": {
+      "@cms-ui/core": [
+        "./"
+      ],
+      "@cms-ui/core/*": [
+        "./*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,

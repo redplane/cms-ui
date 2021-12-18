@@ -2,7 +2,7 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {ValidatorClassDirective} from './validation-summarizer-directive/validator-class.directive';
 import {ValidatorControlClassDirective} from './validation-summarizer-directive/validator-control-class.directive';
 import {ValidatorControlWatchDirective} from './validation-summarizer-directive/validator-control-watch.directive';
-import {IValidationSummarizerModuleOptions} from '../../../models';
+import {IValidationSummarizerModuleOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 import {
   buildCommonValidatorOptions,
   buildCommonValidatorOptionsProvider,

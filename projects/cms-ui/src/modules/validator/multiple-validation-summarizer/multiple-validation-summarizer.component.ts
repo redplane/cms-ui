@@ -20,7 +20,7 @@ import {
 } from '../../../constants/injectors/multiple-validation-summarizer-injectors';
 import {VALIDATION_SUMMARIZER_OPTIONS_PROVIDER,
   VALIDATION_SUMMARIZER_SERVICE} from '../../../constants/injectors/validation-summarizer-injectors';
-import {MULTIPLE_VALIDATION_SUMMARIZER_CONTEXT_CHANGED_EVENT} from '../../../constants/multiple-validation-summarizer-constants'
+import {MULTIPLE_VALIDATION_SUMMARIZER_CONTEXT_CHANGED_EVENT} from '../../../constants/multiple-validation-summarizer-constants';
 import {IValidationSummarizerService} from '../../../services/interfaces/validation-summarizers/validation-summarizer-service.interface';
 import {v4 as uuid} from 'uuid';
 import {MultipleValidationSummarizerItemContextDirective} from './directives/multiple-validation-summarizer-item-context.directive';

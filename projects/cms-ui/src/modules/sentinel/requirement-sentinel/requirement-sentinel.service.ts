@@ -2,7 +2,7 @@ import {IMeetRequirementService} from './requirement-sentinel-service.interface'
 import {Observable, of} from 'rxjs';
 import {Injectable, InjectFlags, Injector} from '@angular/core';
 import {IRequirementHandler} from './requirement-handler.interface';
-import {REQUIREMENT_HANDLER_PROVIDER} from '../../../constants';
+import {REQUIREMENT_HANDLER_PROVIDER} from '../../../constants/injectors/injectors';
 
 export class RequirementSentinelService implements IMeetRequirementService {
 

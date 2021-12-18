@@ -1,8 +1,14 @@
 import {Provider} from '@angular/core';
-import {COMMON_VALIDATOR_OPTIONS, COMMON_VALIDATOR_OPTIONS_PROVIDER, COMMON_VALIDATOR_SERVICE} from '../constants';
-import {IValidationSummarizerOptionProvider, ValidationSummarizerOptionProvider} from '../providers';
-import {IValidationSummarizerOptions} from '../models';
-import {IValidationSummarizerService, ValidationSummarizerService} from '../services';
+import {
+  COMMON_VALIDATOR_OPTIONS,
+  COMMON_VALIDATOR_OPTIONS_PROVIDER,
+  COMMON_VALIDATOR_SERVICE
+} from '@cms-ui/core/constants/injectors/common-validator-injectors';
+import {IValidationSummarizerOptionProvider} from '@cms-ui/core/src/providers/interfaces/validation-summarizer-options-provider.interface';
+import {IValidationSummarizerService} from '@cms-ui/core/src/services/interfaces/validation-summarizers/validation-summarizer-service.interface';
+import {ValidationSummarizerService} from '@cms-ui/core/src/services/implementations/validators/validation-summarizers/validation-summarizer.service';
+import {IValidationSummarizerOptions} from '@cms-ui/core/src/models/interfaces/validation-summarizers/validation-summarizer-options.interface';
+import {ValidationSummarizerOptionProvider} from '@cms-ui/core/src/providers/implementations/validation-summarizer-option.provider';
 
 //#region Internal methods
 

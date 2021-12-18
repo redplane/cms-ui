@@ -1,4 +1,4 @@
-import {IValidationSummarizerModuleOptions} from '../../models';
+import {IValidationSummarizerModuleOptions} from '../../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 
 export interface IValidationSummarizerOptionProvider {
 

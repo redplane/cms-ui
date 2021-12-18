@@ -3,7 +3,7 @@ import {Observable, ReplaySubject, Subject} from 'rxjs';
 import {DisplaySpinnerRequest} from '../../../models/implementations/display-spinner-request';
 import {v4 as uuidv4} from 'uuid';
 import {DeleteSpinnerRequest} from '../../../models/implementations/delete-spinner-request';
-import {IDisplaySpinnerOptions} from '../../../models';
+import {IDisplaySpinnerOptions} from '../../../models/interfaces/spinners/display-spinner-options.interface';
 
 export class SpinnerService implements ISpinnerService {
 

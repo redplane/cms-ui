@@ -16,7 +16,7 @@ import {IValidationSummarizerOptions} from '../../../models/interfaces/validatio
 import {v4 as uuid} from 'uuid';
 import {IValidationSummarizerModuleOptions} from '../../../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 import {Observable, Subscription} from 'rxjs';
-import {VALIDATION_SUMMARIZER_OPTIONS_PROVIDER, VALIDATION_SUMMARIZER_SERVICE} from '../../../constants';
+import {VALIDATION_SUMMARIZER_OPTIONS_PROVIDER, VALIDATION_SUMMARIZER_SERVICE} from '../../../constants/injectors/validation-summarizer-injectors';
 
 
 @Component({

@@ -2,9 +2,9 @@ import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl
 import {merge as lodashMerge} from 'lodash-es';
 import {IValidationSummarizerService} from '../../../interfaces';
 import {ValidationMessage} from '../../../../models/implementations/validation-summarizers/validation-message';
-import {builtInValidationMessages} from '../../../../constants';
+import {builtInValidationMessages} from '../../../../constants/built-in-validation-message.constant';
 import {v4 as uuid} from 'uuid';
-import {IValidationSummarizerOptionProvider} from '../../../../providers';
+import {IValidationSummarizerOptionProvider} from '../../../../providers/interfaces/validation-summarizer-options-provider.interface';
 import {EventEmitter} from '@angular/core';
 import {ValidationSummarizerBaseService} from './validation-summarizer-base.service';
 

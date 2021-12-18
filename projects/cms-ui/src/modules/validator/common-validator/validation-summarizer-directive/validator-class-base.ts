@@ -1,8 +1,8 @@
 import {ChangeDetectorRef, ElementRef, Inject, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormControlDirective, NgControl, NgModel} from '@angular/forms';
 import {Subscription} from 'rxjs';
-import {VALIDATION_SUMMARIZER_SERVICE} from '../../../../constants';
-import {IValidationSummarizerService} from '../../../../services';
+import {VALIDATION_SUMMARIZER_SERVICE} from '../../../../constants/injectors/validation-summarizer-injectors';
+import {IValidationSummarizerService} from '../../../../services/interfaces/validation-summarizers/validation-summarizer-service.interface';
 
 export abstract class ValidatorClassBase implements OnInit, OnDestroy {
 

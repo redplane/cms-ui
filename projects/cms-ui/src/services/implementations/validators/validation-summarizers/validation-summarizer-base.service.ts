@@ -1,6 +1,6 @@
 import {merge as lodashMerge} from 'lodash-es';
 import {AbstractControl, FormControl, FormControlDirective, FormGroup, NgControl, NgForm, NgModel, ValidationErrors} from '@angular/forms';
-import {ValidationMessage} from '../../../../models';
+import {ValidationMessage} from '../../../../models/implementations/validation-summarizers/validation-message';
 import {EventEmitter} from '@angular/core';
 
 export class ValidationSummarizerBaseService {

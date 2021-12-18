@@ -1,11 +1,13 @@
-import {BannerService, IBannerService} from '../services';
+
 import {IBannerModuleOption} from '../providers/interfaces/banner-module-option.interface';
 import {Provider} from '@angular/core';
 import {
   NULL_BANNER_CONTENT_BUILDER_SERVICE_PROVIDER,
   NULL_BANNER_SERVICE_PROVIDER
 } from '../constants/injectors/internal-injectors';
-import {BANNER_SERVICE_PROVIDER} from '../constants';
+import {BANNER_SERVICE_PROVIDER} from '../constants/injectors/injectors';
+import {IBannerService} from '@cms-ui/core/src/services/interfaces/banners/banner-service.interface';
+import {BannerService} from '@cms-ui/core/src/services/implementations/banners/banner.service';
 
 //#region Services
 

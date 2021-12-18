@@ -1,11 +1,11 @@
 import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {Subscription} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {builtInValidationMessages, VALIDATION_SUMMARIZER_SERVICE} from '../../../../constants';
 import {ValidationSummarizerService} from './validation-summarizer.service';
-import {ValidationSummarizerModule} from '../../../../modules';
 import {IValidationSummarizerService} from '../../../interfaces';
-import {ValidationSummarizerOptionProvider} from '../../../../providers';
+import {ValidationSummarizerOptionProvider} from '../../../../providers/implementations/validation-summarizer-option.provider';
+import {ValidationSummarizerModule} from '../../../../modules/validator/validation-summarizer/validation-summarizer.module';
+import {VALIDATION_SUMMARIZER_SERVICE} from '../../../../constants/injectors/validation-summarizer-injectors';
 
 export class BasicValidationSummarizerService extends ValidationSummarizerService {
   // TODO: Implement this.

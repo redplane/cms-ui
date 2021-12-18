@@ -2,11 +2,6 @@ import {TestBed} from '@angular/core/testing';
 import {ValidationSummarizerComponent} from './validation-summarizer.component';
 import {Subscription} from 'rxjs';
 import {ValidationSummarizerModule} from './validation-summarizer.module';
-import {IValidationSummarizerService, ValidationSummarizerService} from '../../../services';
-import {Inject, Injectable} from '@angular/core';
-import {IValidationSummarizerOptionProvider} from '../../../providers';
-import {VALIDATION_SUMMARIZER_OPTIONS_PROVIDER} from '../../../constants';
-
 
 describe('ValidationSummarizerComponent', () => {
 

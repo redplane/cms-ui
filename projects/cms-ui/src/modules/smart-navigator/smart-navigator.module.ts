@@ -2,7 +2,7 @@ import {Injector, ModuleWithProviders, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {SMART_NAVIGATOR_PROVIDER, SMART_NAVIGATOR_ROUTES} from '../../constants/injectors/injectors';
 import {SmartNavigatorService} from '../../services/implementations/smart-navigator.service';
-import {ISmartNavigatorService} from '../../services';
+import {ISmartNavigatorService} from '../../services/interfaces/smart-navigator-service.interface';
 import {ToRawUrlPipe} from '../../pipes/smart-navigators/to-raw-url.pipe';
 import {ToUrlTreePipe} from '../../pipes/smart-navigators/to-url-tree.pipe';
 import {ToUrlPipe} from '../../pipes/smart-navigators/to-url.pipe';

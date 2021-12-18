@@ -1,11 +1,12 @@
 import {IValidationSummarizerModuleOptions} from '../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
-import {IValidationSummarizerOptionProvider, ValidationSummarizerOptionProvider} from '../providers';
-import {IValidationSummarizerService} from '../services';
 import {ValidationSummarizerService} from '../services/implementations/validators/validation-summarizers/validation-summarizer.service';
 import {Provider} from '@angular/core';
-import {VALIDATION_SUMMARIZER_OPTIONS_PROVIDER, VALIDATION_SUMMARIZER_SERVICE} from '../constants';
 import {VALIDATION_SUMMARIZER_OPTIONS} from '../constants/injectors/internal-injectors';
-import {IValidationSummarizerOptions} from '../models';
+import {IValidationSummarizerOptionProvider} from '@cms-ui/core/src/providers/interfaces/validation-summarizer-options-provider.interface';
+import {IValidationSummarizerService} from '@cms-ui/core/src/services/interfaces/validation-summarizers/validation-summarizer-service.interface';
+import {IValidationSummarizerOptions} from '@cms-ui/core/src/models/interfaces/validation-summarizers/validation-summarizer-options.interface';
+import {ValidationSummarizerOptionProvider} from '@cms-ui/core/src/providers/implementations/validation-summarizer-option.provider';
+import {VALIDATION_SUMMARIZER_OPTIONS_PROVIDER, VALIDATION_SUMMARIZER_SERVICE} from '@cms-ui/core/src/constants/injectors/validation-summarizer-injectors';
 
 //#region Internal function
 

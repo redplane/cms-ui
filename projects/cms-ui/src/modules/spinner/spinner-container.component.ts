@@ -16,7 +16,7 @@ import {v4 as uuid} from 'uuid';
 import {Subject, Subscription} from 'rxjs';
 import {SPINNER_SERVICE_PROVIDER} from '../../constants/injectors/injectors';
 import {ISpinnerService} from '../../services/interfaces/spinner-service.interface';
-import {DisplaySpinnerRequest} from '../../models';
+import {DisplaySpinnerRequest} from '../../models/implementations/display-spinner-request';
 import {DeleteSpinnerRequest} from '../../models/implementations/delete-spinner-request';
 import {BasicSpinnerComponent} from './basic-spinner/basic-spinner.component';
 import {filter} from 'rxjs/operators';

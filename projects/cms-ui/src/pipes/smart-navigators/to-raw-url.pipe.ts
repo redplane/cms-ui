@@ -1,6 +1,6 @@
 import {Inject, Injector, Pipe, PipeTransform} from '@angular/core';
-import {SMART_NAVIGATOR_PROVIDER} from '../../constants';
-import {ISmartNavigatorService} from '../../services';
+import {SMART_NAVIGATOR_PROVIDER} from '../../constants/injectors/injectors';
+import {ISmartNavigatorService} from '../../services/interfaces/smart-navigator-service.interface';
 
 @Pipe({
   name: 'toRawUrl'

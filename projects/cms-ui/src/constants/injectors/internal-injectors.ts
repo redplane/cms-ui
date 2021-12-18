@@ -1,8 +1,10 @@
 // Child validation summarizer providers
 import {InjectionToken} from '@angular/core';
 import {IValidationSummarizerModuleOptions} from '../../models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
-import {IBannerContentBuilder, IBannerService, IValidationSummarizerService} from '../../services';
 import {ValidationSummarizerBaseService} from '../../services/implementations/validators/validation-summarizers/validation-summarizer-base.service';
+import {IValidationSummarizerService} from '../../services/interfaces/validation-summarizers/validation-summarizer-service.interface';
+import {IBannerService} from '../../services/interfaces/banners/banner-service.interface';
+import {IBannerContentBuilder} from '../../services/interfaces/banners/banner-content-builder.interface';
 
 // Validation summarizer option.
 // tslint:disable-next-line:max-line-length

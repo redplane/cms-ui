@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs';
 import {IDisplaySpinnerOptions} from '../../models/interfaces/spinners/display-spinner-options.interface';
-import {DisplaySpinnerRequest} from '../../models';
+import {DisplaySpinnerRequest} from '../../models/implementations/display-spinner-request';
 import {DeleteSpinnerRequest} from '../../models/implementations/delete-spinner-request';
 
 export interface ISpinnerService {

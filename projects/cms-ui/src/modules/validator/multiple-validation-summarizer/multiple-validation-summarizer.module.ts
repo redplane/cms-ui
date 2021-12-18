@@ -8,7 +8,7 @@ import {
   buildMultipleValidationSummarizerService
 } from '../../../factories/multiple-validation-summarizer.factory';
 import {ValidationSummarizerModule} from '../validation-summarizer/validation-summarizer.module';
-import {IValidationSummarizerModuleOptions, IValidationSummarizerOptions} from '../../../models';
+import {IValidationSummarizerModuleOptions} from '@cms-ui/core/src/models/interfaces/validation-summarizers/validation-summarizer-module-options.interface';
 
 @NgModule({
   declarations: [

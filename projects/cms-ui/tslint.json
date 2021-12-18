@@ -13,6 +13,22 @@
       "lib",
       "kebab-case"
     ],
-    "variable-name": false
+    "variable-name": false,
+    "import-blacklist": [
+      true,
+      [".*\\/constants$"],
+      [".*\\/enums$"],
+      [".*\\/factories$"],
+      [".*\\/models$"],
+      [".*\\/modules$"],
+      [".*\\/pipes$"],
+      [".*\\/providers$"],
+      [".*\\/services$"]
+    ]
+  },
+  "linterOptions": {
+    "exclude": [
+      ".*\\/index$"
+    ]
   }
 }
