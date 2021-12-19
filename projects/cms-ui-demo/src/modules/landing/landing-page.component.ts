@@ -1,4 +1,14 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Inject, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Compiler,
+  Component,
+  HostBinding,
+  Inject,
+  Injector,
+  NgModule,
+  OnInit, ViewChild, ViewContainerRef
+} from '@angular/core';
 import {ISmartNavigatorService, SMART_NAVIGATOR_SERVICE} from '@cms-ui/core';
 import {ScreenCodes} from '../../constants/screen.codes';
 import {CATEGORY_SERVICE} from '../../constants/injectors';
@@ -6,6 +16,7 @@ import {ICategoryService} from '../../services/interfaces/category-service.inter
 import {Subscription} from 'rxjs';
 import {Category} from '../../models/category';
 import {CategoryViewModel} from '../../view-models/category.view-model';
+import {CommonModule} from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -21,6 +32,9 @@ export class LandingPageComponent implements OnInit {
   private __categories: Category[];
 
   protected readonly _subscription: Subscription;
+
+  @ViewChild('viewContainerRef', {read: ViewContainerRef})
+  public viewContainerRef!: ViewContainerRef;
 
   //#endregion
 
@@ -45,7 +59,9 @@ export class LandingPageComponent implements OnInit {
 
   public constructor(@Inject(SMART_NAVIGATOR_SERVICE) protected smartNavigatorService: ISmartNavigatorService,
                      @Inject(CATEGORY_SERVICE) protected readonly categoryService: ICategoryService,
-                     protected readonly _changeDetectorRef: ChangeDetectorRef) {
+                     protected readonly _compiler: Compiler,
+                     protected readonly _changeDetectorRef: ChangeDetectorRef,
+                     private readonly __injector: Injector) {
     this.__categories = [];
     this._subscription = new Subscription();
   }
@@ -62,6 +78,19 @@ export class LandingPageComponent implements OnInit {
         this._changeDetectorRef.markForCheck();
       });
     this._subscription.add(hookCategoriesSubscription);
+    const template = '<span>generated on the fly: {{name}}</span>';
+
+    const tmpCmp = Component({ template: template })(class {
+    });
+    const tmpModule = NgModule({ declarations: [tmpCmp] })(class {
+    });
+
+    this._compiler.compileModuleAndAllComponentsAsync(tmpModule)
+      .then((factories) => {
+        const f = factories.componentFactories[0];
+        const cmpRef = this.viewContainerRef.createComponent(f);
+        cmpRef.instance.name = 'dynamic';
+      });
   }
 
   //#endregion

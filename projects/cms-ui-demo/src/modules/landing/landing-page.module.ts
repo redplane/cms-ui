@@ -6,6 +6,7 @@ import {TranslateModule} from '@ngx-translate/core';
 import {SmartNavigatorModule} from '@cms-ui/core';
 import {CommonModule} from '@angular/common';
 
+
 @NgModule({
   imports: [
     RouterModule,
@@ -17,6 +18,7 @@ import {CommonModule} from '@angular/common';
   declarations: [
     LandingPageComponent
   ],
+  providers: [],
   exports: [
     LandingPageComponent,
   ]
