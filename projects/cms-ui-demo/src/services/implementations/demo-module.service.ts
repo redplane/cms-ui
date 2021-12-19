@@ -23,7 +23,7 @@ export class DemoModuleService implements IDemoModuleService {
   //#region Methods
 
   public loadDemoModulesAsync(): Observable<UiModule[]> {
-    const endPoint = `${this._baseUrl}/api/demo-module/search`;
+    const endPoint = `${this._baseUrl}/api/ui-module/search`;
     return this.httpClient.post<UiModule[]>(endPoint, {});
   }
 

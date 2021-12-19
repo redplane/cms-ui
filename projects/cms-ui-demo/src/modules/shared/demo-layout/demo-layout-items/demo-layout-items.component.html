@@ -4,7 +4,7 @@
       <i class="fa fa-folder-open"></i>
       <span>&nbsp;</span>
       <a href="#" (click)="$event.preventDefault();">
-        {{item.name| translate}}
+        {{(item.name || '') | translate}}
       </a>
       <ul *ngIf="item.sections && item.sections.length">
         <li *ngFor="let section of item.sections">

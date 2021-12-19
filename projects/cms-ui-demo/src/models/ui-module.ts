@@ -6,6 +6,8 @@ export class UiModule extends Entity {
 
   public name?: string;
 
+  public path?: string;
+
   public description?: string;
 
   //#endregion

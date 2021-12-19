@@ -39,7 +39,7 @@ export class ValidationSummarizerComponent implements OnInit, OnDestroy {
   protected _groupId: string;
 
   // tslint:disable-next-line:variable-name
-  protected _control: AbstractControl | NgControl | null;
+  protected _control: AbstractControl | NgControl | null | undefined;
 
   // tslint:disable-next-line:variable-name
   protected _maxValidationMessages = 0;
@@ -90,7 +90,7 @@ export class ValidationSummarizerComponent implements OnInit, OnDestroy {
 
   // Instance of the control that needs to be validated.
   @Input('instance')
-  public set ngControl(control: AbstractControl | NgControl | null) {
+  public set ngControl(control: AbstractControl | NgControl | null | undefined) {
     this._control = control;
 
     // Unsubscribe subscription.
@@ -110,7 +110,7 @@ export class ValidationSummarizerComponent implements OnInit, OnDestroy {
   }
 
   // Get the instance of control that needs to be validated.
-  public get ngControl(): AbstractControl | NgControl | null {
+  public get ngControl(): AbstractControl | NgControl | null | undefined {
     return this._control;
   }
 
@@ -204,7 +204,7 @@ export class ValidationSummarizerComponent implements OnInit, OnDestroy {
 
   //#region Methods
 
-  public ableToDisplayValidationMessages(ngControl: AbstractControl | NgControl | null): boolean {
+  public ableToDisplayValidationMessages(ngControl: AbstractControl | NgControl | null | undefined): boolean {
 
     if (!ngControl) {
       return false;

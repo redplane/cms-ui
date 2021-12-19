@@ -66,7 +66,8 @@
             "assets": [
               "projects/cms-ui-demo/src/favicon.ico",
               "projects/cms-ui-demo/src/assets",
-              "projects/cms-ui-demo/src/netlify.toml"
+              "projects/cms-ui-demo/src/netlify.toml",
+              "projects/cms-ui-demo/src/Web.config"
             ],
             "styles": [
               "projects/cms-ui-demo/src/styles.scss"

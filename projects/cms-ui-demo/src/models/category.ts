@@ -6,6 +6,9 @@ export class Category extends Entity {
 
   public name!: string;
 
+  // Path of category section.
+  public path!: string;
+
   public description!: string;
 
   //#endregion

@@ -26,7 +26,7 @@ export class ValidationSummarizerItemDirective implements OnInit, AfterViewInit,
 
   // Form control which is being validated.
   // tslint:disable-next-line:variable-name
-  private _control: AbstractControl | NgControl | undefined;
+  private _control: AbstractControl | NgControl | undefined | null;
 
   // Control label.
   // tslint:disable-next-line:variable-name
@@ -68,12 +68,12 @@ export class ValidationSummarizerItemDirective implements OnInit, AfterViewInit,
     this._validationMessages = value;
   }
 
-  public get ngControl(): AbstractControl | NgControl | undefined {
+  public get ngControl(): AbstractControl | NgControl | undefined | null {
     return this._control;
   }
 
   @Input()
-  public set ngControl(value: AbstractControl | NgControl | undefined) {
+  public set ngControl(value: AbstractControl | NgControl | undefined | null) {
     this._control = value;
   }
 
