@@ -1,21 +1,21 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DemoPageModule} from '../../shared/demo-layout/demo-page/demo-page.module';
+import {UiModuleSectionPageModule} from '../../pages/ui-module-page/ui-module-section-page/ui-module-section-page.module';
 import {DEMO_PAGE_SERVICE_PROVIDER, DEMO_PAGE_TEMPLATE_PATH_PROVIDER} from '../../../constants/injectors';
 import {DemoPageService} from '../../../services/implementations/module-descriptions/demo-page.service';
 import {RouterModule} from '@angular/router';
-import {DemoPageComponent} from '../../shared/demo-layout/demo-page/demo-page.component';
+import {UiModuleSectionPageComponent} from '../../pages/ui-module-page/ui-module-section-page/ui-module-section-page.component';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: '',
-        component: DemoPageComponent
+        component: UiModuleSectionPageComponent
       }
     ]),
     CommonModule,
-    DemoPageModule
+    UiModuleSectionPageModule
   ],
   providers: [
     {

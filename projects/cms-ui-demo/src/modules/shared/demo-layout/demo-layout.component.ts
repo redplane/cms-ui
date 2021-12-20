@@ -14,10 +14,10 @@ import {
 import {
   DEMO_LAYOUT_ITEMS_BUILDER_PROVIDER,
   DEMO_LAYOUT_ITEMS_TEMPLATE_TYPE_PROVIDER,
-  DEMO_LAYOUT_SERVICE_PROVIDER
+  UI_MODULE_PAGE_SERVICE
 } from '../../../constants/injectors';
 import {ReplaySubject, Subject, Subscription} from 'rxjs';
-import {DemoLayoutService} from './demo-layout.service';
+import {UiModulePageService} from '../../pages/ui-module-page/ui-module-page.service';
 import {BaseDemoLayoutItemsBuilder} from './demo-layout-items/base-demo-layout-items.builder';
 
 @Component({
@@ -80,7 +80,7 @@ export class DemoLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //#region Constructor
 
-  public constructor(@Inject(DEMO_LAYOUT_SERVICE_PROVIDER) protected readonly demoLayoutService: DemoLayoutService,
+  public constructor(@Inject(UI_MODULE_PAGE_SERVICE) protected readonly demoLayoutService: UiModulePageService,
                      @Inject(DEMO_LAYOUT_ITEMS_TEMPLATE_TYPE_PROVIDER) protected readonly demoLayoutItemsType: Type<any>,
                      protected readonly componentFactoryResolver: ComponentFactoryResolver,
                      protected changeDetectorRef: ChangeDetectorRef) {

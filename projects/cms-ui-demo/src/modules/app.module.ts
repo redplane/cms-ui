@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -7,8 +7,8 @@ import {MasterLayoutModule} from './master-layout/master-layout.module';
 import {SMART_NAVIGATOR_SCREEN_CODE_RESOLVER, SmartNavigatorModule} from '@cms-ui/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {
-  SmartNavigatorDemoScreenCodeResolver
-} from '../services/implementations/screen-code-resolvers/smart-navigator-demo.screen-code-resolver';
+  BasicScr
+} from '../services/implementations/screen-code-resolvers/basic.scr';
 import {
   ValidationSummarizerDemoScr
 } from '../services/implementations/screen-code-resolvers/validation-summarizer-demo.scr';
@@ -20,6 +20,9 @@ import {InfoBannerContentModule} from './shared/info-banner-content/info-banner-
 import {NgRxMessageBusModule} from 'ngrx-message-bus';
 import {ApplicationScr} from '../services/implementations/application.scr';
 import {ApiModule} from './services/api.module';
+import {loadAppSettings} from '../factories/appsettings.factory';
+import {APP_SETTINGS_SERVICE} from '../constants/injectors';
+import {AppSettingsService} from '../services/implementations/app-settings.service';
 
 @NgModule({
   declarations: [
@@ -52,13 +55,23 @@ import {ApiModule} from './services/api.module';
   ],
   providers: [
     {
+      provide: APP_SETTINGS_SERVICE,
+      useClass: AppSettingsService
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: loadAppSettings,
+      deps: [APP_SETTINGS_SERVICE],
+      multi: true
+    },
+    {
       provide: SMART_NAVIGATOR_SCREEN_CODE_RESOLVER,
       useClass: ApplicationScr,
       multi: true
     },
     {
       provide: SMART_NAVIGATOR_SCREEN_CODE_RESOLVER,
-      useClass: SmartNavigatorDemoScreenCodeResolver,
+      useClass: BasicScr,
       multi: true
     },
     {

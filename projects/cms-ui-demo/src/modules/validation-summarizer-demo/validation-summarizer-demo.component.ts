@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, Injector, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {ValidationSummarizerDemoScreenCodes} from '../../constants/screen-codes/validation-summarizer-demo-screen-codes';
-import {DEMO_LAYOUT_SERVICE_PROVIDER} from '../../constants/injectors';
+import {UI_MODULE_PAGE_SERVICE} from '../../constants/injectors';
 import {INgRxMessageBusService, MESSAGE_BUS_SERVICE_PROVIDER} from 'ngrx-message-bus';
-import {DemoLayoutService} from '../shared/demo-layout/demo-layout.service';
+import {UiModulePageService} from '../pages/ui-module-page/ui-module-page.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -27,7 +27,7 @@ export class ValidationSummarizerDemoComponent implements OnInit, OnDestroy {
 
   //#region Services
 
-  protected readonly demoLayoutService: DemoLayoutService;
+  protected readonly demoLayoutService: UiModulePageService;
 
   protected readonly messageBusService: INgRxMessageBusService;
 
@@ -45,7 +45,7 @@ export class ValidationSummarizerDemoComponent implements OnInit, OnDestroy {
 
   public constructor(injector: Injector) {
 
-    this.demoLayoutService = injector.get(DEMO_LAYOUT_SERVICE_PROVIDER);
+    this.demoLayoutService = injector.get(UI_MODULE_PAGE_SERVICE);
     this.messageBusService = injector.get(MESSAGE_BUS_SERVICE_PROVIDER);
     this._subscription = new Subscription();
   }

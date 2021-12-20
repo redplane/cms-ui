@@ -3,8 +3,8 @@ import {DemoLayoutComponent} from './demo-layout.component';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {DemoLayoutSetting} from '../../../models/demo-layout-setting';
-import {DEMO_LAYOUT_SERVICE_PROVIDER, DEMO_LAYOUT_SETTINGS} from '../../../constants/injectors';
-import {DemoLayoutService} from './demo-layout.service';
+import {UI_MODULE_PAGE_SERVICE, DEMO_LAYOUT_SETTINGS} from '../../../constants/injectors';
+import {UiModulePageService} from '../../pages/ui-module-page/ui-module-page.service';
 import {TranslateModule} from '@ngx-translate/core';
 import {SmartNavigatorModule} from '@cms-ui/core';
 
@@ -23,8 +23,8 @@ import {SmartNavigatorModule} from '@cms-ui/core';
   ],
   providers: [
     {
-      provide: DEMO_LAYOUT_SERVICE_PROVIDER,
-      useClass: DemoLayoutService
+      provide: UI_MODULE_PAGE_SERVICE,
+      useClass: UiModulePageService
     }
   ]
 })
@@ -41,8 +41,8 @@ export class DemoLayoutModule {
           useValue: settings
         },
         {
-          provide: DEMO_LAYOUT_SERVICE_PROVIDER,
-          useClass: DemoLayoutService
+          provide: UI_MODULE_PAGE_SERVICE,
+          useClass: UiModulePageService
         }
       ]
     };

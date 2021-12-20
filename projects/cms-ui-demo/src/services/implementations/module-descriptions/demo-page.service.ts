@@ -1,4 +1,4 @@
-import {IDemoPageService} from '../../../modules/shared/demo-layout/demo-page/demo-page-service.interface';
+import {IDemoPageService} from '../../../modules/pages/ui-module-page/ui-module-section-page/ui-module-section-page.interface';
 import {Inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';

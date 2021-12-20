@@ -1,0 +1,31 @@
+<!-- Page Heading/Breadcrumbs -->
+<h1 class="title pt-1 pb-1 bg-light">{{(uiModule?.name || '') | translate}}
+  <!--  <small>{{secondaryTitle | translate}}</small>-->
+</h1>
+
+<div id="demoContent">
+  <!-- Demo items -->
+  <div id="demoItem">
+    <div id="items" class="slim-scrollbar shadow-sm bg-light">
+      <div class="tree">
+        <ul *ngIf="uiModule?.sections && uiModule?.sections?.length">
+          <li *ngFor="let section of (uiModule?.sections || [])">
+            <i class="fa fa-folder-open"></i>
+            <span>&nbsp;</span>
+            <a href="#"
+               (click)="$event.preventDefault();">
+              {{section.name| translate}}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Demo item content -->
+  <div id="demoItemContent">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
