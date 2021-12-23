@@ -6,12 +6,14 @@ import {UiModulePageService} from './ui-module-page.service';
 import {TranslateModule} from '@ngx-translate/core';
 import {UiModulePageGuard} from '../../../guards/ui-module-page.guard';
 import {CommonModule} from '@angular/common';
+import {SmartNavigatorModule} from '@cms-ui/core';
 
 @NgModule({
   imports: [
     UiModulePageRoutingModule,
     TranslateModule,
-    CommonModule
+    CommonModule,
+    SmartNavigatorModule
   ],
   declarations: [
     UiModulePageComponent

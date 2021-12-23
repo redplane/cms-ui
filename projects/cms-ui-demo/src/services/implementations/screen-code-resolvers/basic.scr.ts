@@ -11,6 +11,7 @@ export class BasicScr extends DefaultScreenCodeResolver {
 
     const codeToUrl: { [key: string]: string } = {};
     codeToUrl[ScreenCodes.uiModule] = '/ui-module/{{id}}';
+    codeToUrl[ScreenCodes.uiModuleSection] ='/ui-module/{{uiModuleId}}/{{sectionId}}';
 
     super(codeToUrl);
   }

@@ -22,6 +22,7 @@ import {switchMap} from 'rxjs/operators';
 import {UiModuleViewModel} from '../../../view-models/ui-modules/ui-module.view-model';
 import {DetailedUiModuleSelectedMessage} from '../../../models/channel-events/detailed-ui-module-selected-message';
 import {cloneDeep} from 'lodash-es';
+import {ScreenCodes} from '../../../constants/screen.codes';
 
 @Component({
   selector: 'ui-module-page',
@@ -43,6 +44,9 @@ export class UiModulePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // Ui module
   private __uiModule?: UiModuleViewModel;
+
+  // Instance of selected ui module.
+  private __selectedUiModule: UiModuleViewModel | null;
 
   // Subscription watch list.
   // tslint:disable-next-line:variable-name
@@ -71,9 +75,13 @@ export class UiModulePageComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.__uiModule;
   }
 
-  // Demo items layout.
-  @ViewChild('demoItemsLayout', {read: ViewContainerRef})
-  public demoItemsLayout!: ViewContainerRef;
+  public get selectedUiModule(): UiModuleViewModel | null{
+    return this.__selectedUiModule;
+  }
+
+  public get screenCodes(): typeof ScreenCodes {
+    return ScreenCodes;
+  }
 
   //#endregion
 
@@ -87,6 +95,7 @@ export class UiModulePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this._title = '';
     this._secondaryTitle = '';
+    this.__selectedUiModule = null;
 
     this._subscription = new Subscription();
   }

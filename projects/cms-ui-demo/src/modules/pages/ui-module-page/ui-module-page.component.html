@@ -8,11 +8,13 @@
   <div id="demoItem">
     <div id="items" class="slim-scrollbar shadow-sm bg-light">
       <div class="tree">
-        <ul *ngIf="uiModule?.sections && uiModule?.sections?.length">
+        <ul *ngIf="uiModule && uiModule.sections">
           <li *ngFor="let section of (uiModule?.sections || [])">
             <i class="fa fa-folder-open"></i>
             <span>&nbsp;</span>
             <a href="#"
+               [routerLink]="screenCodes.uiModule | toUrlTree: {id: uiModule.id} | toUrl"
+               [queryParams]="{sectionId: section.id}"
                (click)="$event.preventDefault();">
               {{section.name| translate}}
             </a>
