@@ -43,121 +43,6 @@
         }
       }
     },
-    "@cms-ui/demo": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "projects/cms-ui-demo",
-      "sourceRoot": "projects/cms-ui-demo/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/cms-ui-demo",
-            "index": "projects/cms-ui-demo/src/index.html",
-            "main": "projects/cms-ui-demo/src/main.ts",
-            "polyfills": "projects/cms-ui-demo/src/polyfills.ts",
-            "tsConfig": "projects/cms-ui-demo/tsconfig.app.json",
-            "aot": true,
-            "assets": [
-              "projects/cms-ui-demo/src/favicon.ico",
-              "projects/cms-ui-demo/src/assets",
-              "projects/cms-ui-demo/src/netlify.toml",
-              "projects/cms-ui-demo/src/Web.config"
-            ],
-            "styles": [
-              "projects/cms-ui-demo/src/styles.scss"
-            ],
-            "stylePreprocessorOptions": {
-              "includePaths": [
-                "projects/cms-ui-demo/src/styles"
-              ]
-            },
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/cms-ui-demo/src/environments/environment.ts",
-                  "with": "projects/cms-ui-demo/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "@cms-ui/demo:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "@cms-ui/demo:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "@cms-ui/demo:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/cms-ui-demo/src/test.ts",
-            "polyfills": "projects/cms-ui-demo/src/polyfills.ts",
-            "tsConfig": "projects/cms-ui-demo/tsconfig.spec.json",
-            "karmaConfig": "projects/cms-ui-demo/karma.conf.js",
-            "assets": [
-              "projects/cms-ui-demo/src/favicon.ico",
-              "projects/cms-ui-demo/src/assets"
-            ],
-            "styles": [
-              "projects/cms-ui-demo/src/styles.scss"
-            ],
-            "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/cms-ui-demo/tsconfig.app.json",
-              "projects/cms-ui-demo/tsconfig.spec.json",
-              "projects/cms-ui-demo/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
     "@cms-ui/playground": {
       "projectType": "application",
       "schematics": {
@@ -211,6 +96,14 @@
             "scripts": []
           },
           "configurations": {
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/cms-ui-playground/src/environments/environment.ts",
+                  "with": "projects/cms-ui-playground/src/environments/environment.development.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -246,6 +139,9 @@
             "browserTarget": "@cms-ui/playground:build"
           },
           "configurations": {
+            "development": {
+              "browserTarget": "@cms-ui/playground:build:development"
+            },
             "production": {
               "browserTarget": "@cms-ui/playground:build:production"
             }
@@ -260,5 +156,5 @@
       }
     }
   },
-  "defaultProject": "@cms-ui/demo"
+  "defaultProject": "@cms-ui/playground"
 }

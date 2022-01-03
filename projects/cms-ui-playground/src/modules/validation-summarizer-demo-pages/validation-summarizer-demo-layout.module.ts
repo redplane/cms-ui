@@ -28,7 +28,7 @@ import {CommonValidatorModule, HasAnyValidatorsModule, ValidationSummarizerModul
     ]),
     HasAnyValidatorsModule.forRoot(),
     CommonValidatorModule.forRoot(),
-    ValidationSummarizerModule.forRoot()
+    ValidationSummarizerModule.forRoot({})
   ],
   exports: [
     RouterModule

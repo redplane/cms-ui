@@ -16,7 +16,8 @@
     "variable-name": false,
     "import-blacklist": [
       true,
-      ["^@cms-ui\\/core\\/.*"]
+      ["^@cms-ui\\/core\\/.*"],
+      ["\\/environments\\/environment\\..*$"]
     ]
   },
   "linterOptions": {
